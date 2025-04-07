@@ -1,51 +1,54 @@
 package com.leogouchon.squashapp.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.leogouchon.squashapp.dto.AuthenticateRequestDTO;
 import com.leogouchon.squashapp.service.AuthenticateService;
-import org.junit.jupiter.api.BeforeEach;
+import com.leogouchon.squashapp.service.UserService;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import javax.naming.AuthenticationException;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(AuthenticateController.class)
+@ExtendWith(SpringExtension.class)
 public class AuthenticateControllerTests {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @MockitoBean
     private AuthenticateService authenticateService;
 
-    @InjectMocks
-    private AuthenticateController authenticateController;
-
-    @BeforeEach
-    public void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+    @MockitoBean
+    private UserService userService;
 
     @Test
     public void testLoginSuccess() throws Exception {
         AuthenticateRequestDTO request = new AuthenticateRequestDTO("email@mail.com", "password");
 
-        when(authenticateService.login(request)).thenReturn("token");
+        when(authenticateService.login(any(AuthenticateRequestDTO.class))).thenReturn("t0k3nValUe");
 
-        mockMvc.perform(post("}/api/authenticate/login")
+        mockMvc.perform(post("/api/authenticate/login")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content("{\"email\":\"email@mail.com\", \"password\":\"password\"}"))
-                .andExpect(status().isOk());
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk())
+                .andExpect(content().json("{\"token\":\"t0k3nValUe\"}"));
+
     }
 
     @Test
@@ -54,9 +57,9 @@ public class AuthenticateControllerTests {
 
         when(authenticateService.login(request)).thenThrow(new AuthenticationException("user or password incorrect"));
 
-        mockMvc.perform(post("/authenticate/login")
+        mockMvc.perform(post("/api/authenticate/login")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"email\":\"email@mail.com\", \"password\":\"password\"}")
-            ).andExpect(status().isUnauthorized());
+                .content(objectMapper.writeValueAsString(request))
+        ).andExpect(status().isUnauthorized());
     }
 }

@@ -1,6 +1,6 @@
 package com.leogouchon.squashapp.service;
 
-import com.leogouchon.squashapp.model.User;
+import com.leogouchon.squashapp.model.Users;
 import com.leogouchon.squashapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -11,36 +11,36 @@ import java.util.List;
 @Service
 public class UserService {
 
-    @Autowired
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
+    @Autowired
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
-    public User createUser(User users) {
+    public Users createUser(Users users) {
         users.setPassword(passwordEncoder.encode(users.getPassword()));
         users.setIsAdmin(false);
         return userRepository.save(users);
     }
 
-    public User getUserByEmail(String username) {
+    public Users getUserByEmail(String username) {
         return userRepository.findByEmail(username).orElse(null);
     }
 
-    public User getUserByToken(String token) {
+    public Users getUserByToken(String token) {
         return userRepository.findByToken(token).orElse(null);
     }
 
-    public User getUserById(Long id) {
+    public Users getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
-    public User updateUser(User user) {
+    public Users updateUser(Users user) {
         System.out.println(user);
-        User existingUsers = getUserById(user.getId());
+        Users existingUsers = getUserById(user.getId());
         if (user.getEmail() != null) {
             existingUsers.setEmail(user.getEmail());
         }
@@ -57,16 +57,16 @@ public class UserService {
         userRepository.deleteById(id);
     }
 
-    public List<User> getUsers() {
+    public List<Users> getUsers() {
         return userRepository.findAll();
     }
 
-    public List<User> getUsersWithLinkedPlayer() {
+    public List<Users> getUsersWithLinkedPlayer() {
         return userRepository.findByPlayerIsNotNull();
     }
 
-    public void updateTokenUser(User user) {
-        User existingUsers = getUserById(user.getId());
+    public void updateTokenUser(Users user) {
+        Users existingUsers = getUserById(user.getId());
         existingUsers.setToken(user.getToken());
         userRepository.save(existingUsers);
     }

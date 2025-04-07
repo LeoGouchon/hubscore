@@ -6,7 +6,7 @@ public class PlayerTests {
 
     @Test
     public void testConstructor() {
-        Player player = new Player("John", "Doe");
+        Players player = new Players("John", "Doe");
 
         assert player.getFirstname().equals("John");
         assert player.getLastname().equals("Doe");

@@ -1,6 +1,6 @@
 package com.leogouchon.squashapp.controller;
 
-import com.leogouchon.squashapp.model.Player;
+import com.leogouchon.squashapp.model.Players;
 import com.leogouchon.squashapp.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,24 +13,28 @@ import java.util.Optional;
 @RequestMapping("/api/players")
 public class PlayerController {
 
+    private final PlayerService playerService;
+
     @Autowired
-    private PlayerService playerService;
+    public PlayerController(PlayerService playerService) {
+        this.playerService = playerService;
+    }
 
     @GetMapping
-    public ResponseEntity<List<Player>> getPlayers() {
-        List<Player> players = playerService.getPlayers();
+    public ResponseEntity<List<Players>> getPlayers() {
+        List<Players> players = playerService.getPlayers();
         return ResponseEntity.ok(players);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Player> getPlayer(@PathVariable Long id) {
-        Optional<Player> player = playerService.getPlayer(id);
+    public ResponseEntity<Players> getPlayer(@PathVariable Long id) {
+        Optional<Players> player = playerService.getPlayer(id);
         return player.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
     
     @PostMapping
-    public ResponseEntity<Player> createPlayer(@RequestBody Player player) {
-        Player createdPlayer = playerService.createPlayer(player);
+    public ResponseEntity<Players> createPlayer(@RequestBody Players player) {
+        Players createdPlayer = playerService.createPlayer(player);
         return ResponseEntity.ok(createdPlayer);
     }
     
@@ -41,8 +45,8 @@ public class PlayerController {
     }
 
     @GetMapping("/unlinked")
-    public ResponseEntity<List<Player>> getUnassociatedPlayers() {
-        List<Player> unassociatedPlayers = playerService.getUnassociatedPlayers();
+    public ResponseEntity<List<Players>> getUnassociatedPlayers() {
+        List<Players> unassociatedPlayers = playerService.getUnassociatedPlayers();
         return ResponseEntity.ok(unassociatedPlayers);
     }
 }

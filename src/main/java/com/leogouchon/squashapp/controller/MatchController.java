@@ -2,8 +2,8 @@ package com.leogouchon.squashapp.controller;
 
 import com.leogouchon.squashapp.dto.MatchRequestDTO;
 import com.leogouchon.squashapp.enums.ServiceSide;
-import com.leogouchon.squashapp.model.Match;
-import com.leogouchon.squashapp.model.Player;
+import com.leogouchon.squashapp.model.Matches;
+import com.leogouchon.squashapp.model.Players;
 import com.leogouchon.squashapp.service.MatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,25 +16,29 @@ import java.util.Optional;
 @RequestMapping("/api/matches")
 public class MatchController {
 
+    private final MatchService matchService;
+
     @Autowired
-    private MatchService matchService;
+    public MatchController(MatchService matchService) {
+        this.matchService = matchService;
+    }
 
     @GetMapping
-    public ResponseEntity<List<Match>> getMatches() {
-        List<Match> matches = matchService.getMatches();
+    public ResponseEntity<List<Matches>> getMatches() {
+        List<Matches> matches = matchService.getMatches();
         return ResponseEntity.ok(matches);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Match> getMatch(@PathVariable Long id) {
-        Optional<Match> match = matchService.getMatch(id);
+    public ResponseEntity<Matches> getMatch(@PathVariable Long id) {
+        Optional<Matches> match = matchService.getMatch(id);
         return match.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Match> createMatch(@RequestBody MatchRequestDTO matchRequest) {
+    public ResponseEntity<Matches> createMatch(@RequestBody MatchRequestDTO matchRequest) {
         System.out.println("POST MAPPING CREATE MATCH");
-        Match createdMatch = matchService.createMatch(
+        Matches createdMatch = matchService.createMatch(
                 matchRequest.getPlayerAId(),
                 matchRequest.getPlayerBId(),
                 matchRequest.getPointsHistory(),
@@ -53,7 +57,7 @@ public class MatchController {
     @PostMapping("/{id}/add-service")
     public ResponseEntity<String> addPoint(
             @PathVariable Long id,
-            @RequestParam Player player,
+            @RequestParam Players player,
             @RequestParam ServiceSide serviceSide) {
         String pointsHistory = matchService.addPoint(
                 matchService.getMatch(id).get(),

@@ -1,7 +1,7 @@
 package com.leogouchon.squashapp.service;
 
-import com.leogouchon.squashapp.model.Match;
-import com.leogouchon.squashapp.model.Player;
+import com.leogouchon.squashapp.model.Matches;
+import com.leogouchon.squashapp.model.Players;
 import com.leogouchon.squashapp.repository.MatchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,26 +21,26 @@ public class MatchService {
         this.playerService = playerService;
     }
 
-    public Match createMatch(Long player1Id, Long player2Id, String pointsHistory, Integer finalScoreA, Integer finalScoreB) {
-        Optional<Player> playerA = playerService.getPlayer(player1Id);
-        Optional<Player> playerB = playerService.getPlayer(player2Id);
+    public Matches createMatch(Long player1Id, Long player2Id, String pointsHistory, Integer finalScoreA, Integer finalScoreB) {
+        Optional<Players> playerA = playerService.getPlayer(player1Id);
+        Optional<Players> playerB = playerService.getPlayer(player2Id);
         if (playerA.isEmpty() || playerB.isEmpty()) {
             throw new RuntimeException("Player not found");
         } else {
             if (pointsHistory != null) {
-                Match match = new Match(playerA.get(), playerB.get(), pointsHistory);
+                Matches match = new Matches(playerA.get(), playerB.get(), pointsHistory);
                 return matchRepository.save(match);
             }
             else if (finalScoreA != null && finalScoreB != null) {
-                Match match = new Match(playerA.get(), playerB.get(), finalScoreA, finalScoreB);
+                Matches match = new Matches(playerA.get(), playerB.get(), finalScoreA, finalScoreB);
                 return matchRepository.save(match);
             }
-            Match match = new Match(playerA.get(), playerB.get());
+            Matches match = new Matches(playerA.get(), playerB.get());
             return matchRepository.save(match);
         }
     }
 
-    public String addPoint(Match match, Player player, String serviceSide) {
+    public String addPoint(Matches match, Players player, String serviceSide) {
         if (match == null) {
             throw new RuntimeException("Match not found");
         }
@@ -49,7 +49,7 @@ public class MatchService {
         return match.getPointsHistory();
     }
 
-    public Boolean isFinished(Match match) {
+    public Boolean isFinished(Matches match) {
         return match.isFinished();
     }
 
@@ -61,11 +61,11 @@ public class MatchService {
         }
     }
 
-    public List<Match> getMatches() {
+    public List<Matches> getMatches() {
         return matchRepository.findAll();
     }
 
-    public Optional<Match> getMatch(Long id) {
+    public Optional<Matches> getMatch(Long id) {
         return matchRepository.findById(id);
     }
 }

@@ -1,14 +1,14 @@
 package com.leogouchon.squashapp.repository;
 
-import com.leogouchon.squashapp.model.User;
+import com.leogouchon.squashapp.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByEmail(String email);
-    Optional<User> findByToken(String token);
+public interface UserRepository extends JpaRepository<Users, Long> {
+    Optional<Users> findByEmail(String email);
+    Optional<Users> findByToken(String token);
 
-    List<User> findByPlayerIsNotNull();
+    List<Users> findByPlayerIsNotNull();
 }

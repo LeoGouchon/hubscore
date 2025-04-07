@@ -2,7 +2,7 @@ package com.leogouchon.squashapp.controller;
 
 import com.leogouchon.squashapp.dto.AuthenticateRequestDTO;
 import com.leogouchon.squashapp.dto.TokenResponseDTO;
-import com.leogouchon.squashapp.model.User;
+import com.leogouchon.squashapp.model.Users;
 import com.leogouchon.squashapp.service.AuthenticateService;
 import com.leogouchon.squashapp.service.UserService;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,21 +15,26 @@ import javax.naming.AuthenticationException;
 @RestController
 @RequestMapping("/api/authenticate")
 public class AuthenticateController {
-    @Autowired
-    private AuthenticateService authenticateService;
+    private final AuthenticateService authenticateService;
     private final UserService userService;
 
-    public AuthenticateController(UserService userService) {
+    @Autowired
+    public AuthenticateController(
+            AuthenticateService authenticateService,
+            UserService userService)
+    {
+        this.authenticateService = authenticateService;
         this.userService = userService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody AuthenticateRequestDTO authenticateRequestDTO) throws AuthenticationException {
-        String token = authenticateService.login(authenticateRequestDTO);
-        if (token == null) {
-            return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body(null);
+    public ResponseEntity<String> login(@RequestBody AuthenticateRequestDTO authenticateRequestDTO) {
+        try {
+            String token = authenticateService.login(authenticateRequestDTO);
+            return ResponseEntity.ok("{\"token\":\"" + token + "\"}");
+        } catch (AuthenticationException ex) {
+            return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body("{\"error\":\"" + ex.getMessage() + "\"}");
         }
-        return ResponseEntity.ok("{\"token\":\"" + token + "\"}");
     }
 
     @PostMapping("/logout")
@@ -45,9 +50,9 @@ public class AuthenticateController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody User user) {
+    public ResponseEntity<String> signup(@RequestBody Users user) {
         try {
-            User newUser = userService.createUser(user);
+            Users newUser = userService.createUser(user);
             String token = authenticateService.generateToken(newUser);
             return ResponseEntity.ok("{\"token\":\"" + token + "\"}");
         } catch (Exception e) {

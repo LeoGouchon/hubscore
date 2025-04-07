@@ -8,7 +8,7 @@ import org.springframework.test.web.servlet.MockMvc;
 
 @WebMvcTest(MatchController.class)
 @ExtendWith(SpringExtension.class)
-public class MatchControllerTests {
+public class MatchesControllerTests {
     @Autowired
     private MockMvc mockMvc;
 

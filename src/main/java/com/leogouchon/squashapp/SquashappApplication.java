@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.leogouchon.squashapp")
 public class SquashappApplication implements WebMvcConfigurer {
 
     public static void main(String[] args) {
