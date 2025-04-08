@@ -2,6 +2,7 @@ package com.leogouchon.squashapp.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.leogouchon.squashapp.dto.AuthenticateRequestDTO;
+import com.leogouchon.squashapp.model.Users;
 import com.leogouchon.squashapp.service.AuthenticateService;
 import com.leogouchon.squashapp.service.UserService;
 import org.junit.jupiter.api.Test;
@@ -55,11 +56,37 @@ public class AuthenticateControllerTests {
     public void testLoginFailure() throws Exception {
         AuthenticateRequestDTO request = new AuthenticateRequestDTO("email@mail.com", "password");
 
-        when(authenticateService.login(request)).thenThrow(new AuthenticationException("user or password incorrect"));
+        when(authenticateService.login(any(AuthenticateRequestDTO.class))).thenThrow(new AuthenticationException("user or password incorrect"));
 
         mockMvc.perform(post("/api/authenticate/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(request))
         ).andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    public void testSignupSuccess() throws Exception {
+        Users user = new Users("john.doe@mail.com", "p4s$w0rD");
+
+        when(userService.createUser(any(Users.class))).thenReturn(user);
+
+        when(authenticateService.generateToken(any(Users.class))).thenReturn("t0k3nValUe");
+
+        mockMvc.perform(post("/api/authenticate/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(user)))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testSignupFailure() throws Exception {
+        Users user = new Users("john.doe@mail.com", "p4s$w0rD");
+
+        when(userService.createUser(any(Users.class))).thenThrow(new IllegalArgumentException("Email already exists"));
+
+        mockMvc.perform(post("/api/authenticate/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(user)))
+                .andExpect(status().isBadRequest());
     }
 }

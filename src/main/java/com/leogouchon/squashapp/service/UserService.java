@@ -21,6 +21,9 @@ public class UserService {
     }
 
     public Users createUser(Users users) {
+        if (userRepository.findByEmail(users.getEmail()).isPresent()) {
+            throw new IllegalArgumentException("Email already exists");
+        }
         users.setPassword(passwordEncoder.encode(users.getPassword()));
         users.setIsAdmin(false);
         return userRepository.save(users);
