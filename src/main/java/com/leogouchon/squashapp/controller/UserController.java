@@ -2,6 +2,7 @@ package com.leogouchon.squashapp.controller;
 
 import com.leogouchon.squashapp.model.Users;
 import com.leogouchon.squashapp.service.interfaces.IUserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
+@Tag(name = "users")
 public class UserController {
 
     private final IUserService userService;
@@ -31,18 +33,6 @@ public class UserController {
     public ResponseEntity<Users> getUserById(@PathVariable Long id) {
         Optional<Users> user = Optional.ofNullable(userService.getUserById(id));
         return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
-    }
-
-    @GetMapping("/email/{email}")
-    public ResponseEntity<Users> getUserByEmail(@PathVariable String email) {
-        Users users = userService.getUserByEmail(email);
-        return ResponseEntity.ok(users);
-    }
-
-    @GetMapping("/token/{token}")
-    public ResponseEntity<Users> getUserByToken(@PathVariable String token) {
-        Users users = userService.getUserByToken(token);
-        return ResponseEntity.ok(users);
     }
 
     @PostMapping
