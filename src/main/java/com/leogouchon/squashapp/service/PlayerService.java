@@ -3,6 +3,8 @@ package com.leogouchon.squashapp.service;
 import com.leogouchon.squashapp.model.Players;
 import com.leogouchon.squashapp.model.Users;
 import com.leogouchon.squashapp.repository.PlayerRepository;
+import com.leogouchon.squashapp.service.interfaces.IPlayerService;
+import com.leogouchon.squashapp.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,15 +12,15 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PlayerService {
+public class PlayerService implements IPlayerService {
 
     private final PlayerRepository playerRepository;
-    private final UserService userService;
+    private final IUserService userService;
 
     @Autowired
     public PlayerService(
             PlayerRepository playerRepository,
-            UserService userService
+            IUserService userService
     ) {
         this.playerRepository = playerRepository;
         this.userService = userService;

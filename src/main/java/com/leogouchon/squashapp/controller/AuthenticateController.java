@@ -3,8 +3,8 @@ package com.leogouchon.squashapp.controller;
 import com.leogouchon.squashapp.dto.AuthenticateRequestDTO;
 import com.leogouchon.squashapp.dto.TokenResponseDTO;
 import com.leogouchon.squashapp.model.Users;
-import com.leogouchon.squashapp.service.AuthenticateService;
-import com.leogouchon.squashapp.service.UserService;
+import com.leogouchon.squashapp.service.interfaces.IAuthenticateService;
+import com.leogouchon.squashapp.service.interfaces.IUserService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +15,13 @@ import javax.naming.AuthenticationException;
 @RestController
 @RequestMapping("/api/authenticate")
 public class AuthenticateController {
-    private final AuthenticateService authenticateService;
-    private final UserService userService;
+    private final IAuthenticateService authenticateService;
+    private final IUserService userService;
 
     @Autowired
     public AuthenticateController(
-            AuthenticateService authenticateService,
-            UserService userService)
+            IAuthenticateService authenticateService,
+            IUserService userService)
     {
         this.authenticateService = authenticateService;
         this.userService = userService;

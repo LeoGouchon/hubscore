@@ -5,6 +5,7 @@ import com.leogouchon.squashapp.enums.ServiceSide;
 import com.leogouchon.squashapp.model.Matches;
 import com.leogouchon.squashapp.model.Players;
 import com.leogouchon.squashapp.service.MatchService;
+import com.leogouchon.squashapp.service.interfaces.IMatchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,10 +17,10 @@ import java.util.Optional;
 @RequestMapping("/api/matches")
 public class MatchController {
 
-    private final MatchService matchService;
+    private final IMatchService matchService;
 
     @Autowired
-    public MatchController(MatchService matchService) {
+    public MatchController(IMatchService matchService) {
         this.matchService = matchService;
     }
 

@@ -3,6 +3,8 @@ package com.leogouchon.squashapp.service;
 import com.leogouchon.squashapp.dto.AuthenticateRequestDTO;
 import com.leogouchon.squashapp.model.Users;
 import com.leogouchon.squashapp.repository.UserRepository;
+import com.leogouchon.squashapp.service.interfaces.IAuthenticateService;
+import com.leogouchon.squashapp.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -11,14 +13,14 @@ import javax.naming.AuthenticationException;
 import java.util.UUID;
 
 @Service
-public class AuthenticateService {
+public class AuthenticateService implements IAuthenticateService {
 
-    private final UserService userService;
+    private final IUserService userService;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
     @Autowired
-    public AuthenticateService(UserService userService, PasswordEncoder passwordEncoder, UserRepository userRepository) {
+    public AuthenticateService(IUserService userService, PasswordEncoder passwordEncoder, UserRepository userRepository) {
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;

@@ -3,8 +3,8 @@ package com.leogouchon.squashapp.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.leogouchon.squashapp.dto.AuthenticateRequestDTO;
 import com.leogouchon.squashapp.model.Users;
-import com.leogouchon.squashapp.service.AuthenticateService;
 import com.leogouchon.squashapp.service.UserService;
+import com.leogouchon.squashapp.service.interfaces.IAuthenticateService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +33,7 @@ public class AuthenticateControllerTests {
     private ObjectMapper objectMapper;
 
     @MockitoBean
-    private AuthenticateService authenticateService;
+    private IAuthenticateService authenticateService;
 
     @MockitoBean
     private UserService userService;

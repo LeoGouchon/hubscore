@@ -2,6 +2,7 @@ package com.leogouchon.squashapp.service;
 
 import com.leogouchon.squashapp.model.Users;
 import com.leogouchon.squashapp.repository.UserRepository;
+import com.leogouchon.squashapp.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements IUserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;

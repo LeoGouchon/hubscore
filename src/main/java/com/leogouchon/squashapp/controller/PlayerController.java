@@ -1,7 +1,7 @@
 package com.leogouchon.squashapp.controller;
 
 import com.leogouchon.squashapp.model.Players;
-import com.leogouchon.squashapp.service.PlayerService;
+import com.leogouchon.squashapp.service.interfaces.IPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +13,10 @@ import java.util.Optional;
 @RequestMapping("/api/players")
 public class PlayerController {
 
-    private final PlayerService playerService;
+    private final IPlayerService playerService;
 
     @Autowired
-    public PlayerController(PlayerService playerService) {
+    public PlayerController(IPlayerService playerService) {
         this.playerService = playerService;
     }
 

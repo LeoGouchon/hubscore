@@ -3,6 +3,8 @@ package com.leogouchon.squashapp.service;
 import com.leogouchon.squashapp.model.Matches;
 import com.leogouchon.squashapp.model.Players;
 import com.leogouchon.squashapp.repository.MatchRepository;
+import com.leogouchon.squashapp.service.interfaces.IMatchService;
+import com.leogouchon.squashapp.service.interfaces.IPlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,13 +12,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class MatchService {
+public class MatchService implements IMatchService {
 
     private final MatchRepository matchRepository;
-    private final PlayerService playerService;
+    private final IPlayerService playerService;
 
     @Autowired
-    public MatchService(MatchRepository matchRepository, PlayerService playerService) {
+    public MatchService(MatchRepository matchRepository, IPlayerService playerService) {
         this.matchRepository = matchRepository;
         this.playerService = playerService;
     }
@@ -49,7 +51,7 @@ public class MatchService {
         return match.getPointsHistory();
     }
 
-    public Boolean isFinished(Matches match) {
+    public boolean isFinished(Matches match) {
         return match.isFinished();
     }
 

@@ -1,6 +1,6 @@
 package com.leogouchon.squashapp.security;
 
-import com.leogouchon.squashapp.service.AuthenticateService;
+import com.leogouchon.squashapp.service.interfaces.IAuthenticateService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,10 +13,10 @@ import org.springframework.web.util.WebUtils;
 @Component
 public class AuthorizationInterceptor implements HandlerInterceptor {
 
-    private final AuthenticateService authenticateService;
+    private final IAuthenticateService authenticateService;
 
     @Autowired
-    public AuthorizationInterceptor(AuthenticateService authenticateService) {
+    public AuthorizationInterceptor(IAuthenticateService authenticateService) {
         this.authenticateService = authenticateService;
     }
 

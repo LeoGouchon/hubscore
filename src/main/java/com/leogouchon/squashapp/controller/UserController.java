@@ -1,7 +1,7 @@
 package com.leogouchon.squashapp.controller;
 
 import com.leogouchon.squashapp.model.Users;
-import com.leogouchon.squashapp.service.UserService;
+import com.leogouchon.squashapp.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +13,10 @@ import java.util.Optional;
 @RequestMapping("/api/users")
 public class UserController {
 
-    private final UserService userService;
+    private final IUserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(IUserService userService) {
         this.userService = userService;
     }
 
