@@ -58,7 +58,7 @@ public class UserService implements IUserService {
         return userRepository.save(existingUsers);
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(Long id) throws RuntimeException {
         try {
             if (userRepository.existsById(id)) {
                 userRepository.deleteById(id);
@@ -70,12 +70,12 @@ public class UserService implements IUserService {
         }
     }
 
-    public Optional<List<Users>> getUsers() {
-        return Optional.of(userRepository.findAll());
+    public List<Users> getUsers() {
+        return userRepository.findAll();
     }
 
-    public Optional<List<Users>> getUsersWithLinkedPlayer() {
-        return Optional.ofNullable(userRepository.findByPlayerIsNotNull());
+    public List<Users> getUsersWithLinkedPlayer() {
+        return userRepository.findByPlayerIsNotNull();
     }
 
     public void updateTokenUser(Users user) {

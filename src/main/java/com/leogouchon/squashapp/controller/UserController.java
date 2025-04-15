@@ -32,9 +32,9 @@ public class UserController {
 
     @GetMapping
     public ResponseEntity<List<UserResponseDTO>> getUsers() {
-        Optional<List<Users>> users = userService.getUsers();
-        Optional<List<UserResponseDTO>> userResponseDTO = users.map(list -> list.stream().map(UsersMapper::toUserResponseDTO).toList());
-        return userResponseDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        List<Users> users = userService.getUsers();
+        List<UserResponseDTO> userResponseDTO = users.stream().map(UsersMapper::toUserResponseDTO).toList();
+        return ResponseEntity.ok(userResponseDTO);
     }
 
     @GetMapping("/{id}")

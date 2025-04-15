@@ -27,15 +27,15 @@ public class PlayerService implements IPlayerService {
         this.userService = userService;
     }
 
-    public Optional<List<Players>> getPlayers() {
-        return Optional.of(playerRepository.findAll());
+    public List<Players> getPlayers() {
+        return playerRepository.findAll();
     }
 
     public Optional<Players> getPlayer(Long id) {
         return playerRepository.findById(id);
     }
 
-    public Players createPlayer(Players player) {
+    public Players createPlayer(Players player) throws RuntimeException {
         if (player.getFirstname() == null || player.getLastname() == null) {
             throw new RuntimeException("Firstname and lastname must not be null");
         }
@@ -50,15 +50,15 @@ public class PlayerService implements IPlayerService {
         }
     }
 
-    public Optional<List<Players>> getUnassociatedPlayers() {
-        Optional<List<Players>> players = getPlayers();
-        Optional<List<Users>> users = userService.getUsersWithLinkedPlayer();
-        List<Long> alreadyLinkedPlayerIds = users.orElse(List.of()).stream()
+    public List<Players> getUnassociatedPlayers() {
+        List<Players> players = getPlayers();
+        List<Users> users = userService.getUsersWithLinkedPlayer();
+        List<Long> alreadyLinkedPlayerIds = users.stream()
                 .map(Users::getPlayer)
                 .filter(Objects::nonNull)
                 .map(Players::getId)
                 .toList();
-        players.ifPresent(list -> list.removeIf(p -> alreadyLinkedPlayerIds.contains(p.getId())));
+        players.removeIf(p -> alreadyLinkedPlayerIds.contains(p.getId()));
         return players;
     }
 }
