@@ -25,12 +25,12 @@ public class AuthenticateService {
     }
 
     public String login(AuthenticateRequestDTO user) throws AuthenticationException {
-        Users existingUsers = userService.getUserByEmail(user.getEmail());
-        if (existingUsers == null || !matchPassword(existingUsers, user.getPassword())) {
+        Users existingUser = userService.getUserByEmail(user.getEmail());
+        if (existingUser == null || !matchPassword(existingUser, user.getPassword())) {
             throw new AuthenticationException("user or password incorrect");
         }
-        String token = generateToken(existingUsers);
-        userService.updateTokenUser(existingUsers);
+        String token = generateToken(existingUser);
+        userService.updateTokenUser(existingUser);
         return token;
     }
 
@@ -45,11 +45,6 @@ public class AuthenticateService {
     public boolean isValidToken(String token) {
         Users users = userService.getUserByToken(token);
         return users != null && users.getToken().equals(token);
-    }
-
-    public boolean isAdmin(String token) {
-        Users users = userService.getUserByToken(token);
-        return users != null && users.getIsAdmin();
     }
 
     public String generateToken(Users user) {
