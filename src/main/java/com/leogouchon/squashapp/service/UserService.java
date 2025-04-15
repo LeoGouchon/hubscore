@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService implements IUserService {
@@ -58,15 +59,23 @@ public class UserService implements IUserService {
     }
 
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        try {
+            if (userRepository.existsById(id)) {
+                userRepository.deleteById(id);
+            } else {
+                throw new RuntimeException("User not found with id: " + id);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException("Error occurred while deleting user with id: " + id, e);
+        }
     }
 
-    public List<Users> getUsers() {
-        return userRepository.findAll();
+    public Optional<List<Users>> getUsers() {
+        return Optional.of(userRepository.findAll());
     }
 
-    public List<Users> getUsersWithLinkedPlayer() {
-        return userRepository.findByPlayerIsNotNull();
+    public Optional<List<Users>> getUsersWithLinkedPlayer() {
+        return Optional.ofNullable(userRepository.findByPlayerIsNotNull());
     }
 
     public void updateTokenUser(Users user) {
@@ -74,5 +83,4 @@ public class UserService implements IUserService {
         existingUsers.setToken(user.getToken());
         userRepository.save(existingUsers);
     }
-
 }

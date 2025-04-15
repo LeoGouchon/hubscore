@@ -5,6 +5,7 @@ import com.leogouchon.squashapp.dto.TokenResponseDTO;
 import com.leogouchon.squashapp.model.Users;
 import com.leogouchon.squashapp.service.interfaces.IAuthenticateService;
 import com.leogouchon.squashapp.service.interfaces.IUserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import javax.naming.AuthenticationException;
 
 @RestController
 @RequestMapping("/api/authenticate")
+@Tag(name = "Authentication")
 public class AuthenticateController {
     private final IAuthenticateService authenticateService;
     private final IUserService userService;

@@ -2,6 +2,7 @@ package com.leogouchon.squashapp.controller;
 
 import com.leogouchon.squashapp.model.Players;
 import com.leogouchon.squashapp.service.interfaces.IPlayerService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/players")
+@Tag(name = "Player")
 public class PlayerController {
 
     private final IPlayerService playerService;
@@ -22,8 +24,8 @@ public class PlayerController {
 
     @GetMapping
     public ResponseEntity<List<Players>> getPlayers() {
-        List<Players> players = playerService.getPlayers();
-        return ResponseEntity.ok(players);
+        Optional<List<Players>> players = playerService.getPlayers();
+        return players.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}")
@@ -46,7 +48,7 @@ public class PlayerController {
 
     @GetMapping("/unlinked")
     public ResponseEntity<List<Players>> getUnassociatedPlayers() {
-        List<Players> unassociatedPlayers = playerService.getUnassociatedPlayers();
-        return ResponseEntity.ok(unassociatedPlayers);
+        Optional<List<Players>> unassociatedPlayers = playerService.getUnassociatedPlayers();
+        return unassociatedPlayers.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

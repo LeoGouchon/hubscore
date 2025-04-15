@@ -1,18 +1,25 @@
 package com.leogouchon.squashapp.controller;
 
+import com.leogouchon.squashapp.dto.UserResponseDTO;
 import com.leogouchon.squashapp.model.Users;
 import com.leogouchon.squashapp.service.interfaces.IUserService;
+import com.leogouchon.squashapp.utils.UsersMapper;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/users")
-@Tag(name = "users")
+@RequestMapping(
+        value = "/api/users",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
+@Tag(name = "User")
 public class UserController {
 
     private final IUserService userService;
@@ -24,15 +31,17 @@ public class UserController {
 
 
     @GetMapping
-    public ResponseEntity<List<Users>> getUsers() {
-        List<Users> users = userService.getUsers();
-        return ResponseEntity.ok(users);
+    public ResponseEntity<List<UserResponseDTO>> getUsers() {
+        Optional<List<Users>> users = userService.getUsers();
+        Optional<List<UserResponseDTO>> userResponseDTO = users.map(list -> list.stream().map(UsersMapper::toUserResponseDTO).toList());
+        return userResponseDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Users> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
         Optional<Users> user = Optional.ofNullable(userService.getUserById(id));
-        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Optional<UserResponseDTO> userResponseDTO = user.map(UsersMapper::toUserResponseDTO);
+        return userResponseDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
@@ -41,7 +50,8 @@ public class UserController {
             return ResponseEntity.badRequest().body(null);
         }
         Users createdUsers = userService.createUser(users);
-        return ResponseEntity.ok(createdUsers);
+        URI location = URI.create("/api/users/" + createdUsers.getId());
+        return ResponseEntity.created(location).body(createdUsers);
     }
 
     @PutMapping("/{id}")

@@ -3,6 +3,7 @@ package com.leogouchon.squashapp.service.interfaces;
 import com.leogouchon.squashapp.model.Users;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface IUserService {
     Users createUser(Users users);
@@ -11,7 +12,7 @@ public interface IUserService {
     Users getUserById(Long id);
     Users updateUser(Users user);
     void deleteUser(Long id);
-    List<Users> getUsers();
-    List<Users> getUsersWithLinkedPlayer();
+    Optional<List<Users>> getUsers();
+    Optional<List<Users>> getUsersWithLinkedPlayer();
     void updateTokenUser(Users user);
 }

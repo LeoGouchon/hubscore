@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -26,8 +27,8 @@ public class PlayerService implements IPlayerService {
         this.userService = userService;
     }
 
-    public List<Players> getPlayers() {
-        return playerRepository.findAll();
+    public Optional<List<Players>> getPlayers() {
+        return Optional.of(playerRepository.findAll());
     }
 
     public Optional<Players> getPlayer(Long id) {
@@ -41,7 +42,7 @@ public class PlayerService implements IPlayerService {
         return playerRepository.save(player);
     }
 
-    public void deletePlayer(Long id) {
+    public void deletePlayer(Long id) throws RuntimeException {
         if (playerRepository.existsById(id)) {
             playerRepository.deleteById(id);
         } else {
@@ -49,11 +50,15 @@ public class PlayerService implements IPlayerService {
         }
     }
 
-    public List<Players> getUnassociatedPlayers() {
-        List<Players> players = getPlayers();
-        List<Users> users = userService.getUsersWithLinkedPlayer();
-        List<Long> alreadyLinkedPlayerIds = users.stream().map(u -> u.getPlayer().getId()).toList();
-        players.removeIf(p -> alreadyLinkedPlayerIds.contains(p.getId()));
+    public Optional<List<Players>> getUnassociatedPlayers() {
+        Optional<List<Players>> players = getPlayers();
+        Optional<List<Users>> users = userService.getUsersWithLinkedPlayer();
+        List<Long> alreadyLinkedPlayerIds = users.orElse(List.of()).stream()
+                .map(Users::getPlayer)
+                .filter(Objects::nonNull)
+                .map(Players::getId)
+                .toList();
+        players.ifPresent(list -> list.removeIf(p -> alreadyLinkedPlayerIds.contains(p.getId())));
         return players;
     }
 }

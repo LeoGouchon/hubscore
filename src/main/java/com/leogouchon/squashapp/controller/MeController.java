@@ -19,7 +19,7 @@ public class MeController {
         this.userService = userService;
     }
 
-    @Tag(name = "users")
+    @Tag(name = "User")
     @Operation(summary = "Return current user")
     @GetMapping("/me")
     public ResponseEntity<Users> getCurrentUser(@CookieValue(value = "token") String token) {
