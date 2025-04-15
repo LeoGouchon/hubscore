@@ -6,6 +6,8 @@ import com.leogouchon.squashapp.model.Matches;
 import com.leogouchon.squashapp.model.Players;
 import com.leogouchon.squashapp.service.MatchService;
 import com.leogouchon.squashapp.service.interfaces.IMatchService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +26,16 @@ public class MatchController {
         this.matchService = matchService;
     }
 
+    // TODO : add size limit and filter on the getter (check spotify API for doc)
+    @Operation(
+            summary = "Return matches",
+            description = "Return all matches from the db",
+            responses = {
+                    @ApiResponse(responseCode = "200", description = "Matches found"),
+                    @ApiResponse(responseCode = "404", description = "Match not found"),
+                    @ApiResponse(responseCode = "401", description = "Unauthorized")
+            }
+    )
     @GetMapping
     public ResponseEntity<List<Matches>> getMatches() {
         List<Matches> matches = matchService.getMatches();
@@ -55,6 +67,7 @@ public class MatchController {
         return ResponseEntity.noContent().build();
     }
 
+    @Deprecated
     @PostMapping("/{id}/add-service")
     public ResponseEntity<String> addPoint(
             @PathVariable Long id,
