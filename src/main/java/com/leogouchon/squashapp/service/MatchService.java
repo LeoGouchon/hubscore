@@ -1,5 +1,6 @@
 package com.leogouchon.squashapp.service;
 
+import com.leogouchon.squashapp.dto.MatchResponseDTO;
 import com.leogouchon.squashapp.model.Matches;
 import com.leogouchon.squashapp.model.Players;
 import com.leogouchon.squashapp.repository.MatchRepository;
@@ -23,7 +24,7 @@ public class MatchService implements IMatchService {
         this.playerService = playerService;
     }
 
-    public Matches createMatch(Long player1Id, Long player2Id, String pointsHistory, Integer finalScoreA, Integer finalScoreB) {
+    public Matches createMatch(Long player1Id, Long player2Id, String pointsHistory, Integer finalScoreA, Integer finalScoreB) throws RuntimeException {
         Optional<Players> playerA = playerService.getPlayer(player1Id);
         Optional<Players> playerB = playerService.getPlayer(player2Id);
         if (playerA.isEmpty() || playerB.isEmpty()) {
@@ -37,8 +38,9 @@ public class MatchService implements IMatchService {
                 Matches match = new Matches(playerA.get(), playerB.get(), finalScoreA, finalScoreB);
                 return matchRepository.save(match);
             }
-            Matches match = new Matches(playerA.get(), playerB.get());
-            return matchRepository.save(match);
+            else {
+                throw new RuntimeException("Invalid parameters");
+            }
         }
     }
 
@@ -69,5 +71,10 @@ public class MatchService implements IMatchService {
 
     public Optional<Matches> getMatch(Long id) {
         return matchRepository.findById(id);
+    }
+
+    public Optional<MatchResponseDTO> getMatchResponseDTO(Long id) {
+        Optional<Matches> match = matchRepository.findById(id);
+        return match.map(MatchResponseDTO::new);
     }
 }

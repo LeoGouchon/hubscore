@@ -1,6 +1,5 @@
 package com.leogouchon.squashapp.service.interfaces;
 
-import com.leogouchon.squashapp.dto.MatchResponseDTO;
 import com.leogouchon.squashapp.model.Matches;
 import com.leogouchon.squashapp.model.Players;
 
@@ -14,5 +13,4 @@ public interface IMatchService {
     void deleteMatch(Long id);
     List<Matches> getMatches();
     Optional<Matches> getMatch(Long id);
-    Optional<MatchResponseDTO> getMatchResponseDTO(Long id);
 }
