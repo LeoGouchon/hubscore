@@ -2,29 +2,33 @@ package com.leogouchon.squashapp.controller;
 
 import com.leogouchon.squashapp.dto.MatchRequestDTO;
 import com.leogouchon.squashapp.dto.MatchResponseDTO;
-import com.leogouchon.squashapp.enums.ServiceSide;
+import com.leogouchon.squashapp.dto.PaginatedResponseDTO;
 import com.leogouchon.squashapp.model.Matches;
-import com.leogouchon.squashapp.model.Players;
-import com.leogouchon.squashapp.service.MatchService;
 import com.leogouchon.squashapp.service.interfaces.IMatchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/matches")
+@RequestMapping(value = "/api/matches",
+        consumes = MediaType.APPLICATION_JSON_VALUE,
+        produces = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "Match")
+@Validated
 public class MatchController {
 
     private final IMatchService matchService;
@@ -34,33 +38,39 @@ public class MatchController {
         this.matchService = matchService;
     }
 
-    // TODO : add limit and offset
     @Operation(
             summary = "Return matches",
-            description = "Return all matches from the database",
+            description = "Return matches from the database",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Matches found"),
                     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
             }
     )
     @GetMapping
-    public ResponseEntity<List<Matches>> getMatches() {
-        List<Matches> matches = matchService.getMatches();
-        return ResponseEntity.ok(matches);
+    public ResponseEntity<PaginatedResponseDTO<Matches>> getMatches(
+            @RequestParam(defaultValue = "0") @Min(0) int page,
+            @RequestParam(defaultValue = "10") @Min(1) @Max(50) int size
+    ) {
+        Page<Matches> matchesPage = matchService.getMatches(page, size);
+        PaginatedResponseDTO<Matches> response = new PaginatedResponseDTO<>(
+                matchesPage.getContent(),
+                matchesPage.getNumber(),
+                matchesPage.getTotalPages(),
+                matchesPage.getTotalElements(),
+                matchesPage.getSize()
+        );
+        return ResponseEntity.ok(response);
     }
 
+    @ApiResponse(responseCode = "200", description = "Match with given id found")
+    @ApiResponse(responseCode = "404", description = "Match not found", content = {@Content(schema = @Schema())})
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     @GetMapping("/{id}")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Match with given id found"),
-            @ApiResponse(responseCode = "404", description = "Match not found", content = {@Content(schema = @Schema())}),
-            @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    })
     public ResponseEntity<Matches> getMatch(@PathVariable Long id) {
         Optional<Matches> match = matchService.getMatch(id);
         return match.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PostMapping
     @Operation(
             summary = "Create match",
             description = "Create a new match",
@@ -70,6 +80,7 @@ public class MatchController {
                     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
             }
     )
+    @PostMapping
     public ResponseEntity<MatchResponseDTO> createMatch(@Valid @RequestBody MatchRequestDTO matchRequest) {
         try {
             Matches createdMatch = matchService.createMatch(
@@ -87,12 +98,10 @@ public class MatchController {
         }
     }
 
+    @ApiResponse(responseCode = "204", description = "Match deleted successfully")
+    @ApiResponse(responseCode = "404", description = "Match to delete not found", content = {@Content(schema = @Schema())})
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     @DeleteMapping("/{id}")
-    @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Match deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "Match to delete not found", content = {@Content(schema = @Schema())}),
-            @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    })
     public ResponseEntity<Void> deleteMatch(@PathVariable Long id) {
         matchService.deleteMatch(id);
         return ResponseEntity.noContent().build();

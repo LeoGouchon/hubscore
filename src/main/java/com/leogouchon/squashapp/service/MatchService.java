@@ -6,10 +6,13 @@ import com.leogouchon.squashapp.model.Players;
 import com.leogouchon.squashapp.repository.MatchRepository;
 import com.leogouchon.squashapp.service.interfaces.IMatchService;
 import com.leogouchon.squashapp.service.interfaces.IPlayerService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,45 +31,31 @@ public class MatchService implements IMatchService {
         Optional<Players> playerA = playerService.getPlayer(player1Id);
         Optional<Players> playerB = playerService.getPlayer(player2Id);
         if (playerA.isEmpty() || playerB.isEmpty()) {
-            throw new RuntimeException("Player not found");
+            throw new IllegalArgumentException("Given player(s) not found");
         } else {
             if (pointsHistory != null) {
                 Matches match = new Matches(playerA.get(), playerB.get(), pointsHistory);
                 return matchRepository.save(match);
-            }
-            else if (finalScoreA != null && finalScoreB != null) {
+            } else if (finalScoreA != null && finalScoreB != null) {
                 Matches match = new Matches(playerA.get(), playerB.get(), finalScoreA, finalScoreB);
                 return matchRepository.save(match);
-            }
-            else {
-                throw new RuntimeException("Invalid parameters");
+            } else {
+                throw new IllegalArgumentException("Invalid parameters");
             }
         }
-    }
-
-    public String addPoint(Matches match, Players player, String serviceSide) {
-        if (match == null) {
-            throw new RuntimeException("Match not found");
-        }
-        match.addService(player, serviceSide);
-        matchRepository.save(match);
-        return match.getPointsHistory();
-    }
-
-    public boolean isFinished(Matches match) {
-        return match.isFinished();
     }
 
     public void deleteMatch(Long id) {
         if (matchRepository.existsById(id)) {
             matchRepository.deleteById(id);
         } else {
-            throw new RuntimeException("Player not found with id: " + id);
+            throw new EntityNotFoundException("Player not found with id: " + id);
         }
     }
 
-    public List<Matches> getMatches() {
-        return matchRepository.findAll();
+    public Page<Matches> getMatches(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return matchRepository.findAll(pageable);
     }
 
     public Optional<Matches> getMatch(Long id) {
