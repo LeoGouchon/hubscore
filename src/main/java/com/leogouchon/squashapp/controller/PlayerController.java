@@ -5,10 +5,9 @@ import com.leogouchon.squashapp.service.interfaces.IPlayerService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(
-        value = "/api/players",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+        value = "/api/players")
 @Tag(name = "Player")
 public class PlayerController {
 
@@ -33,32 +30,29 @@ public class PlayerController {
 
     // TODO : add offset and limit
     @GetMapping
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Players found"),
-            @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    })
+    @SecurityRequirement(name = "bearerAuth")
+    @ApiResponse(responseCode = "200", description = "Players found")
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     public ResponseEntity<List<Players>> getPlayers() {
         List<Players> players = playerService.getPlayers();
         return ResponseEntity.ok(players);
     }
 
     @GetMapping("/{id}")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Player with given id found"),
-            @ApiResponse(responseCode = "404", description = "Player not found", content = {@Content(schema = @Schema())}),
-            @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    })
+    @SecurityRequirement(name = "bearerAuth")
+    @ApiResponse(responseCode = "200", description = "Player with given id found")
+    @ApiResponse(responseCode = "404", description = "Player not found", content = {@Content(schema = @Schema())})
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     public ResponseEntity<Players> getPlayer(@PathVariable Long id) {
         Optional<Players> player = playerService.getPlayer(id);
         return player.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    @ApiResponses({
-            @ApiResponse(responseCode = "201", description = "Player created"),
-            @ApiResponse(responseCode = "400", description = "Bad request", content = {@Content(schema = @Schema())}),
-            @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    })
+    @ApiResponse(responseCode = "201", description = "Player created")
+    @ApiResponse(responseCode = "400", description = "Bad request", content = {@Content(schema = @Schema())})
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<Players> createPlayer(@RequestBody Players player) {
         Players createdPlayer;
         try {
@@ -71,11 +65,10 @@ public class PlayerController {
     }
 
     @DeleteMapping("/{id}")
-    @ApiResponses({
-            @ApiResponse(responseCode = "204", description = "Player deleted successfully"),
-            @ApiResponse(responseCode = "404", description = "Player to delete not found", content = {@Content(schema = @Schema())}),
-            @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    })
+    @ApiResponse(responseCode = "204", description = "Player deleted successfully")
+    @ApiResponse(responseCode = "404", description = "Player to delete not found", content = {@Content(schema = @Schema())})
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
+    @SecurityRequirement(name = "bearerAuth")
     public ResponseEntity<Void> deletePlayer(@PathVariable Long id) {
         try {
             playerService.deletePlayer(id);
@@ -86,11 +79,11 @@ public class PlayerController {
     }
 
     @GetMapping("/unlinked")
-    @ApiResponses({
-            @ApiResponse(responseCode = "200", description = "Players without linked user found"),
-    })
+    @ApiResponse(responseCode = "200", description = "Players without linked user found")
     public ResponseEntity<List<Players>> getUnassociatedPlayers() {
         List<Players> unassociatedPlayers = playerService.getUnassociatedPlayers();
-        return ResponseEntity.ok(unassociatedPlayers);
+        return ResponseEntity
+                .ok()
+                .body(unassociatedPlayers);
     }
 }

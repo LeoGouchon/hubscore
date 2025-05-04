@@ -1,12 +1,15 @@
 package com.leogouchon.squashapp.service;
 
+import com.leogouchon.squashapp.model.RefreshToken;
 import com.leogouchon.squashapp.model.Users;
+import com.leogouchon.squashapp.repository.RefreshTokenRepository;
 import com.leogouchon.squashapp.repository.UserRepository;
 import com.leogouchon.squashapp.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.naming.AuthenticationException;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,12 +17,14 @@ import java.util.Optional;
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, RefreshTokenRepository refreshTokenRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.refreshTokenRepository = refreshTokenRepository;
     }
 
     public Users createUser(Users users) {
@@ -35,16 +40,19 @@ public class UserService implements IUserService {
         return userRepository.findByEmail(username).orElse(null);
     }
 
-    public Users getUserByToken(String token) {
-        return userRepository.findByToken(token).orElse(null);
-    }
+    public Users getUserByToken(String token) throws AuthenticationException {
+        Optional<RefreshToken> optionalRefreshToken = refreshTokenRepository.findByToken(token);
+        if (optionalRefreshToken.isPresent()) {
+            RefreshToken refreshToken = optionalRefreshToken.get();
+            return refreshToken.getUser();
+        }
+        throw new AuthenticationException("Refresh token not found or invalid.");    }
 
     public Users getUserById(Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
     public Users updateUser(Users user) {
-        System.out.println(user);
         Users existingUsers = getUserById(user.getId());
         if (user.getEmail() != null) {
             existingUsers.setEmail(user.getEmail());
@@ -76,11 +84,5 @@ public class UserService implements IUserService {
 
     public List<Users> getUsersWithLinkedPlayer() {
         return userRepository.findByPlayerIsNotNull();
-    }
-
-    public void updateTokenUser(Users user) {
-        Users existingUsers = getUserById(user.getId());
-        existingUsers.setToken(user.getToken());
-        userRepository.save(existingUsers);
     }
 }

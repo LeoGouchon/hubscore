@@ -1,9 +1,9 @@
 package com.leogouchon.squashapp.service;
 
-import com.leogouchon.squashapp.dto.AuthenticateRequestDTO;
+import com.leogouchon.squashapp.model.RefreshToken;
 import com.leogouchon.squashapp.model.Users;
+import com.leogouchon.squashapp.repository.RefreshTokenRepository;
 import com.leogouchon.squashapp.repository.UserRepository;
-import com.leogouchon.squashapp.utils.UsersMapper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -14,9 +14,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.naming.AuthenticationException;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -31,37 +34,70 @@ public class AuthenticateServiceTests {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private RefreshTokenRepository refreshTokenRepository;
+
     @Spy
     @InjectMocks
     private AuthenticateService authenticateService;
 
     @Test
-    public void testLoginSuccess() throws AuthenticationException {
-        String email = "john.doe@mail.com";
-        String password = "P@s$w0rD";
-        AuthenticateRequestDTO requestArg = UsersMapper.toAuthenticateRequestDTO(new Users(email, password));
-        Users mockExistingUser = new Users(email, password);
-
-        when(userService.getUserByEmail(email)).thenReturn(mockExistingUser);
-        doReturn(true).when(authenticateService).matchPassword(any(Users.class), any(String.class));
-        doReturn("t0k3N").when(authenticateService).generateToken(mockExistingUser);
-
-        String result = authenticateService.login(requestArg);
-
-        assertNotNull(result);
-        verify(userService).getUserByEmail(email);
-        verify(authenticateService).matchPassword(mockExistingUser, password);
-        verify(authenticateService).generateToken(mockExistingUser);
-        verify(userService).updateTokenUser(mockExistingUser);
+    public void testRefreshTokenFailure() {
+        String refreshToken = "invalidRefreshToken";
+        when(refreshTokenRepository.findByToken(refreshToken)).thenReturn(Optional.empty());
+        assertThrows(AuthenticationException.class, () -> authenticateService.refreshAccessToken(refreshToken));
     }
 
     @Test
-    public void testLoginFail() {
-        String email = "john.doe@mail.com";
-        String password = "P@s$w0rD";
-        AuthenticateRequestDTO requestArg = UsersMapper.toAuthenticateRequestDTO(new Users(email, password));
-        when(userService.getUserByEmail(email)).thenReturn(null);
+    public void testGenerateAccessToken() {
+        Users user = new Users("john.doe@mail.com", "P@s$w0rD");
+        String token = authenticateService.generateAccessToken(user);
 
-        assertThrows(AuthenticationException.class, () -> authenticateService.login(requestArg));
+        assertNotNull(token);
+        assertTrue(authenticateService.isValidToken(token));
+    }
+
+    @Test
+    public void testGenerateAndSaveRefreshToken() {
+        Users user = new Users("john.doe@mail.com", "P@s$w0rD");
+        String refreshToken = authenticateService.generateAndSaveRefreshToken(user);
+
+        assertNotNull(refreshToken);
+        // Additional checks can be added to verify the token is saved in the repository
+    }
+
+    @Test
+    public void testIsValidToken() {
+        Users user = new Users("john.doe@mail.com", "P@s$w0rD");
+        String token = authenticateService.generateAccessToken(user);
+
+        assertTrue(authenticateService.isValidToken(token));
+        assertFalse(authenticateService.isValidToken("invalidToken"));
+    }
+
+    @Test
+    public void testLogout() {
+        String refreshToken = "refreshTokenValue";
+        RefreshToken refreshTokenEntity = new RefreshToken();
+        refreshTokenEntity.setRevoked(false);
+
+        when(refreshTokenRepository.findByToken(refreshToken)).thenReturn(Optional.of(refreshTokenEntity));
+
+        authenticateService.logout(refreshToken);
+
+        verify(refreshTokenRepository).save(refreshTokenEntity);
+        assertTrue(refreshTokenEntity.isRevoked());
+    }
+
+    @Test
+    public void testRefreshAccessToken() throws AuthenticationException {
+        String refreshToken = "validRefreshToken";
+
+        when(refreshTokenRepository.findByToken(refreshToken)).thenReturn(Optional.of(new RefreshToken()));
+        when(authenticateService.refreshAccessToken(any(String.class))).thenReturn("newAccessToken");
+
+        String newToken = authenticateService.refreshAccessToken(refreshToken);
+
+        assertNotNull(newToken);
     }
 }

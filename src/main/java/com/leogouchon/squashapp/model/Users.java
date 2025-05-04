@@ -18,7 +18,6 @@ public class Users {
     private String email;
     @Column(nullable = false)
     private String password;
-    private String token;
     @JsonIgnore
     private Boolean isAdmin = false;
     @OneToOne
@@ -30,7 +29,6 @@ public class Users {
         return "Users{" +
                 "id=" + id +
                 ", email='" + email + '\'' +
-                ", token='" + token + '\'' +
                 ", isAdmin=" + isAdmin +
                 ", player=" + (player != null ? player.getId() : "null") +
                 '}';

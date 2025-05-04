@@ -1,14 +1,18 @@
 package com.leogouchon.squashapp.service.interfaces;
 
 import com.leogouchon.squashapp.dto.AuthenticateRequestDTO;
+import com.leogouchon.squashapp.dto.AuthenticateResponseDTO;
 import com.leogouchon.squashapp.model.Users;
 
 import javax.naming.AuthenticationException;
 
 public interface IAuthenticateService {
-    String login(AuthenticateRequestDTO user) throws AuthenticationException;
-    void logout(String token);
+    AuthenticateResponseDTO login(AuthenticateRequestDTO authRequest) throws AuthenticationException;
+    String generateAccessToken(Users user);
+    String generateAndSaveRefreshToken(Users user);
     boolean isValidToken(String token);
-    String generateToken(Users user);
-    boolean matchPassword(Users existingUsers, String unhashedPassword);
+    Users getUserFromToken(String token);
+    void logout(String token);
+    String refreshAccessToken(String refreshToken) throws AuthenticationException;
+    AuthenticateResponseDTO signIn(Users newUser) throws AuthenticationException;
 }

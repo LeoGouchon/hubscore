@@ -9,13 +9,13 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +24,7 @@ import java.net.URI;
 import java.util.Optional;
 
 @RestController
-@RequestMapping(value = "/api/matches",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "/api/matches")
 @Tag(name = "Match")
 @Validated
 public class MatchController {
@@ -38,6 +36,7 @@ public class MatchController {
         this.matchService = matchService;
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @Operation(
             summary = "Return matches",
             description = "Return matches from the database",
@@ -62,6 +61,7 @@ public class MatchController {
         return ResponseEntity.ok(response);
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200", description = "Match with given id found")
     @ApiResponse(responseCode = "404", description = "Match not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
@@ -71,6 +71,7 @@ public class MatchController {
         return match.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @Operation(
             summary = "Create match",
             description = "Create a new match",
@@ -98,6 +99,7 @@ public class MatchController {
         }
     }
 
+    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "204", description = "Match deleted successfully")
     @ApiResponse(responseCode = "404", description = "Match to delete not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
