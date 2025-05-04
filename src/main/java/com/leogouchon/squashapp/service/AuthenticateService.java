@@ -2,6 +2,7 @@ package com.leogouchon.squashapp.service;
 
 import com.leogouchon.squashapp.dto.AuthenticateRequestDTO;
 import com.leogouchon.squashapp.dto.AuthenticateResponseDTO;
+import com.leogouchon.squashapp.model.Players;
 import com.leogouchon.squashapp.model.RefreshToken;
 import com.leogouchon.squashapp.model.Users;
 import com.leogouchon.squashapp.repository.RefreshTokenRepository;
@@ -15,6 +16,7 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationException;
@@ -36,17 +38,20 @@ public class AuthenticateService implements IAuthenticateService {
     private final IUserService userService;
     private final RefreshTokenRepository refreshTokenRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     @Autowired
-    public AuthenticateService(IUserService userService, RefreshTokenRepository refreshTokenRepository) {
+    public AuthenticateService(IUserService userService, RefreshTokenRepository refreshTokenRepository, PasswordEncoder passwordEncoder) {
         this.refreshTokenRepository = refreshTokenRepository;
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
     public AuthenticateResponseDTO login(AuthenticateRequestDTO authRequest) throws AuthenticationException {
         Users user = userService.getUserByEmail(authRequest.getEmail());
 
-        if (user == null || !user.getPassword().equals(authRequest.getPassword())) {
+        if (!passwordEncoder.matches(authRequest.getPassword(), user.getPassword())) {
             throw new AuthenticationException("Invalid credentials");
         }
 
@@ -87,9 +92,9 @@ public class AuthenticateService implements IAuthenticateService {
     }
 
     @Override
-    public AuthenticateResponseDTO signIn(Users newUser) throws AuthenticationException {
-        Users user = userService.createUser(newUser);
-        return login(new AuthenticateRequestDTO(user.getEmail(), user.getPassword()));
+    public AuthenticateResponseDTO signIn(String email, String password, Players player) throws AuthenticationException {
+        Users user = userService.createUser(new Users(email, password, player));
+        return login(new AuthenticateRequestDTO(user.getEmail(), password));
     }
 
     @Override

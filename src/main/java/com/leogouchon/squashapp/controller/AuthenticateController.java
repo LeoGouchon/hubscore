@@ -7,6 +7,7 @@ import com.leogouchon.squashapp.service.interfaces.IUserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.naming.AuthenticationException;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/authenticate")
 @Tag(name = "Authentication")
@@ -61,11 +63,12 @@ public class AuthenticateController {
     @PostMapping("/signup")
     public ResponseEntity<AuthenticateResponseDTO> signup(@RequestBody SignInRequestDTO signInRequestDTO) {
         try {
-            AuthenticateResponseDTO authenticateResponseDTO = authenticateService.signIn(new Users(signInRequestDTO.getEmail(), signInRequestDTO.getPassword(), signInRequestDTO.getPlayer()));
+            AuthenticateResponseDTO authenticateResponseDTO = authenticateService.signIn(signInRequestDTO.getEmail(), signInRequestDTO.getPassword(), signInRequestDTO.getPlayer());
             return ResponseEntity
                     .ok()
                     .body(authenticateResponseDTO);
         } catch (Exception e) {
+            log.error(String.valueOf(e));
             return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).build();
         }
     }
