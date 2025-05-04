@@ -1,34 +1,32 @@
 package com.leogouchon.squashapp.service;
 
 import com.leogouchon.squashapp.model.Players;
-import com.leogouchon.squashapp.model.Users;
 import com.leogouchon.squashapp.repository.PlayerRepository;
 import com.leogouchon.squashapp.service.interfaces.IPlayerService;
-import com.leogouchon.squashapp.service.interfaces.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @Service
 public class PlayerService implements IPlayerService {
 
     private final PlayerRepository playerRepository;
-    private final IUserService userService;
 
     @Autowired
     public PlayerService(
-            PlayerRepository playerRepository,
-            IUserService userService
+            PlayerRepository playerRepository
     ) {
         this.playerRepository = playerRepository;
-        this.userService = userService;
     }
 
-    public List<Players> getPlayers() {
-        return playerRepository.findAll();
+    public Page<Players> getPlayers(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return playerRepository.findAll(pageable);
     }
 
     public Optional<Players> getPlayer(Long id) {
@@ -51,14 +49,6 @@ public class PlayerService implements IPlayerService {
     }
 
     public List<Players> getUnassociatedPlayers() {
-        List<Players> players = getPlayers();
-        List<Users> users = userService.getUsersWithLinkedPlayer();
-        List<Long> alreadyLinkedPlayerIds = users.stream()
-                .map(Users::getPlayer)
-                .filter(Objects::nonNull)
-                .map(Players::getId)
-                .toList();
-        players.removeIf(p -> alreadyLinkedPlayerIds.contains(p.getId()));
-        return players;
+        return playerRepository.findPlayersWithoutUser();
     }
 }

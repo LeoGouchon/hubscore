@@ -1,5 +1,6 @@
 package com.leogouchon.squashapp.controller;
 
+import com.leogouchon.squashapp.dto.PaginatedResponseDTO;
 import com.leogouchon.squashapp.model.Players;
 import com.leogouchon.squashapp.service.interfaces.IPlayerService;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -7,8 +8,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -19,6 +24,7 @@ import java.util.Optional;
 @RequestMapping(
         value = "/api/players")
 @Tag(name = "Player")
+@Validated
 public class PlayerController {
 
     private final IPlayerService playerService;
@@ -28,14 +34,23 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
-    // TODO : add offset and limit
     @GetMapping
     @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200", description = "Players found")
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    public ResponseEntity<List<Players>> getPlayers() {
-        List<Players> players = playerService.getPlayers();
-        return ResponseEntity.ok(players);
+    public ResponseEntity<PaginatedResponseDTO<Players>> getPlayers(
+            @RequestParam(defaultValue = "0") @Min(0) int page,
+            @RequestParam(defaultValue = "10") @Min(1) @Max(50) int size
+    ) {
+        Page<Players> playersPage = playerService.getPlayers(page, size);
+        PaginatedResponseDTO<Players> response = new PaginatedResponseDTO<>(
+                playersPage.getContent(),
+                playersPage.getNumber(),
+                playersPage.getTotalPages(),
+                playersPage.getTotalElements(),
+                playersPage.getSize()
+        );
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")

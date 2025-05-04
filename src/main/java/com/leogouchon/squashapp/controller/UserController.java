@@ -1,5 +1,6 @@
 package com.leogouchon.squashapp.controller;
 
+import com.leogouchon.squashapp.dto.PaginatedResponseDTO;
 import com.leogouchon.squashapp.dto.UserResponseDTO;
 import com.leogouchon.squashapp.model.Users;
 import com.leogouchon.squashapp.service.interfaces.IUserService;
@@ -8,12 +9,15 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -21,6 +25,7 @@ import java.util.Optional;
         value = "/api/users"
         )
 @Tag(name = "User")
+@Validated
 public class UserController {
 
     private final IUserService userService;
@@ -30,14 +35,22 @@ public class UserController {
         this.userService = userService;
     }
 
-    // TODO : add offset and limit
     @GetMapping
     @ApiResponse(responseCode = "200", description = "Users found")
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    public ResponseEntity<List<UserResponseDTO>> getUsers() {
-        List<Users> users = userService.getUsers();
-        List<UserResponseDTO> userResponseDTO = users.stream().map(UsersMapper::toUserResponseDTO).toList();
-        return ResponseEntity.ok(userResponseDTO);
+    public ResponseEntity<PaginatedResponseDTO<UserResponseDTO>> getUsers(
+            @RequestParam(defaultValue = "0") @Min(0) int page,
+            @RequestParam(defaultValue = "10") @Min(0) @Max(50) int size
+    ) {
+        Page<Users> usersPage = userService.getUsers(page, size);
+        PaginatedResponseDTO<UserResponseDTO> response = new PaginatedResponseDTO<>(
+                usersPage.getContent().stream().map(UsersMapper::toUserResponseDTO).toList(),
+                usersPage.getNumber(),
+                usersPage.getTotalPages(),
+                usersPage.getTotalElements(),
+                usersPage.getSize()
+        );
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}")
