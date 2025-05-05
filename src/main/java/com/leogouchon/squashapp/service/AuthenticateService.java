@@ -1,7 +1,7 @@
 package com.leogouchon.squashapp.service;
 
 import com.leogouchon.squashapp.dto.AuthenticateRequestDTO;
-import com.leogouchon.squashapp.dto.AuthenticateResponseDTO;
+import com.leogouchon.squashapp.dto.DoubleTokenDTO;
 import com.leogouchon.squashapp.model.Players;
 import com.leogouchon.squashapp.model.RefreshToken;
 import com.leogouchon.squashapp.model.Users;
@@ -16,6 +16,7 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -48,7 +49,7 @@ public class AuthenticateService implements IAuthenticateService {
     }
 
     @Override
-    public AuthenticateResponseDTO login(AuthenticateRequestDTO authRequest) throws AuthenticationException {
+    public DoubleTokenDTO login(AuthenticateRequestDTO authRequest) throws AuthenticationException {
         Users user = userService.getUserByEmail(authRequest.getEmail());
 
         if (!passwordEncoder.matches(authRequest.getPassword(), user.getPassword())) {
@@ -58,7 +59,7 @@ public class AuthenticateService implements IAuthenticateService {
         String accessToken = generateAccessToken(user);
         String refreshToken = generateAndSaveRefreshToken(user);
 
-        return new AuthenticateResponseDTO(accessToken, refreshToken);
+        return new DoubleTokenDTO(accessToken, refreshToken);
     }
 
     @Override
@@ -69,7 +70,8 @@ public class AuthenticateService implements IAuthenticateService {
         Key key = Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8));
 
         return Jwts.builder()
-                .setSubject(user.getEmail())
+                .setSubject(String.valueOf(user.getId())) // ID en tant que subject
+                .claim("email", user.getEmail())
                 .setIssuedAt(now)
                 .setExpiration(expiry)
                 .signWith(key, SignatureAlgorithm.HS256)
@@ -92,7 +94,7 @@ public class AuthenticateService implements IAuthenticateService {
     }
 
     @Override
-    public AuthenticateResponseDTO signIn(String email, String password, Players player) throws AuthenticationException {
+    public DoubleTokenDTO signUp(String email, String password, Players player) throws AuthenticationException {
         Users user = userService.createUser(new Users(email, password, player));
         return login(new AuthenticateRequestDTO(user.getEmail(), password));
     }

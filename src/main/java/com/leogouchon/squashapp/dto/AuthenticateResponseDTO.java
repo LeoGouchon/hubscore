@@ -6,11 +6,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AuthenticateResponseDTO {
-    private String accessToken;
-    private String refreshToken;
+    private String token;
 
-    public AuthenticateResponseDTO(String accessToken, String refreshToken) {
-        this.accessToken = accessToken;
-        this.refreshToken = refreshToken;
+    public AuthenticateResponseDTO(String token) {
+        this.token = token;
     }
 }

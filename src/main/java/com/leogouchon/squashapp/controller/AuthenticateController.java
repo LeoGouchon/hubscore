@@ -9,14 +9,14 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.naming.AuthenticationException;
+import java.time.Duration;
 
 @Slf4j
 @RestController
@@ -24,23 +24,31 @@ import javax.naming.AuthenticationException;
 @Tag(name = "Authentication")
 public class AuthenticateController {
     private final IAuthenticateService authenticateService;
-    private final IUserService userService;
 
     @Autowired
     public AuthenticateController(
-            IAuthenticateService authenticateService,
-            IUserService userService) {
+            IAuthenticateService authenticateService) {
         this.authenticateService = authenticateService;
-        this.userService = userService;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticateResponseDTO> login(@RequestBody AuthenticateRequestDTO authenticateRequestDTO) {
+    public ResponseEntity<AuthenticateResponseDTO> login(@RequestBody AuthenticateRequestDTO authenticateRequestDTO, HttpServletResponse response) {
         try {
-            AuthenticateResponseDTO authenticateResponseDTO = authenticateService.login(authenticateRequestDTO);
+            DoubleTokenDTO doubleTokenDTO = authenticateService.login(authenticateRequestDTO);
+
+            ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", doubleTokenDTO.getRefreshToken())
+                    .httpOnly(true)
+                    .secure(true) // à false uniquement en dev sans HTTPS
+                    .path("/api/auth/refresh") // limiter l’envoi à ce endpoint
+                    .sameSite("Strict")
+                    .maxAge(Duration.ofDays(7))
+                    .build();
+
+            response.addHeader(HttpHeaders.SET_COOKIE, refreshCookie.toString());
+
             return ResponseEntity
                     .ok()
-                    .body(authenticateResponseDTO);
+                    .body(new AuthenticateResponseDTO(doubleTokenDTO.getAccessToken()));
         } catch (AuthenticationException ex) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
@@ -63,10 +71,10 @@ public class AuthenticateController {
     @PostMapping("/signup")
     public ResponseEntity<AuthenticateResponseDTO> signup(@RequestBody SignInRequestDTO signInRequestDTO) {
         try {
-            AuthenticateResponseDTO authenticateResponseDTO = authenticateService.signIn(signInRequestDTO.getEmail(), signInRequestDTO.getPassword(), signInRequestDTO.getPlayer());
+            DoubleTokenDTO doubleTokenDTO = authenticateService.signUp(signInRequestDTO.getEmail(), signInRequestDTO.getPassword(), signInRequestDTO.getPlayer());
             return ResponseEntity
                     .ok()
-                    .body(authenticateResponseDTO);
+                    .body(new AuthenticateResponseDTO(doubleTokenDTO.getAccessToken()));
         } catch (Exception e) {
             log.error(String.valueOf(e));
             return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).build();
@@ -74,9 +82,7 @@ public class AuthenticateController {
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<String> refreshToken(@RequestBody TokenRefreshRequestDTO tokenRequestDTO) {
-        String refreshToken = tokenRequestDTO.getRefreshToken();
-
+    public ResponseEntity<String> refreshToken(@CookieValue(value = "refreshToken", required = false) String refreshToken) {
         try {
             String newAccessToken = authenticateService.refreshAccessToken(refreshToken);
             return ResponseEntity
