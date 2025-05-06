@@ -38,8 +38,8 @@ public class AuthenticateController {
 
             ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", doubleTokenDTO.getRefreshToken())
                     .httpOnly(true)
-                    .secure(true) // à false uniquement en dev sans HTTPS
-                    .path("/api/auth/refresh") // limiter l’envoi à ce endpoint
+                    .secure(false) // à false uniquement en dev sans HTTPS
+                    .path("/api/authenticate/refresh-token") // limiter l’envoi à ce endpoint
                     .sameSite("Strict")
                     .maxAge(Duration.ofDays(7))
                     .build();
@@ -58,9 +58,9 @@ public class AuthenticateController {
 
     @SecurityRequirement(name = "bearerAuth")
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@RequestBody TokenRequestDTO tokenResponseDTO) {
+    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String bearerToken) {
         try {
-            String accessToken = tokenResponseDTO.getAccessToken();
+            String accessToken = bearerToken.replace("Bearer ", "");
             authenticateService.logout(accessToken);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
@@ -82,12 +82,12 @@ public class AuthenticateController {
     }
 
     @PostMapping("/refresh-token")
-    public ResponseEntity<String> refreshToken(@CookieValue(value = "refreshToken", required = false) String refreshToken) {
+    public ResponseEntity<AuthenticateResponseDTO> refreshToken(@CookieValue(value = "refreshToken", required = false) String refreshToken) {
         try {
             String newAccessToken = authenticateService.refreshAccessToken(refreshToken);
             return ResponseEntity
                     .ok()
-                    .body(newAccessToken);
+                    .body(new AuthenticateResponseDTO(newAccessToken));
         } catch (AuthenticationException ex) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         } catch (Exception ex) {
