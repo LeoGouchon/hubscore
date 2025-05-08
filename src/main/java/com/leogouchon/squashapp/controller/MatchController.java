@@ -95,6 +95,7 @@ public class MatchController {
             Optional<MatchResponseDTO> match = matchService.getMatchResponseDTO(createdMatch.getId());
             return match.map(m -> ResponseEntity.created(location).body(m)).orElseGet(() -> ResponseEntity.badRequest().build());
         } catch (RuntimeException e) {
+            e.printStackTrace();
             return ResponseEntity.badRequest().build();
         }
     }
