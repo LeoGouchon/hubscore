@@ -2,8 +2,11 @@ package com.leogouchon.squashapp.dto;
 
 import com.leogouchon.squashapp.model.Matches;
 import com.leogouchon.squashapp.model.Players;
+import com.leogouchon.squashapp.model.types.MatchPoint;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -11,7 +14,7 @@ public class MatchResponseDTO {
     private Long id;
     private Players playerA;
     private Players playerB;
-    private String pointsHistory;
+    private List<MatchPoint> pointsHistory;
     private int finalScoreA;
     private int finalScoreB;
     private boolean isFinished;

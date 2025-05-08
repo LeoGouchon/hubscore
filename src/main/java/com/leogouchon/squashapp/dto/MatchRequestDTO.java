@@ -1,22 +1,29 @@
 package com.leogouchon.squashapp.dto;
 
+import com.leogouchon.squashapp.enums.PlayerLetter;
+import com.leogouchon.squashapp.enums.ServiceSide;
+import com.leogouchon.squashapp.model.types.MatchPoint;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Schema(description = "Data Transfer Object for creating a match")
 public class MatchRequestDTO {
+
     @NotNull
     @Schema(description = "ID of player A")
     private Long playerAId;
     @NotNull
     @Schema(description = "ID of player B")
     private Long playerBId;
-    @Schema(description = "Points history of the match. The match need to be finished and respect the sport rules. The first letter A/B represent the player, the number the score BEFORE his service and L/R the service side", example = "A0L;B0R;A1R;B1R;A2R;A3L;A4R;A5L;A6R;A7L;A8R;A9L;A10R;A11", required = false)
-    private String pointsHistory;
+    @Schema(description = "Points history of the match. The match need to be finished and respect the sport rules.", example="[{\"server\":\"A\",\"receiver\":\"B\",\"serviceSide\":\"L\",\"scoreServer\":0,\"scoreReceiver\":0}]")
+    private List<MatchPoint> pointsHistory;
     @Schema(description = "Final score for player A if pointHistory is not specified", example = "11")
     private Integer finalScoreA;
     @Schema(description = "Final score for player B if pointHistory is not specified", example = "7")

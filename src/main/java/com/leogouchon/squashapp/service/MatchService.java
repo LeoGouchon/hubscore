@@ -3,6 +3,7 @@ package com.leogouchon.squashapp.service;
 import com.leogouchon.squashapp.dto.MatchResponseDTO;
 import com.leogouchon.squashapp.model.Matches;
 import com.leogouchon.squashapp.model.Players;
+import com.leogouchon.squashapp.model.types.MatchPoint;
 import com.leogouchon.squashapp.repository.MatchRepository;
 import com.leogouchon.squashapp.service.interfaces.IMatchService;
 import com.leogouchon.squashapp.service.interfaces.IPlayerService;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,14 +29,15 @@ public class MatchService implements IMatchService {
         this.playerService = playerService;
     }
 
-    public Matches createMatch(Long player1Id, Long player2Id, String pointsHistory, Integer finalScoreA, Integer finalScoreB) throws RuntimeException {
+    public Matches createMatch(Long player1Id, Long player2Id, List<MatchPoint> pointsHistory, Integer finalScoreA, Integer finalScoreB) throws RuntimeException {
         Optional<Players> playerA = playerService.getPlayer(player1Id);
         Optional<Players> playerB = playerService.getPlayer(player2Id);
         if (playerA.isEmpty() || playerB.isEmpty()) {
             throw new IllegalArgumentException("Given player(s) not found");
         } else {
+            // TODO : verify points history
             if (pointsHistory != null) {
-                Matches match = new Matches(playerA.get(), playerB.get(), pointsHistory);
+                Matches match = new Matches(playerA.get(), playerB.get(), pointsHistory, finalScoreA, finalScoreB);
                 return matchRepository.save(match);
             } else if (finalScoreA != null && finalScoreB != null) {
                 Matches match = new Matches(playerA.get(), playerB.get(), finalScoreA, finalScoreB);
