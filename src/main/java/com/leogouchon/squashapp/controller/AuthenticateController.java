@@ -38,8 +38,8 @@ public class AuthenticateController {
 
             ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", doubleTokenDTO.getRefreshToken())
                     .httpOnly(true)
-                    .secure(false) // à false uniquement en dev sans HTTPS
-                    .path("/api/authenticate/refresh-token") // limiter l’envoi à ce endpoint
+                    .secure(false) // TODO : make it prod / dev variable
+                    .path("/api/authenticate/refresh-token")
                     .sameSite("Strict")
                     .maxAge(Duration.ofDays(7))
                     .build();
@@ -58,10 +58,18 @@ public class AuthenticateController {
 
     @SecurityRequirement(name = "bearerAuth")
     @PostMapping("/logout")
-    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String bearerToken) {
+    public ResponseEntity<Void> logout(@RequestHeader("Authorization") String bearerToken, HttpServletResponse response) {
         try {
             String accessToken = bearerToken.replace("Bearer ", "");
             authenticateService.logout(accessToken);
+            ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", "")
+                    .maxAge(0)
+                    .path("/api/authenticate/refresh-token")
+                    .httpOnly(true)
+                    .secure(false) // TODO : make it prod / dev variable
+                    .sameSite("Strict")
+                    .build();
+            response.setHeader(HttpHeaders.SET_COOKIE, refreshCookie.toString());
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).build();

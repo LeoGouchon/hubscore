@@ -27,11 +27,11 @@ public class Matches {
     private Timestamp startTime;
     private Timestamp endTime;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "playerA_id", referencedColumnName = "id")
     private Players playerA;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "playerB_id", referencedColumnName = "id")
     private Players playerB;
 
