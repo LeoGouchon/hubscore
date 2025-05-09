@@ -16,5 +16,5 @@ public interface IAuthenticateService {
     Users getUserFromToken(String token);
     void logout(String token);
     String refreshAccessToken(String refreshToken) throws AuthenticationException;
-    DoubleTokenDTO signUp(String email, String password, Players player) throws AuthenticationException;
+    DoubleTokenDTO signUp(String email, String password) throws AuthenticationException;
 }

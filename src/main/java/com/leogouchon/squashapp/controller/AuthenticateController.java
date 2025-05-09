@@ -1,9 +1,10 @@
 package com.leogouchon.squashapp.controller;
 
-import com.leogouchon.squashapp.dto.*;
-import com.leogouchon.squashapp.model.Users;
+import com.leogouchon.squashapp.dto.AuthenticateRequestDTO;
+import com.leogouchon.squashapp.dto.AuthenticateResponseDTO;
+import com.leogouchon.squashapp.dto.DoubleTokenDTO;
+import com.leogouchon.squashapp.dto.SignInRequestDTO;
 import com.leogouchon.squashapp.service.interfaces.IAuthenticateService;
-import com.leogouchon.squashapp.service.interfaces.IUserService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
@@ -77,9 +78,18 @@ public class AuthenticateController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<AuthenticateResponseDTO> signup(@RequestBody SignInRequestDTO signInRequestDTO) {
+    public ResponseEntity<AuthenticateResponseDTO> signup(@RequestBody SignInRequestDTO signInRequestDTO, HttpServletResponse response) {
         try {
-            DoubleTokenDTO doubleTokenDTO = authenticateService.signUp(signInRequestDTO.getEmail(), signInRequestDTO.getPassword(), signInRequestDTO.getPlayer());
+            DoubleTokenDTO doubleTokenDTO = authenticateService.signUp(signInRequestDTO.getEmail(), signInRequestDTO.getPassword());
+            ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", doubleTokenDTO.getRefreshToken())
+                    .httpOnly(true)
+                    .secure(false) // TODO : make it prod / dev variable
+                    .path("/api/authenticate/refresh-token")
+                    .sameSite("Strict")
+                    .maxAge(Duration.ofDays(7))
+                    .build();
+
+            response.addHeader(HttpHeaders.SET_COOKIE, refreshCookie.toString());
             return ResponseEntity
                     .ok()
                     .body(new AuthenticateResponseDTO(doubleTokenDTO.getAccessToken()));

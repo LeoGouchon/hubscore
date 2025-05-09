@@ -1,6 +1,5 @@
 package com.leogouchon.squashapp.dto;
 
-import com.leogouchon.squashapp.model.Players;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,11 +8,9 @@ import lombok.Setter;
 public class SignInRequestDTO {
     private String email;
     private String password;
-    private Players player;
 
-    public SignInRequestDTO(String email, String password, Players player) {
+    public SignInRequestDTO(String email, String password) {
         this.email = email;
         this.password = password;
-        this.player = player;
     }
 }

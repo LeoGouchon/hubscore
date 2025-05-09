@@ -94,8 +94,8 @@ public class AuthenticateService implements IAuthenticateService {
     }
 
     @Override
-    public DoubleTokenDTO signUp(String email, String password, Players player) throws AuthenticationException {
-        Users user = userService.createUser(new Users(email, password, player));
+    public DoubleTokenDTO signUp(String email, String password) throws AuthenticationException {
+        Users user = userService.createUser(new Users(email, password));
         return login(new AuthenticateRequestDTO(user.getEmail(), password));
     }
 

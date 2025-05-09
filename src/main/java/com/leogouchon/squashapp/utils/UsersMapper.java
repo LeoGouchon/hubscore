@@ -15,6 +15,6 @@ public class UsersMapper {
     }
 
     public static SignInRequestDTO toSignInRequestDTO(Users user) {
-        return new SignInRequestDTO(user.getEmail(), user.getPassword(), user.getPlayer());
+        return new SignInRequestDTO(user.getEmail(), user.getPassword());
     }
 }
