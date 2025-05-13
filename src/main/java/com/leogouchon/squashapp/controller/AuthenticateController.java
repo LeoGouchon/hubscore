@@ -4,6 +4,7 @@ import com.leogouchon.squashapp.dto.AuthenticateRequestDTO;
 import com.leogouchon.squashapp.dto.AuthenticateResponseDTO;
 import com.leogouchon.squashapp.dto.DoubleTokenDTO;
 import com.leogouchon.squashapp.dto.SignInRequestDTO;
+import com.leogouchon.squashapp.model.InvitationToken;
 import com.leogouchon.squashapp.service.interfaces.IAuthenticateService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -78,9 +79,9 @@ public class AuthenticateController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<AuthenticateResponseDTO> signup(@RequestBody SignInRequestDTO signInRequestDTO, HttpServletResponse response) {
+    public ResponseEntity<AuthenticateResponseDTO> signup(@RequestBody SignInRequestDTO signInRequestDTO, @RequestParam String token, HttpServletResponse response) {
         try {
-            DoubleTokenDTO doubleTokenDTO = authenticateService.signUp(signInRequestDTO.getEmail(), signInRequestDTO.getPassword());
+            DoubleTokenDTO doubleTokenDTO = authenticateService.signUp(signInRequestDTO.getEmail(), signInRequestDTO.getPassword(), token);
             ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", doubleTokenDTO.getRefreshToken())
                     .httpOnly(true)
                     .secure(false) // TODO : make it prod / dev variable

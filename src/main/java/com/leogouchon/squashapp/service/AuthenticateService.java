@@ -2,10 +2,12 @@ package com.leogouchon.squashapp.service;
 
 import com.leogouchon.squashapp.dto.AuthenticateRequestDTO;
 import com.leogouchon.squashapp.dto.DoubleTokenDTO;
-import com.leogouchon.squashapp.model.Players;
+import com.leogouchon.squashapp.model.InvitationToken;
 import com.leogouchon.squashapp.model.RefreshToken;
 import com.leogouchon.squashapp.model.Users;
+import com.leogouchon.squashapp.repository.InvitationTokenRepository;
 import com.leogouchon.squashapp.repository.RefreshTokenRepository;
+import com.leogouchon.squashapp.repository.UserRepository;
 import com.leogouchon.squashapp.service.interfaces.IAuthenticateService;
 import com.leogouchon.squashapp.service.interfaces.IUserService;
 import io.jsonwebtoken.Claims;
@@ -16,7 +18,6 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -30,22 +31,29 @@ import java.util.UUID;
 
 @Service
 public class AuthenticateService implements IAuthenticateService {
+    private final IUserService userService;
+    private final RefreshTokenRepository refreshTokenRepository;
+    private final UserRepository userRepository;
+    private final InvitationTokenRepository invitationTokenRepository;
+    private final PasswordEncoder passwordEncoder;
     @Value("${jwt.secret}")
     private String jwtSecret;
-
     @Value("${jwt.expirationMs}")
     private long jwtExpirationMs;
 
-    private final IUserService userService;
-    private final RefreshTokenRepository refreshTokenRepository;
-
-    private final PasswordEncoder passwordEncoder;
-
     @Autowired
-    public AuthenticateService(IUserService userService, RefreshTokenRepository refreshTokenRepository, PasswordEncoder passwordEncoder) {
+    public AuthenticateService(
+            IUserService userService,
+            RefreshTokenRepository refreshTokenRepository,
+            PasswordEncoder passwordEncoder,
+            UserRepository usersRepository,
+            InvitationTokenRepository invitationTokenRepository
+    ) {
         this.refreshTokenRepository = refreshTokenRepository;
         this.userService = userService;
         this.passwordEncoder = passwordEncoder;
+        this.userRepository = usersRepository;
+        this.invitationTokenRepository = invitationTokenRepository;
     }
 
     @Override
@@ -94,8 +102,15 @@ public class AuthenticateService implements IAuthenticateService {
     }
 
     @Override
-    public DoubleTokenDTO signUp(String email, String password) throws AuthenticationException {
-        Users user = userService.createUser(new Users(email, password));
+    public DoubleTokenDTO signUp(String email, String password, String invitationToken) throws AuthenticationException {
+        InvitationToken invitation = invitationTokenRepository.findByToken(invitationToken);
+
+        if (invitation == null) throw new IllegalArgumentException("Invitation token not found");
+        if (invitation.isUsed() || invitation.getExpiryDate().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Token expired or already used");
+        }
+        Users user = userService.createUser(new Users(email, password, invitation.getPlayer()));
+
         return login(new AuthenticateRequestDTO(user.getEmail(), password));
     }
 
@@ -121,8 +136,8 @@ public class AuthenticateService implements IAuthenticateService {
                 .parseClaimsJws(token)
                 .getBody();
 
-        String email = claims.getSubject();
-        return userService.getUserByEmail(email);
+        String userId = claims.getSubject();
+        return userService.getUserById(Long.valueOf(userId));
     }
 
     @Override
@@ -146,5 +161,19 @@ public class AuthenticateService implements IAuthenticateService {
 
         Users user = token.getUser();
         return generateAccessToken(user);
+    }
+
+    @Override
+    public Users getCurrentUser(String accessToken) {
+        Claims claims = Jwts.parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(jwtSecret.getBytes(StandardCharsets.UTF_8)))
+                .build()
+                .parseClaimsJws(accessToken)
+                .getBody();
+
+        Long userId = Long.parseLong(claims.getSubject());
+
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
 }
