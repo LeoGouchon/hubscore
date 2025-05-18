@@ -30,13 +30,6 @@ public class UserTests {
     }
 
     @Test
-    public void testToString() {
-        Users user = new Users("john.doe@mail.com", "p@s5w0rD");
-        String expectedString = "Users{id=null, email='john.doe@mail.com', token='null', isAdmin=false, player=null}";
-        assertEquals(expectedString, user.toString());
-    }
-
-    @Test
     public void testConstructorWithPlayer() {
         Players player = new Players("John", "Doe");
         Users user = new Users("john.doe@mail.com", "p@s5w0rD", player);

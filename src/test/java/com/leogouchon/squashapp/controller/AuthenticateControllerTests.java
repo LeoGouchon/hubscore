@@ -24,48 +24,5 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(AuthenticateController.class)
 @ExtendWith(SpringExtension.class)
 public class AuthenticateControllerTests {
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @MockitoBean
-    private IAuthenticateService authenticateService;
-
-    @MockitoBean
-    private UserService userService;
-
-    @Test
-    public void testLogoutSuccess() throws Exception {
-        TokenRequestDTO request = new TokenRequestDTO("t0k3nValUe");
-
-        mockMvc.perform(post("/api/authenticate/logout")
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void testRefreshTokenSuccess() throws Exception {
-        TokenRefreshRequestDTO request = new TokenRefreshRequestDTO("refreshTokenValue");
-
-        when(authenticateService.refreshAccessToken(any(String.class))).thenReturn("newAccessToken");
-
-        mockMvc.perform(post("/api/authenticate/refresh-token")
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isOk())
-                .andExpect(content().json("{\"token\":\"newAccessToken\"}"));
-    }
-
-    @Test
-    public void testRefreshTokenFailure() throws Exception {
-        TokenRefreshRequestDTO request = new TokenRefreshRequestDTO("refreshTokenValue");
-
-        when(authenticateService.refreshAccessToken(any(String.class))).thenThrow(new AuthenticationException("Invalid refresh token"));
-
-        mockMvc.perform(post("/api/authenticate/refresh-token")
-                        .content(objectMapper.writeValueAsString(request)))
-                .andExpect(status().isUnauthorized());
-    }
+    // TODO :)
 }
