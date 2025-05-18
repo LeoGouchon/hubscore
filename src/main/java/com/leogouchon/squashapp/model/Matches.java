@@ -20,19 +20,24 @@ public class Matches {
     private Long id;
 
     @Convert(converter = PointListConverter.class)
-    @Column(columnDefinition = "TEXT")
+    @Column(columnDefinition = "TEXT", name = "points_history")
     private List<MatchPoint> pointsHistory;
+
+    @Column(name = "final_score_a")
     private Integer finalScoreA;
+    @Column(name = "final_score_b")
     private Integer finalScoreB;
+    @Column(name = "start_time")
     private Timestamp startTime;
+    @Column(name = "end_time")
     private Timestamp endTime;
 
     @ManyToOne
-    @JoinColumn(name = "playerA_id", referencedColumnName = "id")
+    @JoinColumn(name = "player_a_id", referencedColumnName = "id")
     private Players playerA;
 
     @ManyToOne
-    @JoinColumn(name = "playerB_id", referencedColumnName = "id")
+    @JoinColumn(name = "player_b_id", referencedColumnName = "id")
     private Players playerB;
 
     @Deprecated

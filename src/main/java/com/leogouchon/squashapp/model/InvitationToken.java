@@ -18,7 +18,9 @@ public class InvitationToken {
     @ManyToOne
     @JoinColumn(name = "player_id", referencedColumnName = "id")
     private Players player;
+    @Column(name = "expiry_date")
     private LocalDateTime expiryDate;
+    @Column(name = "is_used")
     private Boolean isUsed = false;
 
     public InvitationToken() {}

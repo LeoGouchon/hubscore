@@ -21,7 +21,7 @@ public class RefreshToken {
     @JoinColumn(name = "users_id", nullable = false)
     private Users user;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "expiry_date")
     private LocalDateTime expiryDate;
 
     private boolean revoked;

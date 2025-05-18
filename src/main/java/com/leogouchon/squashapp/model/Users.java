@@ -21,6 +21,7 @@ public class Users {
     @Column(nullable = false)
     private String password;
     @JsonIgnore
+    @Column(name = "is_admin")
     private Boolean isAdmin = false;
     @OneToOne
     @JoinColumn(name = "players_id", unique = true)
