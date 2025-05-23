@@ -28,7 +28,10 @@ public class SquashappApplication implements WebMvcConfigurer {
             registry.addMapping("/api/**")
                     .allowedOrigins(
                             "https://squash.leogouchon.com",
-                            "https://www.squash.leogouchon.com"
+                            "https://squash.leogouchon.com/",
+                            "https://www.squash.leogouchon.com",
+                            "https://www.squash.leogouchon.com/"
+
                     )
                     .allowedMethods("*")
                     .allowedHeaders("*")
