@@ -1,5 +1,6 @@
 package com.leogouchon.squashapp.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.leogouchon.squashapp.model.types.MatchPoint;
 import com.leogouchon.squashapp.utils.PointListConverter;
 import jakarta.persistence.*;
@@ -28,7 +29,9 @@ public class Matches {
     @Column(name = "final_score_b")
     private Integer finalScoreB;
     @Column(name = "start_time")
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     private Timestamp startTime;
+    @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     @Column(name = "end_time")
     private Timestamp endTime;
 
@@ -40,9 +43,7 @@ public class Matches {
     @JoinColumn(name = "player_b_id", referencedColumnName = "id")
     private Players playerB;
 
-    @Deprecated
-    protected Matches() {
-    }
+    protected Matches() {}
 
     public Matches(Players playerA, Players playerB) {
         if (playerA.equals(playerB)) {

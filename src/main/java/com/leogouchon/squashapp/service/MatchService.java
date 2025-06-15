@@ -7,13 +7,16 @@ import com.leogouchon.squashapp.model.types.MatchPoint;
 import com.leogouchon.squashapp.repository.MatchRepository;
 import com.leogouchon.squashapp.service.interfaces.IMatchService;
 import com.leogouchon.squashapp.service.interfaces.IPlayerService;
+import com.leogouchon.squashapp.specification.MatchSpecifications;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 
@@ -56,9 +59,11 @@ public class MatchService implements IMatchService {
         }
     }
 
-    public Page<Matches> getMatches(int page, int size) {
+    public Page<Matches> getMatches(int page, int size, List<Long> playerIds, Long date) {
+        Specification<Matches> filter = MatchSpecifications.withFilters(playerIds, date);
         Pageable pageable = PageRequest.of(page, size);
-        return matchRepository.findAll(pageable);
+
+        return matchRepository.findAll(filter, pageable);
     }
 
     public Optional<Matches> getMatch(Long id) {
@@ -68,5 +73,11 @@ public class MatchService implements IMatchService {
     public Optional<MatchResponseDTO> getMatchResponseDTO(Long id) {
         Optional<Matches> match = matchRepository.findById(id);
         return match.map(MatchResponseDTO::new);
+    }
+
+    public Page<Timestamp> getMatchesDates(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+
+        return matchRepository.getDates(pageable);
     }
 }

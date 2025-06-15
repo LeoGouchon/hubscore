@@ -21,6 +21,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.sql.Timestamp;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -48,9 +50,11 @@ public class MatchController {
     @GetMapping
     public ResponseEntity<PaginatedResponseDTO<Matches>> getMatches(
             @RequestParam(defaultValue = "0") @Min(0) int page,
-            @RequestParam(defaultValue = "10") @Min(1) @Max(50) int size
+            @RequestParam(defaultValue = "10") @Min(1) @Max(50) int size,
+            @RequestParam(name = "playerIds", required = false) List<Long> playerIds,
+            @RequestParam(name = "date", required = false) Long date
     ) {
-        Page<Matches> matchesPage = matchService.getMatches(page, size);
+        Page<Matches> matchesPage = matchService.getMatches(page, size, playerIds, date);
         PaginatedResponseDTO<Matches> response = new PaginatedResponseDTO<>(
                 matchesPage.getContent(),
                 matchesPage.getNumber(),
@@ -65,7 +69,7 @@ public class MatchController {
     @ApiResponse(responseCode = "200", description = "Match with given id found")
     @ApiResponse(responseCode = "404", description = "Match not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    @GetMapping("/{id}")
+    @GetMapping("/{id:[0-9]+}")
     public ResponseEntity<Matches> getMatch(@PathVariable Long id) {
         Optional<Matches> match = matchService.getMatch(id);
         return match.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -104,9 +108,32 @@ public class MatchController {
     @ApiResponse(responseCode = "204", description = "Match deleted successfully")
     @ApiResponse(responseCode = "404", description = "Match to delete not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{id:[0-9]+}")
     public ResponseEntity<Void> deleteMatch(@PathVariable Long id) {
         matchService.deleteMatch(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @SecurityRequirement(name = "bearerAuth")
+    @Operation(
+            summary = "Return matches date sessions",
+            description = "Return all matches dates from the database and also quick data about those sessions"
+    )
+    @ApiResponse(responseCode = "200", description = "Matches dates found")
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
+    @GetMapping("/sessions")
+    public ResponseEntity<PaginatedResponseDTO<Timestamp>> getMatchesDates(
+            @RequestParam(defaultValue = "0") @Min(0) int page,
+            @RequestParam(defaultValue = "10") @Min(1) @Max(50) int size
+    ) {
+        Page<Timestamp> matchesDatesPage = matchService.getMatchesDates(page, size);
+        PaginatedResponseDTO<Timestamp> response = new PaginatedResponseDTO<>(
+                matchesDatesPage.getContent(),
+                matchesDatesPage.getNumber(),
+                matchesDatesPage.getTotalPages(),
+                matchesDatesPage.getTotalElements(),
+                matchesDatesPage.getSize()
+        );
+        return ResponseEntity.ok(response);
     }
 }
