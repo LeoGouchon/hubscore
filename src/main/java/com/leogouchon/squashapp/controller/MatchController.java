@@ -1,5 +1,6 @@
 package com.leogouchon.squashapp.controller;
 
+import com.leogouchon.squashapp.dto.BatchSessionResponseDTO;
 import com.leogouchon.squashapp.dto.MatchRequestDTO;
 import com.leogouchon.squashapp.dto.MatchResponseDTO;
 import com.leogouchon.squashapp.dto.PaginatedResponseDTO;
@@ -122,12 +123,12 @@ public class MatchController {
     @ApiResponse(responseCode = "200", description = "Matches dates found")
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     @GetMapping("/sessions")
-    public ResponseEntity<PaginatedResponseDTO<Timestamp>> getMatchesDates(
+    public ResponseEntity<PaginatedResponseDTO<BatchSessionResponseDTO>> getMatchesDates(
             @RequestParam(defaultValue = "0") @Min(0) int page,
             @RequestParam(defaultValue = "10") @Min(1) @Max(50) int size
     ) {
-        Page<Timestamp> matchesDatesPage = matchService.getMatchesDates(page, size);
-        PaginatedResponseDTO<Timestamp> response = new PaginatedResponseDTO<>(
+        Page<BatchSessionResponseDTO> matchesDatesPage = matchService.getMatchesSessionsQuickStats(page, size);
+        PaginatedResponseDTO<BatchSessionResponseDTO> response = new PaginatedResponseDTO<>(
                 matchesDatesPage.getContent(),
                 matchesDatesPage.getNumber(),
                 matchesDatesPage.getTotalPages(),

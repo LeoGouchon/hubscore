@@ -1,4 +1,4 @@
-package com.leogouchon.squashapp.model.types;
+package com.leogouchon.squashapp.type;
 
 import com.leogouchon.squashapp.enums.PlayerLetter;
 import com.leogouchon.squashapp.enums.ServiceSide;

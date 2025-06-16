@@ -1,24 +1,28 @@
 package com.leogouchon.squashapp.service;
 
+import com.leogouchon.squashapp.dto.BatchSessionResponseDTO;
 import com.leogouchon.squashapp.dto.MatchResponseDTO;
 import com.leogouchon.squashapp.model.Matches;
 import com.leogouchon.squashapp.model.Players;
-import com.leogouchon.squashapp.model.types.MatchPoint;
+import com.leogouchon.squashapp.type.MatchPoint;
 import com.leogouchon.squashapp.repository.MatchRepository;
 import com.leogouchon.squashapp.service.interfaces.IMatchService;
 import com.leogouchon.squashapp.service.interfaces.IPlayerService;
 import com.leogouchon.squashapp.specification.MatchSpecifications;
+import com.leogouchon.squashapp.type.PlayerRank;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class MatchService implements IMatchService {
@@ -75,9 +79,46 @@ public class MatchService implements IMatchService {
         return match.map(MatchResponseDTO::new);
     }
 
-    public Page<Timestamp> getMatchesDates(int page, int size) {
+    public Page<BatchSessionResponseDTO> getMatchesSessionsQuickStats(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
 
-        return matchRepository.getDates(pageable);
+        List<Object[]> rawResults = matchRepository.getSessionsData(pageable);
+
+        Map<Long, List<Object[]>> groupedByDay = rawResults.stream()
+                .collect(Collectors.groupingBy(row -> (Long) row[0]));
+
+        List<BatchSessionResponseDTO> sessions = new ArrayList<>();
+
+        for (Map.Entry<Long, List<Object[]>> entry : groupedByDay.entrySet()) {
+            Long dayUnix = entry.getKey();
+            List<Object[]> rows = entry.getValue();
+
+            int matchCount = ((Number) rows.getFirst()[1]).intValue();
+
+            List<PlayerRank> ranks = rows.stream().map(row -> {
+                Players p = new Players();
+                p.setId(((Number) row[2]).longValue());
+                p.setFirstname((String) row[3]);
+
+                PlayerRank rank = new PlayerRank();
+                rank.setPlayer(p);
+                rank.setWins(((Number) row[4]).intValue());
+                rank.setLosses(((Number) row[5]).intValue());
+                rank.setTotalPointsScored(((Number) row[6]).intValue());
+                rank.setTotalPointsReceived(((Number) row[7]).intValue());
+                return rank;
+            }).toList();
+
+            BatchSessionResponseDTO dto = new BatchSessionResponseDTO();
+            dto.setDate(dayUnix);
+            dto.setMatchCount(matchCount);
+            dto.setRank(ranks.toArray(new PlayerRank[0]));
+
+            sessions.add(dto);
+        }
+
+        sessions.sort(Comparator.comparing(BatchSessionResponseDTO::getDate).reversed());
+
+        return new PageImpl<>(sessions, pageable, groupedByDay.size());
     }
 }

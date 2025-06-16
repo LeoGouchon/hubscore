@@ -19,8 +19,7 @@ public class Players {
     private String firstname;
     private String lastname;
 
-    @Deprecated
-    protected Players() {}
+    public Players() {}
 
     public Players(String firstname, String lastname) {
         this.firstname = Objects.requireNonNull(firstname, "Firstname must not be null");

@@ -1,6 +1,6 @@
 package com.leogouchon.squashapp.dto;
 
-import com.leogouchon.squashapp.model.types.MatchPoint;
+import com.leogouchon.squashapp.type.MatchPoint;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

@@ -2,7 +2,7 @@ package com.leogouchon.squashapp.dto;
 
 import com.leogouchon.squashapp.model.Matches;
 import com.leogouchon.squashapp.model.Players;
-import com.leogouchon.squashapp.model.types.MatchPoint;
+import com.leogouchon.squashapp.type.MatchPoint;
 import lombok.Getter;
 import lombok.Setter;
 

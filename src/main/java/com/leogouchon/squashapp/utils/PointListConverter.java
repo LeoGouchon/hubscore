@@ -2,7 +2,7 @@ package com.leogouchon.squashapp.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.leogouchon.squashapp.model.types.MatchPoint;
+import com.leogouchon.squashapp.type.MatchPoint;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

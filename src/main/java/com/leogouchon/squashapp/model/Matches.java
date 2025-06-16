@@ -1,7 +1,7 @@
 package com.leogouchon.squashapp.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.leogouchon.squashapp.model.types.MatchPoint;
+import com.leogouchon.squashapp.type.MatchPoint;
 import com.leogouchon.squashapp.utils.PointListConverter;
 import jakarta.persistence.*;
 import lombok.Getter;
