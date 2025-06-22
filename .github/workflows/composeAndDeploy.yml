@@ -49,3 +49,9 @@ jobs:
               -e DB_PASSWORD='${{ secrets.DB_PASSWORD }}' \
               -e JWT_SECRET='${{ secrets.JWT_SECRET }}' \
               ${{ secrets.DOCKERHUB_USERNAME }}/squashapp-backend:latest
+
+      - name: Ping the deployed API
+        run: |
+          echo "Waiting 30 seconds for the app to start..."
+          sleep 30
+          curl --fail --retry 5 --retry-delay 5 https://api.squash.leogouchon.com/api/ping
