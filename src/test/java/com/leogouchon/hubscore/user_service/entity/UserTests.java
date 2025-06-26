@@ -16,17 +16,13 @@ public class UserTests {
 
     @Test
     public void testConstructorWithNullEmail() {
-        Exception exception = assertThrows(NullPointerException.class, () -> {
-            new Users(null, "p@s5w0rD");
-        });
+        Exception exception = assertThrows(NullPointerException.class, () -> new Users(null, "p@s5w0rD"));
         assertEquals("Email must not be null", exception.getMessage());
     }
 
     @Test
     public void testConstructorWithNullPassword() {
-        Exception exception = assertThrows(NullPointerException.class, () -> {
-            new Users("john.doe@mail.com", null);
-        });
+        Exception exception = assertThrows(NullPointerException.class, () -> new Users("john.doe@mail.com", null));
         assertEquals("Password must not be null", exception.getMessage());
     }
 

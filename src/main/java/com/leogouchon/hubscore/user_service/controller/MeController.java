@@ -23,7 +23,7 @@ public class MeController {
     private final IAuthenticateService authenticateService;
 
     @Autowired
-    public MeController(IAuthenticateService authenticateService, UserRepository usersRepository) {
+    public MeController(IAuthenticateService authenticateService) {
         this.authenticateService = authenticateService;
     }
 

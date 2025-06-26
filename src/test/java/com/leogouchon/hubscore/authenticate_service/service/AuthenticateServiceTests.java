@@ -26,16 +26,6 @@ import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AuthenticateServiceTests {
-
-    @Mock
-    private UserService userService;
-
-    @Mock
-    private PasswordEncoder passwordEncoder;
-
-    @Mock
-    private UserRepository userRepository;
-
     @Mock
     private RefreshTokenRepository refreshTokenRepository;
 

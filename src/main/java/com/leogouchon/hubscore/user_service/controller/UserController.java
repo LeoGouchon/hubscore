@@ -68,7 +68,7 @@ public class UserController {
     @ApiResponse(responseCode = "400", description = "Bad request", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     public ResponseEntity<Users> createUser(@RequestBody Users users) {
-        if (!users.getEmail().matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
+        if (!users.getEmail().matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
             return ResponseEntity.badRequest().body(null);
         }
         Users createdUsers = userService.createUser(users);

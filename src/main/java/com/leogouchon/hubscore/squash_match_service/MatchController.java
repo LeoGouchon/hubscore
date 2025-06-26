@@ -1,4 +1,4 @@
-package com.leogouchon.hubscore.squash_match_service.controller;
+package com.leogouchon.hubscore.squash_match_service;
 
 import com.leogouchon.hubscore.squash_match_service.dto.BatchSessionResponseDTO;
 import com.leogouchon.hubscore.squash_match_service.dto.MatchRequestDTO;
