@@ -1,9 +1,11 @@
 package com.leogouchon.hubscore.service;
 
-import com.leogouchon.hubscore.model.RefreshToken;
-import com.leogouchon.hubscore.model.Users;
-import com.leogouchon.hubscore.repository.RefreshTokenRepository;
-import com.leogouchon.hubscore.repository.UserRepository;
+import com.leogouchon.hubscore.authenticate_service.entity.RefreshToken;
+import com.leogouchon.hubscore.authenticate_service.service.impl.AuthenticateService;
+import com.leogouchon.hubscore.user_service.entity.Users;
+import com.leogouchon.hubscore.authenticate_service.repository.RefreshTokenRepository;
+import com.leogouchon.hubscore.user_service.repository.UserRepository;
+import com.leogouchon.hubscore.user_service.service.impl.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

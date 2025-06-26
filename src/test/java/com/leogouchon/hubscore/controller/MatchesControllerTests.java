@@ -1,5 +1,6 @@
 package com.leogouchon.hubscore.controller;
 
+import com.leogouchon.hubscore.squash_match_service.controller.MatchController;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;

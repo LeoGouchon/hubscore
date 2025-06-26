@@ -1,5 +1,6 @@
 package com.leogouchon.hubscore.model;
 
+import com.leogouchon.hubscore.player_service.entity.Players;
 import org.junit.jupiter.api.Test;
 
 public class PlayerTests {
