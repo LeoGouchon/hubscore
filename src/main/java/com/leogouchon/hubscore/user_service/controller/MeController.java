@@ -40,4 +40,12 @@ public class MeController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
+
+
+    @Tag(name = "Health")
+    @Operation(summary = "Ping the server")
+    @GetMapping("/ping")
+    public ResponseEntity<String> ping() {
+        return ResponseEntity.ok("pong");
+    }
 }
