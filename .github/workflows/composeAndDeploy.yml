@@ -27,7 +27,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/squashapp-backend:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/HubScore:latest
 
       - name: Deploy to VPS via SSH
         uses: appleboy/ssh-action@v0.1.6
@@ -36,7 +36,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/squashapp-backend:latest
+            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/hubscore:latest
             docker stop spring-backend || true
             docker rm spring-backend || true
             docker run -d --name spring-backend -p 8080:8080 \
@@ -48,7 +48,7 @@ jobs:
               -e DB_USERNAME='${{ secrets.DB_USERNAME }}' \
               -e DB_PASSWORD='${{ secrets.DB_PASSWORD }}' \
               -e JWT_SECRET='${{ secrets.JWT_SECRET }}' \
-              ${{ secrets.DOCKERHUB_USERNAME }}/squashapp-backend:latest
+              ${{ secrets.DOCKERHUB_USERNAME }}/hubscore:latest
 
       - name: Ping the deployed API
         run: |
