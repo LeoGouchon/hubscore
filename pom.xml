@@ -10,8 +10,9 @@
     </parent>
     <groupId>com.leogouchon</groupId>
     <artifactId>hubscore</artifactId>
-    <version>0.1.0-</version>
+    <version>0.1.0</version>
     <name>hubscore</name>
+
     <description>REST API to save and retrieve score from different activities (squash, kicker)</description>
     <url/>
     <licenses>
@@ -166,6 +167,7 @@
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>${project.artifactId}</finalName>
     </build>
 
 </project>

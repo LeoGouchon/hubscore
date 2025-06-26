@@ -7,7 +7,7 @@ RUN mvn clean package -DskipTests
 # Étape 2 : Image d'exécution avec Java 21 JDK
 FROM eclipse-temurin:21-jdk
 WORKDIR /app
-COPY --from=build /app/target/squashapp-0.0.1-SNAPSHOT.jar app.jar
+COPY --from=build /app/target/hubscore.jar app.jar
 
 # Port utilisé par Render (sera mappé dynamiquement)
 EXPOSE 8080
