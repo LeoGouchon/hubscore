@@ -1,4 +1,4 @@
-package com.leogouchon.hubscore.controller;
+package com.leogouchon.hubscore.squash_match_service.controller;
 
 import com.leogouchon.hubscore.squash_match_service.controller.MatchController;
 import org.junit.jupiter.api.extension.ExtendWith;

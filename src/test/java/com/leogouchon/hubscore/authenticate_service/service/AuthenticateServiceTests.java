@@ -1,4 +1,4 @@
-package com.leogouchon.hubscore.service;
+package com.leogouchon.hubscore.authenticate_service.service;
 
 import com.leogouchon.hubscore.authenticate_service.entity.RefreshToken;
 import com.leogouchon.hubscore.authenticate_service.service.impl.AuthenticateService;

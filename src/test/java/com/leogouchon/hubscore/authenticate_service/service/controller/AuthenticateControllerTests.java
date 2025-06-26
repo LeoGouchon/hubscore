@@ -1,4 +1,4 @@
-package com.leogouchon.hubscore.controller;
+package com.leogouchon.hubscore.authenticate_service.service.controller;
 
 import com.leogouchon.hubscore.authenticate_service.controller.AuthenticateController;
 import org.junit.jupiter.api.extension.ExtendWith;
