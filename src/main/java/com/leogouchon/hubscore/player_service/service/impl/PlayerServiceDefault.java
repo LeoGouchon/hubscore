@@ -2,7 +2,7 @@ package com.leogouchon.hubscore.player_service.service.impl;
 
 import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.player_service.repository.PlayerRepository;
-import com.leogouchon.hubscore.player_service.service.IPlayerService;
+import com.leogouchon.hubscore.player_service.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class PlayerService implements IPlayerService {
+public class PlayerServiceDefault implements PlayerService {
 
     private final PlayerRepository playerRepository;
 
     @Autowired
-    public PlayerService(
+    public PlayerServiceDefault(
             PlayerRepository playerRepository
     ) {
         this.playerRepository = playerRepository;

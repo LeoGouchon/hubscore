@@ -1,6 +1,6 @@
 package com.leogouchon.hubscore.common.security;
 
-import com.leogouchon.hubscore.authenticate_service.service.IAuthenticateService;
+import com.leogouchon.hubscore.authenticate_service.service.AuthenticateService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jetbrains.annotations.NotNull;
@@ -13,10 +13,10 @@ import java.io.IOException;
 @Component
 public class AuthorizationInterceptor implements HandlerInterceptor {
 
-    private final IAuthenticateService authenticateService;
+    private final AuthenticateService authenticateService;
 
     @Autowired
-    public AuthorizationInterceptor(IAuthenticateService authenticateService) {
+    public AuthorizationInterceptor(AuthenticateService authenticateService) {
         this.authenticateService = authenticateService;
     }
 

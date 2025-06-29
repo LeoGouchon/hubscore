@@ -6,7 +6,7 @@ import com.leogouchon.hubscore.user_service.entity.Users;
 
 import javax.naming.AuthenticationException;
 
-public interface IAuthenticateService {
+public interface AuthenticateService {
     DoubleTokenDTO login(AuthenticateRequestDTO authenticateRequestDTO) throws AuthenticationException;
     String generateAccessToken(Users user);
     String generateAndSaveRefreshToken(Users user);

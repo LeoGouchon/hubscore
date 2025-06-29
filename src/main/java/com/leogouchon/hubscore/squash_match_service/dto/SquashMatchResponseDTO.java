@@ -1,6 +1,6 @@
 package com.leogouchon.hubscore.squash_match_service.dto;
 
-import com.leogouchon.hubscore.squash_match_service.entity.Matches;
+import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.common.type.MatchPoint;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class MatchResponseDTO {
+public class SquashMatchResponseDTO {
     private Long id;
     private Players playerA;
     private Players playerB;
@@ -19,7 +19,7 @@ public class MatchResponseDTO {
     private int finalScoreB;
     private boolean isFinished;
 
-    public MatchResponseDTO(Matches match) {
+    public SquashMatchResponseDTO(SquashMatches match) {
         this.id = match.getId();
         this.playerA = match.getPlayerA();
         this.playerB = match.getPlayerB();

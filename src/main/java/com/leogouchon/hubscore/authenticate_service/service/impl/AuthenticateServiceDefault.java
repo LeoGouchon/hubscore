@@ -8,8 +8,8 @@ import com.leogouchon.hubscore.user_service.entity.Users;
 import com.leogouchon.hubscore.authenticate_service.repository.InvitationTokenRepository;
 import com.leogouchon.hubscore.authenticate_service.repository.RefreshTokenRepository;
 import com.leogouchon.hubscore.user_service.repository.UserRepository;
-import com.leogouchon.hubscore.authenticate_service.service.IAuthenticateService;
-import com.leogouchon.hubscore.user_service.service.IUserService;
+import com.leogouchon.hubscore.authenticate_service.service.AuthenticateService;
+import com.leogouchon.hubscore.user_service.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
@@ -30,8 +30,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class AuthenticateService implements IAuthenticateService {
-    private final IUserService userService;
+public class AuthenticateServiceDefault implements AuthenticateService {
+    private final UserService userService;
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserRepository userRepository;
     private final InvitationTokenRepository invitationTokenRepository;
@@ -42,8 +42,8 @@ public class AuthenticateService implements IAuthenticateService {
     private long jwtExpirationMs;
 
     @Autowired
-    public AuthenticateService(
-            IUserService userService,
+    public AuthenticateServiceDefault(
+            UserService userService,
             RefreshTokenRepository refreshTokenRepository,
             PasswordEncoder passwordEncoder,
             UserRepository usersRepository,

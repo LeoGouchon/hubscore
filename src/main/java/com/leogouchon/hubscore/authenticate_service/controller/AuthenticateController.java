@@ -4,7 +4,7 @@ import com.leogouchon.hubscore.authenticate_service.dto.AuthenticateRequestDTO;
 import com.leogouchon.hubscore.authenticate_service.dto.AuthenticateResponseDTO;
 import com.leogouchon.hubscore.authenticate_service.dto.DoubleTokenDTO;
 import com.leogouchon.hubscore.authenticate_service.dto.SignInRequestDTO;
-import com.leogouchon.hubscore.authenticate_service.service.IAuthenticateService;
+import com.leogouchon.hubscore.authenticate_service.service.AuthenticateService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,11 +24,11 @@ import java.time.Duration;
 @RequestMapping("/api/authenticate")
 @Tag(name = "Authentication")
 public class AuthenticateController {
-    private final IAuthenticateService authenticateService;
+    private final AuthenticateService authenticateService;
 
     @Autowired
     public AuthenticateController(
-            IAuthenticateService authenticateService) {
+            AuthenticateService authenticateService) {
         this.authenticateService = authenticateService;
     }
 

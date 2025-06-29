@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @Setter
 @Schema(description = "Data Transfer Object for creating a match")
-public class MatchRequestDTO {
+public class SquashMatchRequestDTO {
 
     @NotNull
     @Schema(description = "ID of player A")

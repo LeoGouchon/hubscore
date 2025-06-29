@@ -2,7 +2,7 @@ package com.leogouchon.hubscore.player_service.controller;
 
 import com.leogouchon.hubscore.common.dto.PaginatedResponseDTO;
 import com.leogouchon.hubscore.player_service.entity.Players;
-import com.leogouchon.hubscore.player_service.service.IPlayerService;
+import com.leogouchon.hubscore.player_service.service.PlayerService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -21,16 +21,17 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+
 @RequestMapping(
-        value = "/api/players")
+        value = "/api/v1/players")
 @Tag(name = "Player")
 @Validated
-public class PlayerController {
+public class PlayerControllerV1 {
 
-    private final IPlayerService playerService;
+    private final PlayerService playerService;
 
     @Autowired
-    public PlayerController(IPlayerService playerService) {
+    public PlayerControllerV1(PlayerService playerService) {
         this.playerService = playerService;
     }
 

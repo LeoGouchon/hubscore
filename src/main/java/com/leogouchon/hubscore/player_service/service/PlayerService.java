@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 import java.util.Optional;
 
-public interface IPlayerService {
+public interface PlayerService {
     Page<Players> getPlayers(int page, int size);
     Optional<Players> getPlayer(Long id);
     Players createPlayer(Players player);

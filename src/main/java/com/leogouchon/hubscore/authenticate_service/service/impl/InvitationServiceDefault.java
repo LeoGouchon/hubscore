@@ -5,8 +5,8 @@ import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.user_service.entity.Users;
 import com.leogouchon.hubscore.authenticate_service.repository.InvitationTokenRepository;
 import com.leogouchon.hubscore.player_service.repository.PlayerRepository;
-import com.leogouchon.hubscore.authenticate_service.service.IAuthenticateService;
-import com.leogouchon.hubscore.authenticate_service.service.IInvitationService;
+import com.leogouchon.hubscore.authenticate_service.service.AuthenticateService;
+import com.leogouchon.hubscore.authenticate_service.service.InvitationService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,17 +16,17 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-public class InvitationService implements IInvitationService {
+public class InvitationServiceDefault implements InvitationService {
 
     private final PlayerRepository playerRepository;
     private final InvitationTokenRepository invitationTokenRepository;
-    private final IAuthenticateService authenticateService;
+    private final AuthenticateService authenticateService;
 
     @Autowired
-    public InvitationService(
+    public InvitationServiceDefault(
             PlayerRepository playerRepository,
             InvitationTokenRepository invitationTokenRepository,
-            IAuthenticateService authenticateService
+            AuthenticateService authenticateService
     ) {
         this.playerRepository = playerRepository;
         this.invitationTokenRepository = invitationTokenRepository;

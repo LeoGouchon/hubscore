@@ -1,6 +1,6 @@
 package com.leogouchon.hubscore.squash_match_service.specification;
 
-import com.leogouchon.hubscore.squash_match_service.entity.Matches;
+import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import org.springframework.data.jpa.domain.Specification;
 import jakarta.persistence.criteria.*;
 
@@ -11,11 +11,11 @@ import java.util.List;
 public class MatchSpecifications {
     private MatchSpecifications() {}
 
-    public static Specification<Matches> withFilters(
+    public static Specification<SquashMatches> withFilters(
             List<Long> playerIds,
             Long date
     ) {
-        return (Root<Matches> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
+        return (Root<SquashMatches> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
             Predicate predicate = cb.conjunction();
 
             if (playerIds != null && !playerIds.isEmpty()) {

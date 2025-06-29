@@ -1,6 +1,6 @@
 package com.leogouchon.hubscore.squash_match_service.repository;
 
-import com.leogouchon.hubscore.squash_match_service.entity.Matches;
+import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MatchRepository extends JpaRepository<Matches, Long>, JpaSpecificationExecutor<Matches> {
+public interface SquashMatchRepository extends JpaRepository<SquashMatches, Long>, JpaSpecificationExecutor<SquashMatches> {
 
     @Query(
             value = """

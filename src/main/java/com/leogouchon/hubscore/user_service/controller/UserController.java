@@ -3,7 +3,7 @@ package com.leogouchon.hubscore.user_service.controller;
 import com.leogouchon.hubscore.common.dto.PaginatedResponseDTO;
 import com.leogouchon.hubscore.user_service.dto.UserResponseDTO;
 import com.leogouchon.hubscore.user_service.entity.Users;
-import com.leogouchon.hubscore.user_service.service.IUserService;
+import com.leogouchon.hubscore.user_service.service.UserService;
 import com.leogouchon.hubscore.user_service.utils.UsersMapper;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -28,10 +28,10 @@ import java.util.Optional;
 @Validated
 public class UserController {
 
-    private final IUserService userService;
+    private final UserService userService;
 
     @Autowired
-    public UserController(IUserService userService) {
+    public UserController(UserService userService) {
         this.userService = userService;
     }
 

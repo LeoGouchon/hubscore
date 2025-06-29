@@ -1,18 +1,15 @@
 package com.leogouchon.hubscore.authenticate_service.service;
 
 import com.leogouchon.hubscore.authenticate_service.entity.RefreshToken;
-import com.leogouchon.hubscore.authenticate_service.service.impl.AuthenticateService;
+import com.leogouchon.hubscore.authenticate_service.service.impl.AuthenticateServiceDefault;
 import com.leogouchon.hubscore.user_service.entity.Users;
 import com.leogouchon.hubscore.authenticate_service.repository.RefreshTokenRepository;
-import com.leogouchon.hubscore.user_service.repository.UserRepository;
-import com.leogouchon.hubscore.user_service.service.impl.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.naming.AuthenticationException;
 
@@ -31,7 +28,7 @@ public class AuthenticateServiceTests {
 
     @Spy
     @InjectMocks
-    private AuthenticateService authenticateService;
+    private AuthenticateServiceDefault authenticateService;
 
     @Test
     public void testRefreshTokenFailure() {

@@ -1,13 +1,13 @@
 package com.leogouchon.hubscore.squash_match_service.service.impl;
 
 import com.leogouchon.hubscore.squash_match_service.dto.BatchSessionResponseDTO;
-import com.leogouchon.hubscore.squash_match_service.dto.MatchResponseDTO;
-import com.leogouchon.hubscore.squash_match_service.entity.Matches;
+import com.leogouchon.hubscore.squash_match_service.dto.SquashMatchResponseDTO;
+import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.common.type.MatchPoint;
-import com.leogouchon.hubscore.squash_match_service.repository.MatchRepository;
-import com.leogouchon.hubscore.squash_match_service.service.IMatchService;
-import com.leogouchon.hubscore.player_service.service.IPlayerService;
+import com.leogouchon.hubscore.squash_match_service.repository.SquashMatchRepository;
+import com.leogouchon.hubscore.squash_match_service.service.SquashMatchService;
+import com.leogouchon.hubscore.player_service.service.PlayerService;
 import com.leogouchon.hubscore.squash_match_service.specification.MatchSpecifications;
 import com.leogouchon.hubscore.common.type.PlayerRank;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,18 +23,18 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
-public class MatchService implements IMatchService {
+public class SquashMatchServiceDefault implements SquashMatchService {
 
-    private final MatchRepository matchRepository;
-    private final IPlayerService playerService;
+    private final SquashMatchRepository matchRepository;
+    private final PlayerService playerService;
 
     @Autowired
-    public MatchService(MatchRepository matchRepository, IPlayerService playerService) {
+    public SquashMatchServiceDefault(SquashMatchRepository matchRepository, PlayerService playerService) {
         this.matchRepository = matchRepository;
         this.playerService = playerService;
     }
 
-    public Matches createMatch(Long player1Id, Long player2Id, List<MatchPoint> pointsHistory, Integer finalScoreA, Integer finalScoreB) throws RuntimeException {
+    public SquashMatches createMatch(Long player1Id, Long player2Id, List<MatchPoint> pointsHistory, Integer finalScoreA, Integer finalScoreB) throws RuntimeException {
         Optional<Players> playerA = playerService.getPlayer(player1Id);
         Optional<Players> playerB = playerService.getPlayer(player2Id);
         if (playerA.isEmpty() || playerB.isEmpty()) {
@@ -42,10 +42,10 @@ public class MatchService implements IMatchService {
         } else {
             // TODO : verify points history
             if (pointsHistory != null) {
-                Matches match = new Matches(playerA.get(), playerB.get(), pointsHistory, finalScoreA, finalScoreB);
+                SquashMatches match = new SquashMatches(playerA.get(), playerB.get(), pointsHistory, finalScoreA, finalScoreB);
                 return matchRepository.save(match);
             } else if (finalScoreA != null && finalScoreB != null) {
-                Matches match = new Matches(playerA.get(), playerB.get(), finalScoreA, finalScoreB);
+                SquashMatches match = new SquashMatches(playerA.get(), playerB.get(), finalScoreA, finalScoreB);
                 return matchRepository.save(match);
             } else {
                 throw new IllegalArgumentException("Invalid parameters");
@@ -61,20 +61,20 @@ public class MatchService implements IMatchService {
         }
     }
 
-    public Page<Matches> getMatches(int page, int size, List<Long> playerIds, Long date) {
-        Specification<Matches> filter = MatchSpecifications.withFilters(playerIds, date);
+    public Page<SquashMatches> getMatches(int page, int size, List<Long> playerIds, Long date) {
+        Specification<SquashMatches> filter = MatchSpecifications.withFilters(playerIds, date);
         Pageable pageable = PageRequest.of(page, size);
 
         return matchRepository.findAll(filter, pageable);
     }
 
-    public Optional<Matches> getMatch(Long id) {
+    public Optional<SquashMatches> getMatch(Long id) {
         return matchRepository.findById(id);
     }
 
-    public Optional<MatchResponseDTO> getMatchResponseDTO(Long id) {
-        Optional<Matches> match = matchRepository.findById(id);
-        return match.map(MatchResponseDTO::new);
+    public Optional<SquashMatchResponseDTO> getMatchResponseDTO(Long id) {
+        Optional<SquashMatches> match = matchRepository.findById(id);
+        return match.map(SquashMatchResponseDTO::new);
     }
 
     public Page<BatchSessionResponseDTO> getMatchesSessionsQuickStats(int page, int size) {

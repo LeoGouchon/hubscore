@@ -14,8 +14,8 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
-@Table(name = "matches")
-public class Matches {
+@Table(name = "squash_matches")
+public class SquashMatches {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,9 +44,9 @@ public class Matches {
     @JoinColumn(name = "player_b_id", referencedColumnName = "id")
     private Players playerB;
 
-    protected Matches() {}
+    protected SquashMatches() {}
 
-    public Matches(Players playerA, Players playerB) {
+    public SquashMatches(Players playerA, Players playerB) {
         if (playerA.equals(playerB)) {
             throw new IllegalArgumentException("Players must be different");
         }
@@ -55,7 +55,7 @@ public class Matches {
         this.startTime = new Timestamp(System.currentTimeMillis());
     }
 
-    public Matches(Players playerA, Players playerB, Integer finalScoreA, Integer finalScoreB) {
+    public SquashMatches(Players playerA, Players playerB, Integer finalScoreA, Integer finalScoreB) {
         this(playerA, playerB);
         this.finalScoreA = finalScoreA;
         this.finalScoreB = finalScoreB;
@@ -64,7 +64,7 @@ public class Matches {
         }
     }
 
-    public Matches(Players playerA, Players playerB, List<MatchPoint> pointsHistory, Integer finalScoreA, Integer finalScoreB) {
+    public SquashMatches(Players playerA, Players playerB, List<MatchPoint> pointsHistory, Integer finalScoreA, Integer finalScoreB) {
         this(playerA, playerB);
         this.finalScoreA = finalScoreA;
         this.finalScoreB = finalScoreB;

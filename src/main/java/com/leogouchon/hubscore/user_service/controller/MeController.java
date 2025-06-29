@@ -2,8 +2,7 @@ package com.leogouchon.hubscore.user_service.controller;
 
 import com.leogouchon.hubscore.user_service.dto.MeResponseDTO;
 import com.leogouchon.hubscore.user_service.entity.Users;
-import com.leogouchon.hubscore.user_service.repository.UserRepository;
-import com.leogouchon.hubscore.authenticate_service.service.IAuthenticateService;
+import com.leogouchon.hubscore.authenticate_service.service.AuthenticateService;
 import com.leogouchon.hubscore.user_service.utils.UsersMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -20,10 +19,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class MeController {
 
-    private final IAuthenticateService authenticateService;
+    private final AuthenticateService authenticateService;
 
     @Autowired
-    public MeController(IAuthenticateService authenticateService) {
+    public MeController(AuthenticateService authenticateService) {
         this.authenticateService = authenticateService;
     }
 

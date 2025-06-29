@@ -1,11 +1,11 @@
-package com.leogouchon.hubscore.squash_match_service;
+package com.leogouchon.hubscore.squash_match_service.controller;
 
 import com.leogouchon.hubscore.squash_match_service.dto.BatchSessionResponseDTO;
-import com.leogouchon.hubscore.squash_match_service.dto.MatchRequestDTO;
-import com.leogouchon.hubscore.squash_match_service.dto.MatchResponseDTO;
+import com.leogouchon.hubscore.squash_match_service.dto.SquashMatchRequestDTO;
+import com.leogouchon.hubscore.squash_match_service.dto.SquashMatchResponseDTO;
 import com.leogouchon.hubscore.common.dto.PaginatedResponseDTO;
-import com.leogouchon.hubscore.squash_match_service.entity.Matches;
-import com.leogouchon.hubscore.squash_match_service.service.IMatchService;
+import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
+import com.leogouchon.hubscore.squash_match_service.service.SquashMatchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -26,15 +26,16 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
+@Deprecated(since="2.0.0", forRemoval=true)
 @RequestMapping(value = "/api/matches")
 @Tag(name = "Match")
 @Validated
-public class MatchController {
+public class SquashMatchControllerDefaultVersion {
 
-    private final IMatchService matchService;
+    private final SquashMatchService matchService;
 
     @Autowired
-    public MatchController(IMatchService matchService) {
+    public SquashMatchControllerDefaultVersion(SquashMatchService matchService) {
         this.matchService = matchService;
     }
 
@@ -48,14 +49,14 @@ public class MatchController {
             }
     )
     @GetMapping
-    public ResponseEntity<PaginatedResponseDTO<Matches>> getMatches(
+    public ResponseEntity<PaginatedResponseDTO<SquashMatches>> getMatches(
             @RequestParam(defaultValue = "0") @Min(0) int page,
             @RequestParam(defaultValue = "10") @Min(1) @Max(50) int size,
             @RequestParam(name = "playerIds", required = false) List<Long> playerIds,
             @RequestParam(name = "date", required = false) Long date
     ) {
-        Page<Matches> matchesPage = matchService.getMatches(page, size, playerIds, date);
-        PaginatedResponseDTO<Matches> response = new PaginatedResponseDTO<>(
+        Page<SquashMatches> matchesPage = matchService.getMatches(page, size, playerIds, date);
+        PaginatedResponseDTO<SquashMatches> response = new PaginatedResponseDTO<>(
                 matchesPage.getContent(),
                 matchesPage.getNumber(),
                 matchesPage.getTotalPages(),
@@ -70,8 +71,8 @@ public class MatchController {
     @ApiResponse(responseCode = "404", description = "Match not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     @GetMapping("/{id:[0-9]+}")
-    public ResponseEntity<Matches> getMatch(@PathVariable Long id) {
-        Optional<Matches> match = matchService.getMatch(id);
+    public ResponseEntity<SquashMatches> getMatch(@PathVariable Long id) {
+        Optional<SquashMatches> match = matchService.getMatch(id);
         return match.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -86,9 +87,9 @@ public class MatchController {
             }
     )
     @PostMapping
-    public ResponseEntity<MatchResponseDTO> createMatch(@Valid @RequestBody MatchRequestDTO matchRequest) {
+    public ResponseEntity<SquashMatchResponseDTO> createMatch(@Valid @RequestBody SquashMatchRequestDTO matchRequest) {
         try {
-            Matches createdMatch = matchService.createMatch(
+            SquashMatches createdMatch = matchService.createMatch(
                     matchRequest.getPlayerAId(),
                     matchRequest.getPlayerBId(),
                     matchRequest.getPointsHistory(),
@@ -96,7 +97,7 @@ public class MatchController {
                     matchRequest.getFinalScoreB()
             );
             URI location = URI.create("/api/matches/" + createdMatch.getId());
-            Optional<MatchResponseDTO> match = matchService.getMatchResponseDTO(createdMatch.getId());
+            Optional<SquashMatchResponseDTO> match = matchService.getMatchResponseDTO(createdMatch.getId());
             return match.map(m -> ResponseEntity.created(location).body(m)).orElseGet(() -> ResponseEntity.badRequest().build());
         } catch (RuntimeException e) {
             e.printStackTrace();

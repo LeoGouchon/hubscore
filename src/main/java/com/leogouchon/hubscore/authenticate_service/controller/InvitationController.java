@@ -1,7 +1,7 @@
 package com.leogouchon.hubscore.authenticate_service.controller;
 
 import com.leogouchon.hubscore.authenticate_service.dto.InvitationResponseDTO;
-import com.leogouchon.hubscore.authenticate_service.service.IInvitationService;
+import com.leogouchon.hubscore.authenticate_service.service.InvitationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Invitation")
 public class InvitationController {
 
-    private final IInvitationService invitationService;
+    private final InvitationService invitationService;
 
     @Autowired
-    public InvitationController(IInvitationService invitationService) {
+    public InvitationController(InvitationService invitationService) {
         this.invitationService = invitationService;
     }
 

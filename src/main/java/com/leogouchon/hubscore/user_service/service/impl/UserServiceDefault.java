@@ -2,7 +2,7 @@ package com.leogouchon.hubscore.user_service.service.impl;
 
 import com.leogouchon.hubscore.user_service.entity.Users;
 import com.leogouchon.hubscore.user_service.repository.UserRepository;
-import com.leogouchon.hubscore.user_service.service.IUserService;
+import com.leogouchon.hubscore.user_service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,13 +11,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserService implements IUserService {
+public class UserServiceDefault implements UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceDefault(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
