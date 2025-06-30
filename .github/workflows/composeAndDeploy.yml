@@ -39,7 +39,7 @@ jobs:
             docker pull ${{ secrets.DOCKERHUB_USERNAME }}/hubscore:latest
             docker stop spring-backend || true
             docker rm spring-backend || true
-            docker run -d --name spring-backend -p 8080:8080 \
+            docker run -d --name spring-backend -p 127.0.0.1:8080:8080 \
               -e SPRING_PROFILES_ACTIVE=prod \
               -e FLYWAY_DB_URL='${{ secrets.FLYWAY_DB_URL }}' \
               -e FLYWAY_DB_USER='${{ secrets.FLYWAY_DB_USER }}' \
