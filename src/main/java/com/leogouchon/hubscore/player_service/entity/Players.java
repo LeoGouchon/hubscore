@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Objects;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -13,8 +14,9 @@ import java.util.Objects;
 public class Players {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @Column(columnDefinition = "UUID", updatable = false, nullable = false)
+    private UUID id;
 
     private String firstname;
     private String lastname;

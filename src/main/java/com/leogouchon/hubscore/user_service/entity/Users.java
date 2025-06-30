@@ -10,14 +10,16 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 
 @Getter
 @Setter
 @Entity
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @Column(columnDefinition = "UUID", updatable = false, nullable = false)
+    private UUID id;
     @Column(unique = true, nullable = false)
     private String email;
     @Column(nullable = false)

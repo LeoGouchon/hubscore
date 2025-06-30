@@ -7,11 +7,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class SquashMatchResponseDTO {
-    private Long id;
+    private UUID id;
     private Players playerA;
     private Players playerB;
     private List<MatchPoint> pointsHistory;

@@ -6,11 +6,12 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface KickerMatchService {
-    KickerMatches createMatch(Long player1TeamAId, Long player2TeamAId, Long player1TeamBId, Long player2TeamBId, Integer finalScoreA, Integer finalScoreB);
-    void deleteMatch(Long id);
-    Page<KickerMatches> getMatches(int page, int size, List<Long> playerIds, Long date);
-    Optional<KickerMatches> getMatch(Long id);
-    Optional<KickerMatchResponseDTO> getMatchResponseDTO(Long id);
+    KickerMatches createMatch(UUID player1TeamAId, UUID player2TeamAId, UUID player1TeamBId, UUID player2TeamBId, Integer finalScoreA, Integer finalScoreB);
+    void deleteMatch(UUID id);
+    Page<KickerMatches> getMatches(int page, int size, List<UUID> playerIds, Long date);
+    Optional<KickerMatches> getMatch(UUID id);
+    Optional<KickerMatchResponseDTO> getMatchResponseDTO(UUID id);
 }

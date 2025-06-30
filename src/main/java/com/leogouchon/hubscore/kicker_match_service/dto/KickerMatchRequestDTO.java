@@ -5,20 +5,22 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Getter
 @Setter
 @Schema(description = "Data Transfer Object for creating a match")
 public class KickerMatchRequestDTO {
     @NotNull
     @Schema(description = "ID of first player of team A")
-    private Long player1TeamAId;
+    private UUID player1TeamAId;
     @Schema(description = "ID of second player of team A (can be null)")
-    private Long player2TeamAId;
+    private UUID player2TeamAId;
     @NotNull
     @Schema(description = "ID of first player of team B")
-    private Long player1TeamBId;
+    private UUID player1TeamBId;
     @Schema(description = "ID of second player of team B (can be null)")
-    private Long player2TeamBId;
+    private UUID player2TeamBId;
     @Schema(description = "Final score for player A if pointHistory is not specified", example = "11")
     private Integer finalScoreTeamA;
     @Schema(description = "Final score for player B if pointHistory is not specified", example = "7")

@@ -5,10 +5,12 @@ import com.leogouchon.hubscore.player_service.entity.Players;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Setter
 @Getter
 public class KickerMatchResponseDTO {
-    private Long id;
+    private UUID id;
     private Players playerA1;
     private Players playerA2;
     private Players playerB1;

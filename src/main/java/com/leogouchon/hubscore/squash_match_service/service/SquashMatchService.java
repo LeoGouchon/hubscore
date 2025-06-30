@@ -8,12 +8,13 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface SquashMatchService {
-    SquashMatches createMatch(Long player1Id, Long player2Id, List<MatchPoint> pointsHistory, Integer finalScoreA, Integer finalScoreB);
-    void deleteMatch(Long id);
-    Page<SquashMatches> getMatches(int page, int size, List<Long> playerIds, Long date);
-    Optional<SquashMatches> getMatch(Long id);
-    Optional<SquashMatchResponseDTO> getMatchResponseDTO(Long id);
+    SquashMatches createMatch(UUID player1Id, UUID player2Id, List<MatchPoint> pointsHistory, Integer finalScoreA, Integer finalScoreB);
+    void deleteMatch(UUID id);
+    Page<SquashMatches> getMatches(int page, int size, List<UUID> playerIds, Long date);
+    Optional<SquashMatches> getMatch(UUID id);
+    Optional<SquashMatchResponseDTO> getMatchResponseDTO(UUID id);
     Page<BatchSessionResponseDTO> getMatchesSessionsQuickStats(int page, int size);
 }

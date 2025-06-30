@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/v1/squash/matches")
@@ -51,7 +52,7 @@ public class SquashMatchControllerV1 {
     public ResponseEntity<PaginatedResponseDTO<SquashMatches>> getMatches(
             @RequestParam(defaultValue = "0") @Min(0) int page,
             @RequestParam(defaultValue = "10") @Min(1) @Max(50) int size,
-            @RequestParam(name = "playerIds", required = false) List<Long> playerIds,
+            @RequestParam(name = "playerIds", required = false) List<UUID> playerIds,
             @RequestParam(name = "date", required = false) Long date
     ) {
         Page<SquashMatches> matchesPage = matchService.getMatches(page, size, playerIds, date);
@@ -70,7 +71,7 @@ public class SquashMatchControllerV1 {
     @ApiResponse(responseCode = "404", description = "Match not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     @GetMapping("/{id:[0-9]+}")
-    public ResponseEntity<SquashMatches> getMatch(@PathVariable Long id) {
+    public ResponseEntity<SquashMatches> getMatch(@PathVariable UUID id) {
         Optional<SquashMatches> match = matchService.getMatch(id);
         return match.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -109,7 +110,7 @@ public class SquashMatchControllerV1 {
     @ApiResponse(responseCode = "404", description = "Match to delete not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     @DeleteMapping("/{id:[0-9]+}")
-    public ResponseEntity<Void> deleteMatch(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteMatch(@PathVariable UUID id) {
         matchService.deleteMatch(id);
         return ResponseEntity.noContent().build();
     }

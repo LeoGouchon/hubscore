@@ -138,7 +138,7 @@ public class AuthenticateServiceDefault implements AuthenticateService {
                 .getBody();
 
         String userId = claims.getSubject();
-        return userService.getUserById(Long.valueOf(userId));
+        return userService.getUserById(UUID.fromString(userId));
     }
 
     @Override

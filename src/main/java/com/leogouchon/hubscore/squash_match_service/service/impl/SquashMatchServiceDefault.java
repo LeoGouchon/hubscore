@@ -34,7 +34,7 @@ public class SquashMatchServiceDefault implements SquashMatchService {
         this.playerService = playerService;
     }
 
-    public SquashMatches createMatch(Long player1Id, Long player2Id, List<MatchPoint> pointsHistory, Integer finalScoreA, Integer finalScoreB) throws RuntimeException {
+    public SquashMatches createMatch(UUID player1Id, UUID player2Id, List<MatchPoint> pointsHistory, Integer finalScoreA, Integer finalScoreB) throws RuntimeException {
         Optional<Players> playerA = playerService.getPlayer(player1Id);
         Optional<Players> playerB = playerService.getPlayer(player2Id);
         if (playerA.isEmpty() || playerB.isEmpty()) {
@@ -53,7 +53,7 @@ public class SquashMatchServiceDefault implements SquashMatchService {
         }
     }
 
-    public void deleteMatch(Long id) {
+    public void deleteMatch(UUID id) {
         if (matchRepository.existsById(id)) {
             matchRepository.deleteById(id);
         } else {
@@ -61,18 +61,18 @@ public class SquashMatchServiceDefault implements SquashMatchService {
         }
     }
 
-    public Page<SquashMatches> getMatches(int page, int size, List<Long> playerIds, Long date) {
+    public Page<SquashMatches> getMatches(int page, int size, List<UUID> playerIds, Long date) {
         Specification<SquashMatches> filter = MatchSpecifications.withFilters(playerIds, date);
         Pageable pageable = PageRequest.of(page, size);
 
         return matchRepository.findAll(filter, pageable);
     }
 
-    public Optional<SquashMatches> getMatch(Long id) {
+    public Optional<SquashMatches> getMatch(UUID id) {
         return matchRepository.findById(id);
     }
 
-    public Optional<SquashMatchResponseDTO> getMatchResponseDTO(Long id) {
+    public Optional<SquashMatchResponseDTO> getMatchResponseDTO(UUID id) {
         Optional<SquashMatches> match = matchRepository.findById(id);
         return match.map(SquashMatchResponseDTO::new);
     }
@@ -95,7 +95,7 @@ public class SquashMatchServiceDefault implements SquashMatchService {
 
             List<PlayerRank> ranks = rows.stream().map(row -> {
                 Players p = new Players();
-                p.setId(((Number) row[2]).longValue());
+                p.setId(((UUID) row[2]));
                 p.setFirstname((String) row[3]);
 
                 PlayerRank rank = new PlayerRank();

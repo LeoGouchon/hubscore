@@ -28,7 +28,7 @@ public class KickerMatchServiceDefault implements KickerMatchService {
         this.playerService = playerService;
     }
 
-    public KickerMatches createMatch(Long player1TeamAId, Long player2TeamAId, Long player1TeamBId, Long player2TeamBId, Integer finalScoreA, Integer finalScoreB) throws RuntimeException {
+    public KickerMatches createMatch(UUID player1TeamAId, UUID player2TeamAId, UUID player1TeamBId, UUID player2TeamBId, Integer finalScoreA, Integer finalScoreB) throws RuntimeException {
         Optional<Players> playerA1 = playerService.getPlayer(player1TeamAId);
         Optional<Players> playerA2 = playerService.getPlayer(player2TeamAId);
         Optional<Players> playerB1 = playerService.getPlayer(player1TeamBId);
@@ -50,7 +50,7 @@ public class KickerMatchServiceDefault implements KickerMatchService {
         }
     }
 
-    public void deleteMatch(Long id) {
+    public void deleteMatch(UUID id) {
         if (matchRepository.existsById(id)) {
             matchRepository.deleteById(id);
         } else {
@@ -58,18 +58,18 @@ public class KickerMatchServiceDefault implements KickerMatchService {
         }
     }
 
-    public Page<KickerMatches> getMatches(int page, int size, List<Long> playerIds, Long date) {
+    public Page<KickerMatches> getMatches(int page, int size, List<UUID> playerIds, Long date) {
         Specification<KickerMatches> filter = KickerMatchSpecifications.withFilters(playerIds, date);
         Pageable pageable = PageRequest.of(page, size);
 
         return matchRepository.findAll(filter, pageable);
     }
 
-    public Optional<KickerMatches> getMatch(Long id) {
+    public Optional<KickerMatches> getMatch(UUID id) {
         return matchRepository.findById(id);
     }
 
-    public Optional<KickerMatchResponseDTO> getMatchResponseDTO(Long id) {
+    public Optional<KickerMatchResponseDTO> getMatchResponseDTO(UUID id) {
         Optional<KickerMatches> match = matchRepository.findById(id);
         return match.map(KickerMatchResponseDTO::new);
     }

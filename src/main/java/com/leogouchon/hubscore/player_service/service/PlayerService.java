@@ -5,11 +5,12 @@ import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 public interface PlayerService {
     Page<Players> getPlayers(int page, int size);
-    Optional<Players> getPlayer(Long id);
+    Optional<Players> getPlayer(UUID id);
     Players createPlayer(Players player);
-    void deletePlayer(Long id);
+    void deletePlayer(UUID id);
     List<Players> getUnassociatedPlayers();
 }

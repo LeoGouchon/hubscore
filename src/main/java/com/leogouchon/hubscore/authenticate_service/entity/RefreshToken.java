@@ -6,14 +6,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Getter
 @Setter
 public class RefreshToken {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @Column(columnDefinition = "UUID", updatable = false, nullable = false)
+    private UUID id;
 
     @Column(nullable = false, unique = true)
     private String token;

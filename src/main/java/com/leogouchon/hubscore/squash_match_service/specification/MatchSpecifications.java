@@ -7,12 +7,13 @@ import jakarta.persistence.criteria.*;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 
 public class MatchSpecifications {
     private MatchSpecifications() {}
 
     public static Specification<SquashMatches> withFilters(
-            List<Long> playerIds,
+            List<UUID> playerIds,
             Long date
     ) {
         return (Root<SquashMatches> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {

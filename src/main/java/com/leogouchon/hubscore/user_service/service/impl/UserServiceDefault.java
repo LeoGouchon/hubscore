@@ -10,6 +10,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 public class UserServiceDefault implements UserService {
 
@@ -35,7 +37,7 @@ public class UserServiceDefault implements UserService {
         return userRepository.findByEmail(username).orElse(null);
     }
 
-    public Users getUserById(Long id) {
+    public Users getUserById(UUID id) {
         return userRepository.findById(id).orElse(null);
     }
 
@@ -53,7 +55,7 @@ public class UserServiceDefault implements UserService {
         return userRepository.save(existingUsers);
     }
 
-    public void deleteUser(Long id) throws RuntimeException {
+    public void deleteUser(UUID id) throws RuntimeException {
         try {
             if (userRepository.existsById(id)) {
                 userRepository.deleteById(id);

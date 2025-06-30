@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.List;
+import java.util.UUID;
 
 @Setter
 @Getter
@@ -16,8 +17,9 @@ import java.util.List;
 @Table(name = "kicker_matches")
 public class KickerMatches {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @Column(columnDefinition = "UUID", updatable = false, nullable = false)
+    private UUID id;
 
     @Column(name = "final_score_team_a")
     private Integer finalScoreA;

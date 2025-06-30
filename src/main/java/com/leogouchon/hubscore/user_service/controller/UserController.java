@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(
@@ -57,7 +58,7 @@ public class UserController {
     @ApiResponse(responseCode = "200", description = "User with given id found")
     @ApiResponse(responseCode = "404", description = "User not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserResponseDTO> getUserById(@PathVariable UUID id) {
         Optional<Users> user = Optional.ofNullable(userService.getUserById(id));
         Optional<UserResponseDTO> userResponseDTO = user.map(UsersMapper::toUserResponseDTO);
         return userResponseDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
@@ -80,7 +81,7 @@ public class UserController {
     @ApiResponse(responseCode = "201", description = "Player updated")
     @ApiResponse(responseCode = "400", description = "Bad request", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    public ResponseEntity<Users> updateUser(@PathVariable Long id, @RequestBody Users users) {
+    public ResponseEntity<Users> updateUser(@PathVariable UUID id, @RequestBody Users users) {
         users.setId(id);
         Users updatedUsers = userService.updateUser(users);
         return ResponseEntity.created(URI.create("/api/users/" + updatedUsers.getId())).body(updatedUsers);
@@ -90,7 +91,7 @@ public class UserController {
     @ApiResponse(responseCode = "204", description = "User deleted successfully")
     @ApiResponse(responseCode = "404", description = "User to delete not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteUser(@PathVariable UUID id) {
         userService.deleteUser(id);
         return ResponseEntity.noContent().build();
     }

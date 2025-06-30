@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class PlayerServiceDefault implements PlayerService {
@@ -29,7 +30,7 @@ public class PlayerServiceDefault implements PlayerService {
         return playerRepository.findAll(pageable);
     }
 
-    public Optional<Players> getPlayer(Long id) {
+    public Optional<Players> getPlayer(UUID id) {
         return playerRepository.findById(id);
     }
 
@@ -40,7 +41,7 @@ public class PlayerServiceDefault implements PlayerService {
         return playerRepository.save(player);
     }
 
-    public void deletePlayer(Long id) throws RuntimeException {
+    public void deletePlayer(UUID id) throws RuntimeException {
         if (playerRepository.existsById(id)) {
             playerRepository.deleteById(id);
         } else {

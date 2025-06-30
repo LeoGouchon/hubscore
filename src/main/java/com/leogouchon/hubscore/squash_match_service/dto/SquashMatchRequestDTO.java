@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -15,10 +16,10 @@ public class SquashMatchRequestDTO {
 
     @NotNull
     @Schema(description = "ID of player A")
-    private Long playerAId;
+    private UUID playerAId;
     @NotNull
     @Schema(description = "ID of player B")
-    private Long playerBId;
+    private UUID playerBId;
     @Schema(description = "Points history of the match. The match need to be finished and respect the sport rules.", example="[{\"server\":\"A\",\"receiver\":\"B\",\"serviceSide\":\"L\",\"scoreServer\":0,\"scoreReceiver\":0}]")
     private List<MatchPoint> pointsHistory;
     @Schema(description = "Final score for player A if pointHistory is not specified", example = "11")

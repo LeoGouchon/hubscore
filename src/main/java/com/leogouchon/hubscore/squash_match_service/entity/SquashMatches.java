@@ -10,16 +10,17 @@ import lombok.Setter;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.UUID;
 
 @Setter
 @Getter
 @Entity
 @Table(name = "squash_matches")
 public class SquashMatches {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue
+    @Column(columnDefinition = "UUID", updatable = false, nullable = false)
+    private UUID id;
 
     @Convert(converter = PointListConverter.class)
     @Column(columnDefinition = "TEXT", name = "points_history")

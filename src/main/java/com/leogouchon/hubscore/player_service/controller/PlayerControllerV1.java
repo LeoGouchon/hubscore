@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 
@@ -59,7 +60,7 @@ public class PlayerControllerV1 {
     @ApiResponse(responseCode = "200", description = "Player with given id found")
     @ApiResponse(responseCode = "404", description = "Player not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    public ResponseEntity<Players> getPlayer(@PathVariable Long id) {
+    public ResponseEntity<Players> getPlayer(@PathVariable UUID id) {
         Optional<Players> player = playerService.getPlayer(id);
         return player.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
@@ -85,7 +86,7 @@ public class PlayerControllerV1 {
     @ApiResponse(responseCode = "404", description = "Player to delete not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     @SecurityRequirement(name = "bearerAuth")
-    public ResponseEntity<Void> deletePlayer(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePlayer(@PathVariable UUID id) {
         try {
             playerService.deletePlayer(id);
         } catch (RuntimeException e) {
