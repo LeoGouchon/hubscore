@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping(value = "/api/admin")
 @Tag(name = "Invitation")
@@ -22,7 +24,7 @@ public class InvitationController {
 
     @SecurityRequirement(name = "bearerAuth")
     @PostMapping("/invitation")
-    public ResponseEntity<InvitationResponseDTO> createInvitation(@RequestHeader("Authorization") String bearerToken, Long playerId) {
+    public ResponseEntity<InvitationResponseDTO> createInvitation(@RequestHeader("Authorization") String bearerToken, UUID playerId) {
         String accessToken = bearerToken.replace("Bearer ", "");
         String token = invitationService.createInvitation(accessToken, playerId);
         return ResponseEntity.ok(new InvitationResponseDTO(token));

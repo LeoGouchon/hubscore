@@ -34,7 +34,7 @@ public class InvitationServiceDefault implements InvitationService {
     }
 
     @Override
-    public String createInvitation(String accessToken, Long playerId) {
+    public String createInvitation(String accessToken, UUID playerId) {
         Users user = authenticateService.getCurrentUser(accessToken);
 
         if (Boolean.FALSE.equals(user.getIsAdmin())) throw new IllegalArgumentException("User is not admin");

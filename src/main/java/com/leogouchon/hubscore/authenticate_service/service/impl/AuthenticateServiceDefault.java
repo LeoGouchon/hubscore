@@ -172,7 +172,7 @@ public class AuthenticateServiceDefault implements AuthenticateService {
                 .parseClaimsJws(accessToken)
                 .getBody();
 
-        Long userId = Long.parseLong(claims.getSubject());
+        UUID userId = UUID.fromString(claims.getSubject());
 
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
