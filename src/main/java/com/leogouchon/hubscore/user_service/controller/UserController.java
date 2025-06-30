@@ -23,7 +23,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping(
-        value = "/api/users"
+        value = "/api/v1/users"
         )
 @Tag(name = "User")
 @Validated

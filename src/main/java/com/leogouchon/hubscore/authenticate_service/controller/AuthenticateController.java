@@ -21,7 +21,7 @@ import java.time.Duration;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/authenticate")
+@RequestMapping("/api/v1/authenticate")
 @Tag(name = "Authentication")
 public class AuthenticateController {
     private final AuthenticateService authenticateService;

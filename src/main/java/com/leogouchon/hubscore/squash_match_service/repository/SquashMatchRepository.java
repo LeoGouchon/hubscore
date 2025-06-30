@@ -41,8 +41,8 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
                         WHEN m.player_b_id = p.id THEN m.final_score_a
                         ELSE 0 END) AS points_conceded
                     
-                 FROM Matches AS m
-                 JOIN Players p ON p.id = m.player_a_id OR p.id = m.player_b_id
+                 FROM squash_matches AS m
+                 JOIN players p ON p.id = m.player_a_id OR p.id = m.player_b_id
                  GROUP BY day_unix, p.id, p.firstname
                  ORDER BY day_unix desc, p.id
         """, nativeQuery = true

@@ -20,9 +20,9 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(authorizationInterceptor)
                 .addPathPatterns("/api/**")
-                .excludePathPatterns("/api/authenticate/login")
-                .excludePathPatterns("/api/authenticate/signup")
-                .excludePathPatterns("/api/authenticate/refresh-token")
-                .excludePathPatterns("/api/ping");
+                .excludePathPatterns("/api/v1/authenticate/login")
+                .excludePathPatterns("/api/v1/authenticate/signup")
+                .excludePathPatterns("/api/v1/authenticate/refresh-token")
+                .excludePathPatterns("/api/v1/ping");
     }
 }

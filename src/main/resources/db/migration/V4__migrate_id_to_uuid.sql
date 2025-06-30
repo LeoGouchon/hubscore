@@ -97,9 +97,9 @@ ALTER TABLE players DROP COLUMN id;
 ALTER TABLE players RENAME COLUMN id_tmp TO id;
 ALTER TABLE players ADD PRIMARY KEY (id);
 
-ALTER TABLE users DROP COLUMN player_id;
-ALTER TABLE users RENAME COLUMN player_id_tmp TO player_id;
-ALTER TABLE users ADD CONSTRAINT fk_users_player_id FOREIGN KEY (player_id) REFERENCES players (id);
+ALTER TABLE users DROP COLUMN players_id;
+ALTER TABLE users RENAME COLUMN player_id_tmp TO players_id;
+ALTER TABLE users ADD CONSTRAINT fk_users_player_id FOREIGN KEY (players_id) REFERENCES players (id);
 
 ALTER TABLE squash_matches DROP COLUMN player_a_id;
 ALTER TABLE squash_matches RENAME COLUMN player_a_id_tmp TO player_a_id;
