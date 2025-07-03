@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
@@ -26,6 +27,9 @@ import java.time.Duration;
 public class AuthenticateController {
     private final AuthenticateService authenticateService;
 
+    @Value("${cookie.secure}")
+    private boolean cookieSecure;
+
     @Autowired
     public AuthenticateController(
             AuthenticateService authenticateService) {
@@ -39,7 +43,7 @@ public class AuthenticateController {
 
             ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", doubleTokenDTO.getRefreshToken())
                     .httpOnly(true)
-                    .secure(false) // TODO : make it prod / dev variable
+                    .secure(cookieSecure)
                     .path("/api/authenticate/refresh-token")
                     .sameSite("Strict")
                     .maxAge(Duration.ofDays(7))
@@ -67,7 +71,7 @@ public class AuthenticateController {
                     .maxAge(0)
                     .path("/api/authenticate/refresh-token")
                     .httpOnly(true)
-                    .secure(false) // TODO : make it prod / dev variable
+                    .secure(cookieSecure)
                     .sameSite("Strict")
                     .build();
             response.setHeader(HttpHeaders.SET_COOKIE, refreshCookie.toString());
@@ -83,7 +87,7 @@ public class AuthenticateController {
             DoubleTokenDTO doubleTokenDTO = authenticateService.signUp(signInRequestDTO.getEmail(), signInRequestDTO.getPassword(), token);
             ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", doubleTokenDTO.getRefreshToken())
                     .httpOnly(true)
-                    .secure(false) // TODO : make it prod / dev variable
+                    .secure(cookieSecure)
                     .path("/api/authenticate/refresh-token")
                     .sameSite("Strict")
                     .maxAge(Duration.ofDays(7))
