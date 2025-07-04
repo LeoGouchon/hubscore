@@ -44,7 +44,7 @@ public class AuthenticateController {
             ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", doubleTokenDTO.getRefreshToken())
                     .httpOnly(true)
                     .secure(cookieSecure)
-                    .path("/api/authenticate/refresh-token")
+                    .path("/api/v1/authenticate/refresh-token")
                     .sameSite("None")
                     .maxAge(Duration.ofDays(7))
                     .build();
@@ -69,7 +69,7 @@ public class AuthenticateController {
             authenticateService.logout(accessToken);
             ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", "")
                     .maxAge(0)
-                    .path("/api/authenticate/refresh-token")
+                    .path("/api/v1/authenticate/refresh-token")
                     .httpOnly(true)
                     .secure(cookieSecure)
                     .sameSite("None")
@@ -88,7 +88,7 @@ public class AuthenticateController {
             ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", doubleTokenDTO.getRefreshToken())
                     .httpOnly(true)
                     .secure(cookieSecure)
-                    .path("/api/authenticate/refresh-token")
+                    .path("/api/v1/authenticate/refresh-token")
                     .sameSite("None")
                     .maxAge(Duration.ofDays(7))
                     .build();
