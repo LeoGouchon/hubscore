@@ -22,9 +22,9 @@ public class KickerMatches {
     private UUID id;
 
     @Column(name = "final_score_team_a")
-    private Integer finalScoreA;
+    private Integer scoreA;
     @Column(name = "final_score_team_b")
-    private Integer finalScoreB;
+    private Integer scoreB;
 
     @Column(name = "created_at")
     @JsonFormat(shape = JsonFormat.Shape.NUMBER)
@@ -32,19 +32,19 @@ public class KickerMatches {
 
     @ManyToOne
     @JoinColumn(name = "player_one_team_a_id", referencedColumnName = "id")
-    private Players player1TeamA;
+    private Players player1A;
 
     @ManyToOne
     @JoinColumn(name = "player_two_team_a_id", referencedColumnName = "id")
-    private Players player2TeamA;
+    private Players player2A;
 
     @ManyToOne
     @JoinColumn(name = "player_one_team_b_id", referencedColumnName = "id")
-    private Players player1TeamB;
+    private Players player1B;
 
     @ManyToOne
     @JoinColumn(name = "player_two_team_b_id", referencedColumnName = "id")
-    private Players player2TeamB;
+    private Players player2B;
 
     protected KickerMatches() {}
 
@@ -58,10 +58,10 @@ public class KickerMatches {
         else if ((player2TeamA != null && player2TeamB == null) || (player2TeamA == null && player2TeamB != null)) {
             throw new IllegalArgumentException("Must have exactly two or four different players");
         } else if (new HashSet<>(List.of(player1TeamA, player1TeamB, player2TeamA, player2TeamB)).size() == 4 || new HashSet<>(List.of(player1TeamA, player1TeamB, player2TeamA, player2TeamB)).size() == 2) {
-            this.player1TeamA = player1TeamA;
-            this.player2TeamA = player2TeamA;
-            this.player1TeamB = player1TeamB;
-            this.player2TeamB = player2TeamB;
+            this.player1A = player1TeamA;
+            this.player2A = player2TeamA;
+            this.player1B = player1TeamB;
+            this.player2B = player2TeamB;
             this.createdAt = new Timestamp(System.currentTimeMillis());
         } else {
             throw new IllegalArgumentException("Must have exactly two or four different players");
@@ -71,15 +71,15 @@ public class KickerMatches {
 
     public KickerMatches(Players player1TeamA, Players player2TeamA, Players player1TeamB, Players player2TeamB, Integer finalScoreTeamA, Integer finalScoreTeamB) {
         this(player1TeamA, player2TeamA, player1TeamB, player2TeamB);
-        if (Boolean.FALSE.equals(this.isFinished())) {
+        if (Boolean.FALSE.equals(this.isFinished(finalScoreTeamA, finalScoreTeamB))) {
             throw new IllegalArgumentException("Match must be finished to create it");
         }
-        this.finalScoreA = finalScoreTeamA;
-        this.finalScoreB = finalScoreTeamB;
+        this.scoreA = finalScoreTeamA;
+        this.scoreB = finalScoreTeamB;
     }
 
 
-    public Boolean isFinished() {
-        return finalScoreA == 10 || finalScoreB == 10;
+    public Boolean isFinished(Integer scoreA, Integer scoreB) {
+        return scoreA == 10 || scoreB == 10;
     }
 }

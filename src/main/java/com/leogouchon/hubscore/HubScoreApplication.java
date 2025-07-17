@@ -30,7 +30,7 @@ public class HubScoreApplication implements WebMvcConfigurer {
                     .allowCredentials(true);
         } else {
             registry.addMapping("/api/**")
-                    .allowedOrigins("http://localhost:4200")
+                    .allowedOrigins("http://localhost:4200", "http://localhost:5173")
                     .allowedMethods("*")
                     .allowedHeaders("*")
                     .allowCredentials(true);

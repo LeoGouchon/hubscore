@@ -13,16 +13,29 @@ import java.util.UUID;
 public class KickerMatchRequestDTO {
     @NotNull
     @Schema(description = "ID of first player of team A")
-    private UUID player1TeamAId;
+    private UUID player1AId;
     @Schema(description = "ID of second player of team A (can be null)")
-    private UUID player2TeamAId;
+    private UUID player2AId;
     @NotNull
     @Schema(description = "ID of first player of team B")
-    private UUID player1TeamBId;
+    private UUID player1BId;
     @Schema(description = "ID of second player of team B (can be null)")
-    private UUID player2TeamBId;
+    private UUID player2BId;
     @Schema(description = "Final score for player A if pointHistory is not specified", example = "11")
-    private Integer finalScoreTeamA;
+    private Integer scoreA;
     @Schema(description = "Final score for player B if pointHistory is not specified", example = "7")
-    private Integer finalScoreTeamB;
+    private Integer scoreB;
+
+
+    @Override
+    public String toString() {
+        return "KickerMatchRequestDTO{" +
+                "player1AId=" + player1AId +
+                ", player2AId=" + player2AId +
+                ", player1BId=" + player1BId +
+                ", player2BId=" + player2BId +
+                ", scoreA=" + scoreA +
+                ", scoreB=" + scoreB +
+                '}';
+    }
 }

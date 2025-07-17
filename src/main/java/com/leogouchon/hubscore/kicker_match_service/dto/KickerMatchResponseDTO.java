@@ -20,11 +20,11 @@ public class KickerMatchResponseDTO {
 
     public KickerMatchResponseDTO(KickerMatches match) {
         this.id = match.getId();
-        this.playerA1 = match.getPlayer1TeamA();
-        this.playerA2 = match.getPlayer2TeamA();
-        this.playerB1 = match.getPlayer1TeamB();
-        this.playerB2 = match.getPlayer2TeamB();
-        this.finalScoreA = match.getFinalScoreA();
-        this.finalScoreB = match.getFinalScoreB();
+        this.playerA1 = match.getPlayer1A();
+        this.playerA2 = match.getPlayer2A();
+        this.playerB1 = match.getPlayer1B();
+        this.playerB2 = match.getPlayer2B();
+        this.finalScoreA = match.getScoreA();
+        this.finalScoreB = match.getScoreB();
     }
 }

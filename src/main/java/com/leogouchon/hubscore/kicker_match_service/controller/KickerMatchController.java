@@ -90,15 +90,16 @@ public class KickerMatchController {
     @PostMapping
     public ResponseEntity<KickerMatchResponseDTO> createMatch(@Valid @RequestBody KickerMatchRequestDTO matchRequest) {
         try {
+            System.out.println(matchRequest);
             KickerMatches createdMatch = matchService.createMatch(
-                    matchRequest.getPlayer1TeamAId(),
-                    matchRequest.getPlayer2TeamAId(),
-                    matchRequest.getPlayer1TeamBId(),
-                    matchRequest.getPlayer2TeamBId(),
-                    matchRequest.getFinalScoreTeamA(),
-                    matchRequest.getFinalScoreTeamB()
+                    matchRequest.getPlayer1AId(),
+                    matchRequest.getPlayer2AId(),
+                    matchRequest.getPlayer1BId(),
+                    matchRequest.getPlayer2BId(),
+                    matchRequest.getScoreA(),
+                    matchRequest.getScoreB()
             );
-            URI location = URI.create("/api/matches/" + createdMatch.getId());
+            URI location = URI.create("/api/v1/kicker/matches/" + createdMatch.getId());
             Optional<KickerMatchResponseDTO> match = matchService.getMatchResponseDTO(createdMatch.getId());
             return match.map(m -> ResponseEntity.created(location).body(m)).orElseGet(() -> ResponseEntity.badRequest().build());
         } catch (RuntimeException e) {

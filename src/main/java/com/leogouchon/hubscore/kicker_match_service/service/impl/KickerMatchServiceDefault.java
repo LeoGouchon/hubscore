@@ -43,7 +43,7 @@ public class KickerMatchServiceDefault implements KickerMatchService {
         else if ((playerA2.isEmpty() && playerB2.isPresent()) || (playerA2.isPresent() && playerB2.isEmpty())) {
             throw new IllegalArgumentException("Must have exactly two or four different players");
         } else if (new HashSet<>(List.of(playerA1.get(), playerA2.get(), playerB1.get(), playerB2.get())).size() == 4 || new HashSet<>(List.of(playerA1.get(), playerA2.get(), playerB1.get(), playerB2.get())).size() == 2) {
-            KickerMatches match = new KickerMatches(playerA1.get(), playerA2.get(), playerB1.get(), playerB2.get());
+            KickerMatches match = new KickerMatches(playerA1.get(), playerA2.get(), playerB1.get(), playerB2.get(), finalScoreA, finalScoreB);
             return matchRepository.save(match);
         } else {
             throw new IllegalArgumentException("Must have exactly two or four different players");
