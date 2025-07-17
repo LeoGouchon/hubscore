@@ -31,6 +31,7 @@ public class PlayerServiceDefault implements PlayerService {
     }
 
     public Optional<Players> getPlayer(UUID id) {
+        if (id == null) return Optional.empty();
         return playerRepository.findById(id);
     }
 
