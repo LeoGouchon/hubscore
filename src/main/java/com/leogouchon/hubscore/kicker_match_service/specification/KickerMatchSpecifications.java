@@ -14,7 +14,8 @@ public class KickerMatchSpecifications {
 
     public static Specification<KickerMatches> withFilters(
             List<UUID> playerIds,
-            Long date
+            Long date,
+            String dateOrder
     ) {
         return (Root<KickerMatches> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
             Predicate predicate = cb.conjunction();
@@ -29,7 +30,35 @@ public class KickerMatchSpecifications {
 
             if (date != null) {
                 LocalDate localDate = LocalDate.ofEpochDay(date / 86400);
-                predicate = cb.and(predicate, cb.between(root.get("created_at"), Timestamp.valueOf(localDate.atStartOfDay()), Timestamp.valueOf(localDate.plusDays(1).atStartOfDay())));
+                Path<Timestamp> createdAtPath = root.get("createdAt");
+
+                Predicate dateNotNull = cb.isNotNull(createdAtPath);
+                Predicate dateBetween = cb.between(
+                        createdAtPath,
+                        Timestamp.valueOf(localDate.atStartOfDay()),
+                        Timestamp.valueOf(localDate.plusDays(1).atStartOfDay())
+                );
+                predicate = cb.and(predicate, dateNotNull, dateBetween);
+            }
+
+            if (dateOrder != null) {
+                Path<Timestamp> createdAtPath = root.get("createdAt");
+
+                Expression<Integer> nullOrdering = cb.<Integer>selectCase()
+                        .when(cb.isNull(createdAtPath), 0)
+                        .otherwise(1);
+
+                if ("ascend".equalsIgnoreCase(dateOrder)) {
+                    query.orderBy(
+                            cb.asc(nullOrdering),
+                            cb.asc(createdAtPath)
+                    );
+                } else if ("descend".equalsIgnoreCase(dateOrder)) {
+                    query.orderBy(
+                            cb.desc(nullOrdering),
+                            cb.desc(createdAtPath)
+                    );
+                }
             }
 
             return predicate;

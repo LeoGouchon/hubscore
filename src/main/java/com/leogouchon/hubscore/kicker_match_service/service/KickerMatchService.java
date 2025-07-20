@@ -11,7 +11,7 @@ import java.util.UUID;
 public interface KickerMatchService {
     KickerMatches createMatch(UUID player1TeamAId, UUID player2TeamAId, UUID player1TeamBId, UUID player2TeamBId, Integer finalScoreA, Integer finalScoreB);
     void deleteMatch(UUID id);
-    Page<KickerMatches> getMatches(int page, int size, List<UUID> playerIds, Long date);
+    Page<KickerMatches> getMatches(int page, int size, List<UUID> playerIds, Long date, String dateOrder);
     Optional<KickerMatches> getMatch(UUID id);
     Optional<KickerMatchResponseDTO> getMatchResponseDTO(UUID id);
 }

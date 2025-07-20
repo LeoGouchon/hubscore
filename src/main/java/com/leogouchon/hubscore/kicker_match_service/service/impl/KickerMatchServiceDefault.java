@@ -78,8 +78,8 @@ public class KickerMatchServiceDefault implements KickerMatchService {
         }
     }
 
-    public Page<KickerMatches> getMatches(int page, int size, List<UUID> playerIds, Long date) {
-        Specification<KickerMatches> filter = KickerMatchSpecifications.withFilters(playerIds, date);
+    public Page<KickerMatches> getMatches(int page, int size, List<UUID> playerIds, Long date, String dateOrder) {
+        Specification<KickerMatches> filter = KickerMatchSpecifications.withFilters(playerIds, date, dateOrder);
         Pageable pageable = PageRequest.of(page, size);
 
         return matchRepository.findAll(filter, pageable);

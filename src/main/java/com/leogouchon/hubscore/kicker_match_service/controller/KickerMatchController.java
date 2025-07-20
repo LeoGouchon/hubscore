@@ -52,9 +52,10 @@ public class KickerMatchController {
             @RequestParam(defaultValue = "0") @Min(0) int page,
             @RequestParam(defaultValue = "10") @Min(1) @Max(50) int size,
             @RequestParam(name = "playerIds", required = false) List<UUID> playerIds,
-            @RequestParam(name = "date", required = false) Long date
+            @RequestParam(name = "date", required = false) Long date,
+            @RequestParam(name = "dateOrder", required = false, defaultValue = "ascend") String dateOrder
     ) {
-        Page<KickerMatches> matchesPage = matchService.getMatches(page, size, playerIds, date);
+        Page<KickerMatches> matchesPage = matchService.getMatches(page, size, playerIds, date, dateOrder);
         PaginatedResponseDTO<KickerMatches> response = new PaginatedResponseDTO<>(
                 matchesPage.getContent(),
                 matchesPage.getNumber(),
