@@ -9,11 +9,24 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.io.IOException;
+import java.util.Set;
 
 @Component
 public class AuthorizationInterceptor implements HandlerInterceptor {
 
     private final AuthenticateService authenticateService;
+
+    private static final Set<String> UNCONDITIONAL_EXCLUDED_PATHS = Set.of(
+            "/api/v1/authenticate/login",
+            "/api/v1/authenticate/signup",
+            "/api/v1/authenticate/refresh-token",
+            "/api/v1/ping"
+    );
+
+    private static final Set<String> GET_ONLY_EXCLUDED_PATHS = Set.of(
+            "/api/v1/kicker/matches",
+            "/api/v1/players"
+    );
 
     @Autowired
     public AuthorizationInterceptor(AuthenticateService authenticateService) {
@@ -22,8 +35,15 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws IOException {
-        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+        String path = request.getRequestURI();
+        String method = request.getMethod();
+
+        if ("OPTIONS".equalsIgnoreCase(method)) {
             return true; // Let CORS preflight pass
+        }
+
+        if (isExcluded(path, method)) {
+            return true;
         }
 
         String authHeader = request.getHeader("Authorization");
@@ -44,5 +64,13 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         // Optionally set user details in request attribute for use downstream
         request.setAttribute("user", authenticateService.getUserFromToken(token));
         return true;
+    }
+
+    private boolean isExcluded(String path, String method) {
+        if (UNCONDITIONAL_EXCLUDED_PATHS.contains(path)) {
+            return true;
+        }
+
+        return "GET".equalsIgnoreCase(method) && GET_ONLY_EXCLUDED_PATHS.contains(path);
     }
 }

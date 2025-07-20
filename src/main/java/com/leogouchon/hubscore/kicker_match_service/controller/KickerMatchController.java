@@ -40,13 +40,11 @@ public class KickerMatchController {
         this.matchService = matchService;
     }
 
-    @SecurityRequirement(name = "bearerAuth")
     @Operation(
             summary = "Return matches",
             description = "Return matches from the database",
             responses = {
                     @ApiResponse(responseCode = "200", description = "Matches found"),
-                    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
             }
     )
     @GetMapping
@@ -67,10 +65,8 @@ public class KickerMatchController {
         return ResponseEntity.ok(response);
     }
 
-    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200", description = "Match with given id found")
     @ApiResponse(responseCode = "404", description = "Match not found", content = {@Content(schema = @Schema())})
-    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     @GetMapping("/{id:[0-9]+}")
     public ResponseEntity<KickerMatches> getMatch(@PathVariable UUID id) {
         Optional<KickerMatches> match = matchService.getMatch(id);

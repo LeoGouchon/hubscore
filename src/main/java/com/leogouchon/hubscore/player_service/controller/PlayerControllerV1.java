@@ -37,9 +37,7 @@ public class PlayerControllerV1 {
     }
 
     @GetMapping
-    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200", description = "Players found")
-    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     public ResponseEntity<PaginatedResponseDTO<Players>> getPlayers(
             @RequestParam(defaultValue = "0") @Min(0) int page,
             @RequestParam(defaultValue = "10") @Min(1) @Max(50) int size
@@ -56,10 +54,8 @@ public class PlayerControllerV1 {
     }
 
     @GetMapping("/{id}")
-    @SecurityRequirement(name = "bearerAuth")
     @ApiResponse(responseCode = "200", description = "Player with given id found")
     @ApiResponse(responseCode = "404", description = "Player not found", content = {@Content(schema = @Schema())})
-    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     public ResponseEntity<Players> getPlayer(@PathVariable UUID id) {
         Optional<Players> player = playerService.getPlayer(id);
         return player.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
