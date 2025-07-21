@@ -23,7 +23,9 @@ public class HubScoreApplication implements WebMvcConfigurer {
             registry.addMapping("/api/**")
                     .allowedOrigins(
                             "https://squash.leogouchon.com",
-                            "https://www.squash.leogouchon.com"
+                            "https://www.squash.leogouchon.com",
+                            "https://babyfoot.leogouchon.com",
+                            "https://www.babyfoot.leogouchon.com"
                     )
                     .allowedMethods("*")
                     .allowedHeaders("*")
