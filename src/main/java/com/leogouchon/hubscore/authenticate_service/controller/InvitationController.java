@@ -1,5 +1,6 @@
 package com.leogouchon.hubscore.authenticate_service.controller;
 
+import com.leogouchon.hubscore.authenticate_service.dto.InvitationRequestDTO;
 import com.leogouchon.hubscore.authenticate_service.dto.InvitationResponseDTO;
 import com.leogouchon.hubscore.authenticate_service.service.InvitationService;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -24,9 +25,12 @@ public class InvitationController {
 
     @SecurityRequirement(name = "bearerAuth")
     @PostMapping("/invitation")
-    public ResponseEntity<InvitationResponseDTO> createInvitation(@RequestHeader("Authorization") String bearerToken, UUID playerId) {
+    public ResponseEntity<InvitationResponseDTO> createInvitation(@RequestHeader("Authorization") String bearerToken, @RequestBody InvitationRequestDTO invitationRequestDTO) {
         String accessToken = bearerToken.replace("Bearer ", "");
-        String token = invitationService.createInvitation(accessToken, playerId);
+
+        UUID playerIdUUID = UUID.fromString(invitationRequestDTO.getPlayerId());
+
+        String token = invitationService.createInvitation(accessToken, playerIdUUID);
         return ResponseEntity.ok(new InvitationResponseDTO(token));
     }
 }
