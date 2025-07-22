@@ -1,6 +1,7 @@
 package com.leogouchon.hubscore.kicker_match_service.service.impl;
 
 import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsWithHistoryDTO;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerStatService;
 import org.springframework.stereotype.Service;
@@ -16,8 +17,25 @@ public class KickerStatServiceDefault implements KickerStatService {
     }
 
     @Override
-    public List<GlobalStatsResponseDTO> getGlobalStats() {
+    public List<GlobalStatsWithHistoryDTO> getGlobalStats() {
+        List<GlobalStatsResponseDTO> rawStats = kickerMatchRepository.getGlobalKickerStats();
 
-        return kickerMatchRepository.getGlobalKickerStats();
+        List<GlobalStatsWithHistoryDTO> fullStats = rawStats.stream().map(stat -> {
+            List<Boolean> history = kickerMatchRepository.getLastFiveResultsByPlayerId(stat.getPlayerId());
+
+            GlobalStatsWithHistoryDTO dto = new GlobalStatsWithHistoryDTO();
+            dto.setPlayerId(stat.getPlayerId());
+            dto.setFirstname(stat.getFirstname());
+            dto.setLastname(stat.getLastname());
+            dto.setTotalMatches(stat.getTotalMatches());
+            dto.setWins(stat.getWins());
+            dto.setLosses(stat.getLosses());
+            dto.setWinRate(stat.getWinRate());
+            dto.setLastMatches(history);
+
+            return dto;
+        }).toList();
+
+        return fullStats;
     }
 }

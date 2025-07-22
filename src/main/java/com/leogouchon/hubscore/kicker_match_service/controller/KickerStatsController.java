@@ -1,6 +1,7 @@
 package com.leogouchon.hubscore.kicker_match_service.controller;
 
 import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsWithHistoryDTO;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerStatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -39,8 +40,8 @@ public class KickerStatsController {
             }
     )
     @GetMapping("/global")
-    public ResponseEntity<List<GlobalStatsResponseDTO>> getGlobalStats() {
-        List<GlobalStatsResponseDTO> globalStats = kickerStatService.getGlobalStats();
+    public ResponseEntity<List<GlobalStatsWithHistoryDTO>> getGlobalStats() {
+        List<GlobalStatsWithHistoryDTO> globalStats = kickerStatService.getGlobalStats();
 
 
 
