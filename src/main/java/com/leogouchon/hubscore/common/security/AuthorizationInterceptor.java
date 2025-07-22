@@ -25,7 +25,8 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
     private static final Set<String> GET_ONLY_EXCLUDED_PATHS = Set.of(
             "/api/v1/kicker/matches",
-            "/api/v1/players"
+            "/api/v1/players",
+            "/api/v1/kicker/stats/global"
     );
 
     @Autowired
