@@ -64,4 +64,10 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
                 ORDER BY rn
             """, nativeQuery = true)
     List<Boolean> getLastFiveResultsByPlayerId(@Param("playerId") UUID playerId);
+
+    @Query(value = """
+                SELECT * FROM kicker_matches
+                ORDER BY created_at;
+                """, nativeQuery = true)
+    List<KickerMatches> getAllByOrderByCreatedAtAsc();
 }
