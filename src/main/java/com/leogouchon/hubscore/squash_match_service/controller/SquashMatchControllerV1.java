@@ -109,7 +109,7 @@ public class SquashMatchControllerV1 {
     @ApiResponse(responseCode = "204", description = "Match deleted successfully")
     @ApiResponse(responseCode = "404", description = "Match to delete not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    @DeleteMapping("/{id:[0-9]+}")
+    @DeleteMapping("/{id:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}}")
     public ResponseEntity<Void> deleteMatch(@PathVariable UUID id) {
         matchService.deleteMatch(id);
         return ResponseEntity.noContent().build();
