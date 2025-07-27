@@ -18,6 +18,7 @@ public class GlobalStatsWithHistoryDTO {
     private int losses;
     private BigDecimal winRate;
     private List<Boolean> lastMatches;
+    private int currentElo;
 
     public GlobalStatsWithHistoryDTO() {}
 }

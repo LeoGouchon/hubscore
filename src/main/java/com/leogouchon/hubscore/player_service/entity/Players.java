@@ -21,6 +21,9 @@ public class Players {
     private String firstname;
     private String lastname;
 
+    @Column(name = "kicker_current_elo")
+    private Integer kickerElo;
+
     public Players() {}
 
     public Players(String firstname, String lastname) {

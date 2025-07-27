@@ -1,10 +1,12 @@
 package com.leogouchon.hubscore.kicker_match_service.controller;
 
 
+import com.leogouchon.hubscore.authenticate_service.service.AuthenticateService;
 import com.leogouchon.hubscore.common.dto.PaginatedResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerEloService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -12,6 +14,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -34,10 +38,14 @@ import java.util.UUID;
 public class KickerMatchController {
 
     private final KickerMatchService matchService;
+    private final KickerEloService eloService;
+    private final AuthenticateService authenticateService;
 
     @Autowired
-    public KickerMatchController(KickerMatchService matchService) {
+    public KickerMatchController(KickerMatchService matchService, KickerEloService eloService, AuthenticateService authenticateService) {
         this.matchService = matchService;
+        this.eloService = eloService;
+        this.authenticateService = authenticateService;
     }
 
     @Operation(
@@ -112,6 +120,23 @@ public class KickerMatchController {
     public ResponseEntity<Void> deleteMatch(@PathVariable UUID id) {
         matchService.deleteMatch(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @SecurityRequirement(name = "bearerAuth")
+    @PostMapping("/recalculate-elo")
+    public ResponseEntity<?> recalculateElo(HttpServletRequest request) {
+        String authHeader = request.getHeader("Authorization");
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body("Missing or invalid Authorization header");
+        }
+
+        String token = authHeader.substring(7);
+        boolean isAdmin = authenticateService.isUserAdmin(token);
+        if (!isAdmin) {
+            return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body("Unauthorized");
+        }
+        eloService.recalculateAllElo();
+        return ResponseEntity.ok("ELO recalculated for all matches");
     }
 }
 

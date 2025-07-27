@@ -177,4 +177,10 @@ public class AuthenticateServiceDefault implements AuthenticateService {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
     }
+
+    @Override
+    public boolean isUserAdmin(String accessToken) {
+        Users user = getCurrentUser(accessToken);
+        return Boolean.TRUE.equals(user.getIsAdmin());
+    }
 }

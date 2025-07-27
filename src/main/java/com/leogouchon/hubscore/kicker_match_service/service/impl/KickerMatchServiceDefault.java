@@ -3,6 +3,7 @@ package com.leogouchon.hubscore.kicker_match_service.service.impl;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerEloService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
 import com.leogouchon.hubscore.kicker_match_service.specification.KickerMatchSpecifications;
 import com.leogouchon.hubscore.player_service.entity.Players;
@@ -21,11 +22,13 @@ import java.util.*;
 public class KickerMatchServiceDefault implements KickerMatchService {
     private final KickerMatchRepository matchRepository;
     private final PlayerService playerService;
+    private final KickerEloService kickerEloService;
 
     @Autowired
-    public KickerMatchServiceDefault(KickerMatchRepository matchRepository, PlayerService playerService) {
+    public KickerMatchServiceDefault(KickerMatchRepository matchRepository, PlayerService playerService, KickerEloService kickerEloService) {
         this.matchRepository = matchRepository;
         this.playerService = playerService;
+        this.kickerEloService = kickerEloService;
     }
 
     public KickerMatches createMatch(UUID player1TeamAId, UUID player2TeamAId,
@@ -67,7 +70,11 @@ public class KickerMatchServiceDefault implements KickerMatchService {
                 finalScoreB
         );
 
-        return matchRepository.save(match);
+        matchRepository.save(match);
+
+        kickerEloService.calculateElo(match);
+
+        return match;
     }
 
     public void deleteMatch(UUID id) {
