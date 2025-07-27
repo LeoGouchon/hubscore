@@ -1,6 +1,7 @@
 package com.leogouchon.hubscore.squash_match_service.service.impl;
 
 import com.leogouchon.hubscore.squash_match_service.dto.BatchSessionResponseDTO;
+import com.leogouchon.hubscore.squash_match_service.dto.OverallStatsResponseDTO;
 import com.leogouchon.hubscore.squash_match_service.dto.SquashMatchResponseDTO;
 import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import com.leogouchon.hubscore.player_service.entity.Players;
@@ -19,6 +20,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -118,5 +121,38 @@ public class SquashMatchServiceDefault implements SquashMatchService {
         sessions.sort(Comparator.comparing(BatchSessionResponseDTO::getDate).reversed());
 
         return new PageImpl<>(sessions, pageable, groupedByDay.size());
+    }
+
+    public OverallStatsResponseDTO getOverallStats() {
+        List<Object[]> results = matchRepository.getOverallStats();
+        List<Object[]> worstScoreOverall = matchRepository.getWorstScoreOverall();
+        List<Object[]> closestScoreOverall = matchRepository.getClosestScoreOverall();
+
+        OverallStatsResponseDTO dto = new OverallStatsResponseDTO();
+        dto.setTotalMatches(((Number) results.getFirst()[0]).intValue());
+        dto.setAverageLoserScore(((BigDecimal) results.getFirst()[1]).doubleValue());
+        dto.setCloseMatchesCount(((Number) results.getFirst()[2]).intValue());
+        dto.setStompMatchesCount(((Number) results.getFirst()[3]).intValue());
+
+        dto.setClosestMatches(closestScoreOverall.stream()
+                .map(row -> new SquashMatchResponseDTO(
+                        (UUID) row[0],
+                        new Players((UUID) row[3], (String) row[4], (String) row[5]),
+                        new Players((UUID) row[6], (String) row[7], (String) row[8]),
+                        (Integer) row[1],
+                        (Integer) row[2],
+                        (Timestamp) row[9]))
+                .toArray(SquashMatchResponseDTO[]::new));
+        dto.setStompestMatches(worstScoreOverall.stream()
+                .map(row -> new SquashMatchResponseDTO(
+                        (UUID) row[0],
+                        new Players((UUID) row[3], (String) row[4], (String) row[5]),
+                        new Players((UUID) row[6], (String) row[7], (String) row[8]),
+                        (Integer) row[1],
+                        (Integer) row[2],
+                        (Timestamp) row[9]))
+                .toArray(SquashMatchResponseDTO[]::new));
+
+        return dto;
     }
 }

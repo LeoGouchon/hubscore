@@ -28,4 +28,10 @@ public class Players {
         this.lastname = Objects.requireNonNull(lastname, "Lastname must not be null");
     }
 
+    public Players(UUID id, String firstname, String lastname) {
+        this.id = id;
+        this.firstname = Objects.requireNonNull(firstname, "Firstname must not be null");
+        this.lastname = Objects.requireNonNull(lastname, "Lastname must not be null");
+    }
+
 }

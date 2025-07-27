@@ -45,7 +45,7 @@ public class AuthenticateController {
                     .httpOnly(true)
                     .secure(cookieSecure)
                     .path("/api/v1/authenticate/refresh-token")
-                    .sameSite("None")
+                    .sameSite(cookieSecure ? "None" : "Lax")
                     .maxAge(Duration.ofDays(7))
                     .build();
 
@@ -71,8 +71,7 @@ public class AuthenticateController {
                     .maxAge(0)
                     .path("/api/v1/authenticate/refresh-token")
                     .httpOnly(true)
-                    .secure(cookieSecure)
-                    .sameSite("None")
+                    .sameSite(cookieSecure ? "None" : "Lax")
                     .build();
             response.setHeader(HttpHeaders.SET_COOKIE, refreshCookie.toString());
             return ResponseEntity.ok().build();
@@ -89,7 +88,7 @@ public class AuthenticateController {
                     .httpOnly(true)
                     .secure(cookieSecure)
                     .path("/api/v1/authenticate/refresh-token")
-                    .sameSite("None")
+                    .sameSite(cookieSecure ? "None" : "Lax")
                     .maxAge(Duration.ofDays(7))
                     .build();
 

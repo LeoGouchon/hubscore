@@ -6,6 +6,7 @@ import com.leogouchon.hubscore.common.type.MatchPoint;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,6 +20,7 @@ public class SquashMatchResponseDTO {
     private int finalScoreA;
     private int finalScoreB;
     private boolean isFinished;
+    private Timestamp startTime;
 
     public SquashMatchResponseDTO(SquashMatches match) {
         this.id = match.getId();
@@ -27,5 +29,14 @@ public class SquashMatchResponseDTO {
         this.pointsHistory = match.getPointsHistory();
         this.finalScoreA = match.getFinalScoreA();
         this.finalScoreB = match.getFinalScoreB();
+    }
+
+    public SquashMatchResponseDTO(UUID id, Players playerA, Players playerB, int finalScoreA, int finalScoreB, Timestamp startTime) {
+        this.id = id;
+        this.playerA = playerA;
+        this.playerB = playerB;
+        this.finalScoreA = finalScoreA;
+        this.finalScoreB = finalScoreB;
+        this.startTime = startTime;
     }
 }
