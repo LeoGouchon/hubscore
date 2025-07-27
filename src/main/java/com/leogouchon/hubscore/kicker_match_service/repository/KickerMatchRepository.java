@@ -29,13 +29,14 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
                             player_id AS playerId,
                             p.firstname AS firstname,
                             p.lastname AS lastname,
+                            p.kicker_current_elo AS currentElo,
                             COUNT(*) AS totalMatches,
                             SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END) AS wins,
                             SUM(CASE WHEN score != 10 THEN 1 ELSE 0 END) AS losses,
                             ROUND(SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END)::numeric / COUNT(*), 2) AS winRate
                         FROM all_players
                         JOIN players p ON p.id = all_players.player_id
-                        GROUP BY player_id, p.firstname, p.lastname
+                        GROUP BY player_id, p.firstname, p.lastname, p.kicker_current_elo
                         ORDER BY p.firstname DESC
                     """,
             nativeQuery = true

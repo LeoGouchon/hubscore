@@ -32,6 +32,7 @@ public class KickerStatServiceDefault implements KickerStatService {
             dto.setLosses(stat.getLosses());
             dto.setWinRate(stat.getWinRate());
             dto.setLastMatches(history);
+            dto.setCurrentElo(stat.getCurrentElo());
 
             return dto;
         }).toList();

@@ -11,4 +11,5 @@ public interface GlobalStatsResponseDTO {
     int getWins();
     int getLosses();
     BigDecimal getWinRate();
+    int getCurrentElo();
 }

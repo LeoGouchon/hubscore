@@ -70,9 +70,11 @@ public class KickerMatchServiceDefault implements KickerMatchService {
                 finalScoreB
         );
 
+        matchRepository.save(match);
+
         kickerEloService.calculateElo(match);
 
-        return matchRepository.save(match);
+        return match;
     }
 
     public void deleteMatch(UUID id) {

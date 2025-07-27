@@ -43,8 +43,6 @@ public class KickerStatsController {
     public ResponseEntity<List<GlobalStatsWithHistoryDTO>> getGlobalStats() {
         List<GlobalStatsWithHistoryDTO> globalStats = kickerStatService.getGlobalStats();
 
-
-
         return ResponseEntity.ok(globalStats);
     }
 }
