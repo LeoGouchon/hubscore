@@ -90,8 +90,8 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
                     FROM squash_matches as m
                     JOIN players p1 ON p1.id = m.player_a_id
                     JOIN players p2 ON p2.id = m.player_b_id
-                    WHERE ABS(m.final_score_a - m.final_score_b) =
-                          (SELECT MAX(ABS(m2.final_score_a - m2.final_score_b)) FROM squash_matches as m2);
+                    ORDER BY ABS(m.final_score_a - m.final_score_b) DESC
+                    LIMIT 5;
                     """, nativeQuery = true)
     List<Object[]> getWorstScoreOverall();
 
@@ -106,11 +106,10 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
                     FROM squash_matches as m
                     JOIN players p1 ON p1.id = m.player_a_id
                     JOIN players p2 ON p2.id = m.player_b_id
-                    WHERE ABS(m.final_score_a - m.final_score_b) =
-                          (SELECT MIN(ABS(m2.final_score_a - m2.final_score_b)) FROM squash_matches as m2)
-                      AND
-                        (CASE WHEN m.final_score_a > m.final_score_b THEN m.final_score_a ELSE m.final_score_b END) =
-                        (SELECT MAX(CASE WHEN m2.final_score_a > m2.final_score_b THEN m2.final_score_a ELSE m2.final_score_b END) FROM squash_matches as m2);
+                    WHERE ABS(m.final_score_a - m.final_score_b) = 2
+                    GROUP BY m.id, m.final_score_a, m.final_score_b, p1.id, p1.firstname, p1.lastname, p2.id, p2.firstname, p2.lastname, m.start_time
+                    ORDER BY SUM(m.final_score_a + m.final_score_b) DESC
+                    LIMIT 5;
                     """, nativeQuery = true)
     List<Object[]> getClosestScoreOverall();
 }
