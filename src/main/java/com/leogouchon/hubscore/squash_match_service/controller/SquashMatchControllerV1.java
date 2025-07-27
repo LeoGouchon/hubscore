@@ -2,6 +2,7 @@ package com.leogouchon.hubscore.squash_match_service.controller;
 
 import com.leogouchon.hubscore.common.dto.PaginatedResponseDTO;
 import com.leogouchon.hubscore.squash_match_service.dto.BatchSessionResponseDTO;
+import com.leogouchon.hubscore.squash_match_service.dto.OverallStatsResponseDTO;
 import com.leogouchon.hubscore.squash_match_service.dto.SquashMatchRequestDTO;
 import com.leogouchon.hubscore.squash_match_service.dto.SquashMatchResponseDTO;
 import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
@@ -135,6 +136,19 @@ public class SquashMatchControllerV1 {
                 matchesDatesPage.getTotalElements(),
                 matchesDatesPage.getSize()
         );
+        return ResponseEntity.ok(response);
+    }
+
+    @SecurityRequirement(name = "bearerAuth")
+    @Operation(
+            summary = "Return global data",
+            description = "Return overall stats from the database squash matches"
+    )
+    @ApiResponse(responseCode = "200", description = "Matches dates found")
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
+    @GetMapping("/overall")
+    public ResponseEntity<OverallStatsResponseDTO> getOverallStats() {
+        OverallStatsResponseDTO response = matchService.getOverallStats();
         return ResponseEntity.ok(response);
     }
 }

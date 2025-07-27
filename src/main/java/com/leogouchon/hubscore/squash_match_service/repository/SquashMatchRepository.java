@@ -48,4 +48,65 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
         """, nativeQuery = true
     )
     List<Object[]> getSessionsData(Pageable pageable);
+
+    @Query(
+            value = """
+            SELECT 
+                COUNT(*) AS total_matches,
+                
+                AVG(CASE
+                    WHEN m.final_score_a > m.final_score_b THEN m.final_score_b
+                    WHEN m.final_score_b > m.final_score_a THEN m.final_score_a
+                    ELSE 0 END
+                ) as average_loser_score,
+                
+                SUM(CASE
+                    WHEN 
+                        ABS(m.final_score_a - m.final_score_b) = 2 
+                            AND (m.final_score_a > 10 OR m.final_score_b > 10) 
+                        THEN 1 
+                        ELSE 0 
+                    END) as close_matches_count,
+                
+                SUM(CASE
+                    WHEN 
+                        ABS(m.final_score_a - m.final_score_b) > 7
+                            AND (m.final_score_a > 11 OR m.final_score_b > 11) 
+                        THEN 1 
+                        ELSE 0 
+                    END) as stomp_matches_count
+            FROM squash_matches as m;
+""", nativeQuery = true)
+    List<Object[]> getOverallStats();
+
+    @Query(
+            value = """
+                    SELECT m.id,
+                           m.final_score_a,
+                           m.final_score_b,
+                           m.player_a_id,
+                           m.player_b_id,
+                           m.start_time
+                    FROM squash_matches as m
+                    WHERE ABS(m.final_score_a - m.final_score_b) =
+                          (SELECT MAX(ABS(m2.final_score_a - m2.final_score_b)) FROM squash_matches as m2);
+                    """, nativeQuery = true)
+    List<Object[]> getWorstScoreOverall();
+
+    @Query(
+            value = """
+                    SELECT m.id,
+                           m.final_score_a,
+                           m.final_score_b,
+                           m.player_a_id,
+                           m.player_b_id,
+                           m.start_time
+                    FROM squash_matches as m
+                    WHERE ABS(m.final_score_a - m.final_score_b) =
+                          (SELECT MIN(ABS(m2.final_score_a - m2.final_score_b)) FROM squash_matches as m2)
+                      AND
+                        (CASE WHEN m.final_score_a > m.final_score_b THEN m.final_score_a ELSE m.final_score_b END) =
+                        (SELECT MAX(CASE WHEN m2.final_score_a > m2.final_score_b THEN m2.final_score_a ELSE m2.final_score_b END) FROM squash_matches as m2);
+                    """, nativeQuery = true)
+    List<Object[]> getClosestScoreOverall();
 }

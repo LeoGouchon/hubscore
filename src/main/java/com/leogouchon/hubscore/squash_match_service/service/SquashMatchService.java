@@ -1,6 +1,7 @@
 package com.leogouchon.hubscore.squash_match_service.service;
 
 import com.leogouchon.hubscore.squash_match_service.dto.BatchSessionResponseDTO;
+import com.leogouchon.hubscore.squash_match_service.dto.OverallStatsResponseDTO;
 import com.leogouchon.hubscore.squash_match_service.dto.SquashMatchResponseDTO;
 import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import com.leogouchon.hubscore.common.type.MatchPoint;
@@ -17,4 +18,5 @@ public interface SquashMatchService {
     Optional<SquashMatches> getMatch(UUID id);
     Optional<SquashMatchResponseDTO> getMatchResponseDTO(UUID id);
     Page<BatchSessionResponseDTO> getMatchesSessionsQuickStats(int page, int size);
+    OverallStatsResponseDTO getOverallStats();
 }

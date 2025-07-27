@@ -1,6 +1,7 @@
 package com.leogouchon.hubscore.squash_match_service.service.impl;
 
 import com.leogouchon.hubscore.squash_match_service.dto.BatchSessionResponseDTO;
+import com.leogouchon.hubscore.squash_match_service.dto.OverallStatsResponseDTO;
 import com.leogouchon.hubscore.squash_match_service.dto.SquashMatchResponseDTO;
 import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import com.leogouchon.hubscore.player_service.entity.Players;
@@ -19,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -118,5 +120,35 @@ public class SquashMatchServiceDefault implements SquashMatchService {
         sessions.sort(Comparator.comparing(BatchSessionResponseDTO::getDate).reversed());
 
         return new PageImpl<>(sessions, pageable, groupedByDay.size());
+    }
+
+    public OverallStatsResponseDTO getOverallStats() {
+        List<Object[]> results = matchRepository.getOverallStats();
+        List<Object[]> worstScoreOverall = matchRepository.getWorstScoreOverall();
+        List<Object[]> closestScoreOverall = matchRepository.getClosestScoreOverall();
+
+        OverallStatsResponseDTO dto = new OverallStatsResponseDTO();
+        dto.setTotalMatches(((Number) results.getFirst()[0]).intValue());
+        dto.setAverageLoserScore(((Number) results.getFirst()[1]).intValue());
+        dto.setCloseMatchesCount(closestScoreOverall.stream()
+                .map(row -> new SquashMatchResponseDTO(
+                        (UUID) row[0],
+                        (Players) row[3],
+                        (Players) row[4],
+                        (Integer) row[1],
+                        (Integer) row[2],
+                        (Timestamp) row[5]))
+                .toArray(SquashMatchResponseDTO[]::new));
+        dto.setStompMatchesCount(worstScoreOverall.stream()
+                .map(row -> new SquashMatchResponseDTO(
+                        (UUID) row[0],
+                        (Players) row[3],
+                        (Players) row[4],
+                        (Integer) row[1],
+                        (Integer) row[2],
+                        (Timestamp) row[5]))
+                .toArray(SquashMatchResponseDTO[]::new));
+
+        return dto;
     }
 }

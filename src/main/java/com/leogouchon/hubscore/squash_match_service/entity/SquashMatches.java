@@ -65,6 +65,11 @@ public class SquashMatches {
         }
     }
 
+    public SquashMatches(Players playerA, Players playerB, Integer finalScoreA, Integer finalScoreB, Timestamp startTime) {
+        this(playerA, playerB, finalScoreA, finalScoreB);
+        this.startTime = startTime;
+    }
+
     public SquashMatches(Players playerA, Players playerB, List<MatchPoint> pointsHistory, Integer finalScoreA, Integer finalScoreB) {
         this(playerA, playerB);
         this.finalScoreA = finalScoreA;
