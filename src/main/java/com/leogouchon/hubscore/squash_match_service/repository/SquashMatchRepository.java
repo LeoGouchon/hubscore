@@ -70,9 +70,7 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
                 
                 SUM(CASE
                     WHEN 
-                        ABS(m.final_score_a - m.final_score_b) > 7
-                            AND (m.final_score_a > 11 OR m.final_score_b > 11) 
-                        THEN 1 
+                        ABS(m.final_score_a - m.final_score_b) > 7 THEN 1 
                         ELSE 0 
                     END) as stomp_matches_count
             FROM squash_matches as m;
