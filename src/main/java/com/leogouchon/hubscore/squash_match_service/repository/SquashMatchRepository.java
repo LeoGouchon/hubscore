@@ -84,10 +84,12 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
                     SELECT m.id,
                            m.final_score_a,
                            m.final_score_b,
-                           m.player_a_id,
-                           m.player_b_id,
+                           p1.id, p1.firstname, p1.lastname,
+                           p2.id, p2.firstname, p2.lastname,
                            m.start_time
                     FROM squash_matches as m
+                    JOIN players p1 ON p1.id = m.player_a_id
+                    JOIN players p2 ON p2.id = m.player_b_id
                     WHERE ABS(m.final_score_a - m.final_score_b) =
                           (SELECT MAX(ABS(m2.final_score_a - m2.final_score_b)) FROM squash_matches as m2);
                     """, nativeQuery = true)
@@ -98,10 +100,12 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
                     SELECT m.id,
                            m.final_score_a,
                            m.final_score_b,
-                           m.player_a_id,
-                           m.player_b_id,
+                           p1.id, p1.firstname, p1.lastname,
+                           p2.id, p2.firstname, p2.lastname,
                            m.start_time
                     FROM squash_matches as m
+                    JOIN players p1 ON p1.id = m.player_a_id
+                    JOIN players p2 ON p2.id = m.player_b_id
                     WHERE ABS(m.final_score_a - m.final_score_b) =
                           (SELECT MIN(ABS(m2.final_score_a - m2.final_score_b)) FROM squash_matches as m2)
                       AND

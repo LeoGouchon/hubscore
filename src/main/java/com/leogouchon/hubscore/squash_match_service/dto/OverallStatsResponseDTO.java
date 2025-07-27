@@ -8,17 +8,21 @@ import lombok.Setter;
 @Setter
 public class OverallStatsResponseDTO {
     private int totalMatches;
-    private int averageLoserScore;
-    private SquashMatchResponseDTO[] closeMatchesCount;
-    private SquashMatchResponseDTO[] stompMatchesCount;
+    private double averageLoserScore;
+    private int closeMatchesCount;
+    private int stompMatchesCount;
+    private SquashMatchResponseDTO[] closestMatches;
+    private SquashMatchResponseDTO[] stompestMatches;
 
     public OverallStatsResponseDTO() {
     }
 
-    public OverallStatsResponseDTO(int totalMatches, int averageLoserScore, SquashMatchResponseDTO[] closeMatchesCount, SquashMatchResponseDTO[] stompMatchesCount) {
+    public OverallStatsResponseDTO(int totalMatches, double averageLoserScore, int closeMatchesCount, int stompMatchesCount, SquashMatchResponseDTO[] closestMatches, SquashMatchResponseDTO[] stompestMatches) {
         this.totalMatches = totalMatches;
         this.averageLoserScore = averageLoserScore;
         this.closeMatchesCount = closeMatchesCount;
         this.stompMatchesCount = stompMatchesCount;
+        this.closestMatches = closestMatches;
+        this.stompestMatches = stompestMatches;
     }
 }
