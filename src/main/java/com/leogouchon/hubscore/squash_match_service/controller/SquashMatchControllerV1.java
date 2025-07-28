@@ -1,10 +1,7 @@
 package com.leogouchon.hubscore.squash_match_service.controller;
 
 import com.leogouchon.hubscore.common.dto.PaginatedResponseDTO;
-import com.leogouchon.hubscore.squash_match_service.dto.BatchSessionResponseDTO;
-import com.leogouchon.hubscore.squash_match_service.dto.OverallStatsResponseDTO;
-import com.leogouchon.hubscore.squash_match_service.dto.SquashMatchRequestDTO;
-import com.leogouchon.hubscore.squash_match_service.dto.SquashMatchResponseDTO;
+import com.leogouchon.hubscore.squash_match_service.dto.*;
 import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import com.leogouchon.hubscore.squash_match_service.service.SquashMatchService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -149,6 +146,18 @@ public class SquashMatchControllerV1 {
     @GetMapping("/overall")
     public ResponseEntity<OverallStatsResponseDTO> getOverallStats() {
         OverallStatsResponseDTO response = matchService.getOverallStats();
+        return ResponseEntity.ok(response);
+    }
+
+    @SecurityRequirement(name = "bearerAuth")
+    @Operation(
+            summary = "Return overall data from a specific player"
+    )
+    @ApiResponse(responseCode = "200", description = "Player data found")
+    @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
+    @GetMapping("/stats/player/{id:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}}")
+    public ResponseEntity<PlayerStatsResponseDTO> getPLayerOverallStats(@PathVariable UUID id) {
+        PlayerStatsResponseDTO response = matchService.getPlayerStats(id);
         return ResponseEntity.ok(response);
     }
 }

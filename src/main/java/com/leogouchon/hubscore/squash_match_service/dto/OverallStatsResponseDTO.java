@@ -16,13 +16,4 @@ public class OverallStatsResponseDTO {
 
     public OverallStatsResponseDTO() {
     }
-
-    public OverallStatsResponseDTO(int totalMatches, double averageLoserScore, int closeMatchesCount, int stompMatchesCount, SquashMatchResponseDTO[] closestMatches, SquashMatchResponseDTO[] stompestMatches) {
-        this.totalMatches = totalMatches;
-        this.averageLoserScore = averageLoserScore;
-        this.closeMatchesCount = closeMatchesCount;
-        this.stompMatchesCount = stompMatchesCount;
-        this.closestMatches = closestMatches;
-        this.stompestMatches = stompestMatches;
-    }
 }

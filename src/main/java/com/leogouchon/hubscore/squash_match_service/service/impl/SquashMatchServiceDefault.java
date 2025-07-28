@@ -1,12 +1,13 @@
 package com.leogouchon.hubscore.squash_match_service.service.impl;
 
-import com.leogouchon.hubscore.squash_match_service.dto.BatchSessionResponseDTO;
-import com.leogouchon.hubscore.squash_match_service.dto.OverallStatsResponseDTO;
-import com.leogouchon.hubscore.squash_match_service.dto.SquashMatchResponseDTO;
+import com.leogouchon.hubscore.squash_match_service.dto.*;
 import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.common.type.MatchPoint;
 import com.leogouchon.hubscore.squash_match_service.repository.SquashMatchRepository;
+import com.leogouchon.hubscore.squash_match_service.repository.projection.LightDataMatchProjection;
+import com.leogouchon.hubscore.squash_match_service.repository.projection.OpponentStatsProjection;
+import com.leogouchon.hubscore.squash_match_service.repository.projection.PlayerStatsProjection;
 import com.leogouchon.hubscore.squash_match_service.service.SquashMatchService;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
 import com.leogouchon.hubscore.squash_match_service.specification.MatchSpecifications;
@@ -125,8 +126,8 @@ public class SquashMatchServiceDefault implements SquashMatchService {
 
     public OverallStatsResponseDTO getOverallStats() {
         List<Object[]> results = matchRepository.getOverallStats();
-        List<Object[]> worstScoreOverall = matchRepository.getWorstScoreOverall();
-        List<Object[]> closestScoreOverall = matchRepository.getClosestScoreOverall();
+        List<LightDataMatchProjection> worstScoreOverall = matchRepository.getWorstScoreOverall(null);
+        List<LightDataMatchProjection> closestScoreOverall = matchRepository.getClosestScoreOverall(null);
 
         OverallStatsResponseDTO dto = new OverallStatsResponseDTO();
         dto.setTotalMatches(((Number) results.getFirst()[0]).intValue());
@@ -136,22 +137,60 @@ public class SquashMatchServiceDefault implements SquashMatchService {
 
         dto.setClosestMatches(closestScoreOverall.stream()
                 .map(row -> new SquashMatchResponseDTO(
-                        (UUID) row[0],
-                        new Players((UUID) row[3], (String) row[4], (String) row[5]),
-                        new Players((UUID) row[6], (String) row[7], (String) row[8]),
-                        (Integer) row[1],
-                        (Integer) row[2],
-                        (Timestamp) row[9]))
+                        row.getId(),
+                        new Players(row.getPlayerAId(), row.getPlayerAFirstname(), row.getPlayerALastname()),
+                        new Players(row.getPlayerBId(), row.getPlayerBFirstname(), row.getPlayerBLastname()),
+                        row.getFinalScoreA(),
+                        row.getFinalScoreB(),
+                        row.getStartTime()))
                 .toArray(SquashMatchResponseDTO[]::new));
         dto.setStompestMatches(worstScoreOverall.stream()
                 .map(row -> new SquashMatchResponseDTO(
-                        (UUID) row[0],
-                        new Players((UUID) row[3], (String) row[4], (String) row[5]),
-                        new Players((UUID) row[6], (String) row[7], (String) row[8]),
-                        (Integer) row[1],
-                        (Integer) row[2],
-                        (Timestamp) row[9]))
+                        row.getId(),
+                        new Players(row.getPlayerAId(), row.getPlayerAFirstname(), row.getPlayerALastname()),
+                        new Players(row.getPlayerBId(), row.getPlayerBFirstname(), row.getPlayerBLastname()),
+                        row.getFinalScoreA(),
+                        row.getFinalScoreB(),
+                        row.getStartTime()))
                 .toArray(SquashMatchResponseDTO[]::new));
+
+        return dto;
+    }
+
+    public PlayerStatsResponseDTO getPlayerStats(UUID playerId) {
+        List<PlayerStatsProjection> globalStats = matchRepository.getStatsByPlayerId(playerId);
+        List<OpponentStatsProjection> opponentStats = matchRepository.getDetailedStatsAgainstEachOpponent(playerId);
+
+        opponentStats.forEach(opponentStat ->
+                System.out.println(opponentStat.getOpponentId() + " - " + opponentStat.getOpponentFirstname() + " " + opponentStat.getOpponentLastname())
+        );
+
+        if (globalStats.isEmpty()) {
+            throw new IllegalArgumentException("Aucune statistique trouvée pour le joueur avec l'ID : " + playerId);
+        }
+        PlayerStatsResponseDTO dto = new PlayerStatsResponseDTO();
+        dto.setPlayer(new Players(playerId, globalStats.getFirst().getFirstname(), globalStats.getFirst().getLastname()));
+        dto.setTotalMatches(globalStats.stream().mapToInt(PlayerStatsProjection::getTotalMatches).sum());
+        dto.setWins(globalStats.stream().mapToInt(PlayerStatsProjection::getWins).sum());
+        dto.setLosses(globalStats.stream().mapToInt(PlayerStatsProjection::getLosses).sum());
+        dto.setAverageLostScore(globalStats.stream().mapToDouble(PlayerStatsProjection::getAverageLoserScore).sum());
+        dto.setCloseWonCount(globalStats.stream().mapToInt(PlayerStatsProjection::getCloseMatchesWonCount).sum());
+        dto.setCloseLostCount(globalStats.stream().mapToInt(PlayerStatsProjection::getCloseMatchesLostCount).sum());
+        dto.setStompWonCount(globalStats.stream().mapToInt(PlayerStatsProjection::getStompMatchesWonCount).sum());
+        dto.setStompLostCount(globalStats.stream().mapToInt(PlayerStatsProjection::getStompMatchesLostCount).sum());
+        dto.setStatsAgainstOpponents(opponentStats.stream()
+                .map(opponent -> new StatsAgainstOpponentDTO(
+                        new Players(opponent.getOpponentId(), opponent.getOpponentFirstname(), opponent.getOpponentLastname()),
+                        opponent.getTotalMatches(),
+                        opponent.getWins(),
+                        opponent.getLosses(),
+                        opponent.getAverageScoreWhenLost(),
+                        opponent.getCloseWonCount(),
+                        opponent.getCloseLostCount(),
+                        opponent.getStompsWonCount(),
+                        opponent.getStompsLostCount()
+                ))
+                .toArray(StatsAgainstOpponentDTO[]::new));
 
         return dto;
     }
