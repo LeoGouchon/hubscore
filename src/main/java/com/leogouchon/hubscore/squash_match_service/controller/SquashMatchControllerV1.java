@@ -143,7 +143,7 @@ public class SquashMatchControllerV1 {
     )
     @ApiResponse(responseCode = "200", description = "Matches dates found")
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    @GetMapping("/overall")
+    @GetMapping("/stats")
     public ResponseEntity<OverallStatsResponseDTO> getOverallStats() {
         OverallStatsResponseDTO response = matchService.getOverallStats();
         return ResponseEntity.ok(response);

@@ -86,8 +86,8 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
                     SELECT m.id,
                            m.final_score_a,
                            m.final_score_b,
-                           p1.id, p1.firstname, p1.lastname,
-                           p2.id, p2.firstname, p2.lastname,
+                           p1.id as player_a_id, p1.firstname as player_a_firstname, p1.lastname as player_a_lastname,
+                           p2.id as player_b_id, p2.firstname as player_b_firstname, p2.lastname as player_b_lastname,
                            m.start_time
                     FROM squash_matches m
                     JOIN players p1 ON p1.id = m.player_a_id
@@ -105,12 +105,16 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
                     SELECT m.id,
                            m.final_score_a,
                            m.final_score_b,
-                           p1.id, p1.firstname, p1.lastname,
-                           p2.id, p2.firstname, p2.lastname,
+                           p1.id as player_a_id, 
+                           p1.firstname as player_a_firstname, 
+                           p1.lastname as player_a_lastname,
+                           p2.id as player_b_id, 
+                           p2.firstname as player_b_firstname, 
+                           p2.lastname as player_b_lastname,
                            m.start_time
                     FROM squash_matches m
-                    JOIN players p1 ON p1.id = m.player_a_id
-                    JOIN players p2 ON p2.id = m.player_b_id
+                             JOIN players p1 ON p1.id = m.player_a_id
+                             JOIN players p2 ON p2.id = m.player_b_id
                     WHERE ABS(m.final_score_a - m.final_score_b) = 2
                       AND (:playerId IS NULL OR m.player_a_id = :playerId OR m.player_b_id = :playerId)
                     GROUP BY m.id, m.final_score_a, m.final_score_b,
@@ -118,7 +122,7 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
                              p2.id, p2.firstname, p2.lastname,
                              m.start_time
                     ORDER BY (m.final_score_a + m.final_score_b) DESC
-                    LIMIT 5
+                    LIMIT 5;
                     """,
             nativeQuery = true
     )
