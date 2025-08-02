@@ -171,17 +171,17 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
                                     THEN 1 ELSE 0 END
                         ) AS close_matches_lost_count,
                     
-                        -- Stomped = lost by more than 7 points
-                        SUM(CASE
-                                WHEN (m.player_a_id = :playerId AND m.final_score_b - m.final_score_a > 7)
-                                    OR (m.player_b_id = :playerId AND m.final_score_a - m.final_score_b > 7)
-                                    THEN 1 ELSE 0 END
-                        ) AS stomp_matches_won_count,
-                    
                         -- Stomping others = won by more than 7 points
                         SUM(CASE
                                 WHEN (m.player_a_id = :playerId AND m.final_score_a - m.final_score_b > 7)
                                     OR (m.player_b_id = :playerId AND m.final_score_b - m.final_score_a > 7)
+                                    THEN 1 ELSE 0 END
+                        ) AS stomp_matches_won_count,
+                    
+                        -- Stomped = lost by more than 7 points
+                        SUM(CASE
+                               WHEN (m.player_a_id = :playerId AND m.final_score_b - m.final_score_a > 7)
+                                    OR (m.player_b_id = :playerId AND m.final_score_a - m.final_score_b > 7)
                                     THEN 1 ELSE 0 END
                         ) AS stomp_matches_lost_count
                     
