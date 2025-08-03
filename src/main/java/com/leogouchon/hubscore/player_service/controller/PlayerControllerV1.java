@@ -40,9 +40,11 @@ public class PlayerControllerV1 {
     @ApiResponse(responseCode = "200", description = "Players found")
     public ResponseEntity<PaginatedResponseDTO<Players>> getPlayers(
             @RequestParam(defaultValue = "0") @Min(0) int page,
-            @RequestParam(defaultValue = "10") @Min(1) @Max(50) int size
+            @RequestParam(defaultValue = "10") @Min(1) @Max(50) int size,
+            @RequestParam(name = "sport", required = false) String sport,
+            @RequestParam(name = "teamId", required = false) String teamId
     ) {
-        Page<Players> playersPage = playerService.getPlayers(page, size);
+        Page<Players> playersPage = playerService.getPlayers(page, size, sport, teamId);
         PaginatedResponseDTO<Players> response = new PaginatedResponseDTO<>(
                 playersPage.getContent(),
                 playersPage.getNumber(),
@@ -93,8 +95,11 @@ public class PlayerControllerV1 {
 
     @GetMapping("/unlinked")
     @ApiResponse(responseCode = "200", description = "Players without linked user found")
-    public ResponseEntity<List<Players>> getUnassociatedPlayers() {
-        List<Players> unassociatedPlayers = playerService.getUnassociatedPlayers();
+    public ResponseEntity<List<Players>> getUnassociatedPlayers(
+        @RequestParam(name = "sport", required = false) String sport,
+        @RequestParam(name = "teamId", required = false) String teamId
+    ) {
+        List<Players> unassociatedPlayers = playerService.getUnassociatedPlayers(sport, teamId);
         return ResponseEntity
                 .ok()
                 .body(unassociatedPlayers);
