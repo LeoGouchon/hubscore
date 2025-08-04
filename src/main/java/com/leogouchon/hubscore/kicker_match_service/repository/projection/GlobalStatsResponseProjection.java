@@ -1,9 +1,10 @@
-package com.leogouchon.hubscore.kicker_match_service.dto;
+package com.leogouchon.hubscore.kicker_match_service.repository.projection;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.UUID;
 
-public interface GlobalStatsResponseDTO {
+public interface GlobalStatsResponseProjection {
     UUID getPlayerId();
     String getFirstname();
     String getLastname();
@@ -12,4 +13,5 @@ public interface GlobalStatsResponseDTO {
     int getLosses();
     BigDecimal getWinRate();
     int getCurrentElo();
+    int getRank();
 }
