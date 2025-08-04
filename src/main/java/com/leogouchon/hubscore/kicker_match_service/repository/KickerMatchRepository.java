@@ -1,13 +1,15 @@
 package com.leogouchon.hubscore.kicker_match_service.repository;
 
-import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -33,15 +35,37 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
                             COUNT(*) AS totalMatches,
                             SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END) AS wins,
                             SUM(CASE WHEN score != 10 THEN 1 ELSE 0 END) AS losses,
-                            ROUND(SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END)::numeric / COUNT(*), 2) AS winRate
+                            ROUND(SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END)::numeric / COUNT(*), 2) AS winRate,
+                            RANK() OVER (ORDER BY p.kicker_current_elo DESC) AS rank
                         FROM all_players
                         JOIN players p ON p.id = all_players.player_id
                         GROUP BY player_id, p.firstname, p.lastname, p.kicker_current_elo
-                        ORDER BY p.firstname DESC
+                        ORDER BY p.kicker_current_elo DESC
                     """,
             nativeQuery = true
     )
-    List<GlobalStatsResponseDTO> getGlobalKickerStats();
+    List<GlobalStatsResponseProjection> getGlobalKickerStats();
+
+    @Query(
+            value = """
+                    SELECT 
+                        ke.player_id AS playerId,
+                        ke.match_id AS matchId,
+                        ke.elo_after_match AS elo,
+                        RANK() OVER (ORDER BY ke.elo_after_match DESC) AS rank
+                    FROM kicker_elo ke
+                    JOIN kicker_matches m ON m.id = ke.match_id
+                    INNER JOIN (
+                        SELECT ke.player_id, MAX(m.created_at) AS last_match_date
+                        FROM kicker_elo ke
+                        JOIN kicker_matches m ON m.id = ke.match_id
+                        WHERE m.created_at <= :date
+                        GROUP BY ke.player_id
+                    ) latest ON ke.player_id = latest.player_id AND m.created_at = latest.last_match_date
+                    """,
+            nativeQuery = true
+    )
+    List<LastKickerEloByDateProjection> getLatestKickerEloByDate(Timestamp date);
 
     @Query(value = """
                 WITH all_players AS (
@@ -67,8 +91,8 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
     List<Boolean> getLastFiveResultsByPlayerId(@Param("playerId") UUID playerId);
 
     @Query(value = """
-                SELECT * FROM kicker_matches
-                ORDER BY created_at;
-                """, nativeQuery = true)
+            SELECT * FROM kicker_matches
+            ORDER BY created_at;
+            """, nativeQuery = true)
     List<KickerMatches> getAllByOrderByCreatedAtAsc();
 }

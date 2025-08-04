@@ -121,7 +121,6 @@ public class KickerEloServiceDefault implements KickerEloService {
 
         kickerEloRepository.save(elo);
 
-        // Save new elo into player table
         player.setKickerElo(after);
         playerRepository.save(player);
     }
@@ -138,6 +137,7 @@ public class KickerEloServiceDefault implements KickerEloService {
 
         List<KickerMatches> matches = matchRepository.getAllByOrderByCreatedAtAsc();
         for (KickerMatches match : matches) {
+            try { Thread.sleep(10); } catch (InterruptedException e) { e.printStackTrace(); }
             calculateElo(match);
         }
     }

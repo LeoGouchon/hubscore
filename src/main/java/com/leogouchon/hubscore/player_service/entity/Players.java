@@ -1,9 +1,11 @@
 package com.leogouchon.hubscore.player_service.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -23,6 +25,10 @@ public class Players {
 
     @Column(name = "kicker_current_elo")
     private Integer kickerElo;
+
+    @OneToMany(mappedBy = "player")
+    @JsonManagedReference
+    private List<PlayerTeam> playerTeams;
 
     public Players() {}
 

@@ -1,6 +1,6 @@
 package com.leogouchon.hubscore.kicker_match_service.controller;
 
-import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
 import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsWithHistoryDTO;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerStatService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,7 +35,7 @@ public class KickerStatsController {
                     @ApiResponse(
                             responseCode = "200",
                             description = "Success",
-                            content = @Content(schema = @Schema(implementation = GlobalStatsResponseDTO.class))
+                            content = @Content(schema = @Schema(implementation = GlobalStatsResponseProjection.class))
                     )
             }
     )
