@@ -18,29 +18,47 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
 
     @Query(
             value = """
-                        WITH all_players AS (
-                            SELECT player_one_team_a_id AS player_id, final_score_team_a AS score, date_trunc('day', created_at) FROM kicker_matches
-                            UNION ALL
-                            SELECT player_two_team_a_id AS player_id, final_score_team_a AS score, date_trunc('day', created_at) FROM kicker_matches
-                            UNION ALL
-                            SELECT player_one_team_b_id AS player_id, final_score_team_b AS score, date_trunc('day', created_at) FROM kicker_matches
-                            UNION ALL
-                            SELECT player_two_team_b_id AS player_id, final_score_team_b AS score, date_trunc('day', created_at) FROM kicker_matches
-                        )
-                        SELECT
-                            player_id AS playerId,
-                            p.firstname AS firstname,
-                            p.lastname AS lastname,
-                            p.kicker_current_elo AS currentElo,
-                            COUNT(*) AS totalMatches,
-                            SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END) AS wins,
-                            SUM(CASE WHEN score != 10 THEN 1 ELSE 0 END) AS losses,
-                            ROUND(SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END)::numeric / COUNT(*), 2) AS winRate,
-                            RANK() OVER (ORDER BY p.kicker_current_elo DESC) AS rank
-                        FROM all_players
-                        JOIN players p ON p.id = all_players.player_id
-                        GROUP BY player_id, p.firstname, p.lastname, p.kicker_current_elo
-                        ORDER BY p.kicker_current_elo DESC
+                    WITH all_players AS (
+                          SELECT player_one_team_a_id AS player_id, final_score_team_a AS score FROM kicker_matches
+                          UNION ALL
+                          SELECT player_two_team_a_id AS player_id, final_score_team_a AS score FROM kicker_matches
+                          UNION ALL
+                          SELECT player_one_team_b_id AS player_id, final_score_team_b AS score FROM kicker_matches
+                          UNION ALL
+                          SELECT player_two_team_b_id AS player_id, final_score_team_b AS score FROM kicker_matches
+                      ),
+                      player_stats AS (
+                          SELECT
+                              ap.player_id,
+                              COUNT(*) AS total_matches,
+                              SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END) AS wins,
+                              SUM(CASE WHEN score != 10 THEN 1 ELSE 0 END) AS losses,
+                              ROUND(SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END)::numeric / COUNT(*), 2) AS win_rate
+                          FROM all_players ap
+                          GROUP BY ap.player_id
+                      ),
+                      ranked_players AS (
+                          SELECT
+                              ps.player_id,
+                              RANK() OVER (ORDER BY p.kicker_current_elo DESC) AS rank
+                          FROM player_stats ps
+                          JOIN players p ON p.id = ps.player_id
+                          WHERE ps.total_matches >= 10
+                      )
+                      SELECT
+                          ps.player_id AS playerId,
+                          p.firstname,
+                          p.lastname,
+                          p.kicker_current_elo AS currentElo,
+                          ps.total_matches,
+                          ps.wins,
+                          ps.losses,
+                          ps.win_rate,
+                          COALESCE(rp.rank, 0) AS rank
+                      FROM player_stats ps
+                      JOIN players p ON p.id = ps.player_id
+                      LEFT JOIN ranked_players rp ON rp.player_id = ps.player_id
+                      ORDER BY rank;
                     """,
             nativeQuery = true
     )
@@ -48,20 +66,42 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
 
     @Query(
             value = """
-                    SELECT 
-                        ke.player_id AS playerId,
-                        ke.match_id AS matchId,
-                        ke.elo_after_match AS elo,
-                        RANK() OVER (ORDER BY ke.elo_after_match DESC) AS rank
-                    FROM kicker_elo ke
-                    JOIN kicker_matches m ON m.id = ke.match_id
-                    INNER JOIN (
-                        SELECT ke.player_id, MAX(m.created_at) AS last_match_date
+                    WITH match_counts AS (
+                        SELECT player_id, COUNT(*) AS total_matches
                         FROM kicker_elo ke
-                        JOIN kicker_matches m ON m.id = ke.match_id
+                                 JOIN kicker_matches m ON m.id = ke.match_id
                         WHERE m.created_at <= :date
-                        GROUP BY ke.player_id
-                    ) latest ON ke.player_id = latest.player_id AND m.created_at = latest.last_match_date
+                        GROUP BY player_id
+                    ),
+                         latest_elo AS (
+                             SELECT
+                                 ke.player_id,
+                                 ke.match_id,
+                                 ke.elo_after_match,
+                                 m.created_at,
+                                 ROW_NUMBER() OVER (PARTITION BY ke.player_id ORDER BY m.created_at DESC) AS rn
+                             FROM kicker_elo ke
+                                      JOIN kicker_matches m ON m.id = ke.match_id
+                             WHERE m.created_at <= :date
+                         ),
+                         ranked_players AS (
+                             SELECT
+                                 le.player_id,
+                                 le.match_id,
+                                 le.elo_after_match,
+                                 RANK() OVER (ORDER BY le.elo_after_match DESC) AS rank
+                             FROM latest_elo le
+                                      JOIN match_counts mc ON le.player_id = mc.player_id
+                             WHERE le.rn = 1 AND mc.total_matches >= 10
+                         )
+                        SELECT
+                        le.player_id AS playerId,
+                        le.elo_after_match AS elo,
+                        COALESCE(rp.rank, 0) AS rank
+                    FROM latest_elo le
+                        LEFT JOIN ranked_players rp ON le.player_id = rp.player_id
+                    WHERE le.rn = 1
+                    ORDER BY rank;
                     """,
             nativeQuery = true
     )
