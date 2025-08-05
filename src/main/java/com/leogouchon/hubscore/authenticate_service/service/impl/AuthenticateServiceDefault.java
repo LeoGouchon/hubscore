@@ -18,12 +18,14 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.naming.AuthenticationException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
@@ -182,5 +184,13 @@ public class AuthenticateServiceDefault implements AuthenticateService {
     public boolean isUserAdmin(String accessToken) {
         Users user = getCurrentUser(accessToken);
         return Boolean.TRUE.equals(user.getIsAdmin());
+    }
+
+    @Override
+    @Scheduled(cron = "0 0 3 1 * ?")
+    public void cleanupRevokedRefreshTokens() {
+        LocalDateTime cutoffDate = LocalDateTime.now().minusDays(15);
+        int deletedCount = refreshTokenRepository.deleteRovokedTokensOlderThan(cutoffDate);
+        System.out.println("Deleted " + deletedCount + " revoked refresh tokens older than " + cutoffDate);
     }
 }

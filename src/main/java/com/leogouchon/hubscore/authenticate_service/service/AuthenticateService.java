@@ -17,4 +17,5 @@ public interface AuthenticateService {
     DoubleTokenDTO signUp(String email, String password, String invitationToken) throws AuthenticationException;
     Users getCurrentUser(String accessToken);
     boolean isUserAdmin(String accessToken);
+    void cleanupRevokedRefreshTokens();
 }

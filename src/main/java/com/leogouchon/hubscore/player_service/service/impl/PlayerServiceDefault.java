@@ -3,10 +3,12 @@ package com.leogouchon.hubscore.player_service.service.impl;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.player_service.repository.PlayerRepository;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
+import com.leogouchon.hubscore.player_service.specification.PlayerSpecifications;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,9 +27,19 @@ public class PlayerServiceDefault implements PlayerService {
         this.playerRepository = playerRepository;
     }
 
-    public Page<Players> getPlayers(int page, int size) {
+    public Page<Players> getPlayers(int page, int size, String sport, String teamId) {
+        Specification<Players> spec = (root, query, cb) -> cb.conjunction();
+
+        if (sport != null && !sport.isBlank()) {
+            spec = spec.and(PlayerSpecifications.bySport(sport));
+        }
+
+        if (isValidUuid(teamId)) {
+            spec = spec.and(PlayerSpecifications.byTeam(UUID.fromString(teamId)));
+        }
+
         Pageable pageable = PageRequest.of(page, size);
-        return playerRepository.findAll(pageable);
+        return playerRepository.findAll(spec, pageable);
     }
 
     public Optional<Players> getPlayer(UUID id) {
@@ -50,7 +62,25 @@ public class PlayerServiceDefault implements PlayerService {
         }
     }
 
-    public List<Players> getUnassociatedPlayers() {
-        return playerRepository.findPlayersWithoutUser();
+    public List<Players> getUnassociatedPlayers(String sport, String teamId) {
+        Specification<Players> spec = (root, query, cb) -> cb.conjunction();
+        
+        if (sport != null && !sport.isBlank()) {
+            spec = spec.and(PlayerSpecifications.bySport(sport));
+        }
+        
+        if (isValidUuid(teamId)) {
+            spec = spec.and(PlayerSpecifications.byTeam(UUID.fromString(teamId)));
+        }
+        
+        spec = spec.and(PlayerSpecifications.withoutUser());
+
+        return playerRepository.findAll(spec);
+    }
+
+    private boolean isValidUuid(String id) {
+        return id != null && !id.isBlank()
+                && !"undefined".equalsIgnoreCase(id)
+                && !"null".equalsIgnoreCase(id);
     }
 }
