@@ -23,9 +23,6 @@ public class Players {
     private String firstname;
     private String lastname;
 
-    @Column(name = "kicker_current_elo")
-    private Integer kickerElo;
-
     @OneToMany(mappedBy = "player")
     @JsonManagedReference
     private List<PlayerTeam> playerTeams;

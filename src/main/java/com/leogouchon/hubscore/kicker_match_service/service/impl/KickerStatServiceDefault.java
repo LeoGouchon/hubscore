@@ -4,7 +4,9 @@ import com.leogouchon.hubscore.kicker_match_service.repository.projection.Global
 import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsWithHistoryDTO;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
+import com.leogouchon.hubscore.kicker_match_service.service.EloCalculatorService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerStatService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
@@ -18,7 +20,8 @@ import java.util.stream.Collectors;
 public class KickerStatServiceDefault implements KickerStatService {
     private final KickerMatchRepository kickerMatchRepository;
 
-    public KickerStatServiceDefault(KickerMatchRepository kickerMatchRepository) {
+    @Autowired
+    public KickerStatServiceDefault(KickerMatchRepository kickerMatchRepository, EloCalculatorService eloCalculator) {
         this.kickerMatchRepository = kickerMatchRepository;
     }
 

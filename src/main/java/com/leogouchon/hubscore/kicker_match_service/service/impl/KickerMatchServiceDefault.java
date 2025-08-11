@@ -3,6 +3,7 @@ package com.leogouchon.hubscore.kicker_match_service.service.impl;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerEloSeasonalService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerEloService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
 import com.leogouchon.hubscore.kicker_match_service.specification.KickerMatchSpecifications;
@@ -23,12 +24,14 @@ public class KickerMatchServiceDefault implements KickerMatchService {
     private final KickerMatchRepository matchRepository;
     private final PlayerService playerService;
     private final KickerEloService kickerEloService;
+    private final KickerEloSeasonalService kickerEloSeasonalService;
 
     @Autowired
-    public KickerMatchServiceDefault(KickerMatchRepository matchRepository, PlayerService playerService, KickerEloService kickerEloService) {
+    public KickerMatchServiceDefault(KickerMatchRepository matchRepository, PlayerService playerService, KickerEloService kickerEloService, KickerEloSeasonalService kickerEloSeasonalService) {
         this.matchRepository = matchRepository;
         this.playerService = playerService;
         this.kickerEloService = kickerEloService;
+        this.kickerEloSeasonalService = kickerEloSeasonalService;
     }
 
     public KickerMatches createMatch(UUID player1TeamAId, UUID player2TeamAId,
@@ -73,6 +76,7 @@ public class KickerMatchServiceDefault implements KickerMatchService {
         matchRepository.save(match);
 
         kickerEloService.calculateElo(match);
+        kickerEloSeasonalService.calculateElo(match);
 
         return match;
     }
@@ -84,6 +88,12 @@ public class KickerMatchServiceDefault implements KickerMatchService {
             throw new EntityNotFoundException("Match not found with id: " + id);
         }
     }
+
+    public void recalculateElo() {
+        kickerEloService.recalculateAllElo();
+        kickerEloSeasonalService.recalculateAllElo();
+    }
+
 
     public Page<KickerMatches> getMatches(int page, int size, List<UUID> playerIds, Long date, String dateOrder) {
         Specification<KickerMatches> filter = KickerMatchSpecifications.withFilters(playerIds, date, dateOrder);

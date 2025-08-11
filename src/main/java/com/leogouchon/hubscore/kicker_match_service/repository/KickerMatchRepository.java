@@ -40,16 +40,16 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
                       ranked_players AS (
                           SELECT
                               ps.player_id,
-                              RANK() OVER (ORDER BY p.kicker_current_elo DESC) AS rank
+                              RANK() OVER (ORDER BY p.player_current_elo DESC) AS rank
                           FROM player_stats ps
-                          JOIN players p ON p.id = ps.player_id
+                          JOIN player_kicker_informations p ON p.player_id = ps.player_id
                           WHERE ps.total_matches >= 10
                       )
                       SELECT
                           ps.player_id AS playerId,
                           p.firstname,
                           p.lastname,
-                          p.kicker_current_elo AS currentElo,
+                          pki.player_current_elo AS currentElo,
                           ps.total_matches,
                           ps.wins,
                           ps.losses,
@@ -57,6 +57,7 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
                           COALESCE(rp.rank, 0) AS rank
                       FROM player_stats ps
                       JOIN players p ON p.id = ps.player_id
+                      JOIN player_kicker_informations pki ON pki.player_id = p.id
                       LEFT JOIN ranked_players rp ON rp.player_id = ps.player_id
                       ORDER BY rank;
                     """,
