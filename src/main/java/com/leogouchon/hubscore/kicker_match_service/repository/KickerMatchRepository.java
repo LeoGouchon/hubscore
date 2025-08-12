@@ -18,52 +18,60 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
 
     @Query(
             value = """
-                    WITH all_players AS (
-                          SELECT player_one_team_a_id AS player_id, final_score_team_a AS score FROM kicker_matches
-                          UNION ALL
-                          SELECT player_two_team_a_id AS player_id, final_score_team_a AS score FROM kicker_matches
-                          UNION ALL
-                          SELECT player_one_team_b_id AS player_id, final_score_team_b AS score FROM kicker_matches
-                          UNION ALL
-                          SELECT player_two_team_b_id AS player_id, final_score_team_b AS score FROM kicker_matches
-                      ),
-                      player_stats AS (
-                          SELECT
-                              ap.player_id,
-                              COUNT(*) AS total_matches,
-                              SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END) AS wins,
-                              SUM(CASE WHEN score != 10 THEN 1 ELSE 0 END) AS losses,
-                              ROUND(SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END)::numeric / COUNT(*), 2) AS win_rate
-                          FROM all_players ap
-                          GROUP BY ap.player_id
-                      ),
-                      ranked_players AS (
-                          SELECT
-                              ps.player_id,
-                              RANK() OVER (ORDER BY p.player_current_elo DESC) AS rank
-                          FROM player_stats ps
-                          JOIN player_kicker_informations p ON p.player_id = ps.player_id
-                          WHERE ps.total_matches >= 10
-                      )
-                      SELECT
-                          ps.player_id AS playerId,
-                          p.firstname,
-                          p.lastname,
-                          pki.player_current_elo AS currentElo,
-                          ps.total_matches,
-                          ps.wins,
-                          ps.losses,
-                          ps.win_rate,
-                          COALESCE(rp.rank, 0) AS rank
-                      FROM player_stats ps
-                      JOIN players p ON p.id = ps.player_id
-                      JOIN player_kicker_informations pki ON pki.player_id = p.id
-                      LEFT JOIN ranked_players rp ON rp.player_id = ps.player_id
-                      ORDER BY rank;
+                    WITH filtered_matches AS (
+                            SELECT * FROM kicker_matches
+                            WHERE (:year IS NULL OR EXTRACT(YEAR FROM created_at) = :year)
+                              AND (:quarter IS NULL OR EXTRACT(QUARTER FROM created_at) = :quarter)
+                        ),
+                        all_players AS (
+                            SELECT player_one_team_a_id AS player_id, final_score_team_a AS score FROM filtered_matches
+                            UNION ALL
+                            SELECT player_two_team_a_id AS player_id, final_score_team_a AS score FROM filtered_matches
+                            UNION ALL
+                            SELECT player_one_team_b_id AS player_id, final_score_team_b AS score FROM filtered_matches
+                            UNION ALL
+                            SELECT player_two_team_b_id AS player_id, final_score_team_b AS score FROM filtered_matches
+                        ),
+                        player_stats AS (
+                            SELECT
+                                ap.player_id,
+                                COUNT(*) AS total_matches,
+                                SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END) AS wins,
+                                SUM(CASE WHEN score != 10 THEN 1 ELSE 0 END) AS losses,
+                                ROUND(SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END)::numeric / COUNT(*), 2) AS win_rate
+                            FROM all_players ap
+                            GROUP BY ap.player_id
+                        ),
+                        ranked_players AS (
+                            SELECT
+                                ps.player_id,
+                                RANK() OVER (ORDER BY p.player_current_elo DESC) AS rank
+                            FROM player_stats ps
+                            JOIN player_kicker_informations p ON p.player_id = ps.player_id
+                            WHERE ps.total_matches >= 10
+                        )
+                        SELECT
+                            ps.player_id AS playerId,
+                            p.firstname,
+                            p.lastname,
+                            pki.player_current_elo AS currentElo,
+                            ps.total_matches,
+                            ps.wins,
+                            ps.losses,
+                            ps.win_rate,
+                            COALESCE(rp.rank, 0) AS rank
+                        FROM player_stats ps
+                        JOIN players p ON p.id = ps.player_id
+                        JOIN player_kicker_informations pki ON pki.player_id = p.id
+                        LEFT JOIN ranked_players rp ON rp.player_id = ps.player_id
+                        ORDER BY rank;
                     """,
             nativeQuery = true
     )
-    List<GlobalStatsResponseProjection> getGlobalKickerStats();
+    List<GlobalStatsResponseProjection> getGlobalKickerStats(
+            @Param("year") Integer year,
+            @Param("quarter") Integer quarter
+    );
 
     @Query(
             value = """
