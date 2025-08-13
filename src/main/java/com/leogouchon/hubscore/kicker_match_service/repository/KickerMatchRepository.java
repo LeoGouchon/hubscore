@@ -144,4 +144,23 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
             ORDER BY created_at;
             """, nativeQuery = true)
     List<KickerMatches> getAllByOrderByCreatedAtAsc();
+
+    @Query(value = """
+            SELECT COUNT(*) FROM kicker_matches;
+            """, nativeQuery = true)
+    Integer getTotalMatches();
+
+    @Query(value = """
+        SELECT COUNT(DISTINCT player) AS total_players
+        FROM (
+            SELECT player_one_team_a_id AS player FROM kicker_matches
+            UNION ALL
+            SELECT player_two_team_a_id FROM kicker_matches
+            UNION ALL
+            SELECT player_one_team_b_id FROM kicker_matches
+            UNION ALL
+            SELECT player_two_team_b_id FROM kicker_matches
+        ) AS all_players;
+    """, nativeQuery = true)
+    Integer getTotalPlayers();
 }

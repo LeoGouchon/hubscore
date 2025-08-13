@@ -119,6 +119,8 @@ public class KickerStatServiceDefault implements KickerStatService {
     @Override
     public SeasonsStatsResponseDTO getSeasonsStats() {
         int nbSeasons = kickerEloSeasonalRepository.getNbSeasons();
+        int totalMatches = kickerMatchRepository.getTotalMatches();
+        int totalPlayers = kickerMatchRepository.getTotalPlayers();
 
         List<SeasonStatsProjection> seasonsStats = kickerEloSeasonalRepository.getSeasonsStats();
 
@@ -132,6 +134,6 @@ public class KickerStatServiceDefault implements KickerStatService {
             return dto;
         }).toList();
 
-        return new SeasonsStatsResponseDTO(nbSeasons, seasonsStatsResponse);
+        return new SeasonsStatsResponseDTO(nbSeasons, totalMatches, totalPlayers, seasonsStatsResponse);
     }
 }
