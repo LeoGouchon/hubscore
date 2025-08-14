@@ -14,4 +14,5 @@ public interface KickerMatchService {
     Page<KickerMatches> getMatches(int page, int size, List<UUID> playerIds, Long date, String dateOrder);
     Optional<KickerMatches> getMatch(UUID id);
     Optional<KickerMatchResponseDTO> getMatchResponseDTO(UUID id);
+    void recalculateElo();
 }

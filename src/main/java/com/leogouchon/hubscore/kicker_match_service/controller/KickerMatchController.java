@@ -38,13 +38,11 @@ import java.util.UUID;
 public class KickerMatchController {
 
     private final KickerMatchService matchService;
-    private final KickerEloService eloService;
     private final AuthenticateService authenticateService;
 
     @Autowired
-    public KickerMatchController(KickerMatchService matchService, KickerEloService eloService, AuthenticateService authenticateService) {
+    public KickerMatchController(KickerMatchService matchService, AuthenticateService authenticateService) {
         this.matchService = matchService;
-        this.eloService = eloService;
         this.authenticateService = authenticateService;
     }
 
@@ -135,7 +133,7 @@ public class KickerMatchController {
         if (!isAdmin) {
             return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body("Unauthorized");
         }
-        eloService.recalculateAllElo();
+        matchService.recalculateElo();
         return ResponseEntity.ok("ELO recalculated for all matches");
     }
 }
