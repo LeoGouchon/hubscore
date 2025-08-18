@@ -45,7 +45,6 @@ public class AuthenticateController {
                     .httpOnly(true)
                     .secure(cookieSecure)
                     .path("/api/v1/authenticate/refresh-token")
-                    .domain(cookieSecure ? "api.squash.leogouchon.com" : "localhost")
                     .sameSite(cookieSecure ? "None" : "Lax")
                     .maxAge(Duration.ofDays(7))
                     .build();
@@ -71,7 +70,6 @@ public class AuthenticateController {
             ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", "")
                     .maxAge(0)
                     .path("/api/v1/authenticate/refresh-token")
-                    .domain(cookieSecure ? "api.squash.leogouchon.com" : "localhost")
                     .httpOnly(true)
                     .sameSite(cookieSecure ? "None" : "Lax")
                     .build();
@@ -90,7 +88,6 @@ public class AuthenticateController {
                     .httpOnly(true)
                     .secure(cookieSecure)
                     .path("/api/v1/authenticate/refresh-token")
-                    .domain(cookieSecure ? "api.squash.leogouchon.com" : "localhost")
                     .sameSite(cookieSecure ? "None" : "Lax")
                     .maxAge(Duration.ofDays(7))
                     .build();
@@ -108,6 +105,7 @@ public class AuthenticateController {
     @PostMapping("/refresh-token")
     public ResponseEntity<AuthenticateResponseDTO> refreshToken(@CookieValue(value = "refreshToken", required = false) String refreshToken) {
         try {
+            System.out.println(">>>>> refreshToken: " + refreshToken);
             String newAccessToken = authenticateService.refreshAccessToken(refreshToken);
             return ResponseEntity
                     .ok()
