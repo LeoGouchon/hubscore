@@ -30,18 +30,17 @@ public class KickerEloServiceDefault implements KickerEloService {
     private final KickerEloRepository kickerEloRepository;
     private final PlayerKickerInformationsRepository playerKickerInformationsRepository;
     private final EloCalculatorService eloCalculator;
-    private final EntityManager entityManager;
 
     @Autowired
-    public KickerEloServiceDefault(EntityManager entityManager, EloCalculatorService eloCalculatorService, KickerEloRepository kickerEloRepository, PlayerKickerInformationsRepository playerKickerInformationsRepository, KickerMatchRepository matchRepository) {
+    public KickerEloServiceDefault(EloCalculatorService eloCalculatorService, KickerEloRepository kickerEloRepository, PlayerKickerInformationsRepository playerKickerInformationsRepository, KickerMatchRepository matchRepository) {
         this.kickerEloRepository = kickerEloRepository;
         this.playerKickerInformationsRepository = playerKickerInformationsRepository;
         this.matchRepository = matchRepository;
         this.eloCalculator = eloCalculatorService;
-        this.entityManager = entityManager;
     }
 
     @Override
+    @Transactional
     public void calculateElo(KickerMatches match) {
 
         // Get all players of the match

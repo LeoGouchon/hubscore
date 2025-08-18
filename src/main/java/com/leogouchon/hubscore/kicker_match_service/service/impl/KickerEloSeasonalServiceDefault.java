@@ -41,6 +41,7 @@ public class KickerEloSeasonalServiceDefault implements KickerEloSeasonalService
     }
 
     @Override
+    @Transactional
     public void calculateElo(KickerMatches match) {
         // Get all players of the match
         List<Players> players = Stream.of(
