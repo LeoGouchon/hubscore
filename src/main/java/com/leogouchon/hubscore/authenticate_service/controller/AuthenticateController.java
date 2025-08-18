@@ -45,6 +45,7 @@ public class AuthenticateController {
                     .httpOnly(true)
                     .secure(cookieSecure)
                     .path("/api/v1/authenticate/refresh-token")
+                    .domain(cookieSecure ? "leogouchon.com" : "localhost")
                     .sameSite(cookieSecure ? "None" : "Lax")
                     .maxAge(Duration.ofDays(7))
                     .build();
@@ -70,6 +71,7 @@ public class AuthenticateController {
             ResponseCookie refreshCookie = ResponseCookie.from("refreshToken", "")
                     .maxAge(0)
                     .path("/api/v1/authenticate/refresh-token")
+                    .domain(cookieSecure ? "leogouchon.com" : "localhost")
                     .httpOnly(true)
                     .sameSite(cookieSecure ? "None" : "Lax")
                     .build();
@@ -88,6 +90,7 @@ public class AuthenticateController {
                     .httpOnly(true)
                     .secure(cookieSecure)
                     .path("/api/v1/authenticate/refresh-token")
+                    .domain(cookieSecure ? "leogouchon.com" : "localhost")
                     .sameSite(cookieSecure ? "None" : "Lax")
                     .maxAge(Duration.ofDays(7))
                     .build();
