@@ -49,6 +49,8 @@ public class AuthenticateController {
                     .maxAge(Duration.ofDays(7))
                     .build();
 
+            System.out.println(">>> login >>> refreshToken: " + doubleTokenDTO.getRefreshToken());
+
             response.addHeader(HttpHeaders.SET_COOKIE, refreshCookie.toString());
 
             return ResponseEntity
