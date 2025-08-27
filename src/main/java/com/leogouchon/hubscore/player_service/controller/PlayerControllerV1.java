@@ -96,8 +96,8 @@ public class PlayerControllerV1 {
     @GetMapping("/unlinked")
     @ApiResponse(responseCode = "200", description = "Players without linked user found")
     public ResponseEntity<List<Players>> getUnassociatedPlayers(
-        @RequestParam(name = "sport", required = false) String sport,
-        @RequestParam(name = "teamId", required = false) String teamId
+            @RequestParam(name = "sport", required = false) String sport,
+            @RequestParam(name = "teamId", required = false) String teamId
     ) {
         List<Players> unassociatedPlayers = playerService.getUnassociatedPlayers(sport, teamId);
         return ResponseEntity
