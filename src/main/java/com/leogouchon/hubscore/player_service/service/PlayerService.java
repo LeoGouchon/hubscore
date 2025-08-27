@@ -1,5 +1,6 @@
 package com.leogouchon.hubscore.player_service.service;
 
+import com.leogouchon.hubscore.player_service.dto.PlayerRequestDTO;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import org.springframework.data.domain.Page;
 
@@ -10,7 +11,7 @@ import java.util.UUID;
 public interface PlayerService {
     Page<Players> getPlayers(int page, int size, String sport, String teamId);
     Optional<Players> getPlayer(UUID id);
-    Players createPlayer(Players player);
+    Players createPlayer(PlayerRequestDTO player);
     void deletePlayer(UUID id);
     List<Players> getUnassociatedPlayers(String sport, String teamId);
 }
