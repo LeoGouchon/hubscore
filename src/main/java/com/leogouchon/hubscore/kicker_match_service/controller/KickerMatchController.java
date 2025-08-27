@@ -6,7 +6,6 @@ import com.leogouchon.hubscore.common.dto.PaginatedResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
-import com.leogouchon.hubscore.kicker_match_service.service.KickerEloService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -95,9 +94,9 @@ public class KickerMatchController {
         try {
             KickerMatches createdMatch = matchService.createMatch(
                     matchRequest.getPlayer1AId(),
-                    matchRequest.getPlayer2AId() != null ? matchRequest.getPlayer2AId() : null,
+                    matchRequest.getPlayer2AId(),
                     matchRequest.getPlayer1BId(),
-                    matchRequest.getPlayer2BId() != null ? matchRequest.getPlayer2BId() : null,
+                    matchRequest.getPlayer2BId(),
                     matchRequest.getScoreA(),
                     matchRequest.getScoreB()
             );

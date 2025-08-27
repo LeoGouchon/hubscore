@@ -26,6 +26,19 @@ public class KickerMatchRequestDTO {
     @Schema(description = "Final score for player B if pointHistory is not specified", example = "7")
     private Integer scoreB;
 
+    public UUID getPlayer2BId() {
+        if (player2BId != null) {
+            return player2BId;
+        }
+        return null;
+    }
+
+    public UUID getPlayer2AId() {
+        if (player2AId != null) {
+            return player2AId;
+        }
+        return null;
+    }
 
     @Override
     public String toString() {

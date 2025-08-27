@@ -36,6 +36,7 @@ public class KickerMatchServiceDefault implements KickerMatchService {
     }
 
     @Transactional
+    @Override
     public KickerMatches createMatch(UUID player1TeamAId, UUID player2TeamAId,
                                      UUID player1TeamBId, UUID player2TeamBId,
                                      Integer finalScoreA, Integer finalScoreB) {
@@ -84,6 +85,7 @@ public class KickerMatchServiceDefault implements KickerMatchService {
     }
 
     @Transactional
+    @Override
     public void deleteMatch(UUID id) {
         if (matchRepository.existsById(id)) {
             matchRepository.deleteById(id);
