@@ -21,4 +21,12 @@ public class PlayerTeam {
     @ManyToOne
     @MapsId("teamId")
     private Teams team;
+
+    public PlayerTeam() {}
+
+    public PlayerTeam(Players player, Teams team) {
+        this.id = new PlayerTeamId(player.getId(), team.getId());
+        this.player = player;
+        this.team = team;
+    }
 }

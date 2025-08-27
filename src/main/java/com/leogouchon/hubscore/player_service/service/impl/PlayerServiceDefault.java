@@ -1,9 +1,16 @@
 package com.leogouchon.hubscore.player_service.service.impl;
 
+import com.leogouchon.hubscore.player_service.dto.PlayerRequestDTO;
+import com.leogouchon.hubscore.player_service.entity.PlayerTeam;
 import com.leogouchon.hubscore.player_service.entity.Players;
+import com.leogouchon.hubscore.player_service.entity.Teams;
 import com.leogouchon.hubscore.player_service.repository.PlayerRepository;
+import com.leogouchon.hubscore.player_service.repository.PlayerTeamRepository;
+import com.leogouchon.hubscore.player_service.repository.TeamRepository;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
+import com.leogouchon.hubscore.player_service.service.TeamService;
 import com.leogouchon.hubscore.player_service.specification.PlayerSpecifications;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,12 +26,18 @@ import java.util.UUID;
 public class PlayerServiceDefault implements PlayerService {
 
     private final PlayerRepository playerRepository;
+    private final TeamRepository teamRepository;
+    private final PlayerTeamRepository playerTeamRepository;
 
     @Autowired
     public PlayerServiceDefault(
-            PlayerRepository playerRepository
+            PlayerRepository playerRepository,
+            TeamRepository teamRepository,
+            PlayerTeamRepository playerTeamRepository
     ) {
         this.playerRepository = playerRepository;
+        this.teamRepository = teamRepository;
+        this.playerTeamRepository = playerTeamRepository;
     }
 
     public Page<Players> getPlayers(int page, int size, String sport, String teamId) {
@@ -47,11 +60,25 @@ public class PlayerServiceDefault implements PlayerService {
         return playerRepository.findById(id);
     }
 
-    public Players createPlayer(Players player) throws RuntimeException {
+    @Transactional
+    @Override
+    public Players createPlayer(PlayerRequestDTO player) throws RuntimeException {
         if (player.getFirstname() == null || player.getLastname() == null) {
             throw new RuntimeException("Firstname and lastname must not be null");
         }
-        return playerRepository.save(player);
+        try {
+            Players savedPlayer = playerRepository.save(new Players(player.getFirstname(), player.getLastname()));
+            player.getTeamIds().forEach(teamId -> {
+                Optional<Teams> teamsOpt = teamRepository.findById(teamId);
+                teamsOpt.ifPresent(team -> {
+                    PlayerTeam playerTeamNew = new PlayerTeam(savedPlayer, team);
+                    playerTeamRepository.save(playerTeamNew);
+                });
+            });
+            return savedPlayer;
+        } catch (RuntimeException e) {
+            throw new RuntimeException("Failed to create player", e);
+        }
     }
 
     public void deletePlayer(UUID id) throws RuntimeException {
