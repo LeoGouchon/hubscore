@@ -22,9 +22,13 @@ public class KickerMatchResponseDTO {
     public KickerMatchResponseDTO(KickerMatches match) {
         this.id = match.getId();
         this.playerA1 = new PlayerResponseDTO(match.getPlayer1A());
-        this.playerA2 = new PlayerResponseDTO(match.getPlayer2A());
+        if (match.getPlayer2A() != null) {
+            this.playerA2 = new PlayerResponseDTO(match.getPlayer2A());
+        }
         this.playerB1 = new PlayerResponseDTO(match.getPlayer1B());
-        this.playerB2 = new PlayerResponseDTO(match.getPlayer2B());
+        if (match.getPlayer2B() != null) {
+            this.playerB2 = new PlayerResponseDTO(match.getPlayer2B());
+        }
         this.finalScoreA = match.getScoreA();
         this.finalScoreB = match.getScoreB();
     }
