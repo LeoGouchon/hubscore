@@ -27,7 +27,8 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
             "/api/v1/kicker/matches",
             "/api/v1/players",
             "/api/v1/kicker/stats/global",
-            "/api/v1/kicker/stats/season"
+            "/api/v1/kicker/stats/season",
+            "/api/v1/kicker/stats/matrix-score"
     );
 
     @Autowired
