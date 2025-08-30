@@ -1,6 +1,7 @@
 package com.leogouchon.hubscore.player_service.controller;
 
 import com.leogouchon.hubscore.common.dto.PaginatedResponseDTO;
+import com.leogouchon.hubscore.player_service.dto.PlayerRequestDTO;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -68,7 +69,7 @@ public class PlayerControllerV1 {
     @ApiResponse(responseCode = "400", description = "Bad request", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     @SecurityRequirement(name = "bearerAuth")
-    public ResponseEntity<Players> createPlayer(@RequestBody Players player) {
+    public ResponseEntity<Players> createPlayer(@RequestBody PlayerRequestDTO player) {
         Players createdPlayer;
         try {
             createdPlayer = playerService.createPlayer(player);
@@ -96,8 +97,8 @@ public class PlayerControllerV1 {
     @GetMapping("/unlinked")
     @ApiResponse(responseCode = "200", description = "Players without linked user found")
     public ResponseEntity<List<Players>> getUnassociatedPlayers(
-        @RequestParam(name = "sport", required = false) String sport,
-        @RequestParam(name = "teamId", required = false) String teamId
+            @RequestParam(name = "sport", required = false) String sport,
+            @RequestParam(name = "teamId", required = false) String teamId
     ) {
         List<Players> unassociatedPlayers = playerService.getUnassociatedPlayers(sport, teamId);
         return ResponseEntity

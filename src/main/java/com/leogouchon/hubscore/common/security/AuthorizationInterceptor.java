@@ -9,7 +9,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
+import java.util.regex.Pattern;
 
 @Component
 public class AuthorizationInterceptor implements HandlerInterceptor {
@@ -23,12 +25,12 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
             "/api/v1/ping"
     );
 
-    private static final Set<String> GET_ONLY_EXCLUDED_PATHS = Set.of(
-            "/api/v1/kicker/matches",
-            "/api/v1/players",
-            "/api/v1/kicker/stats/global",
-            "/api/v1/kicker/stats/season",
-            "/api/v1/kicker/stats/matrix-score"
+    private static final List<Pattern> GET_ONLY_EXCLUDED_PATTERNS = List.of(
+            Pattern.compile("/api/v1/kicker/matches"),
+            Pattern.compile("/api/v1/players"),
+            Pattern.compile("/api/v1/kicker/stats/global"),
+            Pattern.compile("/api/v1/kicker/stats/season(/.*)?"),
+            Pattern.compile("/api/v1/kicker/stats/matrix-score")
     );
 
     @Autowired
@@ -74,6 +76,9 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        return "GET".equalsIgnoreCase(method) && GET_ONLY_EXCLUDED_PATHS.contains(path);
+        if ("GET".equalsIgnoreCase(method)) {
+            return GET_ONLY_EXCLUDED_PATTERNS.stream().anyMatch(p -> p.matcher(path).matches());
+        }
+        return false;
     }
 }

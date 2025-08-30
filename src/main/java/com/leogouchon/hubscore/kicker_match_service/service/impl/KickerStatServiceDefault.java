@@ -8,6 +8,7 @@ import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsWithHistoryDT
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.SeasonStatsProjection;
+import com.leogouchon.hubscore.kicker_match_service.service.EloCalculatorService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerStatService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,11 +24,13 @@ import java.util.stream.Collectors;
 public class KickerStatServiceDefault implements KickerStatService {
     private final KickerMatchRepository kickerMatchRepository;
     private final KickerEloSeasonalRepository kickerEloSeasonalRepository;
+    private final EloCalculatorService eloCalculator;
 
     @Autowired
-    public KickerStatServiceDefault(KickerMatchRepository kickerMatchRepository, KickerEloSeasonalRepository kickerEloSeasonalRepository) {
+    public KickerStatServiceDefault(KickerMatchRepository kickerMatchRepository, KickerEloSeasonalRepository kickerEloSeasonalRepository, EloCalculatorService eloCalculator) {
         this.kickerMatchRepository = kickerMatchRepository;
         this.kickerEloSeasonalRepository = kickerEloSeasonalRepository;
+        this.eloCalculator = eloCalculator;
     }
 
     @Override
@@ -75,7 +78,7 @@ public class KickerStatServiceDefault implements KickerStatService {
 
     @Override
     public List<GlobalStatsWithHistoryDTO> getSeasonStats(int year, int quarter) {
-        List<GlobalStatsResponseProjection> rawStats = kickerMatchRepository.getGlobalKickerStats(year, quarter);
+        List<GlobalStatsResponseProjection> rawStats = kickerEloSeasonalRepository.getSeasonPlayerStats(year, quarter);
         Calendar c = Calendar.getInstance();
         c.setTimeInMillis(System.currentTimeMillis());
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
@@ -84,7 +87,7 @@ public class KickerStatServiceDefault implements KickerStatService {
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
 
-        List<LastKickerEloByDateProjection> eloLastWeek = kickerMatchRepository.getLatestKickerEloByDate(new java.sql.Timestamp(c.getTimeInMillis()));
+        List<LastKickerEloByDateProjection> eloLastWeek = kickerEloSeasonalRepository.getLatestKickerSeasonEloByDate(new java.sql.Timestamp(c.getTimeInMillis()), year, quarter);
 
         Map<UUID, LastKickerEloByDateProjection> eloLastWeekMap = eloLastWeek.stream()
                 .collect(Collectors.toMap(LastKickerEloByDateProjection::getPlayerId, Function.identity()));
@@ -101,7 +104,7 @@ public class KickerStatServiceDefault implements KickerStatService {
             dto.setLosses(stat.getLosses());
             dto.setWinRate(stat.getWinRate());
             dto.setLastMatches(history);
-            dto.setCurrentElo(stat.getCurrentElo());
+            dto.setCurrentElo(stat.getCurrentElo() != null ? stat.getCurrentElo() : eloCalculator.getInitialELo());
             dto.setRank(stat.getRank());
 
             LastKickerEloByDateProjection lastWeek = eloLastWeekMap.get(stat.getPlayerId());

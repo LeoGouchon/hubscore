@@ -49,6 +49,8 @@ public class AuthenticateController {
                     .maxAge(Duration.ofDays(7))
                     .build();
 
+            System.out.println(">>> login >>> refreshToken: " + doubleTokenDTO.getRefreshToken());
+
             response.addHeader(HttpHeaders.SET_COOKIE, refreshCookie.toString());
 
             return ResponseEntity
@@ -105,6 +107,7 @@ public class AuthenticateController {
     @PostMapping("/refresh-token")
     public ResponseEntity<AuthenticateResponseDTO> refreshToken(@CookieValue(value = "refreshToken", required = false) String refreshToken) {
         try {
+            System.out.println(">>>>> refreshToken: " + refreshToken);
             String newAccessToken = authenticateService.refreshAccessToken(refreshToken);
             return ResponseEntity
                     .ok()

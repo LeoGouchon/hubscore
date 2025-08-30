@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -34,6 +35,8 @@ public class KickerMatchServiceDefault implements KickerMatchService {
         this.kickerEloSeasonalService = kickerEloSeasonalService;
     }
 
+    @Transactional
+    @Override
     public KickerMatches createMatch(UUID player1TeamAId, UUID player2TeamAId,
                                      UUID player1TeamBId, UUID player2TeamBId,
                                      Integer finalScoreA, Integer finalScoreB) {
@@ -81,6 +84,8 @@ public class KickerMatchServiceDefault implements KickerMatchService {
         return match;
     }
 
+    @Transactional
+    @Override
     public void deleteMatch(UUID id) {
         if (matchRepository.existsById(id)) {
             matchRepository.deleteById(id);
