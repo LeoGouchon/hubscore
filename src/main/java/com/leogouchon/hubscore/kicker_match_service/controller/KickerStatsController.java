@@ -1,7 +1,9 @@
 package com.leogouchon.hubscore.kicker_match_service.controller;
 
+import com.leogouchon.hubscore.kicker_match_service.dto.MatrixScoreResultsResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.SeasonsStatsResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsWithHistoryDTO;
+import com.leogouchon.hubscore.kicker_match_service.service.EloMatrixService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerStatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/v1/kicker/stats")
@@ -25,9 +28,11 @@ import java.util.List;
 public class KickerStatsController {
 
     private final KickerStatService kickerStatService;
+    private final EloMatrixService eloMatrixService;
 
-    public KickerStatsController(KickerStatService kickerStatService) {
+    public KickerStatsController(KickerStatService kickerStatService, EloMatrixService eloMatrixService) {
         this.kickerStatService = kickerStatService;
+        this.eloMatrixService = eloMatrixService;
     }
 
     @Operation(
@@ -79,5 +84,39 @@ public class KickerStatsController {
         SeasonsStatsResponseDTO seasonsStats = kickerStatService.getSeasonsStats();
 
         return ResponseEntity.ok(seasonsStats);
+    }
+
+    @Operation(
+            summary = "Get elo matrix to show the possible ELO delta results of matches",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success",
+                            content = @Content(schema = @Schema(implementation = List.class))
+                    )
+            }
+    )
+    @GetMapping("/matrix-score")
+    public ResponseEntity<List<Map<String, Object>>> getEloMatrix() {
+        List<Map<String, Object>> matrix = eloMatrixService.generateEloMatrix();
+
+        return ResponseEntity.ok(matrix);
+    }
+
+    @Operation(
+            summary = "Get the loser score of a match with its associated ELO difference between both teams",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success",
+                            content = @Content(schema = @Schema(implementation = List.class))
+                    )
+            }
+    )
+    @GetMapping("/matrix-score/results")
+    public ResponseEntity<List<MatrixScoreResultsResponseDTO>> getResultPerElo() {
+        List<MatrixScoreResultsResponseDTO> results = kickerStatService.getResultPerDeltaElo();
+
+        return ResponseEntity.ok(results);
     }
 }
