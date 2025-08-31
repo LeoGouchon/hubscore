@@ -1,5 +1,6 @@
 package com.leogouchon.hubscore.kicker_match_service.controller;
 
+import com.leogouchon.hubscore.kicker_match_service.dto.MatrixScoreResultsResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.SeasonsStatsResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsWithHistoryDTO;
 import com.leogouchon.hubscore.kicker_match_service.service.EloMatrixService;
@@ -100,5 +101,22 @@ public class KickerStatsController {
         List<Map<String, Object>> matrix = eloMatrixService.generateEloMatrix();
 
         return ResponseEntity.ok(matrix);
+    }
+
+    @Operation(
+            summary = "Get the loser score of a match with its associated ELO difference between both teams",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success",
+                            content = @Content(schema = @Schema(implementation = List.class))
+                    )
+            }
+    )
+    @GetMapping("/matrix-score/results")
+    public ResponseEntity<List<MatrixScoreResultsResponseDTO>> getResultPerElo() {
+        List<MatrixScoreResultsResponseDTO> results = kickerStatService.getResultPerDeltaElo();
+
+        return ResponseEntity.ok(results);
     }
 }

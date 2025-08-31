@@ -1,10 +1,10 @@
 package com.leogouchon.hubscore.kicker_match_service.repository;
 
-import com.leogouchon.hubscore.kicker_match_service.dto.SeasonStatsResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloId;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloSeasonal;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.LoserScorePerDeltaEloProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.SeasonStatsProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -153,4 +153,24 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
             @Param("quarter") Integer quarter
     );
 
+
+    @Query(value = """
+                    WITH avg_elo_per_match AS (SELECT avg(kes.elo_before_match) AS avg_elo, kes.match_id, kes.elo_change
+                                       FROM kicker_elo AS kes
+                                       GROUP BY kes.match_id, kes.elo_change)
+            SELECT DISTINCT MAX(CASE WHEN aepm1.elo_change < 0 THEN aepm1.avg_elo END)
+                                - MAX(CASE WHEN aepm1.elo_change > 0 THEN aepm1.avg_elo END) AS elo_diff,
+                            CASE
+                                WHEN km.final_score_team_a = 10 THEN km.final_score_team_b
+                                WHEN km.final_score_team_b = 10 THEN km.final_score_team_a
+                                END                                                          AS loser_score
+            FROM avg_elo_per_match aepm1
+                     JOIN avg_elo_per_match AS aepm2 ON aepm1.match_id = aepm2.match_id AND aepm1.elo_change != aepm2.elo_change
+                     LEFT JOIN kicker_matches AS km ON aepm1.match_id = km.id
+            GROUP BY km.final_score_team_a, km.final_score_team_b, km.id
+            ORDER BY elo_diff DESC;
+            """,
+    nativeQuery = true
+    )
+    List<LoserScorePerDeltaEloProjection> getLoserScorePerEloDiff();
 }

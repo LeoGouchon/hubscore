@@ -1,5 +1,6 @@
 package com.leogouchon.hubscore.kicker_match_service.service.impl;
 
+import com.leogouchon.hubscore.kicker_match_service.dto.MatrixScoreResultsResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.SeasonStatsResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.SeasonsStatsResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloSeasonalRepository;
@@ -7,6 +8,7 @@ import com.leogouchon.hubscore.kicker_match_service.repository.projection.Global
 import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsWithHistoryDTO;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.LoserScorePerDeltaEloProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.SeasonStatsProjection;
 import com.leogouchon.hubscore.kicker_match_service.service.EloCalculatorService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerStatService;
@@ -138,5 +140,15 @@ public class KickerStatServiceDefault implements KickerStatService {
         }).toList();
 
         return new SeasonsStatsResponseDTO(nbSeasons, totalMatches, totalPlayers, seasonsStatsResponse);
+    }
+
+    @Override
+    public List<MatrixScoreResultsResponseDTO> getResultPerDeltaElo() {
+        List<LoserScorePerDeltaEloProjection> results = kickerEloSeasonalRepository.getLoserScorePerEloDiff();
+
+        return results.stream().map(result -> new MatrixScoreResultsResponseDTO(
+            result.getEloDiff(),
+            result.getLoserScore()
+        )).toList();
     }
 }
