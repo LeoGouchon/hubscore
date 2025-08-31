@@ -23,8 +23,8 @@ public class EloMatrixServiceDefault implements EloMatrixService {
         List<Map<String, Object>> matrix = new ArrayList<>();
 
         int baseElo = 1500;
-        int maxDiff = 500;
-        int step = 50;
+        int maxDiff = 600;
+        int step = 100;
 
         for (int eloDiff = -maxDiff; eloDiff <= maxDiff; eloDiff += step) {
             double eloA = baseElo;
@@ -32,19 +32,16 @@ public class EloMatrixServiceDefault implements EloMatrixService {
 
             double expectedA = eloCalculator.exceptedResult(eloA, eloB);
 
-            for (int scoreDiff = -10; scoreDiff <= 10; scoreDiff++) {
+            for (int scoreDiff = 1; scoreDiff <= 20; scoreDiff++) {
                 int k = eloCalculator.calculateK(scoreDiff);
 
-                double win = eloCalculator.calculateDeltaElo(k, 1, expectedA);
-                double draw = eloCalculator.calculateDeltaElo(k, 0.5, expectedA);
-                double lose = eloCalculator.calculateDeltaElo(k, 0, expectedA);
+                double win = eloCalculator.calculateDeltaElo(k, eloCalculator.getScore(10, 10 - scoreDiff), expectedA);
+                double lose = eloCalculator.calculateDeltaElo(k, eloCalculator.getScore(10 - scoreDiff, 10), expectedA);
 
                 Map<String, Object> row = new HashMap<>();
                 row.put("eloDiff", eloDiff);
                 row.put("scoreDiff", scoreDiff);
-                row.put("k", k);
                 row.put("deltaWin", win);
-                row.put("deltaDraw", draw);
                 row.put("deltaLose", lose);
 
                 matrix.add(row);

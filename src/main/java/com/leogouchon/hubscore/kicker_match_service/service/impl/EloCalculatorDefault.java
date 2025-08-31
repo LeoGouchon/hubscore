@@ -25,25 +25,32 @@ public class EloCalculatorDefault implements EloCalculatorService {
     }
 
     public int calculateK(int scoreDiff) {
-        // Clamp scoreDiff between -10 and +10
-        // Clamp entre 1 et 20
-        int clamped = Math.max(1, Math.min(scoreDiff, 20));
+        int MAX_SCORE_DIFFERENCE = 20;
+        int clamped = Math.max(1, Math.min(scoreDiff, MAX_SCORE_DIFFERENCE));
 
-        // Normalise sur [0, 1]
-        double ratio = (clamped - 1) / 19.0;
-        double exponent = 1;
-
-        // K between [20, 40]
-        double k = 20 + Math.pow(ratio, exponent) * (20 - 1);
+        double k = 15 * Math.log(clamped + 1);
 
         return (int) Math.round(k);
     }
 
     public double getScore(int scoreA, int scoreB) {
-        return scoreA > scoreB ? 1 : scoreA < scoreB ? 0 : 0.5;
+        if (scoreA == scoreB) {
+            return 0.5;
+        }
+
+        int diff = Math.abs(scoreA - scoreB);
+        int maxScore = Math.max(scoreA, scoreB);
+
+        double normalized = (double) diff / maxScore;
+
+        double curve = Math.pow(normalized, 0.1);
+
+        double factor = 0.7 + curve * 0.3;
+
+        return scoreA > scoreB ? factor : 1 - factor;
     }
 
     public double exceptedResult(double eloTeamA, double eloTeamB) {
-        return  1 / (1 + Math.pow(10, (eloTeamB - eloTeamA) / 400.0)); // https://en.wikipedia.org/wiki/Elo_rating_system#cite_note-29
+        return  1 / (1 + Math.pow(10, (eloTeamB - eloTeamA) / 600.0)); // https://en.wikipedia.org/wiki/Elo_rating_system#cite_note-29
     }
 }
