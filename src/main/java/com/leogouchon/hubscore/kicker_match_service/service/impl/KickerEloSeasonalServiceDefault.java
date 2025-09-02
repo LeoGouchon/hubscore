@@ -141,7 +141,8 @@ public class KickerEloSeasonalServiceDefault implements KickerEloSeasonalService
     public Season getSeason(Timestamp date) {
         int year = date.toLocalDateTime().getYear();
 //        int quarter = ThreadLocalRandom.current().nextInt(1, 5);
-        int quarter = date.toLocalDateTime().getMonthValue() / 3 + 1;
+        int month = date.toLocalDateTime().getMonthValue();
+        int quarter = (month - 1) / 3 + 1;
         return new Season(year, quarter);
     }
 
