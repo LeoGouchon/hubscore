@@ -5,10 +5,7 @@ import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.common.type.MatchPoint;
 import com.leogouchon.hubscore.squash_match_service.repository.SquashMatchRepository;
-import com.leogouchon.hubscore.squash_match_service.repository.projection.LightDataMatchProjection;
-import com.leogouchon.hubscore.squash_match_service.repository.projection.OpponentStatsProjection;
-import com.leogouchon.hubscore.squash_match_service.repository.projection.PlayerStatsProjection;
-import com.leogouchon.hubscore.squash_match_service.repository.projection.ScoreDistributionProjection;
+import com.leogouchon.hubscore.squash_match_service.repository.projection.*;
 import com.leogouchon.hubscore.squash_match_service.service.SquashMatchService;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
 import com.leogouchon.hubscore.squash_match_service.specification.MatchSpecifications;
@@ -85,30 +82,30 @@ public class SquashMatchServiceDefault implements SquashMatchService {
     public Page<BatchSessionResponseDTO> getMatchesSessionsQuickStats(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
 
-        List<Object[]> rawResults = matchRepository.getSessionsData(pageable);
+        List<SessionsDataProjection> rawResults = matchRepository.getSessionsData(pageable);
 
-        Map<Long, List<Object[]>> groupedByDay = rawResults.stream()
-                .collect(Collectors.groupingBy(row -> (Long) row[0]));
+        Map<Long, List<SessionsDataProjection>> groupedByDay = rawResults.stream()
+                .collect(Collectors.groupingBy(SessionsDataProjection::getDayUnix));
 
         List<BatchSessionResponseDTO> sessions = new ArrayList<>();
 
-        for (Map.Entry<Long, List<Object[]>> entry : groupedByDay.entrySet()) {
+        for (Map.Entry<Long, List<SessionsDataProjection>> entry : groupedByDay.entrySet()) {
             Long dayUnix = entry.getKey();
-            List<Object[]> rows = entry.getValue();
+            List<SessionsDataProjection> rows = entry.getValue();
 
-            int matchCount = ((Number) rows.getFirst()[1]).intValue();
+            int matchCount = rows.stream().mapToInt(row -> ((Number) row.getWins()).intValue() + ((Number) row.getLosses()).intValue()).sum() / 2;
 
             List<PlayerRank> ranks = rows.stream().map(row -> {
                 Players p = new Players();
-                p.setId(((UUID) row[2]));
-                p.setFirstname((String) row[3]);
+                p.setId(row.getPlayerId());
+                p.setFirstname(row.getPlayerName());
 
                 PlayerRank rank = new PlayerRank();
                 rank.setPlayer(p);
-                rank.setWins(((Number) row[4]).intValue());
-                rank.setLosses(((Number) row[5]).intValue());
-                rank.setTotalPointsScored(((Number) row[6]).intValue());
-                rank.setTotalPointsReceived(((Number) row[7]).intValue());
+                rank.setWins(row.getWins());
+                rank.setLosses(row.getLosses());
+                rank.setTotalPointsScored(row.getPointsScored());
+                rank.setTotalPointsReceived(row.getPointsConceded());
                 return rank;
             }).toList();
 

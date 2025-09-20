@@ -1,10 +1,7 @@
 package com.leogouchon.hubscore.squash_match_service.repository;
 
 import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
-import com.leogouchon.hubscore.squash_match_service.repository.projection.LightDataMatchProjection;
-import com.leogouchon.hubscore.squash_match_service.repository.projection.OpponentStatsProjection;
-import com.leogouchon.hubscore.squash_match_service.repository.projection.PlayerStatsProjection;
-import com.leogouchon.hubscore.squash_match_service.repository.projection.ScoreDistributionProjection;
+import com.leogouchon.hubscore.squash_match_service.repository.projection.*;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -52,7 +49,7 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
                              ORDER BY day_unix desc, p.id
                     """, nativeQuery = true
     )
-    List<Object[]> getSessionsData(Pageable pageable);
+    List<SessionsDataProjection> getSessionsData(Pageable pageable);
 
     @Query(
             value = """
