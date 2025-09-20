@@ -11,7 +11,8 @@ public class PlayerStatsResponseDTO {
     private int totalMatches;
     private int wins;
     private int losses;
-    private double averageLostScore;
+    private double averageOpponentLostScore;
+    private double averagePlayerLostScore;
     private int closeWonCount;
     private int closeLostCount;
     private int stompWonCount;

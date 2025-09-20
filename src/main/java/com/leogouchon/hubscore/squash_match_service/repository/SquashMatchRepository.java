@@ -4,6 +4,7 @@ import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import com.leogouchon.hubscore.squash_match_service.repository.projection.LightDataMatchProjection;
 import com.leogouchon.hubscore.squash_match_service.repository.projection.OpponentStatsProjection;
 import com.leogouchon.hubscore.squash_match_service.repository.projection.PlayerStatsProjection;
+import com.leogouchon.hubscore.squash_match_service.repository.projection.ScoreDistributionProjection;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -155,7 +156,15 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
                                 WHEN (m.player_b_id = :playerId AND m.final_score_b > m.final_score_a)
                                     THEN m.final_score_a
                                 END
-                        ) AS average_loser_score,
+                        ) AS average_opponent_lost_score,
+                    
+                        AVG(CASE
+                                WHEN (m.player_a_id = :playerId AND m.final_score_a < m.final_score_b)
+                                    THEN m.final_score_a
+                                WHEN (m.player_b_id = :playerId AND m.final_score_b < m.final_score_a)
+                                    THEN m.final_score_b
+                                END
+                        ) AS average_player_lost_score,
                     
                         -- Close matches won (difference = 2, both scores >= 10, and won)
                         SUM(CASE
@@ -237,13 +246,13 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
                         SUM(CASE
                                 WHEN (m.player_a_id = :playerId AND m.final_score_b - m.final_score_a > 7)
                                     OR (m.player_b_id = :playerId AND m.final_score_a - m.final_score_b > 7)
-                                    THEN 1 ELSE 0 END) AS stomps_won_count,
+                                    THEN 1 ELSE 0 END) AS stomps_lost_count,
                     
                         -- Stomps inflicted (won with gap > 7)
                         SUM(CASE
                                 WHEN (m.player_a_id = :playerId AND m.final_score_a - m.final_score_b > 7)
                                     OR (m.player_b_id = :playerId AND m.final_score_b - m.final_score_a > 7)
-                                    THEN 1 ELSE 0 END) AS stomps_lost_count
+                                    THEN 1 ELSE 0 END) AS stomps_won_count
                     
                     FROM squash_matches m
                              JOIN players p ON p.id = CASE
@@ -257,4 +266,21 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
             nativeQuery = true
     )
     List<OpponentStatsProjection> getDetailedStatsAgainstEachOpponent(@Param("playerId") UUID playerId);
+
+    @Query(
+            value = """
+                    WITH sorted_score AS (
+                        SELECT
+                            GREATEST(sm.final_score_a, sm.final_score_b) AS win_score,
+                            LEAST(sm.final_score_a, sm.final_score_b)    AS lose_score
+                        FROM squash_matches as sm
+                    )
+                    SELECT COUNT(*), ss.win_score, ss.lose_score
+                    FROM sorted_score as ss
+                    GROUP BY ss.win_score, ss.lose_score
+                    ORDER BY ss.lose_score;
+                    """,
+            nativeQuery = true
+    )
+    List<ScoreDistributionProjection> getScoreDistribution();
 }

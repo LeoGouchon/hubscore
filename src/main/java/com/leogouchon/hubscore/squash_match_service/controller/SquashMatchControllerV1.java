@@ -136,6 +136,7 @@ public class SquashMatchControllerV1 {
         return ResponseEntity.ok(response);
     }
 
+    @Deprecated
     @SecurityRequirement(name = "bearerAuth")
     @Operation(
             summary = "Return global data",
@@ -149,6 +150,7 @@ public class SquashMatchControllerV1 {
         return ResponseEntity.ok(response);
     }
 
+    @Deprecated
     @SecurityRequirement(name = "bearerAuth")
     @Operation(
             summary = "Return overall data from a specific player"

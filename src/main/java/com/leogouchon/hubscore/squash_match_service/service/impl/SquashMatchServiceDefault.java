@@ -8,6 +8,7 @@ import com.leogouchon.hubscore.squash_match_service.repository.SquashMatchReposi
 import com.leogouchon.hubscore.squash_match_service.repository.projection.LightDataMatchProjection;
 import com.leogouchon.hubscore.squash_match_service.repository.projection.OpponentStatsProjection;
 import com.leogouchon.hubscore.squash_match_service.repository.projection.PlayerStatsProjection;
+import com.leogouchon.hubscore.squash_match_service.repository.projection.ScoreDistributionProjection;
 import com.leogouchon.hubscore.squash_match_service.service.SquashMatchService;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
 import com.leogouchon.hubscore.squash_match_service.specification.MatchSpecifications;
@@ -128,6 +129,7 @@ public class SquashMatchServiceDefault implements SquashMatchService {
         List<Object[]> results = matchRepository.getOverallStats();
         List<LightDataMatchProjection> worstScoreOverall = matchRepository.getWorstScoreOverall(null);
         List<LightDataMatchProjection> closestScoreOverall = matchRepository.getClosestScoreOverall(null);
+        List<ScoreDistributionProjection> scoreDistribution = matchRepository.getScoreDistribution();
 
         OverallStatsResponseDTO dto = new OverallStatsResponseDTO();
         dto.setTotalMatches(((Number) results.getFirst()[0]).intValue());
@@ -153,6 +155,13 @@ public class SquashMatchServiceDefault implements SquashMatchService {
                         row.getFinalScoreB(),
                         row.getStartTime()))
                 .toArray(SquashMatchResponseDTO[]::new));
+        dto.setScoreDistribution(scoreDistribution.stream()
+                .map(row -> new SquashScoreDistributionDTO(
+                        row.getCount(),
+                        row.getWinScore(),
+                        row.getLoseScore()
+                ))
+                .toArray(SquashScoreDistributionDTO[]::new));
 
         return dto;
     }
@@ -173,7 +182,8 @@ public class SquashMatchServiceDefault implements SquashMatchService {
         dto.setTotalMatches(globalStats.stream().mapToInt(PlayerStatsProjection::getTotalMatches).sum());
         dto.setWins(globalStats.stream().mapToInt(PlayerStatsProjection::getWins).sum());
         dto.setLosses(globalStats.stream().mapToInt(PlayerStatsProjection::getLosses).sum());
-        dto.setAverageLostScore(globalStats.stream().mapToDouble(PlayerStatsProjection::getAverageLoserScore).sum());
+        dto.setAverageOpponentLostScore(globalStats.stream().mapToDouble(PlayerStatsProjection::getAverageOpponentLostScore).sum());
+        dto.setAveragePlayerLostScore(globalStats.stream().mapToDouble(PlayerStatsProjection::getAveragePlayerLostScore).sum());
         dto.setCloseWonCount(globalStats.stream().mapToInt(PlayerStatsProjection::getCloseMatchesWonCount).sum());
         dto.setCloseLostCount(globalStats.stream().mapToInt(PlayerStatsProjection::getCloseMatchesLostCount).sum());
         dto.setStompWonCount(globalStats.stream().mapToInt(PlayerStatsProjection::getStompMatchesWonCount).sum());

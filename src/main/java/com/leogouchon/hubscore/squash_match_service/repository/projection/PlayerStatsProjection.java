@@ -15,7 +15,9 @@ public interface PlayerStatsProjection {
 
     int getLosses();
 
-    Double getAverageLoserScore();
+    Double getAveragePlayerLostScore();
+
+    Double getAverageOpponentLostScore();
 
     int getCloseMatchesWonCount();
 

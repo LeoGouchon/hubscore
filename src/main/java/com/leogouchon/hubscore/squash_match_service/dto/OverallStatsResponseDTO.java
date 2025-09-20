@@ -1,6 +1,5 @@
 package com.leogouchon.hubscore.squash_match_service.dto;
 
-import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,7 +12,9 @@ public class OverallStatsResponseDTO {
     private int stompMatchesCount;
     private SquashMatchResponseDTO[] closestMatches;
     private SquashMatchResponseDTO[] stompestMatches;
+    private SquashScoreDistributionDTO[] scoreDistribution;
 
     public OverallStatsResponseDTO() {
+
     }
 }
