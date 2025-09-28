@@ -68,7 +68,7 @@ public class SquashMatchControllerV1 {
     @ApiResponse(responseCode = "200", description = "Match with given id found")
     @ApiResponse(responseCode = "404", description = "Match not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
-    @GetMapping("/{id:[0-9]+}")
+    @GetMapping("/{id:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}}")
     public ResponseEntity<SquashMatches> getMatch(@PathVariable UUID id) {
         Optional<SquashMatches> match = matchService.getMatch(id);
         return match.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
