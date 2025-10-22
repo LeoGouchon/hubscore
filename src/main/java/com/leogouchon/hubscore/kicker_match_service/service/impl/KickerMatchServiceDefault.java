@@ -1,7 +1,11 @@
 package com.leogouchon.hubscore.kicker_match_service.service.impl;
 
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerElo;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloSeasonal;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloRepository;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloSeasonalRepository;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerEloSeasonalService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerEloService;
@@ -12,6 +16,7 @@ import com.leogouchon.hubscore.player_service.service.PlayerService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -19,17 +24,22 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class KickerMatchServiceDefault implements KickerMatchService {
     private final KickerMatchRepository matchRepository;
+    private final KickerEloRepository kickerEloRepository;
+    private final KickerEloSeasonalRepository kickerEloSeasonalRepository;
     private final PlayerService playerService;
     private final KickerEloService kickerEloService;
     private final KickerEloSeasonalService kickerEloSeasonalService;
 
     @Autowired
-    public KickerMatchServiceDefault(KickerMatchRepository matchRepository, PlayerService playerService, KickerEloService kickerEloService, KickerEloSeasonalService kickerEloSeasonalService) {
+    public KickerMatchServiceDefault(KickerMatchRepository matchRepository, KickerEloRepository kickerEloRepository, KickerEloSeasonalRepository kickerEloSeasonalRepository, PlayerService playerService, KickerEloService kickerEloService, KickerEloSeasonalService kickerEloSeasonalService) {
         this.matchRepository = matchRepository;
+        this.kickerEloRepository = kickerEloRepository;
+        this.kickerEloSeasonalRepository = kickerEloSeasonalRepository;
         this.playerService = playerService;
         this.kickerEloService = kickerEloService;
         this.kickerEloSeasonalService = kickerEloSeasonalService;
@@ -100,11 +110,33 @@ public class KickerMatchServiceDefault implements KickerMatchService {
     }
 
 
-    public Page<KickerMatches> getMatches(int page, int size, List<UUID> playerIds, Long date, String dateOrder) {
+    public Page<KickerMatchResponseDTO> getMatches(int page, int size, List<UUID> playerIds, Long date, String dateOrder) {
         Specification<KickerMatches> filter = KickerMatchSpecifications.withFilters(playerIds, date, dateOrder);
         Pageable pageable = PageRequest.of(page, size);
 
-        return matchRepository.findAll(filter, pageable);
+        Page<KickerMatches> matchesPage = matchRepository.findAll(filter, pageable);
+        List<UUID> matchIds = matchesPage.getContent().stream()
+                .map(KickerMatches::getId)
+                .toList();
+
+        Map<UUID, KickerElo> eloMap = kickerEloRepository.findAllByMatchIdIn(matchIds).stream()
+                .collect(Collectors.toMap(e -> e.getMatch().getId(), e -> e, (existing, duplicate) -> existing));
+        Map<UUID, KickerEloSeasonal> eloSeasonalMap = kickerEloSeasonalRepository.findAllByMatchIdIn(matchIds).stream()
+                .collect(Collectors.toMap(e -> e.getMatch().getId(), e -> e, (existing, duplicate) -> existing));
+
+        List<KickerMatchResponseDTO> dtoList = matchesPage.getContent().stream()
+                .map(m -> {
+                    int eloChange = Optional.ofNullable(eloMap.get(m.getId()))
+                            .map(match -> Math.abs(match.getEloChange()))
+                            .orElse(0);
+                    int eloSeasonalChange = Optional.ofNullable(eloSeasonalMap.get(m.getId()))
+                            .map(match -> Math.abs(match.getEloChange()))
+                            .orElse(0);
+                    return new KickerMatchResponseDTO(m, eloChange, eloSeasonalChange);
+                })
+                .toList();
+
+        return new PageImpl<>(dtoList, pageable, matchesPage.getTotalElements());
     }
 
     public Optional<KickerMatches> getMatch(UUID id) {
@@ -113,6 +145,12 @@ public class KickerMatchServiceDefault implements KickerMatchService {
 
     public Optional<KickerMatchResponseDTO> getMatchResponseDTO(UUID id) {
         Optional<KickerMatches> match = matchRepository.findById(id);
-        return match.map(KickerMatchResponseDTO::new);
+        return match.map(m -> {
+            Optional<KickerElo> kickerElo = kickerEloRepository.findByMatchId(m.getId());
+            Optional<KickerEloSeasonal> kickerEloSeasonal = kickerEloSeasonalRepository.findByMatchId(m.getId());
+            int eloChange = kickerElo.map(KickerElo::getEloChange).orElse(0);
+            int eloSeasonalChange = kickerEloSeasonal.map(KickerEloSeasonal::getEloChange).orElse(0);
+            return new KickerMatchResponseDTO(m, eloChange, eloSeasonalChange);
+        });
     }
 }

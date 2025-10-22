@@ -173,4 +173,8 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
     nativeQuery = true
     )
     List<LoserScorePerDeltaEloProjection> getLoserScorePerEloDiff();
+
+    Optional<KickerEloSeasonal> findByMatchId(UUID id);
+
+    List<KickerEloSeasonal> findAllByMatchIdIn(List<UUID> matchIds);
 }

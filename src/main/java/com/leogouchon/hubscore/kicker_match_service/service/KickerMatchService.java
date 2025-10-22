@@ -15,7 +15,7 @@ public interface KickerMatchService {
 
     void deleteMatch(UUID id);
 
-    Page<KickerMatches> getMatches(int page, int size, List<UUID> playerIds, Long date, String dateOrder);
+    Page<KickerMatchResponseDTO> getMatches(int page, int size, List<UUID> playerIds, Long date, String dateOrder);
 
     Optional<KickerMatches> getMatch(UUID id);
 
