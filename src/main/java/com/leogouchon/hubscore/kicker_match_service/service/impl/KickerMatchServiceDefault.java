@@ -144,12 +144,21 @@ public class KickerMatchServiceDefault implements KickerMatchService {
     }
 
     public Optional<KickerMatchResponseDTO> getMatchResponseDTO(UUID id) {
-        Optional<KickerMatches> match = matchRepository.findById(id);
-        return match.map(m -> {
-            Optional<KickerElo> kickerElo = kickerEloRepository.findByMatchId(m.getId());
-            Optional<KickerEloSeasonal> kickerEloSeasonal = kickerEloSeasonalRepository.findByMatchId(m.getId());
-            int eloChange = kickerElo.map(KickerElo::getEloChange).orElse(0);
-            int eloSeasonalChange = kickerEloSeasonal.map(KickerEloSeasonal::getEloChange).orElse(0);
+        return matchRepository.findById(id).map(m -> {
+            List<KickerElo> elos = kickerEloRepository.findAllByMatchIdIn(List.of(m.getId()));
+            List<KickerEloSeasonal> seasonalElos = kickerEloSeasonalRepository.findAllByMatchIdIn(List.of(m.getId()));
+
+            KickerElo elo = elos.stream().findFirst().orElse(null);
+            KickerEloSeasonal eloSeasonal = seasonalElos.stream().findFirst().orElse(null);
+
+            int eloChange = Optional.ofNullable(elo)
+                    .map(e -> Math.abs(e.getEloChange()))
+                    .orElse(0);
+
+            int eloSeasonalChange = Optional.ofNullable(eloSeasonal)
+                    .map(e -> Math.abs(e.getEloChange()))
+                    .orElse(0);
+
             return new KickerMatchResponseDTO(m, eloChange, eloSeasonalChange);
         });
     }
