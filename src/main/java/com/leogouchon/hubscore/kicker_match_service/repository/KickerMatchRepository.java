@@ -9,8 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -163,4 +165,8 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
         ) AS all_players;
     """, nativeQuery = true)
     Integer getTotalPlayers();
+
+    List<KickerMatches> findAllByCreatedAtAfterOrderByCreatedAtAsc(Timestamp date);
+
+    List<KickerMatches> findAllByOrderByCreatedAtAsc();
 }

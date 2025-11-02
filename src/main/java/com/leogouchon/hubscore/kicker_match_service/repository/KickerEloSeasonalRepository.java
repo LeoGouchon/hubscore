@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -174,7 +175,9 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
     )
     List<LoserScorePerDeltaEloProjection> getLoserScorePerEloDiff();
 
-    Optional<KickerEloSeasonal> findByMatchId(UUID id);
-
     List<KickerEloSeasonal> findAllByMatchIdIn(List<UUID> matchIds);
+
+    Optional<KickerEloSeasonal> findTopByPlayerIdAndMatchCreatedAtBeforeOrderByMatchCreatedAtDesc(UUID playerId, Timestamp date);
+
+    void deleteByMatchCreatedAtAfter(Timestamp date);
 }

@@ -33,7 +33,7 @@ public class KickerEloSeasonalServiceDefault implements KickerEloSeasonalService
 
 
     @Autowired
-    public KickerEloSeasonalServiceDefault(EntityManager entityManager, KickerEloSeasonalRepository eloSeasonalRepository, KickerMatchRepository matchRepository, PlayerKickerInformationsRepository playerKickerInformationsRepository, KickerEloSeasonalRepository kickerEloSeasonalRepository) {
+    public KickerEloSeasonalServiceDefault(EntityManager entityManager, KickerMatchRepository matchRepository, PlayerKickerInformationsRepository playerKickerInformationsRepository, KickerEloSeasonalRepository kickerEloSeasonalRepository) {
         this.matchRepository = matchRepository;
         this.playerKickerInformationsRepository = playerKickerInformationsRepository;
         this.kickerEloSeasonalRepository = kickerEloSeasonalRepository;
@@ -55,7 +55,9 @@ public class KickerEloSeasonalServiceDefault implements KickerEloSeasonalService
         Map<UUID, Integer> currentElos = players.stream()
                 .collect(Collectors.toMap(
                         Players::getId,
-                        p -> kickerEloSeasonalRepository.findLastEloForSeason(p.getId(), this.getSeason(match.getCreatedAt()).year, this.getSeason(match.getCreatedAt()).quarter).orElse(eloCalculator.getInitialELo())
+                        p -> kickerEloSeasonalRepository
+                                .findLastEloForSeason(p.getId(), this.getSeason(match.getCreatedAt()).year, this.getSeason(match.getCreatedAt()).quarter)
+                                .orElse(eloCalculator.getInitialELo())
                 ));
 
         int scoreA = match.getScoreA();
@@ -144,6 +146,17 @@ public class KickerEloSeasonalServiceDefault implements KickerEloSeasonalService
         int month = date.toLocalDateTime().getMonthValue();
         int quarter = (month - 1) / 3 + 1;
         return new Season(year, quarter);
+    }
+
+    @Override
+    @Transactional
+    public void recalculateFromDate(Timestamp cutoff) {
+        kickerEloSeasonalRepository.deleteByMatchCreatedAtAfter(cutoff);
+
+        List<KickerMatches> matches = matchRepository.findAllByCreatedAtAfterOrderByCreatedAtAsc(cutoff);
+        for (KickerMatches match : matches) {
+            calculateElo(match);
+        }
     }
 
     public record Season(int year, int quarter) {

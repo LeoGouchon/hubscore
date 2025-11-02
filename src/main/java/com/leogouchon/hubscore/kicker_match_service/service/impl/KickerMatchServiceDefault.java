@@ -23,6 +23,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -97,11 +98,15 @@ public class KickerMatchServiceDefault implements KickerMatchService {
     @Transactional
     @Override
     public void deleteMatch(UUID id) {
-        if (matchRepository.existsById(id)) {
-            matchRepository.deleteById(id);
-        } else {
-            throw new EntityNotFoundException("Match not found with id: " + id);
-        }
+        KickerMatches match = matchRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("match not found: " + id));
+
+        Timestamp cutoff = match.getCreatedAt();
+
+        matchRepository.delete(match);
+
+        kickerEloService.recalculateFromDate(cutoff);
+        kickerEloSeasonalService.recalculateFromDate(cutoff);
     }
 
     public void recalculateElo() {

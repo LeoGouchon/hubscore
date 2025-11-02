@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,7 +27,9 @@ public interface KickerEloRepository extends JpaRepository<KickerElo, KickerEloI
             @Param("playerId") UUID playerId
     );
 
-    Optional<KickerElo> findByMatchId(UUID id);
-
     List<KickerElo> findAllByMatchIdIn(List<UUID> matchIds);
+
+    Optional<KickerElo> findTopByPlayerIdAndMatchCreatedAtBeforeOrderByMatchCreatedAtDesc(UUID playerId, Timestamp date);
+
+    void deleteByMatchCreatedAtAfter(Timestamp date);
 }

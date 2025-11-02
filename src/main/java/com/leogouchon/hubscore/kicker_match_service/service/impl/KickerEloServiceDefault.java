@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -128,6 +129,17 @@ public class KickerEloServiceDefault implements KickerEloService {
         kickerEloRepository.deleteAll();
 
         List<KickerMatches> matches = matchRepository.getAllByOrderByCreatedAtAsc();
+        for (KickerMatches match : matches) {
+            calculateElo(match);
+        }
+    }
+
+    @Override
+    @Transactional
+    public void recalculateFromDate(Timestamp cutoff) {
+        kickerEloRepository.deleteByMatchCreatedAtAfter(cutoff);
+
+        List<KickerMatches> matches = matchRepository.findAllByCreatedAtAfterOrderByCreatedAtAsc(cutoff);
         for (KickerMatches match : matches) {
             calculateElo(match);
         }
