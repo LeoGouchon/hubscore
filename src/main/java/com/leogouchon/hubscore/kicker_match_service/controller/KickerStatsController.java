@@ -1,6 +1,7 @@
 package com.leogouchon.hubscore.kicker_match_service.controller;
 
 import com.leogouchon.hubscore.kicker_match_service.dto.MatrixScoreResultsResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.PlayerStatsResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.SeasonsStatsResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsWithHistoryDTO;
 import com.leogouchon.hubscore.kicker_match_service.service.EloMatrixService;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(value = "/api/v1/kicker/stats")
@@ -118,5 +120,23 @@ public class KickerStatsController {
         List<MatrixScoreResultsResponseDTO> results = kickerStatService.getResultPerDeltaElo();
 
         return ResponseEntity.ok(results);
+    }
+
+    @Operation(
+            summary = "Get statistics about given player",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Success",
+                            content = @Content(schema = @Schema(implementation = PlayerStatsResponseDTO.class))
+                    )
+            }
+    )
+
+    @GetMapping("/player/{id:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}}")
+    public ResponseEntity<PlayerStatsResponseDTO> getPlayerStats(@PathVariable UUID id) {
+        PlayerStatsResponseDTO playerStats = kickerStatService.getPlayerStats(id);
+
+        return ResponseEntity.ok(playerStats);
     }
 }
