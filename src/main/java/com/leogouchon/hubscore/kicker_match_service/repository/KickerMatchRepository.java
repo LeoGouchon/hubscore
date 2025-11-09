@@ -1,5 +1,6 @@
 package com.leogouchon.hubscore.kicker_match_service.repository;
 
+import com.leogouchon.hubscore.kicker_match_service.dto.PartnerStatsDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
@@ -168,5 +169,35 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
 
     List<KickerMatches> findAllByCreatedAtAfterOrderByCreatedAtAsc(Timestamp date);
 
-    List<KickerMatches> findAllByOrderByCreatedAtAsc();
+    @Query(value = """
+            WITH partner_match_with_given_player AS (
+                SELECT
+                    CASE
+                        WHEN m.player1A = :playerId THEN m.player2A
+                        WHEN m.player2A = :playerId THEN m.player1A
+                        WHEN m.player1B = :playerId THEN m.player2B
+                        WHEN m.player2B = :playerId THEN m.player1B
+                    END AS partnerId,
+                    CASE
+                        WHEN m.player1B = :playerId OR m.player2B = :playerId THEN m.scoreB
+                        WHEN m.player1A = :playerId OR m.player2A = :playerId THEN m.scoreA
+                    END AS player_team_score
+                FROM KickerMatches m
+                WHERE m.player1A = :playerId
+                    OR m.player1B = :playerId
+                    OR m.player2A = :playerId
+                    OR m.player2B = :playerId
+            )
+            SELECT
+                partner_match_with_given_player AS id,
+                p.firstname AS firstname,
+                p.lastname AS lastname,
+                COUNT(*) AS total_matches,
+                SUM(CASE WHEN partner_match_with_given_player = 10 THEN 1 ELSE 0 END) AS wins,
+                SUM(CASE WHEN partner_match_with_given_player != 10 THEN 1 ELSE 0 END) AS losses
+            FROM partner_match_with_given_player pmwgp
+            LEFT JOIN Players p ON p.id = pmwgp.partnerId
+            GROUP BY pmwgp.partnerId, firstname, lastname
+            """)
+    List<PartnerStatsDTO> getPartnerStats(UUID playerId);
 }
