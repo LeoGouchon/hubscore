@@ -1,4 +1,6 @@
 package com.leogouchon.hubscore.kicker_match_service.dto;
 
-public record OpponentStatsDTO(String id, String firstname, String lastname, int wins, int loses) {
+import java.util.UUID;
+
+public record OpponentStatsDTO(UUID id, String firstname, String lastname, Long wins, Long loses) {
 }

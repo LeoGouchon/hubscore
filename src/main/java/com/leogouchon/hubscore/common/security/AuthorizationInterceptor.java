@@ -30,7 +30,8 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
             Pattern.compile("/api/v1/players"),
             Pattern.compile("/api/v1/kicker/stats/global"),
             Pattern.compile("/api/v1/kicker/stats/season(/.*)?"),
-            Pattern.compile("/api/v1/kicker/stats/matrix-score(/.*)?")
+            Pattern.compile("/api/v1/kicker/stats/matrix-score(/.*)?"),
+            Pattern.compile("/api/v1/kicker/stats/player(/.*)?")
     );
 
     @Autowired
