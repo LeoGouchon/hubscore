@@ -1,5 +1,6 @@
 package com.leogouchon.hubscore.kicker_match_service.repository;
 
+import com.leogouchon.hubscore.kicker_match_service.dto.EloHistoryDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerElo;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloId;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -29,7 +30,15 @@ public interface KickerEloRepository extends JpaRepository<KickerElo, KickerEloI
 
     List<KickerElo> findAllByMatchIdIn(List<UUID> matchIds);
 
-    Optional<KickerElo> findTopByPlayerIdAndMatchCreatedAtBeforeOrderByMatchCreatedAtDesc(UUID playerId, Timestamp date);
-
     void deleteByMatchCreatedAtAfter(Timestamp date);
+
+    @Query(value = """
+            SELECT kes.created_at AS date, kes.elo_after_match AS elo
+            FROM kicker_elo_seasonal kes
+            WHERE kes.player_id = :playerId
+            ORDER BY kes.created_at
+            """, nativeQuery = true)
+    List<EloHistoryDTO> getEloHistory(
+            @Param("playerId") UUID playerId
+    );
 }

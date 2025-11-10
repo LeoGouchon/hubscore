@@ -21,10 +21,10 @@ public class KickerMatchSpecifications {
             Predicate predicate = cb.conjunction();
 
             if (playerIds != null && !playerIds.isEmpty()) {
-                Predicate playerA1In = root.get("player_one_team_a").get("id").in(playerIds);
-                Predicate playerA2In = root.get("player_two_team_a").get("id").in(playerIds);
-                Predicate playerB1In = root.get("player_one_team_b").get("id").in(playerIds);
-                Predicate playerB2In = root.get("player_two_team_b").get("id").in(playerIds);
+                Predicate playerA1In = root.get("player1A").get("id").in(playerIds);
+                Predicate playerA2In = root.get("player2A").get("id").in(playerIds);
+                Predicate playerB1In = root.get("player1B").get("id").in(playerIds);
+                Predicate playerB2In = root.get("player2B").get("id").in(playerIds);
                 predicate = cb.and(predicate, cb.or(playerA1In, playerA2In, playerB1In, playerB2In));
             }
 

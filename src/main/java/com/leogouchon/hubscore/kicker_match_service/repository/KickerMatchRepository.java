@@ -1,5 +1,9 @@
 package com.leogouchon.hubscore.kicker_match_service.repository;
 
+import com.leogouchon.hubscore.kicker_match_service.dto.OpponentStatsDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.OverallStatsDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.PartnerStatsDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.SeasonalStatsDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
@@ -9,10 +13,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -153,20 +155,130 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
     Integer getTotalMatches();
 
     @Query(value = """
-        SELECT COUNT(DISTINCT player) AS total_players
-        FROM (
-            SELECT player_one_team_a_id AS player FROM kicker_matches
-            UNION ALL
-            SELECT player_two_team_a_id FROM kicker_matches
-            UNION ALL
-            SELECT player_one_team_b_id FROM kicker_matches
-            UNION ALL
-            SELECT player_two_team_b_id FROM kicker_matches
-        ) AS all_players;
-    """, nativeQuery = true)
+                SELECT COUNT(DISTINCT player) AS total_players
+                FROM (
+                    SELECT player_one_team_a_id AS player FROM kicker_matches
+                    UNION ALL
+                    SELECT player_two_team_a_id FROM kicker_matches
+                    UNION ALL
+                    SELECT player_one_team_b_id FROM kicker_matches
+                    UNION ALL
+                    SELECT player_two_team_b_id FROM kicker_matches
+                ) AS all_players;
+            """, nativeQuery = true)
     Integer getTotalPlayers();
 
     List<KickerMatches> findAllByCreatedAtAfterOrderByCreatedAtAsc(Timestamp date);
 
-    List<KickerMatches> findAllByOrderByCreatedAtAsc();
+    @Query(value = """
+            WITH partner_match_with_given_player AS (
+                SELECT
+                    CASE
+                        WHEN m.player_one_team_a_id = :playerId THEN m.player_two_team_a_id
+                        WHEN m.player_two_team_a_id = :playerId THEN m.player_one_team_a_id
+                        WHEN m.player_one_team_b_id = :playerId THEN m.player_two_team_b_id
+                        WHEN m.player_two_team_b_id = :playerId THEN m.player_one_team_b_id
+                    END AS partnerId,
+                    CASE
+                        WHEN m.player_one_team_b_id = :playerId OR m.player_two_team_b_id = :playerId THEN m.final_score_team_b
+                        WHEN m.player_one_team_a_id = :playerId OR m.player_two_team_a_id = :playerId THEN m.final_score_team_a
+                    END AS player_team_score
+                FROM kicker_matches m
+                WHERE :playerId IN (
+                    m.player_one_team_a_id,
+                    m.player_one_team_b_id,
+                    m.player_two_team_a_id,
+                    m.player_two_team_b_id
+                )
+            )
+            SELECT
+                pmwgp.partnerId AS id,
+                p.firstname AS firstname,
+                p.lastname AS lastname,
+                COUNT(*) AS total_matches,
+                SUM(CASE WHEN pmwgp.player_team_score = 10 THEN 1 ELSE 0 END) AS wins,
+                SUM(CASE WHEN pmwgp.player_team_score != 10 THEN 1 ELSE 0 END) AS losses
+            FROM partner_match_with_given_player pmwgp
+            LEFT JOIN Players p ON p.id = pmwgp.partnerId
+            WHERE pmwgp.partnerId IS NOT NULL
+            GROUP BY pmwgp.partnerId, firstname, lastname
+            """, nativeQuery = true)
+    List<PartnerStatsDTO> getPartnerStats(@Param("playerId") UUID playerId);
+
+
+    @Query(value = """
+                WITH match_with_given_player AS (SELECT m.id, m.player_one_team_a_id, m.player_two_team_a_id, m.player_one_team_b_id, m.player_two_team_b_id, m.final_score_team_a, m.final_score_team_b
+                                             FROM kicker_matches m
+                                             WHERE :playerId IN (
+                                                                 m.player_one_team_a_id,
+                                                                 m.player_two_team_a_id,
+                                                                 m.player_one_team_b_id,
+                                                                 m.player_two_team_b_id
+                                                 )),
+                opponent_match_with_given_player AS (SELECT CASE
+                                                                 WHEN :playerId IN (m.player_one_team_a_id, m.player_two_team_a_id)
+                                                                     THEN m.player_one_team_b_id
+                                                                 WHEN :playerId IN (m.player_one_team_b_id, m.player_two_team_b_id)
+                                                                     THEN m.player_one_team_a_id
+                                                                 END AS opponent_id,
+                                                             CASE
+                                                                 WHEN :playerId IN (m.player_one_team_a_id, m.player_two_team_a_id)
+                                                                     THEN m.final_score_team_b
+                                                                 WHEN :playerId IN (m.player_one_team_b_id, m.player_two_team_b_id)
+                                                                     THEN m.final_score_team_a
+                                                                 END AS opponent_team_score
+                                                      FROM match_with_given_player m
+            
+                                                      UNION ALL
+            
+                                                      SELECT CASE
+                                                                 WHEN :playerId IN (m.player_one_team_a_id, m.player_two_team_a_id)
+                                                                     THEN m.player_two_team_b_id
+                                                                 WHEN :playerId IN (m.player_one_team_b_id, m.player_two_team_b_id)
+                                                                     THEN m.player_two_team_a_id
+                                                                 END AS opponent_id,
+                                                             CASE
+                                                                 WHEN :playerId IN (m.player_one_team_a_id, m.player_two_team_a_id)
+                                                                     THEN m.final_score_team_b
+                                                                 WHEN :playerId IN (m.player_one_team_b_id, m.player_two_team_b_id)
+                                                                     THEN m.final_score_team_a
+                                                                 END AS opponent_team_score
+                                                      FROM match_with_given_player m)
+            SELECT om.opponent_id                                                AS id,
+                   p.firstname,
+                   p.lastname,
+                   SUM(CASE WHEN om.opponent_team_score != 10 THEN 1 ELSE 0 END) AS wins,
+                   SUM(CASE WHEN om.opponent_team_score = 10 THEN 1 ELSE 0 END)  AS losses
+            FROM opponent_match_with_given_player om
+                     LEFT JOIN Players p ON p.id = om.opponent_id
+            WHERE id IS NOT NULL
+            GROUP BY om.opponent_id, p.firstname, p.lastname
+            """, nativeQuery = true)
+    List<OpponentStatsDTO> getOpponentStats(@Param("playerId") UUID playerId);
+
+    @Query(value = """
+            SELECT
+                SUM(
+                        CASE
+                            WHEN :playerId IN (km.player_one_team_a_id, km.player_two_team_a_id)
+                                AND km.final_score_team_a = 10 THEN 1
+                            WHEN :playerId IN (km.player_one_team_b_id, km.player_two_team_b_id)
+                                AND km.final_score_team_b = 10 THEN 1
+                            ELSE 0
+                            END
+                ) AS wins,
+                SUM(
+                        CASE
+                            WHEN :playerId IN (km.player_one_team_a_id, km.player_two_team_a_id)
+                                AND km.final_score_team_a != 10 THEN 1
+                            WHEN :playerId IN (km.player_one_team_b_id, km.player_two_team_b_id)
+                                AND km.final_score_team_b != 10 THEN 1
+                            ELSE 0
+                            END
+                ) AS losses
+            FROM hubscore.public.kicker_elo ke
+                     JOIN kicker_matches km ON km.id = ke.match_id
+            WHERE ke.player_id = :playerId
+            """, nativeQuery = true)
+    OverallStatsDTO getAllTimeStats(@Param("playerId") UUID playerId);
 }

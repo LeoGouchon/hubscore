@@ -1,38 +1,39 @@
 package com.leogouchon.hubscore.kicker_match_service.service.impl;
 
-import com.leogouchon.hubscore.kicker_match_service.dto.MatrixScoreResultsResponseDTO;
-import com.leogouchon.hubscore.kicker_match_service.dto.SeasonStatsResponseDTO;
-import com.leogouchon.hubscore.kicker_match_service.dto.SeasonsStatsResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.*;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloRepository;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloSeasonalRepository;
-import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
-import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsWithHistoryDTO;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.LoserScorePerDeltaEloProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.SeasonStatsProjection;
 import com.leogouchon.hubscore.kicker_match_service.service.EloCalculatorService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerStatService;
+import com.leogouchon.hubscore.player_service.entity.Players;
+import com.leogouchon.hubscore.player_service.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
 public class KickerStatServiceDefault implements KickerStatService {
     private final KickerMatchRepository kickerMatchRepository;
+    private final KickerEloRepository kickerEloRepository;
     private final KickerEloSeasonalRepository kickerEloSeasonalRepository;
     private final EloCalculatorService eloCalculator;
+    private final PlayerService playerService;
 
     @Autowired
-    public KickerStatServiceDefault(KickerMatchRepository kickerMatchRepository, KickerEloSeasonalRepository kickerEloSeasonalRepository, EloCalculatorService eloCalculator) {
+    public KickerStatServiceDefault(KickerMatchRepository kickerMatchRepository, KickerEloSeasonalRepository kickerEloSeasonalRepository, EloCalculatorService eloCalculator, PlayerService playerService, KickerEloRepository kickerEloRepository) {
         this.kickerMatchRepository = kickerMatchRepository;
         this.kickerEloSeasonalRepository = kickerEloSeasonalRepository;
         this.eloCalculator = eloCalculator;
+        this.playerService = playerService;
+        this.kickerEloRepository = kickerEloRepository;
     }
 
     @Override
@@ -147,8 +148,38 @@ public class KickerStatServiceDefault implements KickerStatService {
         List<LoserScorePerDeltaEloProjection> results = kickerEloSeasonalRepository.getLoserScorePerEloDiff();
 
         return results.stream().map(result -> new MatrixScoreResultsResponseDTO(
-            result.getEloDiff(),
-            result.getLoserScore()
+                result.getEloDiff(),
+                result.getLoserScore()
         )).toList();
+    }
+
+    @Override
+    public PlayerStatsResponseDTO getPlayerStats(UUID id) {
+        Optional<Players> player = playerService.getPlayer(id);
+
+        if (player.isEmpty()) {
+            throw new RuntimeException("Player not found");
+        }
+
+        List<PartnerStatsDTO> statsPerPartner = kickerMatchRepository.getPartnerStats(id);
+        List<OpponentStatsDTO> statsPerOpponent = kickerMatchRepository.getOpponentStats(id);
+        List<SeasonalStatsDTO> seasonalStats = kickerEloSeasonalRepository.getSeasonalStats(player.get().getId());
+        for (SeasonalStatsDTO season : seasonalStats) {
+            List<EloHistoryDTO> history = kickerEloSeasonalRepository.getEloHistory(player.get().getId(), season.getYear(), season.getQuarter());
+            season.setEloHistory(history);
+        }
+        OverallStatsDTO allTimeStats = kickerMatchRepository.getAllTimeStats(id);
+        List<EloHistoryDTO> history = kickerEloRepository.getEloHistory(player.get().getId());
+        allTimeStats.setEloHistory(history);
+
+        return new PlayerStatsResponseDTO(
+                id,
+                player.get().getFirstname(),
+                player.get().getLastname(),
+                statsPerPartner,
+                statsPerOpponent,
+                seasonalStats,
+                allTimeStats
+        );
     }
 }

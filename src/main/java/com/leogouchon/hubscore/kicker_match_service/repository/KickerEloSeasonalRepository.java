@@ -1,5 +1,7 @@
 package com.leogouchon.hubscore.kicker_match_service.repository;
 
+import com.leogouchon.hubscore.kicker_match_service.dto.EloHistoryDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.SeasonalStatsDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloId;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloSeasonal;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
@@ -11,7 +13,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Optional;
@@ -21,15 +22,15 @@ import java.util.UUID;
 public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeasonal, KickerEloId> {
 
     @Query("""
-        SELECT ke.eloAfterMatch
-        FROM KickerEloSeasonal ke
-        JOIN KickerMatches m ON ke.match.id = m.id
-        WHERE ke.player.id = :playerId
-          AND ke.seasonYear = :year
-          AND ke.seasonQuarter = :quarter
-        ORDER BY m.createdAt DESC
-        LIMIT 1
-    """)
+                SELECT ke.eloAfterMatch
+                FROM KickerEloSeasonal ke
+                JOIN KickerMatches m ON ke.match.id = m.id
+                WHERE ke.player.id = :playerId
+                  AND ke.seasonYear = :year
+                  AND ke.seasonQuarter = :quarter
+                ORDER BY m.createdAt DESC
+                LIMIT 1
+            """)
     Optional<Integer> findLastEloForSeason(
             @Param("playerId") UUID playerId,
             @Param("year") int year,
@@ -37,9 +38,9 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
     );
 
     @Query("""
-        SELECT COUNT(DISTINCT (seasonYear, seasonQuarter))
-        FROM KickerEloSeasonal
-        """)
+            SELECT COUNT(DISTINCT (seasonYear, seasonQuarter))
+            FROM KickerEloSeasonal
+            """)
     Integer getNbSeasons();
 
     @Query("""
@@ -171,13 +172,55 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
             GROUP BY km.final_score_team_a, km.final_score_team_b, km.id
             ORDER BY elo_diff DESC;
             """,
-    nativeQuery = true
+            nativeQuery = true
     )
     List<LoserScorePerDeltaEloProjection> getLoserScorePerEloDiff();
 
     List<KickerEloSeasonal> findAllByMatchIdIn(List<UUID> matchIds);
 
-    Optional<KickerEloSeasonal> findTopByPlayerIdAndMatchCreatedAtBeforeOrderByMatchCreatedAtDesc(UUID playerId, Timestamp date);
-
     void deleteByMatchCreatedAtAfter(Timestamp date);
+
+    @Query(value = """
+            SELECT DISTINCT
+                kes.season_year,
+                kes.season_quarter,
+                SUM(
+                    CASE
+                        WHEN :playerId IN (km.player_one_team_a_id, km.player_two_team_a_id)
+                             AND km.final_score_team_a = 10 THEN 1
+                        WHEN :playerId IN (km.player_one_team_b_id, km.player_two_team_b_id)
+                             AND km.final_score_team_b = 10 THEN 1
+                        ELSE 0
+                    END
+                ) AS wins,
+                SUM(
+                    CASE
+                        WHEN :playerId IN (km.player_one_team_a_id, km.player_two_team_a_id)
+                             AND km.final_score_team_a != 10 THEN 1
+                        WHEN :playerId IN (km.player_one_team_b_id, km.player_two_team_b_id)
+                             AND km.final_score_team_b != 10 THEN 1
+                        ELSE 0
+                    END
+                ) AS losses
+            FROM kicker_elo_seasonal kes
+            JOIN kicker_matches km ON km.id = kes.match_id
+            WHERE kes.player_id = :playerId
+            GROUP BY kes.season_year, kes.season_quarter
+            ORDER BY kes.season_year DESC, kes.season_quarter DESC
+            """, nativeQuery = true)
+    List<SeasonalStatsDTO> getSeasonalStats(@Param("playerId") UUID playerId);
+
+    @Query(value = """
+            SELECT kes.created_at AS date, kes.elo_after_match AS elo
+            FROM kicker_elo_seasonal kes
+            WHERE kes.player_id = :playerId
+              AND kes.season_year = :year
+              AND kes.season_quarter = :quarter
+            ORDER BY kes.created_at
+            """, nativeQuery = true)
+    List<EloHistoryDTO> getEloHistory(
+            @Param("playerId") UUID playerId,
+            @Param("year") int year,
+            @Param("quarter") int quarter
+    );
 }
