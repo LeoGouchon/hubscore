@@ -33,10 +33,10 @@ public interface KickerEloRepository extends JpaRepository<KickerElo, KickerEloI
     void deleteByMatchCreatedAtAfter(Timestamp date);
 
     @Query(value = """
-            SELECT kes.created_at AS date, kes.elo_after_match AS elo
-            FROM kicker_elo_seasonal kes
-            WHERE kes.player_id = :playerId
-            ORDER BY kes.created_at
+            SELECT ks.created_at AS date, ks.elo_after_match AS elo
+            FROM kicker_elo ks
+            WHERE ks.player_id = :playerId
+            ORDER BY ks.created_at
             """, nativeQuery = true)
     List<EloHistoryDTO> getEloHistory(
             @Param("playerId") UUID playerId
