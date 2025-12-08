@@ -1,5 +1,12 @@
 # SquashApp - Backend
 
+## Setup
+
+1. `git clone ...`
+2. `cp .env.example .env`
+3. complete `.env` file with your database credentials
+4. `docker-compose up -build`
+
 ## Description
 
 Backend of mobile application SquashApp
@@ -12,7 +19,7 @@ Backend of mobile application SquashApp
 * Spring Web
 * Spring Boot DevTools
 * **Database**
-	+ PostgreSQL
+	+ PostgreSQL 17
 * **Libraries**
 	+ Lombok
 	+ SpringDoc OpenAPI

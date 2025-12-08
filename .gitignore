@@ -4,12 +4,10 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
-# Ignorer tous les fichiers application.properties (avec ou sans suffixe) par défaut
 /src/main/resources/application*.properties
 /src/test/resources/application*.properties
 applications.properties
 
-# Réinclure uniquement celui de base dans src/main/resources
 !/src/main/resources/application.properties
 
 ### STS ###
@@ -39,3 +37,5 @@ build/
 
 ### VS Code ###
 .vscode/
+
+.env
