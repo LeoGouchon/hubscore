@@ -5597,5 +5597,5 @@ INSERT INTO public.player_team VALUES ('c0064571-1ab7-41d3-8199-ec61a3a7d460', '
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: hubscoreuser
 --
 
-INSERT INTO public.users VALUES ('admin@email.com', '$2a$10$8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918', true, 'f027e5f9-31a1-42ac-90b3-dc437585b839', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741'); -- passowrd: admin
-INSERT INTO public.users VALUES ('user@email.com', '$2a$10$04f8996da763b7a969b1028ee3007569eaf3a635486ddab211d512c85b9df8fb', false, 'dc437585-98ea-4efe-90b3-b83f027e5f99'); -- password: user
+INSERT INTO public.users VALUES ('admin@email.com', '$2y$10$aiZniPufX3F4eUAQTseNLeAWClxcp5u.rauU2RVf2c3kW8x/oeSHG', true, 'f027e5f9-31a1-42ac-90b3-dc437585b839', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741'); -- passowrd: admin
+INSERT INTO public.users VALUES ('user@email.com', '$2y$10$VkLzPdzANN51bnn8oLn74.ynGE6uQe7pDJtZgy64SP18Pev7iQjX.', false, 'dc437585-98ea-4efe-90b3-b83f027e5f99'); -- password: user
