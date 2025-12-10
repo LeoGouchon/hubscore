@@ -1,11 +1,13 @@
 # SquashApp - Backend
 
-## Setup
+## How to run locally
 
-1. `git clone ...`
-2. `cp .env.example .env`
-3. complete `.env` file with your database credentials
-4. `docker-compose up -build`
+1. Clone the repository
+2. `docker-compose up -build` (or `make build`)
+
+That's it! 
+There's sample data for your development while building. Feel free to add another migrating file if you need to inside `src/main/resources/db/migration`.
+`.env` file contain credentials to access to the database.
 
 ## Description
 
