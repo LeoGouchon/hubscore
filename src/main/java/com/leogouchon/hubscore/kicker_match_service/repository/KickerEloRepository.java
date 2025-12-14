@@ -33,8 +33,9 @@ public interface KickerEloRepository extends JpaRepository<KickerElo, KickerEloI
     void deleteByMatchCreatedAtAfter(Timestamp date);
 
     @Query(value = """
-            SELECT ks.created_at AS date, ks.elo_after_match AS elo
+            SELECT m.created_at AS date, ks.elo_after_match AS elo
             FROM kicker_elo ks
+            JOIN kicker_matches m ON ks.match_id = m.id
             WHERE ks.player_id = :playerId
             ORDER BY ks.created_at
             """, nativeQuery = true)

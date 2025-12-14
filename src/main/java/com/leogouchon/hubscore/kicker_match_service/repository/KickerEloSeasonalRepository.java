@@ -211,8 +211,9 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
     List<SeasonalStatsDTO> getSeasonalStats(@Param("playerId") UUID playerId);
 
     @Query(value = """
-            SELECT kes.created_at AS date, kes.elo_after_match AS elo
+            SELECT km.created_at AS date, kes.elo_after_match AS elo
             FROM kicker_elo_seasonal kes
+            JOIN kicker_matches km ON km.id = kes.match_id
             WHERE kes.player_id = :playerId
               AND kes.season_year = :year
               AND kes.season_quarter = :quarter
