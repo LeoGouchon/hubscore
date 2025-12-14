@@ -1,12 +1,12 @@
 dev:
-	docker compose up
+	docker compose up -d
 
 build:
 	docker compose build
 
 rebuild:
 	docker compose down -v
-	docker compose up --build
+	docker compose up -d --build
 
 clean:
 	docker compose down -v
