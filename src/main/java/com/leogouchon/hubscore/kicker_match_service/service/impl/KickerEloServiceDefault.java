@@ -74,7 +74,7 @@ public class KickerEloServiceDefault implements KickerEloService {
         double eloTeamB = eloCalculator.averageElo(match.getPlayer1B(), match.getPlayer2B(), currentElos);
 
         // Expected score
-        double expectedA = eloCalculator.exceptedResult(eloTeamA, eloTeamB);
+        double expectedA = eloCalculator.expectedResult(eloTeamA, eloTeamB);
         double expectedB = 1 - expectedA;
 
         // Update elos of each player
