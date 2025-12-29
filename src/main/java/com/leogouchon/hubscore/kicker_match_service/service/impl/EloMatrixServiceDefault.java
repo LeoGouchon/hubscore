@@ -27,10 +27,9 @@ public class EloMatrixServiceDefault implements EloMatrixService {
         int step = 100;
 
         for (int eloDiff = -maxDiff; eloDiff <= maxDiff; eloDiff += step) {
-            double eloA = baseElo;
             double eloB = (baseElo + eloDiff);
 
-            double expectedA = eloCalculator.expectedResult(eloA, eloB);
+            double expectedA = eloCalculator.expectedResult(baseElo, eloB);
 
             for (int scoreDiff = 1; scoreDiff <= 20; scoreDiff++) {
                 int k = eloCalculator.calculateK(scoreDiff);
