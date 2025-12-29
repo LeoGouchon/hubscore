@@ -9,26 +9,46 @@ import java.util.UUID;
 
 @Service
 public class EloCalculatorDefault implements EloCalculatorService {
+    private static final int MAX_SCORE_DIFFERENCE = 20;
+
     public int getInitialELo() {
         return 1500;
     }
 
-    public int calculateDeltaElo(int K, double actualScore, double expectedScore) {
-        return (int) Math.round(K * (actualScore - expectedScore));
+    public int calculateDeltaElo(int k, double actualScore, double expectedScore) {
+        return (int) Math.round(k * (actualScore - expectedScore));
     }
 
-    public double averageElo(Players player1, Players player2, Map<UUID, Integer> currentElos) {
-        if (player2 != null) {
-            return (double) (currentElos.get(player1.getId()) + currentElos.get(player2.getId())) / 2;
+    public double averageElo(
+            Players player1,
+            Players player2,
+            Map<UUID, Integer> currentElos
+    ) {
+        UUID id1 = player1.getId();
+        Integer elo1 = currentElos.get(id1);
+
+        if (elo1 == null) {
+            throw new IllegalArgumentException("Missing elo for player " + id1);
         }
-        return currentElos.get(player1.getId());
+
+        if (player2 == null) {
+            return elo1;
+        }
+
+        UUID id2 = player2.getId();
+        Integer elo2 = currentElos.get(id2);
+
+        if (elo2 == null) {
+            throw new IllegalArgumentException("Missing elo for player " + id2);
+        }
+
+        return (elo1 + elo2) / 2.0;
     }
 
     public int calculateK(int scoreDiff) {
-        int MAX_SCORE_DIFFERENCE = 20;
-        int clamped = Math.max(1, Math.min(scoreDiff, MAX_SCORE_DIFFERENCE));
+        int clamped = Math.clamp(scoreDiff, 1, MAX_SCORE_DIFFERENCE);
 
-        double k = 15 * Math.log(clamped + 1);
+        double k = 15 * Math.log(clamped + 1.0);
 
         return (int) Math.round(k);
     }
@@ -50,7 +70,7 @@ public class EloCalculatorDefault implements EloCalculatorService {
         return scoreA > scoreB ? factor : 1 - factor;
     }
 
-    public double exceptedResult(double eloTeamA, double eloTeamB) {
-        return  1 / (1 + Math.pow(10, (eloTeamB - eloTeamA) / 600.0)); // https://en.wikipedia.org/wiki/Elo_rating_system#cite_note-29
+    public double expectedResult(double eloTeamA, double eloTeamB) {
+        return 1.0 / (1.0 + Math.pow(10, (eloTeamB - eloTeamA) / 600.0)); // https://en.wikipedia.org/wiki/Elo_rating_system#cite_note-29
     }
 }
