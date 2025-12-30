@@ -2,10 +2,10 @@ package com.leogouchon.hubscore.player_service.entity;
 
 import org.junit.jupiter.api.Test;
 
-class PlayerTests {
+public class PlayerTests {
 
     @Test
-    void testConstructor() {
+    public void testConstructor() {
         Players player = new Players("John", "Doe");
 
         assert player.getFirstname().equals("John");

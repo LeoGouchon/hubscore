@@ -6,11 +6,11 @@ import java.util.Map;
 import java.util.UUID;
 
 public interface EloCalculatorService {
-    int calculateDeltaElo(int k, double actualScore, double expectedScore);
+    int calculateDeltaElo(int K, double actualScore, double expectedScore);
     int calculateK(int scoreDiff);
     double averageElo(Players player1, Players player2, Map<UUID, Integer> currentElos);
     double getScore(int scoreA, int scoreB);
-    double expectedResult(double eloTeamA, double eloTeamB);
+    double exceptedResult(double eloTeamA, double eloTeamB);
 
     int getInitialELo();
 }

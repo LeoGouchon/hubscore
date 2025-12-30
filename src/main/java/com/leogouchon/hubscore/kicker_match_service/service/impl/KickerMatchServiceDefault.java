@@ -7,6 +7,7 @@ import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloRepository;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloSeasonalRepository;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerEloSeasonalService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerEloService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
 import com.leogouchon.hubscore.kicker_match_service.specification.KickerMatchSpecifications;
@@ -14,7 +15,6 @@ import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -34,16 +34,10 @@ public class KickerMatchServiceDefault implements KickerMatchService {
     private final KickerEloSeasonalRepository kickerEloSeasonalRepository;
     private final PlayerService playerService;
     private final KickerEloService kickerEloService;
-    private final KickerEloService kickerEloSeasonalService;
+    private final KickerEloSeasonalService kickerEloSeasonalService;
 
     @Autowired
-    public KickerMatchServiceDefault(
-            KickerMatchRepository matchRepository,
-            KickerEloRepository kickerEloRepository,
-            KickerEloSeasonalRepository kickerEloSeasonalRepository,
-            PlayerService playerService,
-            @Qualifier("globalEloService") KickerEloService kickerEloService,
-            @Qualifier("seasonalEloService") KickerEloService kickerEloSeasonalService) {
+    public KickerMatchServiceDefault(KickerMatchRepository matchRepository, KickerEloRepository kickerEloRepository, KickerEloSeasonalRepository kickerEloSeasonalRepository, PlayerService playerService, KickerEloService kickerEloService, KickerEloSeasonalService kickerEloSeasonalService) {
         this.matchRepository = matchRepository;
         this.kickerEloRepository = kickerEloRepository;
         this.kickerEloSeasonalRepository = kickerEloSeasonalRepository;
