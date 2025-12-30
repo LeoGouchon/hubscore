@@ -74,7 +74,7 @@ public class KickerEloSeasonalServiceDefault implements KickerEloSeasonalService
         double eloTeamB = eloCalculator.averageElo(match.getPlayer1B(), match.getPlayer2B(), currentElos);
 
         // Expected score
-        double expectedA = eloCalculator.expectedResult(eloTeamA, eloTeamB);
+        double expectedA = eloCalculator.exceptedResult(eloTeamA, eloTeamB);
         double expectedB = 1 - expectedA;
 
         // Update elos of each player
