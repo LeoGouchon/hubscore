@@ -31,19 +31,16 @@ public class GlobalKickerEloService implements KickerEloService {
     private final KickerEloRepository kickerEloRepository;
     private final PlayerKickerInformationsRepository playerKickerInformationsRepository;
     private final EloCalculatorService eloCalculator;
-    private final KickerEloService kickerEloService;
 
     @Autowired
     public GlobalKickerEloService(EloCalculatorService eloCalculatorService,
                                   KickerEloRepository kickerEloRepository,
                                   PlayerKickerInformationsRepository playerKickerInformationsRepository,
-                                  KickerMatchRepository matchRepository,
-                                  @Qualifier("globalEloService") KickerEloService kickerEloService) {
+                                  KickerMatchRepository matchRepository) {
         this.kickerEloRepository = kickerEloRepository;
         this.playerKickerInformationsRepository = playerKickerInformationsRepository;
         this.matchRepository = matchRepository;
         this.eloCalculator = eloCalculatorService;
-        this.kickerEloService = kickerEloService;
     }
 
     @Override
@@ -136,7 +133,7 @@ public class GlobalKickerEloService implements KickerEloService {
 
         List<KickerMatches> matches = matchRepository.getAllByOrderByCreatedAtAsc();
         for (KickerMatches match : matches) {
-            kickerEloService.calculateElo(match);
+            this.calculateElo(match);
         }
     }
 
@@ -147,7 +144,7 @@ public class GlobalKickerEloService implements KickerEloService {
 
         List<KickerMatches> matches = matchRepository.findAllByCreatedAtAfterOrderByCreatedAtAsc(cutoff);
         for (KickerMatches match : matches) {
-            kickerEloService.calculateElo(match);
+            this.calculateElo(match);
         }
     }
 }

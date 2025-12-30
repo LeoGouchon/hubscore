@@ -32,20 +32,17 @@ public class SeasonalKickerEloService implements KickerEloService {
     private final EloCalculatorDefault eloCalculator = new EloCalculatorDefault();
     private final KickerEloSeasonalRepository kickerEloSeasonalRepository;
     private final EntityManager entityManager;
-    private final KickerEloService kickerEloService;
 
     @Autowired
     public SeasonalKickerEloService(
             EntityManager entityManager,
             KickerMatchRepository matchRepository,
             PlayerKickerInformationsRepository playerKickerInformationsRepository,
-            KickerEloSeasonalRepository kickerEloSeasonalRepository,
-            @Qualifier("seasonalEloService") KickerEloService seasonalKickerEloService) {
+            KickerEloSeasonalRepository kickerEloSeasonalRepository) {
         this.matchRepository = matchRepository;
         this.playerKickerInformationsRepository = playerKickerInformationsRepository;
         this.kickerEloSeasonalRepository = kickerEloSeasonalRepository;
         this.entityManager = entityManager;
-        this.kickerEloService = seasonalKickerEloService;
     }
 
     @Override
@@ -109,7 +106,7 @@ public class SeasonalKickerEloService implements KickerEloService {
 
         List<KickerMatches> matches = matchRepository.getAllByOrderByCreatedAtAsc();
         for (KickerMatches match : matches) {
-            kickerEloService.calculateElo(match);
+            this.calculateElo(match);
         }
     }
 
@@ -162,7 +159,7 @@ public class SeasonalKickerEloService implements KickerEloService {
 
         List<KickerMatches> matches = matchRepository.findAllByCreatedAtAfterOrderByCreatedAtAsc(cutoff);
         for (KickerMatches match : matches) {
-            kickerEloService.calculateElo(match);
+            this.calculateElo(match);
         }
     }
 
