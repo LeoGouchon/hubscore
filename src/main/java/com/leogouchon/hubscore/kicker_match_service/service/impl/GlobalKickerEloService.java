@@ -10,13 +10,12 @@ import com.leogouchon.hubscore.kicker_match_service.service.KickerEloService;
 import com.leogouchon.hubscore.player_service.entity.PlayerKickerInformations;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.player_service.repository.PlayerKickerInformationsRepository;
-import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Map;
@@ -26,14 +25,18 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class KickerEloServiceDefault implements KickerEloService {
+@Qualifier("globalEloService")
+public class GlobalKickerEloService implements KickerEloService {
     private final KickerMatchRepository matchRepository;
     private final KickerEloRepository kickerEloRepository;
     private final PlayerKickerInformationsRepository playerKickerInformationsRepository;
     private final EloCalculatorService eloCalculator;
 
     @Autowired
-    public KickerEloServiceDefault(EloCalculatorService eloCalculatorService, KickerEloRepository kickerEloRepository, PlayerKickerInformationsRepository playerKickerInformationsRepository, KickerMatchRepository matchRepository) {
+    public GlobalKickerEloService(EloCalculatorService eloCalculatorService,
+                                  KickerEloRepository kickerEloRepository,
+                                  PlayerKickerInformationsRepository playerKickerInformationsRepository,
+                                  KickerMatchRepository matchRepository) {
         this.kickerEloRepository = kickerEloRepository;
         this.playerKickerInformationsRepository = playerKickerInformationsRepository;
         this.matchRepository = matchRepository;
@@ -74,7 +77,7 @@ public class KickerEloServiceDefault implements KickerEloService {
         double eloTeamB = eloCalculator.averageElo(match.getPlayer1B(), match.getPlayer2B(), currentElos);
 
         // Expected score
-        double expectedA = eloCalculator.exceptedResult(eloTeamA, eloTeamB);
+        double expectedA = eloCalculator.expectedResult(eloTeamA, eloTeamB);
         double expectedB = 1 - expectedA;
 
         // Update elos of each player
@@ -130,7 +133,7 @@ public class KickerEloServiceDefault implements KickerEloService {
 
         List<KickerMatches> matches = matchRepository.getAllByOrderByCreatedAtAsc();
         for (KickerMatches match : matches) {
-            calculateElo(match);
+            this.calculateElo(match);
         }
     }
 
@@ -141,7 +144,7 @@ public class KickerEloServiceDefault implements KickerEloService {
 
         List<KickerMatches> matches = matchRepository.findAllByCreatedAtAfterOrderByCreatedAtAsc(cutoff);
         for (KickerMatches match : matches) {
-            calculateElo(match);
+            this.calculateElo(match);
         }
     }
 }

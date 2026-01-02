@@ -5,12 +5,13 @@ import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloSeasonal;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloSeasonalRepository;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
-import com.leogouchon.hubscore.kicker_match_service.service.KickerEloSeasonalService;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerEloService;
 import com.leogouchon.hubscore.player_service.entity.PlayerKickerInformations;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.player_service.repository.PlayerKickerInformationsRepository;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,16 +25,20 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
-public class KickerEloSeasonalServiceDefault implements KickerEloSeasonalService {
+@Qualifier("seasonalEloService")
+public class SeasonalKickerEloService implements KickerEloService {
     private final KickerMatchRepository matchRepository;
     private final PlayerKickerInformationsRepository playerKickerInformationsRepository;
     private final EloCalculatorDefault eloCalculator = new EloCalculatorDefault();
     private final KickerEloSeasonalRepository kickerEloSeasonalRepository;
     private final EntityManager entityManager;
 
-
     @Autowired
-    public KickerEloSeasonalServiceDefault(EntityManager entityManager, KickerMatchRepository matchRepository, PlayerKickerInformationsRepository playerKickerInformationsRepository, KickerEloSeasonalRepository kickerEloSeasonalRepository) {
+    public SeasonalKickerEloService(
+            EntityManager entityManager,
+            KickerMatchRepository matchRepository,
+            PlayerKickerInformationsRepository playerKickerInformationsRepository,
+            KickerEloSeasonalRepository kickerEloSeasonalRepository) {
         this.matchRepository = matchRepository;
         this.playerKickerInformationsRepository = playerKickerInformationsRepository;
         this.kickerEloSeasonalRepository = kickerEloSeasonalRepository;
@@ -74,7 +79,7 @@ public class KickerEloSeasonalServiceDefault implements KickerEloSeasonalService
         double eloTeamB = eloCalculator.averageElo(match.getPlayer1B(), match.getPlayer2B(), currentElos);
 
         // Expected score
-        double expectedA = eloCalculator.exceptedResult(eloTeamA, eloTeamB);
+        double expectedA = eloCalculator.expectedResult(eloTeamA, eloTeamB);
         double expectedB = 1 - expectedA;
 
         // Update elos of each player
@@ -101,7 +106,7 @@ public class KickerEloSeasonalServiceDefault implements KickerEloSeasonalService
 
         List<KickerMatches> matches = matchRepository.getAllByOrderByCreatedAtAsc();
         for (KickerMatches match : matches) {
-            calculateElo(match);
+            this.calculateElo(match);
         }
     }
 
@@ -142,7 +147,6 @@ public class KickerEloSeasonalServiceDefault implements KickerEloSeasonalService
 
     public Season getSeason(Timestamp date) {
         int year = date.toLocalDateTime().getYear();
-//        int quarter = ThreadLocalRandom.current().nextInt(1, 5);
         int month = date.toLocalDateTime().getMonthValue();
         int quarter = (month - 1) / 3 + 1;
         return new Season(year, quarter);
@@ -155,7 +159,7 @@ public class KickerEloSeasonalServiceDefault implements KickerEloSeasonalService
 
         List<KickerMatches> matches = matchRepository.findAllByCreatedAtAfterOrderByCreatedAtAsc(cutoff);
         for (KickerMatches match : matches) {
-            calculateElo(match);
+            this.calculateElo(match);
         }
     }
 
