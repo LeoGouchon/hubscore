@@ -217,27 +217,10 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
 
     @Query(value = """
             SELECT
-                SUM(
-                        CASE
-                            WHEN :playerId IN (km.player_one_team_a_id, km.player_two_team_a_id)
-                                AND km.final_score_team_a = 10 THEN 1
-                            WHEN :playerId IN (km.player_one_team_b_id, km.player_two_team_b_id)
-                                AND km.final_score_team_b = 10 THEN 1
-                            ELSE 0
-                            END
-                ) AS wins,
-                SUM(
-                        CASE
-                            WHEN :playerId IN (km.player_one_team_a_id, km.player_two_team_a_id)
-                                AND km.final_score_team_a != 10 THEN 1
-                            WHEN :playerId IN (km.player_one_team_b_id, km.player_two_team_b_id)
-                                AND km.final_score_team_b != 10 THEN 1
-                            ELSE 0
-                            END
-                ) AS losses
-            FROM hubscore.public.kicker_elo ke
-                     JOIN kicker_matches km ON km.id = ke.match_id
-            WHERE ke.player_id = :playerId
+                SUM(CASE WHEN pmf.player_score = 10 THEN 1 ELSE 0 END) AS wins,
+                SUM(CASE WHEN pmf.player_score <> 10 THEN 1 ELSE 0 END) AS losses
+            FROM mv_player_match_facts pmf
+            WHERE pmf.player_id = :playerId;
             """, nativeQuery = true)
     OverallStatsDTO getAllTimeStats(@Param("playerId") UUID playerId);
 }
