@@ -171,37 +171,25 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
     List<KickerMatches> findAllByCreatedAtAfterOrderByCreatedAtAsc(Timestamp date);
 
     @Query(value = """
-            WITH partner_match_with_given_player AS (
-                SELECT
-                    CASE
-                        WHEN m.player_one_team_a_id = :playerId THEN m.player_two_team_a_id
-                        WHEN m.player_two_team_a_id = :playerId THEN m.player_one_team_a_id
-                        WHEN m.player_one_team_b_id = :playerId THEN m.player_two_team_b_id
-                        WHEN m.player_two_team_b_id = :playerId THEN m.player_one_team_b_id
-                    END AS partnerId,
-                    CASE
-                        WHEN m.player_one_team_b_id = :playerId OR m.player_two_team_b_id = :playerId THEN m.final_score_team_b
-                        WHEN m.player_one_team_a_id = :playerId OR m.player_two_team_a_id = :playerId THEN m.final_score_team_a
-                    END AS player_team_score
-                FROM kicker_matches m
-                WHERE :playerId IN (
-                    m.player_one_team_a_id,
-                    m.player_one_team_b_id,
-                    m.player_two_team_a_id,
-                    m.player_two_team_b_id
-                )
-            )
             SELECT
-                pmwgp.partnerId AS id,
-                p.firstname AS firstname,
-                p.lastname AS lastname,
+                pmf.teammate_id AS id,
+                p.firstname,
+                p.lastname,
+            
                 COUNT(*) AS total_matches,
-                SUM(CASE WHEN pmwgp.player_team_score = 10 THEN 1 ELSE 0 END) AS wins,
-                SUM(CASE WHEN pmwgp.player_team_score != 10 THEN 1 ELSE 0 END) AS losses
-            FROM partner_match_with_given_player pmwgp
-            LEFT JOIN Players p ON p.id = pmwgp.partnerId
-            WHERE pmwgp.partnerId IS NOT NULL
-            GROUP BY pmwgp.partnerId, firstname, lastname
+            
+                SUM(CASE WHEN pmf.player_score = 10 THEN 1 ELSE 0 END) AS wins,
+                SUM(CASE WHEN pmf.player_score < 10 THEN 1 ELSE 0 END) AS losses
+            
+            FROM mv_player_match_facts pmf
+            JOIN players p ON p.id = pmf.teammate_id
+            
+            WHERE pmf.player_id = :playerId
+            
+            GROUP BY
+                pmf.teammate_id,
+                p.firstname,
+                p.lastname;
             """, nativeQuery = true)
     List<PartnerStatsDTO> getPartnerStats(@Param("playerId") UUID playerId);
 
