@@ -3,7 +3,6 @@ package com.leogouchon.hubscore.kicker_match_service.repository;
 import com.leogouchon.hubscore.kicker_match_service.dto.OpponentStatsDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.OverallStatsDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.PartnerStatsDTO;
-import com.leogouchon.hubscore.kicker_match_service.dto.SeasonalStatsDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
@@ -195,52 +194,24 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
 
 
     @Query(value = """
-                WITH match_with_given_player AS (SELECT m.id, m.player_one_team_a_id, m.player_two_team_a_id, m.player_one_team_b_id, m.player_two_team_b_id, m.final_score_team_a, m.final_score_team_b
-                                             FROM kicker_matches m
-                                             WHERE :playerId IN (
-                                                                 m.player_one_team_a_id,
-                                                                 m.player_two_team_a_id,
-                                                                 m.player_one_team_b_id,
-                                                                 m.player_two_team_b_id
-                                                 )),
-                opponent_match_with_given_player AS (SELECT CASE
-                                                                 WHEN :playerId IN (m.player_one_team_a_id, m.player_two_team_a_id)
-                                                                     THEN m.player_one_team_b_id
-                                                                 WHEN :playerId IN (m.player_one_team_b_id, m.player_two_team_b_id)
-                                                                     THEN m.player_one_team_a_id
-                                                                 END AS opponent_id,
-                                                             CASE
-                                                                 WHEN :playerId IN (m.player_one_team_a_id, m.player_two_team_a_id)
-                                                                     THEN m.final_score_team_b
-                                                                 WHEN :playerId IN (m.player_one_team_b_id, m.player_two_team_b_id)
-                                                                     THEN m.final_score_team_a
-                                                                 END AS opponent_team_score
-                                                      FROM match_with_given_player m
+                SELECT
+                    opponent_id AS id,
+                    p.firstname,
+                    p.lastname,
+
+                    SUM(CASE WHEN pmf.player_score = 10 THEN 1 ELSE 0 END) AS wins,
+                    SUM(CASE WHEN pmf.player_score <> 10 THEN 1 ELSE 0 END)  AS losses
             
-                                                      UNION ALL
+                FROM mv_player_match_facts pmf
+                CROSS JOIN LATERAL unnest(pmf.opponents) AS opponent_id
+                JOIN players p ON p.id = opponent_id
             
-                                                      SELECT CASE
-                                                                 WHEN :playerId IN (m.player_one_team_a_id, m.player_two_team_a_id)
-                                                                     THEN m.player_two_team_b_id
-                                                                 WHEN :playerId IN (m.player_one_team_b_id, m.player_two_team_b_id)
-                                                                     THEN m.player_two_team_a_id
-                                                                 END AS opponent_id,
-                                                             CASE
-                                                                 WHEN :playerId IN (m.player_one_team_a_id, m.player_two_team_a_id)
-                                                                     THEN m.final_score_team_b
-                                                                 WHEN :playerId IN (m.player_one_team_b_id, m.player_two_team_b_id)
-                                                                     THEN m.final_score_team_a
-                                                                 END AS opponent_team_score
-                                                      FROM match_with_given_player m)
-            SELECT om.opponent_id                                                AS id,
-                   p.firstname,
-                   p.lastname,
-                   SUM(CASE WHEN om.opponent_team_score != 10 THEN 1 ELSE 0 END) AS wins,
-                   SUM(CASE WHEN om.opponent_team_score = 10 THEN 1 ELSE 0 END)  AS losses
-            FROM opponent_match_with_given_player om
-                     LEFT JOIN Players p ON p.id = om.opponent_id
-            WHERE id IS NOT NULL
-            GROUP BY om.opponent_id, p.firstname, p.lastname
+                WHERE pmf.player_id = :playerId
+            
+                GROUP BY
+                    opponent_id,
+                    p.firstname,
+                    p.lastname;
             """, nativeQuery = true)
     List<OpponentStatsDTO> getOpponentStats(@Param("playerId") UUID playerId);
 
