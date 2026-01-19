@@ -78,42 +78,49 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
 
     @Query(
             value = """
-                    WITH match_counts AS (
-                        SELECT player_id, COUNT(*) AS total_matches
-                        FROM kicker_elo ke
-                                 JOIN kicker_matches m ON m.id = ke.match_id
-                        WHERE m.created_at <= :date
+                    WITH latest_per_player AS (
+                        SELECT
+                            pmf.player_id,
+                            pmf.elo_after_match,
+                            pmf.match_date,
+                            ROW_NUMBER() OVER (
+                                PARTITION BY pmf.player_id
+                                ORDER BY pmf.match_date DESC
+                            ) AS rn
+                        FROM mv_player_match_facts pmf
+                        WHERE pmf.match_date <= :date
+                    ),
+                    match_counts AS (
+                        SELECT
+                            player_id,
+                            COUNT(*) AS total_matches
+                        FROM mv_player_match_facts
+                        WHERE match_date <= :date
                         GROUP BY player_id
                     ),
-                         latest_elo AS (
-                             SELECT
-                                 ke.player_id,
-                                 ke.match_id,
-                                 ke.elo_after_match,
-                                 m.created_at,
-                                 ROW_NUMBER() OVER (PARTITION BY ke.player_id ORDER BY m.created_at DESC) AS rn
-                             FROM kicker_elo ke
-                                      JOIN kicker_matches m ON m.id = ke.match_id
-                             WHERE m.created_at <= :date
-                         ),
-                         ranked_players AS (
-                             SELECT
-                                 le.player_id,
-                                 le.match_id,
-                                 le.elo_after_match,
-                                 RANK() OVER (ORDER BY le.elo_after_match DESC) AS rank
-                             FROM latest_elo le
-                                      JOIN match_counts mc ON le.player_id = mc.player_id
-                             WHERE le.rn = 1 AND mc.total_matches >= 10
-                         )
+                    eligible_players AS (
                         SELECT
-                        le.player_id AS playerId,
-                        le.elo_after_match AS elo,
-                        COALESCE(rp.rank, 0) AS rank
-                    FROM latest_elo le
-                        LEFT JOIN ranked_players rp ON le.player_id = rp.player_id
-                    WHERE le.rn = 1
-                    ORDER BY rank;
+                            lpp.player_id,
+                            lpp.elo_after_match
+                        FROM latest_per_player lpp
+                        JOIN match_counts mc
+                          ON mc.player_id = lpp.player_id
+                        WHERE lpp.rn = 1
+                          AND mc.total_matches >= 10
+                    ),
+                    ranked_players AS (
+                        SELECT
+                            player_id,
+                            elo_after_match,
+                            RANK() OVER (ORDER BY elo_after_match DESC) AS rank
+                        FROM eligible_players
+                    )
+                    SELECT
+                        rp.player_id   AS playerId,
+                        rp.elo_after_match AS elo,
+                        rp.rank
+                    FROM ranked_players rp
+                    ORDER BY rp.rank;
                     """,
             nativeQuery = true
     )

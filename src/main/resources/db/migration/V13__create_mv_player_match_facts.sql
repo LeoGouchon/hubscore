@@ -77,7 +77,10 @@ SELECT
     es.elo_change AS seasonal_elo_delta,
 
     e.elo_before_match,
-    es.elo_before_match AS elo_seasonal_before_match
+    es.elo_before_match AS elo_seasonal_before_match,
+
+    e.elo_after_match,
+    es.elo_after_match AS elo_seasonal_after_match
 
 FROM match_players mp
          JOIN kicker_elo e
@@ -104,3 +107,10 @@ CREATE INDEX idx_mv_pmf_player_teammate
 CREATE INDEX idx_mv_pmf_opponents
     ON mv_player_match_facts
         USING GIN (opponents);
+
+-- FOR SOME RECURRENT CALCULATION
+CREATE INDEX idx_mv_pmf_player_date_desc
+    ON mv_player_match_facts (player_id, match_date DESC);
+
+CREATE INDEX idx_mv_pmf_match_date
+    ON mv_player_match_facts (match_date);
