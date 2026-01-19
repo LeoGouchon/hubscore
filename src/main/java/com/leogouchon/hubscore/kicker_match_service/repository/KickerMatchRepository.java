@@ -120,25 +120,11 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
     List<LastKickerEloByDateProjection> getLatestKickerEloByDate(Timestamp date);
 
     @Query(value = """
-                WITH all_players AS (
-                    SELECT player_one_team_a_id AS player_id, final_score_team_a AS score, created_at FROM kicker_matches
-                    UNION ALL
-                    SELECT player_two_team_a_id AS player_id, final_score_team_a AS score, created_at FROM kicker_matches
-                    UNION ALL
-                    SELECT player_one_team_b_id AS player_id, final_score_team_b AS score, created_at FROM kicker_matches
-                    UNION ALL
-                    SELECT player_two_team_b_id AS player_id, final_score_team_b AS score, created_at FROM kicker_matches
-                ),
-                last_five_games AS (
-                    SELECT
-                        player_id,
-                        CASE WHEN score = 10 THEN true ELSE false END AS win,
-                        ROW_NUMBER() OVER (PARTITION BY player_id ORDER BY created_at DESC) AS rn
-                    FROM all_players
-                )
-                SELECT win FROM last_five_games
-                WHERE player_id = :playerId AND rn <= 5
-                ORDER BY rn
+                SELECT (pmf.player_score = 10) as win
+                FROM mv_player_match_facts pmf
+                WHERE pmf.player_id = :playerId
+                ORDER BY pmf.match_date DESC
+                LIMIT 5
             """, nativeQuery = true)
     List<Boolean> getLastFiveResultsByPlayerId(@Param("playerId") UUID playerId);
 
@@ -198,7 +184,7 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
                     opponent_id AS id,
                     p.firstname,
                     p.lastname,
-
+            
                     SUM(CASE WHEN pmf.player_score = 10 THEN 1 ELSE 0 END) AS wins,
                     SUM(CASE WHEN pmf.player_score <> 10 THEN 1 ELSE 0 END)  AS losses
             
