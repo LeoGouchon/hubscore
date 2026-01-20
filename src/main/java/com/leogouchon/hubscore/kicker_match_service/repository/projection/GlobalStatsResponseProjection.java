@@ -1,8 +1,6 @@
 package com.leogouchon.hubscore.kicker_match_service.repository.projection;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface GlobalStatsResponseProjection {
