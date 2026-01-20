@@ -52,40 +52,48 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
 
     @Query(
             value = """
-                    WITH match_counts AS (
-                        SELECT player_id, COUNT(*) AS total_matches
-                        FROM kicker_elo_seasonal ke
-                                 JOIN kicker_matches m ON m.id = ke.match_id
-                        WHERE m.created_at <= :date AND ke.season_quarter = :quarter AND ke.season_year = :year
+                    WITH filtered_pmf AS (
+                        SELECT *
+                        FROM mv_player_match_facts pmf
+                        WHERE pmf.match_date <= :date
+                          AND EXTRACT(YEAR FROM pmf.match_date) = :year
+                          AND EXTRACT(QUARTER FROM pmf.match_date) = :quarter
+                    ),
+                    match_counts AS (
+                        SELECT
+                            player_id,
+                            COUNT(*) AS total_matches
+                        FROM filtered_pmf
                         GROUP BY player_id
                     ),
-                         latest_elo AS (
-                             SELECT
-                                 ke.player_id,
-                                 ke.match_id,
-                                 ke.elo_after_match,
-                                 m.created_at,
-                                 ROW_NUMBER() OVER (PARTITION BY ke.player_id ORDER BY m.created_at DESC) AS rn
-                             FROM kicker_elo_seasonal ke
-                                      JOIN kicker_matches m ON m.id = ke.match_id
-                             WHERE m.created_at <= :date AND ke.season_quarter = :quarter AND ke.season_year = :year
-                         ),
-                         ranked_players AS (
-                             SELECT
-                                 le.player_id,
-                                 le.match_id,
-                                 le.elo_after_match,
-                                 RANK() OVER (ORDER BY le.elo_after_match DESC) AS rank
-                             FROM latest_elo le
-                                      JOIN match_counts mc ON le.player_id = mc.player_id
-                             WHERE le.rn = 1 AND mc.total_matches >= 10
-                         )
+                    latest_elo AS (
                         SELECT
+                            player_id,
+                            elo_seasonal_after_match AS elo_after_match,
+                            ROW_NUMBER() OVER (
+                                PARTITION BY player_id
+                                ORDER BY match_date DESC
+                            ) AS rn
+                        FROM filtered_pmf
+                    ),
+                    ranked_players AS (
+                        SELECT
+                            le.player_id,
+                            le.elo_after_match,
+                            RANK() OVER (ORDER BY le.elo_after_match DESC) AS rank
+                        FROM latest_elo le
+                        JOIN match_counts mc
+                          ON mc.player_id = le.player_id
+                        WHERE le.rn = 1
+                          AND mc.total_matches >= 10
+                    )
+                    SELECT
                         le.player_id AS playerId,
                         le.elo_after_match AS elo,
                         COALESCE(rp.rank, 0) AS rank
                     FROM latest_elo le
-                        LEFT JOIN ranked_players rp ON le.player_id = rp.player_id
+                    LEFT JOIN ranked_players rp
+                      ON rp.player_id = le.player_id
                     WHERE le.rn = 1
                     ORDER BY rank;
                     """,
@@ -95,58 +103,66 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
 
     @Query(
             value = """
-                        WITH filtered_matches AS (SELECT *
-                                              FROM kicker_matches
-                                              WHERE EXTRACT(YEAR FROM created_at) = :year
-                                                AND EXTRACT(QUARTER FROM created_at) = :quarter),
-                         all_players AS (SELECT player_one_team_a_id AS player_id, final_score_team_a AS score
-                                         FROM filtered_matches
-                                         UNION ALL
-                                         SELECT player_two_team_a_id AS player_id, final_score_team_a AS score
-                                         FROM filtered_matches
-                                         UNION ALL
-                                         SELECT player_one_team_b_id AS player_id, final_score_team_b AS score
-                                         FROM filtered_matches
-                                         UNION ALL
-                                         SELECT player_two_team_b_id AS player_id, final_score_team_b AS score
-                                         FROM filtered_matches),
-                         player_stats AS (SELECT ap.player_id,
-                                                 COUNT(*)                                                                  AS total_matches,
-                                                 SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END)                               AS wins,
-                                                 SUM(CASE WHEN score != 10 THEN 1 ELSE 0 END)                              AS losses,
-                                                 ROUND(SUM(CASE WHEN score = 10 THEN 1 ELSE 0 END)::numeric / COUNT(*), 2) AS win_rate
-                                          FROM all_players ap
-                                          GROUP BY ap.player_id),
-                         last_elo_of_season AS (SELECT kes.player_id,
-                                                       kes.elo_after_match as player_season_elo
-                                                FROM kicker_elo_seasonal kes
-                                                WHERE season_year = :year
-                                                  AND season_quarter = :quarter
-                                                  AND created_at = (SELECT MAX(created_at)
-                                                                    FROM kicker_elo_seasonal
-                                                                    WHERE season_year = :year
-                                                                      AND season_quarter = :quarter
-                                                                      AND player_id = kes.player_id)),
-                         ranked_players AS (SELECT ps.player_id,
-                                                   RANK() OVER (ORDER BY leos.player_season_elo DESC) AS rank,
-                                                   leos.player_season_elo                             as last_season_elo
-                                            FROM player_stats ps
-                                                     JOIN last_elo_of_season leos ON leos.player_id = ps.player_id
-                                            WHERE ps.total_matches >= 10)
-                    SELECT ps.player_id                   AS playerId,
-                           p.firstname,
-                           p.lastname,
-                           rp.last_season_elo AS currentElo,
-                           ps.total_matches,
-                           ps.wins,
-                           ps.losses,
-                           ps.win_rate,
-                           COALESCE(rp.rank, 0)           AS rank
-                    FROM player_stats ps
-                             JOIN players p ON p.id = ps.player_id
-                             JOIN player_kicker_informations pki ON pki.player_id = p.id
-                             LEFT JOIN ranked_players rp ON rp.player_id = ps.player_id
-                    ORDER BY rank;
+                       WITH filtered_pmf AS (
+                                  SELECT *
+                                  FROM mv_player_match_facts pmf
+                                  WHERE EXTRACT(YEAR FROM pmf.match_date) = :year
+                                    AND EXTRACT(QUARTER FROM pmf.match_date) = :quarter
+                              ),
+                              player_stats AS (
+                                  SELECT
+                                      player_id,
+                                      COUNT(*) AS total_matches,
+                                      SUM(CASE WHEN player_score = 10 THEN 1 ELSE 0 END) AS wins,
+                                      SUM(CASE WHEN player_score <> 10 THEN 1 ELSE 0 END) AS losses,
+                                      ROUND(
+                                          SUM(CASE WHEN player_score = 10 THEN 1 ELSE 0 END)::numeric
+                                          / COUNT(*),
+                                          2
+                                      ) AS win_rate
+                                  FROM filtered_pmf
+                                  GROUP BY player_id
+                              ),
+                              last_season_elo AS (
+                                  SELECT
+                                      player_id,
+                                      elo_seasonal_after_match AS last_season_elo
+                                  FROM (
+                                      SELECT
+                                          player_id,
+                                          elo_seasonal_after_match,
+                                          ROW_NUMBER() OVER (
+                                              PARTITION BY player_id
+                                              ORDER BY match_date DESC
+                                          ) AS rn
+                                      FROM filtered_pmf
+                                  ) x
+                                  WHERE rn = 1
+                              ),
+                              ranked_players AS (
+                                  SELECT
+                                      ps.player_id,
+                                      lse.last_season_elo,
+                                      RANK() OVER (ORDER BY lse.last_season_elo DESC) AS rank
+                                  FROM player_stats ps
+                                  JOIN last_season_elo lse
+                                    ON lse.player_id = ps.player_id
+                                  WHERE ps.total_matches >= 10
+                              )
+                              SELECT
+                                  ps.player_id AS playerId,
+                                  p.firstname,
+                                  p.lastname,
+                                  rp.last_season_elo AS currentElo,
+                                  ps.total_matches,
+                                  ps.wins,
+                                  ps.losses,
+                                  ps.win_rate,
+                                  COALESCE(rp.rank, 0) AS rank
+                              FROM player_stats ps
+                              JOIN players p ON p.id = ps.player_id
+                              LEFT JOIN ranked_players rp ON rp.player_id = ps.player_id
+                              ORDER BY rank;
                     """,
             nativeQuery = true
     )
