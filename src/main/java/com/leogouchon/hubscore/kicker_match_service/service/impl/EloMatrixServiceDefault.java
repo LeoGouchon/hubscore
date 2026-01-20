@@ -31,7 +31,7 @@ public class EloMatrixServiceDefault implements EloMatrixService {
 
             double expectedA = eloCalculator.expectedResult(baseElo, eloB);
 
-            for (int scoreDiff = 1; scoreDiff <= 20; scoreDiff++) {
+            for (int scoreDiff = 1; scoreDiff <= 10; scoreDiff++) {
                 int k = eloCalculator.calculateK(scoreDiff);
 
                 double win = eloCalculator.calculateDeltaElo(k, eloCalculator.getScore(10, 10 - scoreDiff), expectedA);
