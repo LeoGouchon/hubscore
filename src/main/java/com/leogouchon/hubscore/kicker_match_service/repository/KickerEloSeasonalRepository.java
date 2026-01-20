@@ -197,32 +197,23 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
     void deleteByMatchCreatedAtAfter(Timestamp date);
 
     @Query(value = """
-            SELECT DISTINCT
-                kes.season_year,
-                kes.season_quarter,
-                SUM(
-                    CASE
-                        WHEN :playerId IN (km.player_one_team_a_id, km.player_two_team_a_id)
-                             AND km.final_score_team_a = 10 THEN 1
-                        WHEN :playerId IN (km.player_one_team_b_id, km.player_two_team_b_id)
-                             AND km.final_score_team_b = 10 THEN 1
-                        ELSE 0
-                    END
-                ) AS wins,
-                SUM(
-                    CASE
-                        WHEN :playerId IN (km.player_one_team_a_id, km.player_two_team_a_id)
-                             AND km.final_score_team_a != 10 THEN 1
-                        WHEN :playerId IN (km.player_one_team_b_id, km.player_two_team_b_id)
-                             AND km.final_score_team_b != 10 THEN 1
-                        ELSE 0
-                    END
-                ) AS losses
-            FROM kicker_elo_seasonal kes
-            JOIN kicker_matches km ON km.id = kes.match_id
-            WHERE kes.player_id = :playerId
-            GROUP BY kes.season_year, kes.season_quarter
-            ORDER BY kes.season_year DESC, kes.season_quarter DESC
+            SELECT
+                EXTRACT(YEAR FROM pmf.match_date)    AS season_year,
+                EXTRACT(QUARTER FROM pmf.match_date) AS season_quarter,
+            
+                SUM(CASE WHEN pmf.player_score = 10 THEN 1 ELSE 0 END) AS wins,
+                SUM(CASE WHEN pmf.player_score <> 10 THEN 1 ELSE 0 END) AS losses
+            
+            FROM mv_player_match_facts pmf
+            WHERE pmf.player_id = :playerId
+            
+            GROUP BY
+                EXTRACT(YEAR FROM pmf.match_date),
+                EXTRACT(QUARTER FROM pmf.match_date)
+            
+            ORDER BY
+                season_year DESC,
+                season_quarter DESC;
             """, nativeQuery = true)
     List<SeasonalStatsDTO> getSeasonalStats(@Param("playerId") UUID playerId);
 
