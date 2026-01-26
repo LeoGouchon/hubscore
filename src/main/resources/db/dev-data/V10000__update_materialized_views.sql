@@ -1,1 +1,0 @@
-REFRESH MATERIALIZED VIEW mv_player_match_facts;
