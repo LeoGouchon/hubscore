@@ -198,18 +198,18 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
 
     @Query(value = """
             SELECT
-                EXTRACT(YEAR FROM pmf.match_date)    AS season_year,
-                EXTRACT(QUARTER FROM pmf.match_date) AS season_quarter,
+                CAST(EXTRACT(YEAR FROM pmf.match_date) AS INTEGER)    AS season_year,
+                CAST(EXTRACT(QUARTER FROM pmf.match_date) AS INTEGER) AS season_quarter,
             
-                SUM(CASE WHEN pmf.player_score = 10 THEN 1 ELSE 0 END) AS wins,
-                SUM(CASE WHEN pmf.player_score <> 10 THEN 1 ELSE 0 END) AS losses
+                CAST(SUM(CASE WHEN pmf.player_score = 10 THEN 1 ELSE 0 END) AS BIGINT) AS wins,
+                CAST(SUM(CASE WHEN pmf.player_score <> 10 THEN 1 ELSE 0 END) AS BIGINT) AS losses
             
             FROM mv_player_match_facts pmf
             WHERE pmf.player_id = :playerId
             
             GROUP BY
-                EXTRACT(YEAR FROM pmf.match_date),
-                EXTRACT(QUARTER FROM pmf.match_date)
+                CAST(EXTRACT(YEAR FROM pmf.match_date) AS INTEGER),
+                CAST(EXTRACT(QUARTER FROM pmf.match_date) AS INTEGER)
             
             ORDER BY
                 season_year DESC,
