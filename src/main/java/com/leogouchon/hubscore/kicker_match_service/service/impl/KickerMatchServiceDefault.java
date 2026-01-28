@@ -12,6 +12,7 @@ import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
 import com.leogouchon.hubscore.kicker_match_service.specification.KickerMatchSpecifications;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
+import com.leogouchon.hubscore.user_service.entity.Users;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -56,7 +57,8 @@ public class KickerMatchServiceDefault implements KickerMatchService {
     @Override
     public KickerMatches createMatch(UUID player1TeamAId, UUID player2TeamAId,
                                      UUID player1TeamBId, UUID player2TeamBId,
-                                     Integer finalScoreA, Integer finalScoreB) {
+                                     Integer finalScoreA, Integer finalScoreB,
+                                     Users createdByUser) {
 
         Optional<Players> playerA1 = playerService.getPlayer(player1TeamAId);
         Optional<Players> playerA2 = playerService.getPlayer(player2TeamAId);
@@ -90,7 +92,8 @@ public class KickerMatchServiceDefault implements KickerMatchService {
                 playerB1.get(),
                 playerB2.orElse(null),
                 finalScoreA,
-                finalScoreB
+                finalScoreB,
+                createdByUser
         );
 
         matchRepository.save(match);
