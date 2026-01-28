@@ -114,6 +114,7 @@ public class KickerMatchController {
     }
 
     @SecurityRequirement(name = "bearerAuth")
+    @PreAuthorize("hasRole('ADMIN')")
     @ApiResponse(responseCode = "204", description = "Match deleted successfully")
     @ApiResponse(responseCode = "404", description = "Match to delete not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
