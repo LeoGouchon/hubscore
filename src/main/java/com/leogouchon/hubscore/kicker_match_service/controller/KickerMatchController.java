@@ -7,6 +7,7 @@ import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
+import com.leogouchon.hubscore.user_service.entity.Users;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -21,6 +22,8 @@ import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -90,7 +93,7 @@ public class KickerMatchController {
             }
     )
     @PostMapping
-    public ResponseEntity<KickerMatchResponseDTO> createMatch(@Valid @RequestBody KickerMatchRequestDTO matchRequest) {
+    public ResponseEntity<KickerMatchResponseDTO> createMatch(@Valid @RequestBody KickerMatchRequestDTO matchRequest, @AuthenticationPrincipal Users createdByUser) {
         try {
             KickerMatches createdMatch = matchService.createMatch(
                     matchRequest.getPlayer1AId(),
@@ -98,7 +101,8 @@ public class KickerMatchController {
                     matchRequest.getPlayer1BId(),
                     matchRequest.getPlayer2BId(),
                     matchRequest.getScoreA(),
-                    matchRequest.getScoreB()
+                    matchRequest.getScoreB(),
+                    createdByUser
             );
             URI location = URI.create("/api/v1/kicker/matches/" + createdMatch.getId());
             Optional<KickerMatchResponseDTO> match = matchService.getMatchResponseDTO(createdMatch.getId());
@@ -110,6 +114,7 @@ public class KickerMatchController {
     }
 
     @SecurityRequirement(name = "bearerAuth")
+    @PreAuthorize("hasRole('ADMIN')")
     @ApiResponse(responseCode = "204", description = "Match deleted successfully")
     @ApiResponse(responseCode = "404", description = "Match to delete not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})

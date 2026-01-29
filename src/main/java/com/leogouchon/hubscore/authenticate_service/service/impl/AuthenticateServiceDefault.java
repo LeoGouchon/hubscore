@@ -25,7 +25,6 @@ import org.springframework.stereotype.Service;
 import javax.naming.AuthenticationException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;

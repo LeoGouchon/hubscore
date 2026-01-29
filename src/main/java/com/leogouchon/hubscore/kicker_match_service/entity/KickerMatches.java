@@ -2,6 +2,7 @@ package com.leogouchon.hubscore.kicker_match_service.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.leogouchon.hubscore.player_service.entity.Players;
+import com.leogouchon.hubscore.user_service.entity.Users;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,7 +37,7 @@ public class KickerMatches {
     private Players player1A;
 
     @ManyToOne
-    @JoinColumn(name = "player_two_team_a_id", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "player_two_team_a_id", referencedColumnName = "id")
     private Players player2A;
 
     @ManyToOne
@@ -44,8 +45,12 @@ public class KickerMatches {
     private Players player1B;
 
     @ManyToOne
-    @JoinColumn(name = "player_two_team_b_id", referencedColumnName = "id", nullable = true)
+    @JoinColumn(name = "player_two_team_b_id", referencedColumnName = "id")
     private Players player2B;
+
+    @ManyToOne
+    @JoinColumn(name = "created_by", referencedColumnName = "id")
+    private Users createdBy;
 
     protected KickerMatches() {}
 
@@ -80,15 +85,19 @@ public class KickerMatches {
     }
 
     public KickerMatches(Players player1TeamA, Players player2TeamA, Players player1TeamB,
-                         Players player2TeamB, Integer finalScoreTeamA, Integer finalScoreTeamB) {
+                         Players player2TeamB, Integer finalScoreTeamA, Integer finalScoreTeamB, Users createdByUser) {
         this(player1TeamA, player2TeamA, player1TeamB, player2TeamB);
 
         if (finalScoreTeamA == null || finalScoreTeamB == null) {
             throw new IllegalArgumentException("Scores must not be null");
         }
 
-        if (!isFinished(finalScoreTeamA, finalScoreTeamB)) {
+        if (Boolean.FALSE.equals(isFinished(finalScoreTeamA, finalScoreTeamB))) {
             throw new IllegalArgumentException("Match must be finished to create it");
+        }
+
+        if (createdByUser != null) {
+            this.createdBy = createdByUser;
         }
 
         this.scoreA = finalScoreTeamA;

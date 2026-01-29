@@ -26,6 +26,11 @@ public class DevBootstrapRunner {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    /**
+     * Triggered by an ApplicationReadyEvent, this method runs ELO recalculation
+     * and refreshes the materialized view mv_player_match_facts.
+     * Only useful and called in dev profile.
+     */
     @EventListener(ApplicationReadyEvent.class)
     public void run() {
         log.info("[DEV] Running ELO recalculation at startup");
