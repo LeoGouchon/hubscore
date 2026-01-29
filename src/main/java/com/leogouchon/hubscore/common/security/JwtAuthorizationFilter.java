@@ -1,7 +1,7 @@
 package com.leogouchon.hubscore.common.security;
 
-import com.leogouchon.hubscore.authenticate_service.service.AuthenticateService;
 import com.leogouchon.hubscore.user_service.entity.Users;
+import com.leogouchon.hubscore.user_service.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,7 +23,8 @@ import java.util.regex.Pattern;
 @Component
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
-    private final AuthenticateService authenticateService;
+    private final JwtTokenService jwtTokenService;
+    private final UserService userService;
 
     private static final Set<String> UNCONDITIONAL_EXCLUDED_PATHS = Set.of(
             "/api/v1/authenticate/login",
@@ -41,8 +42,9 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             Pattern.compile("/api/v1/kicker/stats/player(/.*)?")
     );
 
-    public JwtAuthorizationFilter(AuthenticateService authenticateService) {
-        this.authenticateService = authenticateService;
+    public JwtAuthorizationFilter(JwtTokenService jwtTokenService, UserService userService) {
+        this.jwtTokenService = jwtTokenService;
+        this.userService = userService;
     }
 
     @Override
@@ -51,6 +53,11 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             HttpServletResponse response,
             FilterChain filterChain
     ) throws ServletException, IOException {
+
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         String path = request.getRequestURI();
         String method = request.getMethod();
@@ -68,22 +75,21 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
         String token = authHeader.substring(7);
 
-        if (!authenticateService.isValidToken(token)) {
+        if (!jwtTokenService.isValid(token)) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Invalid or expired token");
             return;
         }
 
-        var user = authenticateService.getUserFromToken(token);
+        Users user = userService.getUserById(jwtTokenService.extractUserId(token));
 
         Authentication authentication =
                 new UsernamePasswordAuthenticationToken(
                         user,
                         null,
-                        mapAuthorities(user) // Known roles and rights of user
+                        mapAuthorities(user)
                 );
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
         filterChain.doFilter(request, response);
     }
 
@@ -100,13 +106,12 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     }
 
     private Collection<? extends GrantedAuthority> mapAuthorities(Users user) {
-        if (user.getIsAdmin()) {
+        if (Boolean.TRUE.equals(user.getIsAdmin())) {
             return List.of(
                     new SimpleGrantedAuthority("ROLE_ADMIN"),
                     new SimpleGrantedAuthority("ROLE_USER")
             );
         }
-
         return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 }
