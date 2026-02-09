@@ -17,10 +17,7 @@ import com.leogouchon.hubscore.user_service.entity.Users;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -126,8 +123,15 @@ public class KickerMatchServiceDefault implements KickerMatchService {
 
 
     public Page<KickerMatchResponseDTO> getMatches(int page, int size, List<UUID> playerIds, PlayerFilterDTO playerFilterDTO, Long date, String dateOrder) {
-        Specification<KickerMatches> filter = KickerMatchSpecifications.withFilters(playerIds, playerFilterDTO, date, dateOrder);
-        Pageable pageable = PageRequest.of(page, size);
+        Specification<KickerMatches> filter = KickerMatchSpecifications.withFilters(playerIds, playerFilterDTO, date);
+
+        Sort sort = Sort.by("createdAt");
+
+        sort = "descend".equalsIgnoreCase(dateOrder)
+                ? sort.descending()
+                : sort.ascending();
+
+        Pageable pageable = PageRequest.of(page, size, sort);
 
         Page<KickerMatches> matchesPage = matchRepository.findAll(filter, pageable);
         List<UUID> matchIds = matchesPage.getContent().stream()
