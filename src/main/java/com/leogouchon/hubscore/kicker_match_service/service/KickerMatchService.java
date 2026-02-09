@@ -1,6 +1,7 @@
 package com.leogouchon.hubscore.kicker_match_service.service;
 
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import com.leogouchon.hubscore.user_service.entity.Users;
 import jakarta.annotation.Nullable;
@@ -16,7 +17,7 @@ public interface KickerMatchService {
 
     void deleteMatch(UUID id);
 
-    Page<KickerMatchResponseDTO> getMatches(int page, int size, List<UUID> playerIds, Long date, String dateOrder);
+    Page<KickerMatchResponseDTO> getMatches(int page, int size, List<UUID> playerIds, PlayerFilterDTO playerFilter, Long date, String dateOrder);
 
     Optional<KickerMatches> getMatch(UUID id);
 

@@ -1,5 +1,6 @@
 package com.leogouchon.hubscore.kicker_match_service.specification;
 
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import org.springframework.data.jpa.domain.Specification;
 import jakarta.persistence.criteria.*;
@@ -14,6 +15,7 @@ public class KickerMatchSpecifications {
 
     public static Specification<KickerMatches> withFilters(
             List<UUID> playerIds,
+            PlayerFilterDTO playerFilterDTO,
             Long date,
             String dateOrder
     ) {

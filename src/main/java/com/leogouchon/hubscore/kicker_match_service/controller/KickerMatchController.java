@@ -65,7 +65,7 @@ public class KickerMatchController {
             @RequestParam(name = "date", required = false) Long date,
             @RequestParam(name = "dateOrder", required = false, defaultValue = "ascend") String dateOrder
     ) {
-        Page<KickerMatchResponseDTO> matchesPage = matchService.getMatches(page, size, playerIds, date, dateOrder);
+        Page<KickerMatchResponseDTO> matchesPage = matchService.getMatches(page, size, playerIds, playerFilter, date, dateOrder);
         PaginatedResponseDTO<KickerMatchResponseDTO> response = new PaginatedResponseDTO<>(
                 matchesPage.getContent(),
                 matchesPage.getNumber(),

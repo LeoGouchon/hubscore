@@ -1,6 +1,7 @@
 package com.leogouchon.hubscore.kicker_match_service.service.impl;
 
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerElo;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloSeasonal;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
@@ -124,8 +125,8 @@ public class KickerMatchServiceDefault implements KickerMatchService {
     }
 
 
-    public Page<KickerMatchResponseDTO> getMatches(int page, int size, List<UUID> playerIds, Long date, String dateOrder) {
-        Specification<KickerMatches> filter = KickerMatchSpecifications.withFilters(playerIds, date, dateOrder);
+    public Page<KickerMatchResponseDTO> getMatches(int page, int size, List<UUID> playerIds, PlayerFilterDTO playerFilterDTO, Long date, String dateOrder) {
+        Specification<KickerMatches> filter = KickerMatchSpecifications.withFilters(playerIds, playerFilterDTO, date, dateOrder);
         Pageable pageable = PageRequest.of(page, size);
 
         Page<KickerMatches> matchesPage = matchRepository.findAll(filter, pageable);
