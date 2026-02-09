@@ -1,6 +1,8 @@
 package com.leogouchon.hubscore.kicker_match_service.specification;
 
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.LogicalOperator;
 import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerGroupDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.domain.Specification;
@@ -78,23 +80,45 @@ public class KickerMatchSpecifications {
         };
     }
 
+    private static Specification<KickerMatches> simplePlayerFilter(List<UUID> playerIds) {
+        if (playerIds == null || playerIds.isEmpty()) {
+            return null;
+        }
+        return hasAnyPlayer(playerIds);
+    }
+
+    private static Specification<KickerMatches> advancedPlayerFilter(PlayerFilterDTO dto) {
+        if (dto == null || !dto.isPlayerFilterConform()) {
+            return null;
+        }
+
+        return dto.getGroups().stream()
+                .map(KickerMatchSpecifications::buildGroupSpec)
+                .reduce(
+                        dto.getOperator() == LogicalOperator.AND
+                                ? Specification::and
+                                : Specification::or
+                )
+                .orElse(null);
+    }
+
+    private static Specification<KickerMatches> buildGroupSpec(PlayerGroupDTO group) {
+        return group.getOperator() == LogicalOperator.AND
+                ? hasAllPlayers(group.getPlayerIds())
+                : hasAnyPlayer(group.getPlayerIds());
+    }
+
+    private static Specification<KickerMatches> dateFilter(Long date) {
+        return date == null ? null : dateIs(date);
+    }
+
     public static Specification<KickerMatches> withFilters(
             List<UUID> playerIds,
             PlayerFilterDTO playerFilterDTO,
             Long date
     ) {
-        return (Root<KickerMatches> root, CriteriaQuery<?> query, CriteriaBuilder cb) -> {
-            Specification<KickerMatches> specification = Specification.where(null);
-
-            if (playerIds != null && !playerIds.isEmpty()) {
-                specification = specification.and(hasAnyPlayer(playerIds));
-            }
-
-            if (date != null) {
-                specification = specification.and(dateIs(date));
-            }
-
-            return specification.toPredicate(root, query, cb);
-        };
+        return Specification.where(simplePlayerFilter(playerIds))
+                .and(advancedPlayerFilter(playerFilterDTO))
+                .and(dateFilter(date));
     }
 }
