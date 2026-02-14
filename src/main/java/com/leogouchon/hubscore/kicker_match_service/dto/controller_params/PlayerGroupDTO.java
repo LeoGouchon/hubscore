@@ -12,12 +12,20 @@ import java.util.UUID;
 public class PlayerGroupDTO {
 
     @NotNull
-    private LogicalOperator operator;
+    private PlayerGroupOperator operator;
 
     @NotEmpty
     private List<UUID> playerIds;
 
     public boolean isPlayerGroupConform() {
-        return playerIds.stream().noneMatch(Objects::isNull);
+        if (operator == null || playerIds == null || playerIds.isEmpty() || playerIds.stream().anyMatch(Objects::isNull)) {
+            return false;
+        }
+
+        if (operator == PlayerGroupOperator.WITH || operator == PlayerGroupOperator.AGAINST) {
+            return playerIds.size() == 2 && !playerIds.get(0).equals(playerIds.get(1));
+        }
+
+        return true;
     }
 }
