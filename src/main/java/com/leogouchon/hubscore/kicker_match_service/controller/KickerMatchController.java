@@ -5,6 +5,7 @@ import com.leogouchon.hubscore.authenticate_service.service.AuthenticateService;
 import com.leogouchon.hubscore.common.dto.PaginatedResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
 import com.leogouchon.hubscore.user_service.entity.Users;
@@ -60,10 +61,11 @@ public class KickerMatchController {
             @RequestParam(defaultValue = "0") @Min(0) int page,
             @RequestParam(defaultValue = "10") @Min(1) @Max(50) int size,
             @RequestParam(name = "playerIds", required = false) List<UUID> playerIds,
+            @RequestParam(name = "playerFilter", required = false) PlayerFilterDTO playerFilter,
             @RequestParam(name = "date", required = false) Long date,
             @RequestParam(name = "dateOrder", required = false, defaultValue = "ascend") String dateOrder
     ) {
-        Page<KickerMatchResponseDTO> matchesPage = matchService.getMatches(page, size, playerIds, date, dateOrder);
+        Page<KickerMatchResponseDTO> matchesPage = matchService.getMatches(page, size, playerIds, playerFilter, date, dateOrder);
         PaginatedResponseDTO<KickerMatchResponseDTO> response = new PaginatedResponseDTO<>(
                 matchesPage.getContent(),
                 matchesPage.getNumber(),
