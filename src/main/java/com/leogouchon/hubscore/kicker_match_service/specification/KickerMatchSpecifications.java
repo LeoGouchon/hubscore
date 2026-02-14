@@ -137,69 +137,6 @@ public class KickerMatchSpecifications {
         );
     }
 
-    /**
-     * Compatibility overload. Prefer {@link #hasPlayersInSameTeam(List)}.
-     */
-    public static Specification<KickerMatches> hasPlayersInSameTeam(UUID playerId1, UUID playerId2) {
-        return hasPlayersInSameTeam(playerPair(playerId1, playerId2));
-    }
-
-    /**
-     * Compatibility overload. Prefer {@link #hasPlayersAgainst(List)}.
-     */
-    public static Specification<KickerMatches> hasPlayersAgainst(UUID playerId1, UUID playerId2) {
-        return hasPlayersAgainst(playerPair(playerId1, playerId2));
-    }
-
-    /**
-     * Returns a predicate that checks if any pair of given players appears in the same team.
-     *
-     * @param playerIds list of player IDs
-     * @return a predicate combining all pair checks with OR
-     */
-    public static Specification<KickerMatches> hasAnyPlayersInSameTeam(List<UUID> playerIds) {
-        if (playerIds == null || playerIds.size() < 2) {
-            return null;
-        }
-        List<Specification<KickerMatches>> pairSpecifications = new ArrayList<>();
-        for (int i = 0; i < playerIds.size(); i++) {
-            for (int j = i + 1; j < playerIds.size(); j++) {
-                pairSpecifications.add(hasPlayersInSameTeam(playerIds.get(i), playerIds.get(j)));
-            }
-        }
-        return pairSpecifications.stream()
-                .reduce(Specification::or)
-                .orElse(null);
-    }
-
-    /**
-     * Returns a predicate that checks if any pair of given players appears against each other.
-     *
-     * @param playerIds list of player IDs
-     * @return a predicate combining all pair checks with OR
-     */
-    public static Specification<KickerMatches> hasAnyPlayersAgainst(List<UUID> playerIds) {
-        if (playerIds == null || playerIds.size() < 2) {
-            return null;
-        }
-        List<Specification<KickerMatches>> pairSpecifications = new ArrayList<>();
-        for (int i = 0; i < playerIds.size(); i++) {
-            for (int j = i + 1; j < playerIds.size(); j++) {
-                pairSpecifications.add(hasPlayersAgainst(playerIds.get(i), playerIds.get(j)));
-            }
-        }
-        return pairSpecifications.stream()
-                .reduce(Specification::or)
-                .orElse(null);
-    }
-
-    private static List<UUID> playerPair(UUID playerId1, UUID playerId2) {
-        List<UUID> playerIds = new ArrayList<>(2);
-        playerIds.add(playerId1);
-        playerIds.add(playerId2);
-        return playerIds;
-    }
-
     private static boolean isTwoDistinctPlayers(List<UUID> playerIds) {
         return playerIds == null
                 || playerIds.size() != 2
@@ -207,7 +144,6 @@ public class KickerMatchSpecifications {
                 || playerIds.get(1) == null
                 || playerIds.get(0).equals(playerIds.get(1));
     }
-
 
     /**
      * Returns a predicate that checks if the createdAt timestamp of a KickerMatch is within
