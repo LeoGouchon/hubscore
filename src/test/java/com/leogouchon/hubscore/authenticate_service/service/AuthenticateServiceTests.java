@@ -4,15 +4,18 @@ import com.leogouchon.hubscore.authenticate_service.entity.RefreshToken;
 import com.leogouchon.hubscore.authenticate_service.service.impl.AuthenticateServiceDefault;
 import com.leogouchon.hubscore.user_service.entity.Users;
 import com.leogouchon.hubscore.authenticate_service.repository.RefreshTokenRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import javax.naming.AuthenticationException;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -29,6 +32,16 @@ public class AuthenticateServiceTests {
     @Spy
     @InjectMocks
     private AuthenticateServiceDefault authenticateService;
+
+    @Before
+    public void setUp() {
+        ReflectionTestUtils.setField(
+                authenticateService,
+                "jwtSecret",
+                "test_secret_key_for_hubscore_please_change_me_12345"
+        );
+        ReflectionTestUtils.setField(authenticateService, "jwtExpirationMs", 3600000L);
+    }
 
     @Test
     public void testRefreshTokenFailure() {
@@ -81,12 +94,17 @@ public class AuthenticateServiceTests {
     @Test
     public void testRefreshAccessToken() throws AuthenticationException {
         String refreshToken = "validRefreshToken";
+        Users user = new Users("john.doe@mail.com", "P@s$w0rD");
+        RefreshToken tokenEntity = new RefreshToken();
+        tokenEntity.setUser(user);
+        tokenEntity.setRevoked(false);
+        tokenEntity.setExpiryDate(LocalDateTime.now().plusDays(1));
 
-        when(refreshTokenRepository.findByToken(refreshToken)).thenReturn(Optional.of(new RefreshToken()));
-        when(authenticateService.refreshAccessToken(any(String.class))).thenReturn("newAccessToken");
+        when(refreshTokenRepository.findByToken(refreshToken)).thenReturn(Optional.of(tokenEntity));
 
         String newToken = authenticateService.refreshAccessToken(refreshToken);
 
         assertNotNull(newToken);
+        assertTrue(authenticateService.isValidToken(newToken));
     }
 }
