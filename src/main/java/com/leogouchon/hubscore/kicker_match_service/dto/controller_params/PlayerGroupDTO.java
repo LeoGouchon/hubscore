@@ -3,12 +3,14 @@ package com.leogouchon.hubscore.kicker_match_service.dto.controller_params;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
 @Getter
+@Setter
 public class PlayerGroupDTO {
 
     @NotNull
