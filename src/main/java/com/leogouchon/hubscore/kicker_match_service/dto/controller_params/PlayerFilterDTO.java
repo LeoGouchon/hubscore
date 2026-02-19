@@ -17,6 +17,7 @@ public class PlayerFilterDTO {
     private List<PlayerGroupDTO> groups;
 
     public boolean isPlayerFilterConform() {
+        if (groups == null) return false;
         return groups.stream().allMatch(PlayerGroupDTO::isPlayerGroupConform) && operator != null;
     }
 }
