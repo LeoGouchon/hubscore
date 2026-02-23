@@ -1,11 +1,8 @@
 package com.leogouchon.hubscore.squash_match_service.dto;
 
-import com.leogouchon.hubscore.player_service.entity.Players;
 
-import java.util.List;
-
-public record PlayerStatsResponseDTO(
-        Players player,
+public record YearlyPlayerStatsDTO(
+        int year,
         int totalMatches,
         int wins,
         int losses,
@@ -14,8 +11,6 @@ public record PlayerStatsResponseDTO(
         int closeWonCount,
         int closeLostCount,
         int stompWonCount,
-        int stompLostCount,
-        List<StatsAgainstOpponentDTO> statsAgainstOpponents,
-        List<YearlyPlayerStatsDTO> yearlyStats
+        int stompLostCount
 ) {
 }
