@@ -200,6 +200,76 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
 
     @Query(
             value = """
+                    SELECT
+                        CAST(EXTRACT(YEAR FROM m.start_time) AS INTEGER) AS year,
+                        p.id AS player_id,
+                        p.firstname,
+                        p.lastname,
+
+                        COUNT(*) AS total_matches,
+
+                        SUM(CASE
+                                WHEN (m.player_a_id = :playerId AND m.final_score_a > m.final_score_b)
+                                    OR (m.player_b_id = :playerId AND m.final_score_b > m.final_score_a)
+                                    THEN 1 ELSE 0 END
+                        ) AS wins,
+
+                        SUM(CASE
+                                WHEN (m.player_a_id = :playerId AND m.final_score_a < m.final_score_b)
+                                    OR (m.player_b_id = :playerId AND m.final_score_b < m.final_score_a)
+                                    THEN 1 ELSE 0 END
+                        ) AS losses,
+
+                        AVG(CASE
+                                WHEN (m.player_a_id = :playerId AND m.final_score_a > m.final_score_b)
+                                    THEN m.final_score_b
+                                WHEN (m.player_b_id = :playerId AND m.final_score_b > m.final_score_a)
+                                    THEN m.final_score_a
+                                END
+                        ) AS average_opponent_lost_score,
+
+                        AVG(CASE
+                                WHEN (m.player_a_id = :playerId AND m.final_score_a < m.final_score_b)
+                                    THEN m.final_score_a
+                                WHEN (m.player_b_id = :playerId AND m.final_score_b < m.final_score_a)
+                                    THEN m.final_score_b
+                                END
+                        ) AS average_player_lost_score,
+
+                        SUM(CASE
+                                WHEN (m.player_a_id = :playerId AND m.final_score_a >= 10 AND m.final_score_b >= 10 AND m.final_score_a - m.final_score_b = 2)
+                                    OR (m.player_b_id = :playerId AND m.final_score_a >= 10 AND m.final_score_b >= 10 AND m.final_score_b - m.final_score_a = 2)
+                                    THEN 1 ELSE 0 END
+                        ) AS close_matches_won_count,
+
+                        SUM(CASE
+                                WHEN (m.player_a_id = :playerId AND m.final_score_a >= 10 AND m.final_score_b >= 10 AND m.final_score_b - m.final_score_a = 2)
+                                    OR (m.player_b_id = :playerId AND m.final_score_a >= 10 AND m.final_score_b >= 10 AND m.final_score_a - m.final_score_b = 2)
+                                    THEN 1 ELSE 0 END
+                        ) AS close_matches_lost_count,
+
+                        SUM(CASE
+                                WHEN (m.player_a_id = :playerId AND m.final_score_a - m.final_score_b > 7)
+                                    OR (m.player_b_id = :playerId AND m.final_score_b - m.final_score_a > 7)
+                                    THEN 1 ELSE 0 END
+                        ) AS stomp_matches_won_count,
+
+                        SUM(CASE
+                               WHEN (m.player_a_id = :playerId AND m.final_score_b - m.final_score_a > 7)
+                                    OR (m.player_b_id = :playerId AND m.final_score_a - m.final_score_b > 7)
+                                    THEN 1 ELSE 0 END
+                        ) AS stomp_matches_lost_count
+
+                    FROM squash_matches m
+                             JOIN players p ON p.id = m.player_a_id OR p.id = m.player_b_id
+                    WHERE p.id = :playerId
+                    GROUP BY CAST(EXTRACT(YEAR FROM m.start_time) AS INTEGER), p.id, p.firstname, p.lastname
+                    ORDER BY year DESC;
+                    """, nativeQuery = true)
+    List<YearlyPlayerStatsProjection> getStatsByPlayerIdPerYear(@Param("playerId") UUID playerId);
+
+    @Query(
+            value = """
                     
                     SELECT
                         CASE
@@ -256,13 +326,80 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
                                                           WHEN m.player_a_id = :playerId THEN m.player_b_id
                                                           ELSE m.player_a_id
                         END
-                    WHERE m.player_a_id = :playerId OR m.player_b_id = :playerId
+                    WHERE (m.player_a_id = :playerId OR m.player_b_id = :playerId)
                     GROUP BY opponent_id, opponent_firstname, opponent_lastname
                     ORDER BY total_matches DESC;
                     """,
             nativeQuery = true
     )
     List<OpponentStatsProjection> getDetailedStatsAgainstEachOpponent(@Param("playerId") UUID playerId);
+
+    @Query(
+            value = """
+                    
+                    SELECT
+                        CAST(EXTRACT(YEAR FROM m.start_time) AS INTEGER) AS year,
+                        CASE
+                            WHEN m.player_a_id = :playerId THEN m.player_b_id
+                            ELSE m.player_a_id
+                            END AS opponent_id,
+                    
+                        p.firstname as opponent_firstname,
+                        p.lastname as opponent_lastname,
+                    
+                        COUNT(*) AS total_matches,
+                    
+                        SUM(CASE
+                                WHEN (m.player_a_id = :playerId AND m.final_score_a > m.final_score_b) OR
+                                     (m.player_b_id = :playerId AND m.final_score_b > m.final_score_a)
+                                    THEN 1 ELSE 0 END) AS wins,
+                    
+                        SUM(CASE
+                                WHEN (m.player_a_id = :playerId AND m.final_score_a < m.final_score_b) OR
+                                     (m.player_b_id = :playerId AND m.final_score_b < m.final_score_a)
+                                    THEN 1 ELSE 0 END) AS losses,
+                    
+                        ROUND(AVG(CASE
+                                      WHEN (m.player_a_id = :playerId AND m.final_score_a < m.final_score_b) THEN m.final_score_a
+                                      WHEN (m.player_b_id = :playerId AND m.final_score_b < m.final_score_a) THEN m.final_score_b
+                                      END), 2) AS average_score_when_lost,
+                    
+                        -- Close matches won (difference of 2, and scores >= 10)
+                        SUM(CASE
+                                WHEN (m.player_a_id = :playerId AND m.final_score_a > m.final_score_b AND m.final_score_a >= 10 AND m.final_score_b >= 10 AND ABS(m.final_score_a - m.final_score_b) = 2)
+                                    OR (m.player_b_id = :playerId AND m.final_score_b > m.final_score_a AND m.final_score_a >= 10 AND m.final_score_b >= 10 AND ABS(m.final_score_b - m.final_score_a) = 2)
+                                    THEN 1 ELSE 0 END) AS close_won_count,
+                    
+                        -- Close matches lost (difference of 2, and scores >= 10)
+                        SUM(CASE
+                                WHEN (m.player_a_id = :playerId AND m.final_score_a < m.final_score_b AND m.final_score_a >= 10 AND m.final_score_b >= 10 AND ABS(m.final_score_a - m.final_score_b) = 2)
+                                    OR (m.player_b_id = :playerId AND m.final_score_b < m.final_score_a AND m.final_score_a >= 10 AND m.final_score_b >= 10 AND ABS(m.final_score_b - m.final_score_a) = 2)
+                                    THEN 1 ELSE 0 END) AS close_lost_count,
+                    
+                        -- Stomps suffered (lost with gap > 7)
+                        SUM(CASE
+                                WHEN (m.player_a_id = :playerId AND m.final_score_b - m.final_score_a > 7)
+                                    OR (m.player_b_id = :playerId AND m.final_score_a - m.final_score_b > 7)
+                                    THEN 1 ELSE 0 END) AS stomps_lost_count,
+                    
+                        -- Stomps inflicted (won with gap > 7)
+                        SUM(CASE
+                                WHEN (m.player_a_id = :playerId AND m.final_score_a - m.final_score_b > 7)
+                                    OR (m.player_b_id = :playerId AND m.final_score_b - m.final_score_a > 7)
+                                    THEN 1 ELSE 0 END) AS stomps_won_count
+                    
+                    FROM squash_matches m
+                             JOIN players p ON p.id = CASE
+                                                          WHEN m.player_a_id = :playerId THEN m.player_b_id
+                                                          ELSE m.player_a_id
+                        END
+                    WHERE (m.player_a_id = :playerId OR m.player_b_id = :playerId)
+                    GROUP BY year, opponent_id, opponent_firstname, opponent_lastname
+                    ORDER BY year DESC, total_matches DESC;
+                    """,
+            nativeQuery = true
+    )
+    List<YearlyOpponentStatsProjection> getDetailedStatsAgainstEachOpponentPerYear(@Param("playerId") UUID playerId);
 
     @Query(
             value = """

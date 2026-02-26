@@ -165,40 +165,80 @@ public class SquashMatchServiceDefault implements SquashMatchService {
 
     public PlayerStatsResponseDTO getPlayerStats(UUID playerId) {
         List<PlayerStatsProjection> globalStats = matchRepository.getStatsByPlayerId(playerId);
+        List<YearlyPlayerStatsProjection> yearlyStats = matchRepository.getStatsByPlayerIdPerYear(playerId);
         List<OpponentStatsProjection> opponentStats = matchRepository.getDetailedStatsAgainstEachOpponent(playerId);
-
-        opponentStats.forEach(opponentStat ->
-                System.out.println(opponentStat.getOpponentId() + " - " + opponentStat.getOpponentFirstname() + " " + opponentStat.getOpponentLastname())
-        );
+        List<YearlyOpponentStatsProjection> yearlyOpponentStats = matchRepository.getDetailedStatsAgainstEachOpponentPerYear(playerId);
 
         if (globalStats.isEmpty()) {
-            throw new IllegalArgumentException("Aucune statistique trouvée pour le joueur avec l'ID : " + playerId);
+            throw new IllegalArgumentException("No stats found for player with ID: " + playerId);
         }
-        PlayerStatsResponseDTO dto = new PlayerStatsResponseDTO();
-        dto.setPlayer(new Players(playerId, globalStats.getFirst().getFirstname(), globalStats.getFirst().getLastname()));
-        dto.setTotalMatches(globalStats.stream().mapToInt(PlayerStatsProjection::getTotalMatches).sum());
-        dto.setWins(globalStats.stream().mapToInt(PlayerStatsProjection::getWins).sum());
-        dto.setLosses(globalStats.stream().mapToInt(PlayerStatsProjection::getLosses).sum());
-        dto.setAverageOpponentLostScore(globalStats.stream().mapToDouble(PlayerStatsProjection::getAverageOpponentLostScore).sum());
-        dto.setAveragePlayerLostScore(globalStats.stream().mapToDouble(PlayerStatsProjection::getAveragePlayerLostScore).sum());
-        dto.setCloseWonCount(globalStats.stream().mapToInt(PlayerStatsProjection::getCloseMatchesWonCount).sum());
-        dto.setCloseLostCount(globalStats.stream().mapToInt(PlayerStatsProjection::getCloseMatchesLostCount).sum());
-        dto.setStompWonCount(globalStats.stream().mapToInt(PlayerStatsProjection::getStompMatchesWonCount).sum());
-        dto.setStompLostCount(globalStats.stream().mapToInt(PlayerStatsProjection::getStompMatchesLostCount).sum());
-        dto.setStatsAgainstOpponents(opponentStats.stream()
+
+        PlayerStatsProjection global = globalStats.getFirst();
+        List<StatsAgainstOpponentDTO> statsAgainstOpponents = opponentStats.stream()
                 .map(opponent -> new StatsAgainstOpponentDTO(
                         new Players(opponent.getOpponentId(), opponent.getOpponentFirstname(), opponent.getOpponentLastname()),
                         opponent.getTotalMatches(),
                         opponent.getWins(),
                         opponent.getLosses(),
-                        opponent.getAverageScoreWhenLost(),
+                        toDouble(opponent.getAverageScoreWhenLost()),
                         opponent.getCloseWonCount(),
                         opponent.getCloseLostCount(),
                         opponent.getStompsWonCount(),
                         opponent.getStompsLostCount()
                 ))
-                .toArray(StatsAgainstOpponentDTO[]::new));
+                .toList();
 
-        return dto;
+        Map<Integer, List<StatsAgainstOpponentDTO>> yearlyOpponentsByYear = yearlyOpponentStats.stream()
+                .collect(Collectors.groupingBy(
+                        YearlyOpponentStatsProjection::getYear,
+                        Collectors.mapping(opponent -> new StatsAgainstOpponentDTO(
+                                        new Players(opponent.getOpponentId(), opponent.getOpponentFirstname(), opponent.getOpponentLastname()),
+                                        opponent.getTotalMatches(),
+                                        opponent.getWins(),
+                                        opponent.getLosses(),
+                                        toDouble(opponent.getAverageScoreWhenLost()),
+                                        opponent.getCloseWonCount(),
+                                        opponent.getCloseLostCount(),
+                                        opponent.getStompsWonCount(),
+                                        opponent.getStompsLostCount()
+                                ),
+                                Collectors.toList()
+                        )
+                ));
+
+        List<YearlyPlayerStatsDTO> yearlyStatsDtos = yearlyStats.stream()
+                .map(stat -> new YearlyPlayerStatsDTO(
+                        stat.getYear(),
+                        stat.getTotalMatches(),
+                        stat.getWins(),
+                        stat.getLosses(),
+                        toDouble(stat.getAverageOpponentLostScore()),
+                        toDouble(stat.getAveragePlayerLostScore()),
+                        stat.getCloseMatchesWonCount(),
+                        stat.getCloseMatchesLostCount(),
+                        stat.getStompMatchesWonCount(),
+                        stat.getStompMatchesLostCount(),
+                        yearlyOpponentsByYear.getOrDefault(stat.getYear(), List.of())
+                ))
+                .toList();
+
+        return new PlayerStatsResponseDTO(
+                new Players(playerId, global.getFirstname(), global.getLastname()),
+                global.getTotalMatches(),
+                global.getWins(),
+                global.getLosses(),
+                toDouble(global.getAverageOpponentLostScore()),
+                toDouble(global.getAveragePlayerLostScore()),
+                global.getCloseMatchesWonCount(),
+                global.getCloseMatchesLostCount(),
+                global.getStompMatchesWonCount(),
+                global.getStompMatchesLostCount(),
+                statsAgainstOpponents,
+                yearlyStatsDtos
+        );
+    }
+
+    private double toDouble(Double value) {
+        return value == null ? 0D : value;
     }
 }
