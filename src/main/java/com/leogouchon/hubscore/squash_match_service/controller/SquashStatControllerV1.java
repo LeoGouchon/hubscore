@@ -37,7 +37,11 @@ public class SquashStatControllerV1 {
             summary = "Return global data",
             description = "Return overall stats from the database squash matches"
     )
-    @ApiResponse(responseCode = "200", description = "Matches dates found")
+    @ApiResponse(
+            responseCode = "200",
+            description = "Matches dates found",
+            content = @Content(schema = @Schema(implementation = OverallStatsResponseDTO.class))
+    )
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     @GetMapping("/global")
     public ResponseEntity<OverallStatsResponseDTO> getOverallStats() {
@@ -50,7 +54,11 @@ public class SquashStatControllerV1 {
     @Operation(
             summary = "Return overall data from a specific player"
     )
-    @ApiResponse(responseCode = "200", description = "Player data found")
+    @ApiResponse(
+            responseCode = "200",
+            description = "Player data found",
+            content = @Content(schema = @Schema(implementation = PlayerStatsResponseDTO.class))
+    )
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     @GetMapping("/player/{id:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}}")
     public ResponseEntity<PlayerStatsResponseDTO> getPlayerOverallStats(@PathVariable UUID id) {
