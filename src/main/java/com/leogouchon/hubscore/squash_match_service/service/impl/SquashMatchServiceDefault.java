@@ -167,6 +167,7 @@ public class SquashMatchServiceDefault implements SquashMatchService {
         List<PlayerStatsProjection> globalStats = matchRepository.getStatsByPlayerId(playerId);
         List<YearlyPlayerStatsProjection> yearlyStats = matchRepository.getStatsByPlayerIdPerYear(playerId);
         List<OpponentStatsProjection> opponentStats = matchRepository.getDetailedStatsAgainstEachOpponent(playerId);
+        List<YearlyOpponentStatsProjection> yearlyOpponentStats = matchRepository.getDetailedStatsAgainstEachOpponentPerYear(playerId);
 
         if (globalStats.isEmpty()) {
             throw new IllegalArgumentException("No stats found for player with ID: " + playerId);
@@ -187,6 +188,24 @@ public class SquashMatchServiceDefault implements SquashMatchService {
                 ))
                 .toList();
 
+        Map<Integer, List<StatsAgainstOpponentDTO>> yearlyOpponentsByYear = yearlyOpponentStats.stream()
+                .collect(Collectors.groupingBy(
+                        YearlyOpponentStatsProjection::getYear,
+                        Collectors.mapping(opponent -> new StatsAgainstOpponentDTO(
+                                        new Players(opponent.getOpponentId(), opponent.getOpponentFirstname(), opponent.getOpponentLastname()),
+                                        opponent.getTotalMatches(),
+                                        opponent.getWins(),
+                                        opponent.getLosses(),
+                                        toDouble(opponent.getAverageScoreWhenLost()),
+                                        opponent.getCloseWonCount(),
+                                        opponent.getCloseLostCount(),
+                                        opponent.getStompsWonCount(),
+                                        opponent.getStompsLostCount()
+                                ),
+                                Collectors.toList()
+                        )
+                ));
+
         List<YearlyPlayerStatsDTO> yearlyStatsDtos = yearlyStats.stream()
                 .map(stat -> new YearlyPlayerStatsDTO(
                         stat.getYear(),
@@ -198,7 +217,8 @@ public class SquashMatchServiceDefault implements SquashMatchService {
                         stat.getCloseMatchesWonCount(),
                         stat.getCloseMatchesLostCount(),
                         stat.getStompMatchesWonCount(),
-                        stat.getStompMatchesLostCount()
+                        stat.getStompMatchesLostCount(),
+                        yearlyOpponentsByYear.getOrDefault(stat.getYear(), List.of())
                 ))
                 .toList();
 
