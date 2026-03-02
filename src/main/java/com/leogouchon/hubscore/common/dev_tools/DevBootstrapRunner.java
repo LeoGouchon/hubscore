@@ -6,7 +6,6 @@ import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -16,26 +15,20 @@ import org.springframework.stereotype.Component;
 public class DevBootstrapRunner {
 
     private final KickerMatchService kickerMatchService;
-    private final JdbcTemplate jdbcTemplate;
-
     public DevBootstrapRunner(
-            KickerMatchService kickerMatchService,
-            JdbcTemplate jdbcTemplate
+            KickerMatchService kickerMatchService
     ) {
         this.kickerMatchService = kickerMatchService;
-        this.jdbcTemplate = jdbcTemplate;
     }
 
     /**
-     * Triggered by an ApplicationReadyEvent, this method runs ELO recalculation
-     * and refreshes the materialized view mv_player_match_facts.
+     * Triggered by an ApplicationReadyEvent, this method runs ELO recalculation.
      * Only useful and called in dev profile.
      */
     @EventListener(ApplicationReadyEvent.class)
     public void run() {
         log.info("[DEV] Running ELO recalculation at startup");
         kickerMatchService.recalculateElo();
-        jdbcTemplate.execute("REFRESH MATERIALIZED VIEW mv_player_match_facts");
         log.info("[DEV] ELO recalculation finished");
     }
 }

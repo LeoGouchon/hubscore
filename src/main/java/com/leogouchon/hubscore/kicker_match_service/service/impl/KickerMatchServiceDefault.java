@@ -10,6 +10,7 @@ import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloSeasonal
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerEloService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
+import com.leogouchon.hubscore.kicker_match_service.service.PlayerMatchFactsViewService;
 import com.leogouchon.hubscore.kicker_match_service.specification.KickerMatchSpecifications;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
@@ -34,6 +35,7 @@ public class KickerMatchServiceDefault implements KickerMatchService {
     private final PlayerService playerService;
     private final KickerEloService kickerEloService;
     private final KickerEloService kickerEloSeasonalService;
+    private final PlayerMatchFactsViewService playerMatchFactsViewService;
 
     @Autowired
     public KickerMatchServiceDefault(
@@ -42,13 +44,15 @@ public class KickerMatchServiceDefault implements KickerMatchService {
             KickerEloSeasonalRepository kickerEloSeasonalRepository,
             PlayerService playerService,
             @Qualifier("globalEloService") KickerEloService kickerEloService,
-            @Qualifier("seasonalEloService") KickerEloService kickerEloSeasonalService) {
+            @Qualifier("seasonalEloService") KickerEloService kickerEloSeasonalService,
+            PlayerMatchFactsViewService playerMatchFactsViewService) {
         this.matchRepository = matchRepository;
         this.kickerEloRepository = kickerEloRepository;
         this.kickerEloSeasonalRepository = kickerEloSeasonalRepository;
         this.playerService = playerService;
         this.kickerEloService = kickerEloService;
         this.kickerEloSeasonalService = kickerEloSeasonalService;
+        this.playerMatchFactsViewService = playerMatchFactsViewService;
     }
 
     @Transactional
@@ -98,6 +102,7 @@ public class KickerMatchServiceDefault implements KickerMatchService {
 
         kickerEloService.calculateElo(match);
         kickerEloSeasonalService.calculateElo(match);
+        playerMatchFactsViewService.refreshAfterCommit();
 
         return match;
     }
@@ -114,11 +119,13 @@ public class KickerMatchServiceDefault implements KickerMatchService {
 
         kickerEloService.recalculateFromDate(cutoff);
         kickerEloSeasonalService.recalculateFromDate(cutoff);
+        playerMatchFactsViewService.refreshAfterCommit();
     }
 
     public void recalculateElo() {
         kickerEloService.recalculateAllElo();
         kickerEloSeasonalService.recalculateAllElo();
+        playerMatchFactsViewService.refresh();
     }
 
 
