@@ -1,4 +1,4 @@
-package com.leogouchon.hubscore.common.type;
+package com.leogouchon.hubscore.squash_common.type;
 
 import com.leogouchon.hubscore.player_service.entity.Players;
 import lombok.Getter;

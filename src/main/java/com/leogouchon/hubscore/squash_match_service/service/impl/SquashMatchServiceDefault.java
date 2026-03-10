@@ -1,15 +1,15 @@
 package com.leogouchon.hubscore.squash_match_service.service.impl;
 
+import com.leogouchon.hubscore.squash_common.type.MatchPoint;
+import com.leogouchon.hubscore.squash_common.type.PlayerRank;
 import com.leogouchon.hubscore.squash_match_service.dto.*;
 import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import com.leogouchon.hubscore.player_service.entity.Players;
-import com.leogouchon.hubscore.common.type.MatchPoint;
 import com.leogouchon.hubscore.squash_match_service.repository.SquashMatchRepository;
 import com.leogouchon.hubscore.squash_match_service.repository.projection.*;
 import com.leogouchon.hubscore.squash_match_service.service.SquashMatchService;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
 import com.leogouchon.hubscore.squash_match_service.specification.MatchSpecifications;
-import com.leogouchon.hubscore.common.type.PlayerRank;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -42,16 +41,18 @@ public class SquashMatchServiceDefault implements SquashMatchService {
         if (playerA.isEmpty() || playerB.isEmpty()) {
             throw new IllegalArgumentException("Given player(s) not found");
         } else {
-            // TODO : verify points history
-            if (pointsHistory != null) {
-                SquashMatches match = new SquashMatches(playerA.get(), playerB.get(), pointsHistory, finalScoreA, finalScoreB);
-                return matchRepository.save(match);
-            } else if (finalScoreA != null && finalScoreB != null) {
-                SquashMatches match = new SquashMatches(playerA.get(), playerB.get(), finalScoreA, finalScoreB);
-                return matchRepository.save(match);
-            } else {
+            if (finalScoreA == null || finalScoreB == null) {
                 throw new IllegalArgumentException("Invalid parameters");
             }
+
+            SquashMatches match = new SquashMatches(playerA.get(), playerB.get(), finalScoreA, finalScoreB);
+
+            if (pointsHistory != null) {
+                // Transform request payload points into normalized squash_points rows.
+                match.setPointsHistory(pointsHistory);
+            }
+
+            return matchRepository.save(match);
         }
     }
 

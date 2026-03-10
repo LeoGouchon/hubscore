@@ -1,6 +1,6 @@
 package com.leogouchon.hubscore.squash_match_service.dto;
 
-import com.leogouchon.hubscore.common.type.PlayerRank;
+import com.leogouchon.hubscore.squash_common.type.PlayerRank;
 import lombok.Getter;
 import lombok.Setter;
 
