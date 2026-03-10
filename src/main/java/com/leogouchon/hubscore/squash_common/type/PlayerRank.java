@@ -4,6 +4,9 @@ import com.leogouchon.hubscore.player_service.entity.Players;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 public class PlayerRank {
@@ -12,6 +15,7 @@ public class PlayerRank {
     private int losses;
     private int totalPointsScored;
     private int totalPointsReceived;
+    private List<PlayerRankOpponentStats> statsAgainstPlayers = new ArrayList<>();
 
     public PlayerRank(Players player, int wins, int losses, int totalPointsScored, int totalPointsReceived) {
         this.player = player;
@@ -19,6 +23,11 @@ public class PlayerRank {
         this.losses = losses;
         this.totalPointsScored = totalPointsScored;
         this.totalPointsReceived = totalPointsReceived;
+    }
+
+    public PlayerRank(Players player, int wins, int losses, int totalPointsScored, int totalPointsReceived, List<PlayerRankOpponentStats> statsAgainstPlayers) {
+        this(player, wins, losses, totalPointsScored, totalPointsReceived);
+        this.statsAgainstPlayers = statsAgainstPlayers;
     }
 
     public PlayerRank() {
