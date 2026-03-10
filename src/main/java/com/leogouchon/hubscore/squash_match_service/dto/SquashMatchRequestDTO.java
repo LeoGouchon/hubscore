@@ -1,6 +1,6 @@
 package com.leogouchon.hubscore.squash_match_service.dto;
 
-import com.leogouchon.hubscore.common.type.MatchPoint;
+import com.leogouchon.hubscore.squash_common.type.MatchPoint;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

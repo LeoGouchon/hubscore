@@ -1,4 +1,4 @@
-package com.leogouchon.hubscore.common.dev_tools;
+package com.leogouchon.hubscore.kicker_common.dev_tools;
 
 import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
 import lombok.extern.slf4j.Slf4j;

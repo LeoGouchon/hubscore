@@ -1,8 +1,8 @@
 package com.leogouchon.hubscore.squash_match_service.dto;
 
+import com.leogouchon.hubscore.squash_common.type.MatchPoint;
 import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import com.leogouchon.hubscore.player_service.entity.Players;
-import com.leogouchon.hubscore.common.type.MatchPoint;
 import lombok.Getter;
 import lombok.Setter;
 
