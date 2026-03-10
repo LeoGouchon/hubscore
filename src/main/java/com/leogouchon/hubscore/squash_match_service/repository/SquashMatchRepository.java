@@ -17,39 +17,40 @@ public interface SquashMatchRepository extends JpaRepository<SquashMatches, UUID
 
     @Query(
             value = """
-                             SELECT 
-                                CAST(EXTRACT(EPOCH FROM DATE_TRUNC('day', m.end_time)) AS BIGINT) AS day_unix,
-                                COUNT(*) AS total_matches,
-                                p.id AS player_id,
-                                p.firstname AS player_name,
-                    
-                                SUM(CASE 
-                                    WHEN (m.player_a_id = p.id AND m.final_score_a > m.final_score_b) OR 
-                                         (m.player_b_id = p.id AND m.final_score_b > m.final_score_a) 
-                                    THEN 1 ELSE 0 END) AS wins,
-                    
-                                SUM(CASE
-                                    WHEN (m.player_a_id = p.id AND m.final_score_a < m.final_score_b) OR
-                                         (m.player_b_id = p.id AND m.final_score_b < m.final_score_a)
-                                    THEN 1 ELSE 0 END) AS losses,
-                    
-                                SUM(CASE
-                                    WHEN m.player_b_id = p.id THEN m.final_score_b
-                                    WHEN m.player_a_id = p.id THEN m.final_score_a
-                                    ELSE 0 END) AS points_scored,
-                    
-                                SUM(CASE
-                                    WHEN m.player_a_id = p.id THEN m.final_score_b
-                                    WHEN m.player_b_id = p.id THEN m.final_score_a
-                                    ELSE 0 END) AS points_conceded
-                    
-                             FROM squash_matches AS m
-                             JOIN players p ON p.id = m.player_a_id OR p.id = m.player_b_id
-                             GROUP BY day_unix, p.id, p.firstname
-                             ORDER BY day_unix desc, p.id
+                    SELECT DISTINCT CAST(EXTRACT(EPOCH FROM DATE_TRUNC('day', m.end_time)) AS BIGINT) AS day_unix
+                    FROM squash_matches AS m
+                    ORDER BY day_unix DESC
                     """, nativeQuery = true
     )
-    List<SessionsDataProjection> getSessionsData(Pageable pageable);
+    List<Long> getSessionDays(Pageable pageable);
+
+    @Query(
+            value = """
+                    SELECT COUNT(DISTINCT DATE_TRUNC('day', m.end_time))
+                    FROM squash_matches AS m
+                    """, nativeQuery = true
+    )
+    long countSessionDays();
+
+    @Query(
+            value = """
+                    SELECT CAST(EXTRACT(EPOCH FROM DATE_TRUNC('day', m.end_time)) AS BIGINT) AS day_unix,
+                           p1.id AS player_a_id,
+                           p1.firstname AS player_a_firstname,
+                           p1.lastname AS player_a_lastname,
+                           p2.id AS player_b_id,
+                           p2.firstname AS player_b_firstname,
+                           p2.lastname AS player_b_lastname,
+                           m.final_score_a,
+                           m.final_score_b
+                    FROM squash_matches AS m
+                    JOIN players p1 ON p1.id = m.player_a_id
+                    JOIN players p2 ON p2.id = m.player_b_id
+                    WHERE CAST(EXTRACT(EPOCH FROM DATE_TRUNC('day', m.end_time)) AS BIGINT) IN (:dayUnixes)
+                    ORDER BY day_unix DESC, m.end_time DESC
+                    """, nativeQuery = true
+    )
+    List<SessionMatchProjection> getSessionMatches(@Param("dayUnixes") List<Long> dayUnixes);
 
     @Query(
             value = """
