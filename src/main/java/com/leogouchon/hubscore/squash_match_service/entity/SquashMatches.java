@@ -1,14 +1,16 @@
 package com.leogouchon.hubscore.squash_match_service.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.common.type.MatchPoint;
-import com.leogouchon.hubscore.squash_match_service.utils.PointListConverter;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -22,9 +24,9 @@ public class SquashMatches {
     @Column(columnDefinition = "UUID", updatable = false, nullable = false)
     private UUID id;
 
-    @Convert(converter = PointListConverter.class)
-    @Column(columnDefinition = "TEXT", name = "points_history")
-    private List<MatchPoint> pointsHistory;
+    @OneToMany(mappedBy = "squashMatch", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<SquashPoints> points = new ArrayList<>();
 
     @Column(name = "final_score_a")
     private Integer finalScoreA;
@@ -65,18 +67,22 @@ public class SquashMatches {
         }
     }
 
-    public SquashMatches(Players playerA, Players playerB, Integer finalScoreA, Integer finalScoreB, Timestamp startTime) {
-        this(playerA, playerB, finalScoreA, finalScoreB);
-        this.startTime = startTime;
+    @Transient
+    public List<MatchPoint> getPointsHistory() {
+        return points.stream()
+                .sorted(Comparator.comparing(SquashPoints::getPointOrder))
+                .map(SquashPoints::toMatchPoint)
+                .toList();
     }
 
-    public SquashMatches(Players playerA, Players playerB, List<MatchPoint> pointsHistory, Integer finalScoreA, Integer finalScoreB) {
-        this(playerA, playerB);
-        this.finalScoreA = finalScoreA;
-        this.finalScoreB = finalScoreB;
-        this.pointsHistory = pointsHistory;
-        if (Boolean.FALSE.equals(this.isFinished())) {
-            throw new IllegalArgumentException("Match must be finished to create it");
+    public void setPointsHistory(List<MatchPoint> pointsHistory) {
+        this.points.clear();
+        if (pointsHistory == null) {
+            return;
+        }
+
+        for (int i = 0; i < pointsHistory.size(); i++) {
+            this.points.add(new SquashPoints(this, i, pointsHistory.get(i)));
         }
     }
 

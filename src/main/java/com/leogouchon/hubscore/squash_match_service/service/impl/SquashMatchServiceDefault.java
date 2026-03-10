@@ -42,16 +42,18 @@ public class SquashMatchServiceDefault implements SquashMatchService {
         if (playerA.isEmpty() || playerB.isEmpty()) {
             throw new IllegalArgumentException("Given player(s) not found");
         } else {
-            // TODO : verify points history
-            if (pointsHistory != null) {
-                SquashMatches match = new SquashMatches(playerA.get(), playerB.get(), pointsHistory, finalScoreA, finalScoreB);
-                return matchRepository.save(match);
-            } else if (finalScoreA != null && finalScoreB != null) {
-                SquashMatches match = new SquashMatches(playerA.get(), playerB.get(), finalScoreA, finalScoreB);
-                return matchRepository.save(match);
-            } else {
+            if (finalScoreA == null || finalScoreB == null) {
                 throw new IllegalArgumentException("Invalid parameters");
             }
+
+            SquashMatches match = new SquashMatches(playerA.get(), playerB.get(), finalScoreA, finalScoreB);
+
+            if (pointsHistory != null) {
+                // Transform request payload points into normalized squash_points rows.
+                match.setPointsHistory(pointsHistory);
+            }
+
+            return matchRepository.save(match);
         }
     }
 
