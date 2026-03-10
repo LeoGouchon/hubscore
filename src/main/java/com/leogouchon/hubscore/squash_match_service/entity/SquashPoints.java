@@ -1,9 +1,9 @@
 package com.leogouchon.hubscore.squash_match_service.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.leogouchon.hubscore.common.enums.PlayerLetter;
-import com.leogouchon.hubscore.common.enums.ServiceSide;
-import com.leogouchon.hubscore.common.type.MatchPoint;
+import com.leogouchon.hubscore.squash_common.enums.PlayerLetter;
+import com.leogouchon.hubscore.squash_common.enums.ServiceSide;
+import com.leogouchon.hubscore.squash_common.type.MatchPoint;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

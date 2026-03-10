@@ -2,7 +2,7 @@ package com.leogouchon.hubscore.squash_match_service.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.leogouchon.hubscore.common.type.MatchPoint;
+import com.leogouchon.hubscore.squash_common.type.MatchPoint;
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
 

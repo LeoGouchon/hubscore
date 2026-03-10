@@ -1,15 +1,15 @@
 package com.leogouchon.hubscore.squash_match_service.service.impl;
 
+import com.leogouchon.hubscore.squash_common.type.MatchPoint;
+import com.leogouchon.hubscore.squash_common.type.PlayerRank;
 import com.leogouchon.hubscore.squash_match_service.dto.*;
 import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
 import com.leogouchon.hubscore.player_service.entity.Players;
-import com.leogouchon.hubscore.common.type.MatchPoint;
 import com.leogouchon.hubscore.squash_match_service.repository.SquashMatchRepository;
 import com.leogouchon.hubscore.squash_match_service.repository.projection.*;
 import com.leogouchon.hubscore.squash_match_service.service.SquashMatchService;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
 import com.leogouchon.hubscore.squash_match_service.specification.MatchSpecifications;
-import com.leogouchon.hubscore.common.type.PlayerRank;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,7 +20,6 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 

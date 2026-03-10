@@ -1,7 +1,7 @@
-package com.leogouchon.hubscore.common.type;
+package com.leogouchon.hubscore.squash_common.type;
 
-import com.leogouchon.hubscore.common.enums.PlayerLetter;
-import com.leogouchon.hubscore.common.enums.ServiceSide;
+import com.leogouchon.hubscore.squash_common.enums.PlayerLetter;
+import com.leogouchon.hubscore.squash_common.enums.ServiceSide;
 import lombok.*;
 
 import java.sql.Timestamp;

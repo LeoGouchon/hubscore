@@ -1,11 +1,11 @@
 package com.leogouchon.hubscore.squash_match_service.service;
 
+import com.leogouchon.hubscore.squash_common.type.MatchPoint;
 import com.leogouchon.hubscore.squash_match_service.dto.BatchSessionResponseDTO;
 import com.leogouchon.hubscore.squash_match_service.dto.OverallStatsResponseDTO;
 import com.leogouchon.hubscore.squash_match_service.dto.PlayerStatsResponseDTO;
 import com.leogouchon.hubscore.squash_match_service.dto.SquashMatchResponseDTO;
 import com.leogouchon.hubscore.squash_match_service.entity.SquashMatches;
-import com.leogouchon.hubscore.common.type.MatchPoint;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

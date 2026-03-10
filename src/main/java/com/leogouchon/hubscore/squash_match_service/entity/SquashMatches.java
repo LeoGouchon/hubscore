@@ -3,7 +3,7 @@ package com.leogouchon.hubscore.squash_match_service.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.leogouchon.hubscore.player_service.entity.Players;
-import com.leogouchon.hubscore.common.type.MatchPoint;
+import com.leogouchon.hubscore.squash_common.type.MatchPoint;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
