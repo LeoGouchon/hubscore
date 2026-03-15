@@ -2,6 +2,7 @@ package com.leogouchon.hubscore.player_service.controller;
 
 import com.leogouchon.hubscore.common.dto.PaginatedResponseDTO;
 import com.leogouchon.hubscore.player_service.dto.PlayerRequestDTO;
+import com.leogouchon.hubscore.player_service.dto.PlayerResponseDTO;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -9,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.HtmlUtils;
 
 import java.net.URI;
 import java.util.List;
@@ -69,15 +72,13 @@ public class PlayerControllerV1 {
     @ApiResponse(responseCode = "400", description = "Bad request", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     @SecurityRequirement(name = "bearerAuth")
-    public ResponseEntity<Players> createPlayer(@RequestBody PlayerRequestDTO player) {
-        Players createdPlayer;
-        try {
-            createdPlayer = playerService.createPlayer(player);
-        } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().build();
-        }
+    public ResponseEntity<PlayerResponseDTO> createPlayer(@Valid @RequestBody PlayerRequestDTO player) {
+        Players createdPlayer = playerService.createPlayer(player);
         URI location = URI.create("/api/players/" + createdPlayer.getId());
-        return ResponseEntity.created(location).body(createdPlayer);
+        PlayerResponseDTO response = new PlayerResponseDTO(createdPlayer);
+        response.setFirstname(HtmlUtils.htmlEscape(response.getFirstname()));
+        response.setLastname(HtmlUtils.htmlEscape(response.getLastname()));
+        return ResponseEntity.created(location).body(response);
     }
 
     @DeleteMapping("/{id}")
