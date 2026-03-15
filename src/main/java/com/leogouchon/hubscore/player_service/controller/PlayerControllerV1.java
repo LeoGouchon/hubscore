@@ -15,14 +15,15 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.HtmlUtils;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -63,8 +64,9 @@ public class PlayerControllerV1 {
     @ApiResponse(responseCode = "200", description = "Player with given id found")
     @ApiResponse(responseCode = "404", description = "Player not found", content = {@Content(schema = @Schema())})
     public ResponseEntity<Players> getPlayer(@PathVariable UUID id) {
-        Optional<Players> player = playerService.getPlayer(id);
-        return player.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Players player = playerService.getPlayer(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Player not found"));
+        return ResponseEntity.ok(player);
     }
 
     @PostMapping
@@ -90,7 +92,7 @@ public class PlayerControllerV1 {
         try {
             playerService.deletePlayer(id);
         } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
         }
         return ResponseEntity.noContent().build();
     }

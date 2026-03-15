@@ -13,12 +13,13 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -59,9 +60,11 @@ public class UserController {
     @ApiResponse(responseCode = "404", description = "User not found", content = {@Content(schema = @Schema())})
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     public ResponseEntity<UserResponseDTO> getUserById(@PathVariable UUID id) {
-        Optional<Users> user = Optional.ofNullable(userService.getUserById(id));
-        Optional<UserResponseDTO> userResponseDTO = user.map(UsersMapper::toUserResponseDTO);
-        return userResponseDTO.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        Users user = userService.getUserById(id);
+        if (user == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found");
+        }
+        return ResponseEntity.ok(UsersMapper.toUserResponseDTO(user));
     }
 
     @PostMapping
@@ -70,7 +73,7 @@ public class UserController {
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     public ResponseEntity<Users> createUser(@RequestBody Users users) {
         if (!users.getEmail().matches("^[\\w-.]+@([\\w-]+\\.)+[\\w-]{2,4}$")) {
-            return ResponseEntity.badRequest().body(null);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid email format");
         }
         Users createdUsers = userService.createUser(users);
         URI location = URI.create("/api/users/" + createdUsers.getId());
