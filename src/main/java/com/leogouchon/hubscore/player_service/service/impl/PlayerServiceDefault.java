@@ -8,7 +8,6 @@ import com.leogouchon.hubscore.player_service.repository.PlayerRepository;
 import com.leogouchon.hubscore.player_service.repository.PlayerTeamRepository;
 import com.leogouchon.hubscore.player_service.repository.TeamRepository;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
-import com.leogouchon.hubscore.player_service.service.TeamService;
 import com.leogouchon.hubscore.player_service.specification.PlayerSpecifications;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -67,8 +67,11 @@ public class PlayerServiceDefault implements PlayerService {
             throw new RuntimeException("Firstname and lastname must not be null");
         }
         try {
-            Players savedPlayer = playerRepository.save(new Players(player.getFirstname(), player.getLastname()));
-            player.getTeamIds().forEach(teamId -> {
+            String firstname = player.getFirstname().trim();
+            String lastname = player.getLastname().trim();
+            Players savedPlayer = playerRepository.save(new Players(firstname, lastname));
+            List<UUID> teamIds = player.getTeamIds() == null ? Collections.emptyList() : player.getTeamIds();
+            teamIds.forEach(teamId -> {
                 Optional<Teams> teamsOpt = teamRepository.findById(teamId);
                 teamsOpt.ifPresent(team -> {
                     PlayerTeam playerTeamNew = new PlayerTeam(savedPlayer, team);
