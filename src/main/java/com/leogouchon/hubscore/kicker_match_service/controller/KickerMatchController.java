@@ -17,21 +17,21 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -84,8 +84,9 @@ public class KickerMatchController {
     @ApiResponse(responseCode = "404", description = "Match not found", content = {@Content(schema = @Schema())})
     @GetMapping("/{id:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}}")
     public ResponseEntity<KickerMatches> getMatch(@PathVariable UUID id) {
-        Optional<KickerMatches> match = matchService.getMatch(id);
-        return match.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        KickerMatches match = matchService.getMatch(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Match not found"));
+        return ResponseEntity.ok(match);
     }
 
     @SecurityRequirement(name = "bearerAuth")
@@ -100,23 +101,19 @@ public class KickerMatchController {
     )
     @PostMapping
     public ResponseEntity<KickerMatchResponseDTO> createMatch(@Valid @RequestBody KickerMatchRequestDTO matchRequest, @AuthenticationPrincipal Users createdByUser) {
-        try {
-            KickerMatches createdMatch = matchService.createMatch(
-                    matchRequest.getPlayer1AId(),
-                    matchRequest.getPlayer2AId(),
-                    matchRequest.getPlayer1BId(),
-                    matchRequest.getPlayer2BId(),
-                    matchRequest.getScoreA(),
-                    matchRequest.getScoreB(),
-                    createdByUser
-            );
-            URI location = URI.create("/api/v1/kicker/matches/" + createdMatch.getId());
-            Optional<KickerMatchResponseDTO> match = matchService.getMatchResponseDTO(createdMatch.getId());
-            return match.map(m -> ResponseEntity.created(location).body(m)).orElseGet(() -> ResponseEntity.badRequest().build());
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-            return ResponseEntity.badRequest().build();
-        }
+        KickerMatches createdMatch = matchService.createMatch(
+                matchRequest.getPlayer1AId(),
+                matchRequest.getPlayer2AId(),
+                matchRequest.getPlayer1BId(),
+                matchRequest.getPlayer2BId(),
+                matchRequest.getScoreA(),
+                matchRequest.getScoreB(),
+                createdByUser
+        );
+        URI location = URI.create("/api/v1/kicker/matches/" + createdMatch.getId());
+        KickerMatchResponseDTO match = matchService.getMatchResponseDTO(createdMatch.getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to load created match"));
+        return ResponseEntity.created(location).body(match);
     }
 
     @SecurityRequirement(name = "bearerAuth")
@@ -135,13 +132,13 @@ public class KickerMatchController {
     public ResponseEntity<?> recalculateElo(HttpServletRequest request) {
         String authHeader = request.getHeader("Authorization");
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body("Missing or invalid Authorization header");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Missing or invalid Authorization header");
         }
 
         String token = authHeader.substring(7);
         boolean isAdmin = authenticateService.isUserAdmin(token);
         if (!isAdmin) {
-            return ResponseEntity.status(HttpServletResponse.SC_UNAUTHORIZED).body("Unauthorized");
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
         }
         matchService.recalculateElo();
         return ResponseEntity.ok("ELO recalculated for all matches");

@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.naming.AuthenticationException;
 import java.time.Duration;
@@ -57,9 +58,7 @@ public class AuthenticateController {
                     .ok()
                     .body(new AuthenticateResponseDTO(doubleTokenDTO.getAccessToken()));
         } catch (AuthenticationException ex) {
-            return ResponseEntity
-                    .status(HttpStatus.UNAUTHORIZED)
-                    .build();
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized", ex);
         }
     }
 
@@ -78,7 +77,7 @@ public class AuthenticateController {
             response.setHeader(HttpHeaders.SET_COOKIE, refreshCookie.toString());
             return ResponseEntity.ok().build();
         } catch (Exception e) {
-            return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).build();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Logout failed", e);
         }
     }
 
@@ -100,22 +99,21 @@ public class AuthenticateController {
                     .body(new AuthenticateResponseDTO(doubleTokenDTO.getAccessToken()));
         } catch (Exception e) {
             log.error(String.valueOf(e));
-            return ResponseEntity.status(HttpServletResponse.SC_BAD_REQUEST).build();
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Signup failed", e);
         }
     }
 
     @PostMapping("/refresh-token")
     public ResponseEntity<AuthenticateResponseDTO> refreshToken(@CookieValue(value = "refreshToken", required = false) String refreshToken) {
         try {
-            System.out.println(">>>>> refreshToken: " + refreshToken);
             String newAccessToken = authenticateService.refreshAccessToken(refreshToken);
             return ResponseEntity
                     .ok()
                     .body(new AuthenticateResponseDTO(newAccessToken));
         } catch (AuthenticationException ex) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized", ex);
         } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Refresh token rejected", ex);
         }
     }
 }

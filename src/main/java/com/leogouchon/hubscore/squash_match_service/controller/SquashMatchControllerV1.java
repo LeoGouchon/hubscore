@@ -15,13 +15,14 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -70,8 +71,9 @@ public class SquashMatchControllerV1 {
     @ApiResponse(responseCode = "401", description = "Unauthorized", content = {@Content(schema = @Schema())})
     @GetMapping("/{id:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}}")
     public ResponseEntity<SquashMatches> getMatch(@PathVariable UUID id) {
-        Optional<SquashMatches> match = matchService.getMatch(id);
-        return match.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        SquashMatches match = matchService.getMatch(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Match not found"));
+        return ResponseEntity.ok(match);
     }
 
     @SecurityRequirement(name = "bearerAuth")
@@ -86,21 +88,17 @@ public class SquashMatchControllerV1 {
     )
     @PostMapping
     public ResponseEntity<SquashMatchResponseDTO> createMatch(@Valid @RequestBody SquashMatchRequestDTO matchRequest) {
-        try {
-            SquashMatches createdMatch = matchService.createMatch(
-                    matchRequest.getPlayerAId(),
-                    matchRequest.getPlayerBId(),
-                    matchRequest.getPointsHistory(),
-                    matchRequest.getFinalScoreA(),
-                    matchRequest.getFinalScoreB()
-            );
-            URI location = URI.create("/api/v1/squash/matches/" + createdMatch.getId());
-            Optional<SquashMatchResponseDTO> match = matchService.getMatchResponseDTO(createdMatch.getId());
-            return match.map(m -> ResponseEntity.created(location).body(m)).orElseGet(() -> ResponseEntity.badRequest().build());
-        } catch (RuntimeException e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
+        SquashMatches createdMatch = matchService.createMatch(
+                matchRequest.getPlayerAId(),
+                matchRequest.getPlayerBId(),
+                matchRequest.getPointsHistory(),
+                matchRequest.getFinalScoreA(),
+                matchRequest.getFinalScoreB()
+        );
+        URI location = URI.create("/api/v1/squash/matches/" + createdMatch.getId());
+        SquashMatchResponseDTO match = matchService.getMatchResponseDTO(createdMatch.getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to load created match"));
+        return ResponseEntity.created(location).body(match);
     }
 
     @SecurityRequirement(name = "bearerAuth")
