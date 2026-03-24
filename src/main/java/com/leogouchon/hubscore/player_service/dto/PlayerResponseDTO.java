@@ -13,6 +13,12 @@ public class PlayerResponseDTO {
     private String firstname;
     private String lastname;
 
+    public PlayerResponseDTO(UUID id, String firstname, String lastname) {
+        this.id = id;
+        this.firstname = escape(firstname);
+        this.lastname = escape(lastname);
+    }
+
     public PlayerResponseDTO(Players player) {
         this.id = player.getId();
         this.firstname = player.getFirstname();

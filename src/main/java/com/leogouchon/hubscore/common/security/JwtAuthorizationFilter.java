@@ -39,7 +39,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             Pattern.compile("/api/v1/kicker/stats/global"),
             Pattern.compile("/api/v1/kicker/stats/season(/.*)?"),
             Pattern.compile("/api/v1/kicker/stats/matrix-score(/.*)?"),
-            Pattern.compile("/api/v1/kicker/stats/player(/.*)?")
+            Pattern.compile("/api/v1/kicker/stats/player(/.*)?"),
+            Pattern.compile("/api/v1/kicker/stats/duo")
     );
 
     public JwtAuthorizationFilter(JwtTokenService jwtTokenService, UserService userService) {

@@ -1,9 +1,11 @@
 package com.leogouchon.hubscore.kicker_match_service.repository;
 
+import com.leogouchon.hubscore.kicker_match_service.dto.DuoStatsDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.OpponentStatsDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.OverallStatsDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.PartnerStatsDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.DuoStatsProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -213,4 +215,37 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
             WHERE pmf.player_id = :playerId;
             """, nativeQuery = true)
     OverallStatsDTO getAllTimeStats(@Param("playerId") UUID playerId);
+
+    @Query(value = """
+            SELECT p.id                                                                       AS player1_id,
+                   t.id                                                                       AS player2_id,
+                   p.firstname                                                                AS p1_firstname,
+                   p.lastname                                                                 AS p1_lastname,
+                   t.firstname                                                                AS p2_firstname,
+                   t.lastname                                                                 AS p2_lastname,
+                   COUNT(*)                                                                   AS matches,
+                   COUNT(CASE WHEN pmf.player_score = 10 THEN 1 END)                          AS wins,
+                   COUNT(CASE WHEN pmf.player_score != 10 THEN 1 END)                         AS losses,
+                   SUM(pmf.elo_delta)                                                         AS elo_total,
+                   AVG(pmf.elo_before_match)                                                  AS player_elo_avg,
+                   AVG(pmf_mate.elo_before_match)                                             AS teammate_elo_avg,
+                   AVG((pmf_opponent1.elo_before_match + pmf_opponent2.elo_before_match) / 2) AS opponent_elo_avg,
+                   AVG(pmf.elo_delta)                                                         AS elo_gain_avg,
+                   MAX(pmf.elo_delta)                                                         AS elo_gain_max,
+                   MIN(pmf.elo_delta)                                                         AS elo_gain_min
+            FROM mv_player_match_facts pmf
+                     JOIN players p ON p.id = player_id
+                     JOIN players t ON t.id = teammate_id
+                     JOIN mv_player_match_facts pmf_mate
+                          ON pmf.teammate_id = pmf_mate.player_id AND pmf.match_id = pmf_mate.match_id
+                     JOIN mv_player_match_facts pmf_opponent1
+                          ON pmf.opponent_one_id = pmf_opponent1.player_id AND pmf.match_id = pmf_opponent1.match_id
+                     JOIN mv_player_match_facts pmf_opponent2
+                          ON pmf.opponent_two_id = pmf_opponent2.player_id AND pmf.match_id = pmf_opponent2.match_id
+            WHERE pmf.player_id < pmf.teammate_id
+            GROUP BY 1, 2
+            HAVING COUNT(*) >= 5
+            ORDER BY elo_gain_avg DESC;
+            """, nativeQuery = true)
+    List<DuoStatsProjection> getDuoStats();
 }

@@ -1,9 +1,6 @@
 package com.leogouchon.hubscore.kicker_match_service.service;
 
-import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsWithHistoryDTO;
-import com.leogouchon.hubscore.kicker_match_service.dto.MatrixScoreResultsResponseDTO;
-import com.leogouchon.hubscore.kicker_match_service.dto.PlayerStatsResponseDTO;
-import com.leogouchon.hubscore.kicker_match_service.dto.SeasonsStatsResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,4 +11,5 @@ public interface KickerStatService {
     SeasonsStatsResponseDTO getSeasonsStats();
     List<MatrixScoreResultsResponseDTO> getResultPerDeltaElo();
     PlayerStatsResponseDTO getPlayerStats(UUID id);
+    List<DuoStatsDTO> getDuoStats();
 }

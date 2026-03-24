@@ -1,9 +1,6 @@
 package com.leogouchon.hubscore.kicker_match_service.controller;
 
-import com.leogouchon.hubscore.kicker_match_service.dto.MatrixScoreResultsResponseDTO;
-import com.leogouchon.hubscore.kicker_match_service.dto.PlayerStatsResponseDTO;
-import com.leogouchon.hubscore.kicker_match_service.dto.SeasonsStatsResponseDTO;
-import com.leogouchon.hubscore.kicker_match_service.dto.GlobalStatsWithHistoryDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.*;
 import com.leogouchon.hubscore.kicker_match_service.service.EloMatrixService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerStatService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -139,4 +136,12 @@ public class KickerStatsController {
 
         return ResponseEntity.ok(playerStats);
     }
+
+    @GetMapping("/duo")
+    public ResponseEntity<List<DuoStatsDTO>> get() {
+        List<DuoStatsDTO> duoStats = kickerStatService.getDuoStats();
+
+        return ResponseEntity.ok(duoStats);
+    }
+
 }
