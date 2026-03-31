@@ -19,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.HtmlUtils;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
@@ -78,8 +77,6 @@ public class PlayerControllerV1 {
         Players createdPlayer = playerService.createPlayer(player);
         URI location = URI.create("/api/players/" + createdPlayer.getId());
         PlayerResponseDTO response = new PlayerResponseDTO(createdPlayer);
-        response.setFirstname(HtmlUtils.htmlEscape(response.getFirstname()));
-        response.setLastname(HtmlUtils.htmlEscape(response.getLastname()));
         return ResponseEntity.created(location).body(response);
     }
 
