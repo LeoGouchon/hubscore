@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/LeoGouchon/hubscore/compare/v1.0.0...v1.0.1) (2026-03-31)
+
+
+### Bug Fixes
+
+* **kickerMatches:** special character from player names were transformed ([#37](https://github.com/LeoGouchon/hubscore/issues/37)) ([5e2c2d9](https://github.com/LeoGouchon/hubscore/commit/5e2c2d9f417662971284e51cddaa635c4fb06ca1))
+
 # 1.0.0 (2026-03-02)
 
 
