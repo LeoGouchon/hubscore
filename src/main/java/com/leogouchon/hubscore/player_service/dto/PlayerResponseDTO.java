@@ -3,7 +3,6 @@ package com.leogouchon.hubscore.player_service.dto;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.util.HtmlUtils;
 
 import java.util.UUID;
 
@@ -16,11 +15,7 @@ public class PlayerResponseDTO {
 
     public PlayerResponseDTO(Players player) {
         this.id = player.getId();
-        this.firstname = escape(player.getFirstname());
-        this.lastname = escape(player.getLastname());
-    }
-
-    private String escape(String value) {
-        return value == null ? null : HtmlUtils.htmlEscape(value);
+        this.firstname = player.getFirstname();
+        this.lastname = player.getLastname();
     }
 }
