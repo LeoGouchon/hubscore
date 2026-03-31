@@ -6,6 +6,8 @@ import lombok.Setter;
 
 import java.util.UUID;
 
+import static org.apache.tomcat.util.IntrospectionUtils.escape;
+
 @Getter
 @Setter
 public class PlayerResponseDTO {
