@@ -6,12 +6,20 @@ import lombok.Setter;
 
 import java.util.UUID;
 
+import static org.apache.tomcat.util.IntrospectionUtils.escape;
+
 @Getter
 @Setter
 public class PlayerResponseDTO {
     private UUID id;
     private String firstname;
     private String lastname;
+
+    public PlayerResponseDTO(UUID id, String firstname, String lastname) {
+        this.id = id;
+        this.firstname = escape(firstname);
+        this.lastname = escape(lastname);
+    }
 
     public PlayerResponseDTO(Players player) {
         this.id = player.getId();

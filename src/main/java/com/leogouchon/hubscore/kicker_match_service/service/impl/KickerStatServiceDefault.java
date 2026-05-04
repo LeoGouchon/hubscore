@@ -4,12 +4,10 @@ import com.leogouchon.hubscore.kicker_match_service.dto.*;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloRepository;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloSeasonalRepository;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
-import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
-import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
-import com.leogouchon.hubscore.kicker_match_service.repository.projection.LoserScorePerDeltaEloProjection;
-import com.leogouchon.hubscore.kicker_match_service.repository.projection.SeasonStatsProjection;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.*;
 import com.leogouchon.hubscore.kicker_match_service.service.EloCalculatorService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerStatService;
+import com.leogouchon.hubscore.player_service.dto.PlayerResponseDTO;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +50,7 @@ public class KickerStatServiceDefault implements KickerStatService {
         Map<UUID, LastKickerEloByDateProjection> eloLastWeekMap = eloLastWeek.stream()
                 .collect(Collectors.toMap(LastKickerEloByDateProjection::getPlayerId, Function.identity()));
 
-        List<GlobalStatsWithHistoryDTO> fullStats = rawStats.stream().map(stat -> {
+        return rawStats.stream().map(stat -> {
             List<Boolean> history = kickerMatchRepository.getLastFiveResultsByPlayerId(stat.getPlayerId());
 
             GlobalStatsWithHistoryDTO dto = new GlobalStatsWithHistoryDTO();
@@ -75,8 +73,6 @@ public class KickerStatServiceDefault implements KickerStatService {
 
             return dto;
         }).toList();
-
-        return fullStats;
     }
 
     @Override
@@ -95,7 +91,7 @@ public class KickerStatServiceDefault implements KickerStatService {
         Map<UUID, LastKickerEloByDateProjection> eloLastWeekMap = eloLastWeek.stream()
                 .collect(Collectors.toMap(LastKickerEloByDateProjection::getPlayerId, Function.identity()));
 
-        List<GlobalStatsWithHistoryDTO> fullStats = rawStats.stream().map(stat -> {
+        return rawStats.stream().map(stat -> {
             List<Boolean> history = kickerMatchRepository.getLastFiveResultsByPlayerId(stat.getPlayerId());
 
             GlobalStatsWithHistoryDTO dto = new GlobalStatsWithHistoryDTO();
@@ -118,8 +114,6 @@ public class KickerStatServiceDefault implements KickerStatService {
 
             return dto;
         }).toList();
-
-        return fullStats;
     }
 
     @Override
@@ -181,5 +175,41 @@ public class KickerStatServiceDefault implements KickerStatService {
                 seasonalStats,
                 allTimeStats
         );
+    }
+
+    @Override
+    public List<DuoStatsDTO> getDuoStats() {
+        List<DuoStatsProjection> duoStats = kickerMatchRepository.getDuoStats();
+
+        return duoStats.stream().map(duo -> {
+            DuoStatsDTO dto = new DuoStatsDTO();
+            Players player1 = playerService.getPlayer(UUID.fromString(duo.getPlayer1Id())).get();
+            Players player2 = playerService.getPlayer(UUID.fromString(duo.getPlayer2Id())).get();
+
+            dto.setPlayer1(new PlayerResponseDTO(
+                    player1.getId(),
+                    player1.getFirstname(),
+                    player1.getLastname()
+            ));
+            dto.setPlayer2(new PlayerResponseDTO(
+                    player2.getId(),
+                    player2.getFirstname(),
+                    player2.getLastname()
+            ));
+
+            dto.setMatches((long) duo.getMatches());
+            dto.setWins((long) duo.getWins());
+            dto.setLosses((long) duo.getLosses());
+
+            dto.setEloGainTotal((long) duo.getEloTotal());
+            dto.setPlayer1EloAvg((float) duo.getPlayerEloAvg());
+            dto.setPlayer2EloAvg((float) duo.getTeammateEloAvg());
+            dto.setOpponentEloAvg((float) duo.getOpponentEloAvg());
+            dto.setEloGainAvg((float) duo.getEloGainAvg());
+            dto.setEloGainMax((float) duo.getEloGainMax());
+            dto.setEloGainMin((float) duo.getEloGainMin());
+
+            return dto;
+        }).toList();
     }
 }
