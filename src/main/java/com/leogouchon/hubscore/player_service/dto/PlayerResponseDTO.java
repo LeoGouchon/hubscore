@@ -14,6 +14,8 @@ public class PlayerResponseDTO {
     private UUID id;
     private String firstname;
     private String lastname;
+    private Integer globalEloBeforeMatch;
+    private Integer seasonalEloBeforeMatch;
 
     public PlayerResponseDTO(UUID id, String firstname, String lastname) {
         this.id = id;
@@ -25,5 +27,11 @@ public class PlayerResponseDTO {
         this.id = player.getId();
         this.firstname = player.getFirstname();
         this.lastname = player.getLastname();
+    }
+
+    public PlayerResponseDTO(Players player, Integer globalEloBeforeMatch, Integer seasonalEloBeforeMatch) {
+        this(player);
+        this.globalEloBeforeMatch = globalEloBeforeMatch;
+        this.seasonalEloBeforeMatch = seasonalEloBeforeMatch;
     }
 }

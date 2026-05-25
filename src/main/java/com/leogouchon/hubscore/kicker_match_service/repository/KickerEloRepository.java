@@ -27,7 +27,12 @@ public interface KickerEloRepository extends JpaRepository<KickerElo, KickerEloI
             @Param("playerId") UUID playerId
     );
 
-    List<KickerElo> findAllByMatchIdIn(List<UUID> matchIds);
+    @Query("""
+            SELECT ke
+            FROM KickerElo ke
+            WHERE ke.id.matchId IN :matchIds
+            """)
+    List<KickerElo> findAllByMatchIdIn(@Param("matchIds") List<UUID> matchIds);
 
     void deleteByMatchCreatedAtAfter(Timestamp date);
 

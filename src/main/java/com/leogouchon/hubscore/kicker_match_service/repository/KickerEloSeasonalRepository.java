@@ -192,7 +192,12 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
     )
     List<LoserScorePerDeltaEloProjection> getLoserScorePerEloDiff();
 
-    List<KickerEloSeasonal> findAllByMatchIdIn(List<UUID> matchIds);
+    @Query("""
+            SELECT ke
+            FROM KickerEloSeasonal ke
+            WHERE ke.id.matchId IN :matchIds
+            """)
+    List<KickerEloSeasonal> findAllByMatchIdIn(@Param("matchIds") List<UUID> matchIds);
 
     void deleteByMatchCreatedAtAfter(Timestamp date);
 
