@@ -1,6 +1,8 @@
 package com.leogouchon.hubscore.kicker_match_service.service.impl;
 
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO.EloBeforeMatchContext;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO.KickerMatchMetrics;
 import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerElo;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloSeasonal;
@@ -187,17 +189,23 @@ public class KickerMatchServiceDefault implements KickerMatchService {
                     Map<UUID, Integer> eloChangeByPlayerId = eloChangeByMatchId.getOrDefault(m.getId(), Map.of());
                     Map<UUID, Integer> globalEloBeforeMatchByPlayerId = globalEloBeforeMatchByMatchId.getOrDefault(m.getId(), Map.of());
                     Map<UUID, Integer> seasonalEloBeforeMatchByPlayerId = seasonalEloBeforeMatchByMatchId.getOrDefault(m.getId(), Map.of());
+                    EloBeforeMatchContext eloBeforeMatchContext = new EloBeforeMatchContext(
+                            globalEloBeforeMatchByPlayerId,
+                            seasonalEloBeforeMatchByPlayerId
+                    );
                     Double winChanceTeamA = getWinChanceTeamA(m, globalEloBeforeMatchByPlayerId, seasonalEloBeforeMatchByPlayerId);
-                    return new KickerMatchResponseDTO(
-                            m,
+                    KickerMatchMetrics metrics = new KickerMatchMetrics(
                             eloChange,
                             eloSeasonalChange,
                             getTeamEloChange(m.getPlayer1A(), eloChangeByPlayerId),
                             getTeamEloChange(m.getPlayer1B(), eloChangeByPlayerId),
-                            globalEloBeforeMatchByPlayerId,
-                            seasonalEloBeforeMatchByPlayerId,
                             winChanceTeamA,
                             getWinChanceTeamB(winChanceTeamA)
+                    );
+                    return new KickerMatchResponseDTO(
+                            m,
+                            metrics,
+                            eloBeforeMatchContext
                     );
                 })
                 .toList();
@@ -222,6 +230,10 @@ public class KickerMatchServiceDefault implements KickerMatchService {
                     .collect(Collectors.toMap(e -> e.getPlayer().getId(), KickerEloSeasonal::getEloBeforeMatch));
             Map<UUID, Integer> eloChangeByPlayerId = elos.stream()
                     .collect(Collectors.toMap(e -> e.getPlayer().getId(), KickerElo::getEloChange));
+            EloBeforeMatchContext eloBeforeMatchContext = new EloBeforeMatchContext(
+                    globalEloBeforeMatchByPlayerId,
+                    seasonalEloBeforeMatchByPlayerId
+            );
 
             int eloChange = Optional.ofNullable(elo)
                     .map(e -> Math.abs(e.getEloChange()))
@@ -231,17 +243,19 @@ public class KickerMatchServiceDefault implements KickerMatchService {
                     .map(e -> Math.abs(e.getEloChange()))
                     .orElse(0);
             Double winChanceTeamA = getWinChanceTeamA(m, globalEloBeforeMatchByPlayerId, seasonalEloBeforeMatchByPlayerId);
-
-            return new KickerMatchResponseDTO(
-                    m,
+            KickerMatchMetrics metrics = new KickerMatchMetrics(
                     eloChange,
                     eloSeasonalChange,
                     getTeamEloChange(m.getPlayer1A(), eloChangeByPlayerId),
                     getTeamEloChange(m.getPlayer1B(), eloChangeByPlayerId),
-                    globalEloBeforeMatchByPlayerId,
-                    seasonalEloBeforeMatchByPlayerId,
                     winChanceTeamA,
                     getWinChanceTeamB(winChanceTeamA)
+            );
+
+            return new KickerMatchResponseDTO(
+                    m,
+                    metrics,
+                    eloBeforeMatchContext
             );
         });
     }

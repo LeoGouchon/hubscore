@@ -31,50 +31,80 @@ public class KickerMatchResponseDTO {
     private Double winChanceTeamB;
     private Date createdAt;
 
-    public KickerMatchResponseDTO(KickerMatches match, Integer deltaElo, Integer deltaEloSeasonal) {
-        this(match, deltaElo, deltaEloSeasonal, null, null, Map.of(), Map.of(), null, null);
+    public KickerMatchResponseDTO(KickerMatches kickerMatch, Integer deltaElo, Integer deltaEloSeasonal) {
+        this(
+                kickerMatch,
+                new KickerMatchMetrics(deltaElo, deltaEloSeasonal, null, null, null, null),
+                EloBeforeMatchContext.empty()
+        );
     }
 
     public KickerMatchResponseDTO(
-            KickerMatches match,
-            Integer deltaElo,
-            Integer deltaEloSeasonal,
-            Integer eloWinTeamA,
-            Integer eloWinTeamB,
-            Map<UUID, Integer> globalEloBeforeMatchByPlayerId,
-            Map<UUID, Integer> seasonalEloBeforeMatchByPlayerId,
-            Double winChanceTeamA,
-            Double winChanceTeamB
+            KickerMatches kickerMatch,
+            KickerMatchMetrics metrics,
+            EloBeforeMatchContext eloBeforeMatchContext
     ) {
-        this.id = match.getId();
-        this.player1A = buildPlayerResponse(match.getPlayer1A(), globalEloBeforeMatchByPlayerId, seasonalEloBeforeMatchByPlayerId);
-        if (match.getPlayer2A() != null) {
-            this.player2A = buildPlayerResponse(match.getPlayer2A(), globalEloBeforeMatchByPlayerId, seasonalEloBeforeMatchByPlayerId);
-        }
-        this.player1B = buildPlayerResponse(match.getPlayer1B(), globalEloBeforeMatchByPlayerId, seasonalEloBeforeMatchByPlayerId);
-        if (match.getPlayer2B() != null) {
-            this.player2B = buildPlayerResponse(match.getPlayer2B(), globalEloBeforeMatchByPlayerId, seasonalEloBeforeMatchByPlayerId);
-        }
-        this.scoreA = match.getScoreA();
-        this.scoreB = match.getScoreB();
-        this.deltaElo = deltaElo;
-        this.deltaEloSeasonal = deltaEloSeasonal;
-        this.eloWinTeamA = eloWinTeamA;
-        this.eloWinTeamB = eloWinTeamB;
-        this.winChanceTeamA = winChanceTeamA;
-        this.winChanceTeamB = winChanceTeamB;
-        this.createdAt = match.getCreatedAt();
+        this.id = kickerMatch.getId();
+        this.createdAt = kickerMatch.getCreatedAt();
+
+        assignPlayers(kickerMatch, eloBeforeMatchContext);
+
+        this.scoreA = kickerMatch.getScoreA();
+        this.scoreB = kickerMatch.getScoreB();
+
+        this.deltaElo = metrics.deltaElo();
+        this.deltaEloSeasonal = metrics.deltaEloSeasonal();
+        this.eloWinTeamA = metrics.eloWinTeamA();
+        this.eloWinTeamB = metrics.eloWinTeamB();
+
+        this.winChanceTeamA = metrics.winChanceTeamA();
+        this.winChanceTeamB = metrics.winChanceTeamB();
+    }
+
+    private void assignPlayers(
+            KickerMatches kickerMatch,
+            EloBeforeMatchContext eloBeforeMatchContext
+    ) {
+        this.player1A = buildPlayerResponse(kickerMatch.getPlayer1A(), eloBeforeMatchContext);
+        this.player2A = buildNullablePlayerResponse(kickerMatch.getPlayer2A(), eloBeforeMatchContext);
+        this.player1B = buildPlayerResponse(kickerMatch.getPlayer1B(), eloBeforeMatchContext);
+        this.player2B = buildNullablePlayerResponse(kickerMatch.getPlayer2B(), eloBeforeMatchContext);
     }
 
     private PlayerResponseDTO buildPlayerResponse(
             Players player,
-            Map<UUID, Integer> globalEloBeforeMatchByPlayerId,
-            Map<UUID, Integer> seasonalEloBeforeMatchByPlayerId
+            EloBeforeMatchContext eloBeforeMatchContext
     ) {
         return new PlayerResponseDTO(
                 player,
-                globalEloBeforeMatchByPlayerId.get(player.getId()),
-                seasonalEloBeforeMatchByPlayerId.get(player.getId())
+                eloBeforeMatchContext.globalByPlayerId().get(player.getId()),
+                eloBeforeMatchContext.seasonalByPlayerId().get(player.getId())
         );
+    }
+
+    private PlayerResponseDTO buildNullablePlayerResponse(
+            Players player,
+            EloBeforeMatchContext eloBeforeMatchContext
+    ) {
+        return player == null ? null : buildPlayerResponse(player, eloBeforeMatchContext);
+    }
+
+    public record EloBeforeMatchContext(
+            Map<UUID, Integer> globalByPlayerId,
+            Map<UUID, Integer> seasonalByPlayerId
+    ) {
+        public static EloBeforeMatchContext empty() {
+            return new EloBeforeMatchContext(Map.of(), Map.of());
+        }
+    }
+
+    public record KickerMatchMetrics(
+            Integer deltaElo,
+            Integer deltaEloSeasonal,
+            Integer eloWinTeamA,
+            Integer eloWinTeamB,
+            Double winChanceTeamA,
+            Double winChanceTeamB
+    ) {
     }
 }
