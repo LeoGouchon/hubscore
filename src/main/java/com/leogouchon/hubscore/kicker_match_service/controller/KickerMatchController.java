@@ -83,8 +83,8 @@ public class KickerMatchController {
     @ApiResponse(responseCode = "200", description = "Match with given id found")
     @ApiResponse(responseCode = "404", description = "Match not found", content = {@Content(schema = @Schema())})
     @GetMapping("/{id:[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}}")
-    public ResponseEntity<KickerMatches> getMatch(@PathVariable UUID id) {
-        KickerMatches match = matchService.getMatch(id)
+    public ResponseEntity<KickerMatchResponseDTO> getMatch(@PathVariable UUID id) {
+        KickerMatchResponseDTO match = matchService.getMatchResponseDTO(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Match not found"));
         return ResponseEntity.ok(match);
     }
