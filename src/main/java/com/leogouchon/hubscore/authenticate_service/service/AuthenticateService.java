@@ -13,7 +13,7 @@ public interface AuthenticateService {
     boolean isValidToken(String token);
     Users getUserFromToken(String token);
     void logout(String token);
-    String refreshAccessToken(String refreshToken) throws AuthenticationException;
+    DoubleTokenDTO refreshTokens(String refreshToken) throws AuthenticationException;
     DoubleTokenDTO signUp(String email, String password, String invitationToken) throws AuthenticationException;
     Users getCurrentUser(String accessToken);
     boolean isUserAdmin(String accessToken);

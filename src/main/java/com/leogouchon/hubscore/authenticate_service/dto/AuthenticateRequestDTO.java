@@ -9,6 +9,9 @@ public class AuthenticateRequestDTO {
     private String email;
     private String password;
 
+    public AuthenticateRequestDTO() {
+    }
+
     public AuthenticateRequestDTO(String email, String password) {
         this.email = email;
         this.password = password;
