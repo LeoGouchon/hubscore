@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/LeoGouchon/hubscore/compare/v1.0.1...v1.1.0) (2026-06-08)
+
+
+### Features
+
+* **kickerMatches:** add more data on GET endpoints ([#41](https://github.com/LeoGouchon/hubscore/issues/41)) ([7a25d9d](https://github.com/LeoGouchon/hubscore/commit/7a25d9d05dad58446282e866e9d291c4b145996b))
+
 ## [1.0.1](https://github.com/LeoGouchon/hubscore/compare/v1.0.0...v1.0.1) (2026-03-31)
 
 
