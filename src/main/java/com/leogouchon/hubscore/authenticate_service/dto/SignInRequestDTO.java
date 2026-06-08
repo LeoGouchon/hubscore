@@ -9,6 +9,9 @@ public class SignInRequestDTO {
     private String email;
     private String password;
 
+    public SignInRequestDTO() {
+    }
+
     public SignInRequestDTO(String email, String password) {
         this.email = email;
         this.password = password;

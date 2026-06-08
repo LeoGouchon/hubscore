@@ -8,6 +8,9 @@ import lombok.Setter;
 public class InvitationRequestDTO {
     private String playerId;
 
+    public InvitationRequestDTO() {
+    }
+
     public InvitationRequestDTO(String playerId) {
         this.playerId = playerId;
     }

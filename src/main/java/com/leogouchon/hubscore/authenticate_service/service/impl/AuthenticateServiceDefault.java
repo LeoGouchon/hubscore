@@ -25,6 +25,7 @@ import org.springframework.stereotype.Service;
 import javax.naming.AuthenticationException;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.Optional;
@@ -32,6 +33,8 @@ import java.util.UUID;
 
 @Service
 public class AuthenticateServiceDefault implements AuthenticateService {
+    private static final Duration REFRESH_TOKEN_TTL = Duration.ofDays(30);
+
     private final UserService userService;
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserRepository userRepository;
@@ -88,16 +91,22 @@ public class AuthenticateServiceDefault implements AuthenticateService {
     }
 
     public String generateAndSaveRefreshToken(Users user) {
+        return generateAndSaveRefreshToken(user, UUID.randomUUID());
+    }
+
+    private String generateAndSaveRefreshToken(Users user, UUID sessionId) {
         String refreshToken = UUID.randomUUID().toString();
-        LocalDateTime expiry = LocalDateTime.now().plusDays(30);
+        LocalDateTime now = LocalDateTime.now();
+        LocalDateTime expiry = now.plus(REFRESH_TOKEN_TTL);
 
         RefreshToken token = new RefreshToken();
         token.setToken(refreshToken);
+        token.setSessionId(sessionId);
         token.setUser(user);
         token.setExpiryDate(expiry);
+        token.setCreatedAt(now);
         token.setRevoked(false);
 
-        refreshTokenRepository.revokeAllValidTokensByUser(user);
         refreshTokenRepository.save(token);
 
         return refreshToken;
@@ -145,15 +154,25 @@ public class AuthenticateServiceDefault implements AuthenticateService {
     @Override
     @Transactional
     public void logout(String currentRefreshToken) {
+        if (currentRefreshToken == null || currentRefreshToken.isBlank()) {
+            return;
+        }
+
         Optional<RefreshToken> refreshToken = refreshTokenRepository.findByToken(currentRefreshToken);
         refreshToken.ifPresent(token -> {
             token.setRevoked(true);
+            token.setRevokedAt(LocalDateTime.now());
             refreshTokenRepository.save(token);
         });
     }
 
     @Override
-    public String refreshAccessToken(String refreshToken) throws AuthenticationException {
+    @Transactional
+    public DoubleTokenDTO refreshTokens(String refreshToken) throws AuthenticationException {
+        if (refreshToken == null || refreshToken.isBlank()) {
+            throw new AuthenticationException("Missing refresh token");
+        }
+
         RefreshToken token = refreshTokenRepository.findByToken(refreshToken)
                 .orElseThrow(() -> new AuthenticationException("Invalid refresh token"));
 
@@ -162,7 +181,18 @@ public class AuthenticateServiceDefault implements AuthenticateService {
         }
 
         Users user = token.getUser();
-        return generateAccessToken(user);
+        LocalDateTime now = LocalDateTime.now();
+        UUID sessionId = token.getSessionId();
+        token.setLastUsedAt(now);
+        token.setRevoked(true);
+        token.setRevokedAt(now);
+        refreshTokenRepository.save(token);
+        refreshTokenRepository.flush();
+
+        String accessToken = generateAccessToken(user);
+        String newRefreshToken = generateAndSaveRefreshToken(user, sessionId);
+
+        return new DoubleTokenDTO(accessToken, newRefreshToken);
     }
 
     @Override
