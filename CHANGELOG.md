@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/LeoGouchon/hubscore/compare/v1.1.0...v1.1.1) (2026-06-14)
+
+
+### Bug Fixes
+
+* **auth:** logout was not exclude from jwt protection ([ce70d3a](https://github.com/LeoGouchon/hubscore/commit/ce70d3af06eeaa6ce1452ed7b18675428e51a003))
+
 # [1.1.0](https://github.com/LeoGouchon/hubscore/compare/v1.0.1...v1.1.0) (2026-06-08)
 
 
