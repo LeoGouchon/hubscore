@@ -37,11 +37,57 @@ public interface KickerEloRepository extends JpaRepository<KickerElo, KickerEloI
     void deleteByMatchCreatedAtAfter(Timestamp date);
 
     @Query(value = """
-            SELECT m.created_at AS date, ks.elo_after_match AS elo
-            FROM kicker_elo ks
-            JOIN kicker_matches m ON ks.match_id = m.id
-            WHERE ks.player_id = :playerId
-            ORDER BY ks.created_at
+            WITH history_player_elo AS (
+                SELECT DISTINCT ON (ke.player_id, DATE(m.created_at))
+                    DATE(m.created_at) AS match_day,
+                    m.created_at AS date,
+                    ke.player_id,
+                    ke.elo_after_match AS elo
+                FROM kicker_elo ke
+                JOIN kicker_matches m ON ke.match_id = m.id
+                ORDER BY ke.player_id, DATE(m.created_at), m.created_at DESC, ke.created_at DESC
+            ),
+            match_days AS (
+                SELECT DISTINCT match_day
+                FROM history_player_elo
+            ),
+            players AS (
+                SELECT DISTINCT player_id
+                FROM kicker_elo
+            ),
+            daily_player_elo AS (
+                SELECT DISTINCT ON (p.player_id, md.match_day)
+                    md.match_day,
+                    p.player_id,
+                    ke.elo_after_match AS elo
+                FROM match_days md
+                CROSS JOIN players p
+                JOIN kicker_elo ke ON ke.player_id = p.player_id
+                JOIN kicker_matches m ON ke.match_id = m.id
+                WHERE DATE(m.created_at) <= md.match_day
+                ORDER BY p.player_id, md.match_day, m.created_at DESC, ke.created_at DESC
+            ),
+            daily_elo_bounds AS (
+                SELECT
+                    match_day,
+                    MAX(elo) AS max,
+                    MIN(elo) AS min,
+                    PERCENTILE_DISC(0.25) WITHIN GROUP (ORDER BY elo) AS first_quartile,
+                    PERCENTILE_DISC(0.75) WITHIN GROUP (ORDER BY elo) AS third_quartile
+                FROM daily_player_elo
+                GROUP BY match_day
+            )
+            SELECT
+                CAST(player_elo.match_day AS timestamp) AS date,
+                player_elo.elo AS elo,
+                elo_bounds.max AS max,
+                elo_bounds.min AS min,
+                elo_bounds.first_quartile AS "firstQuartile",
+                elo_bounds.third_quartile AS "thirdQuartile"
+            FROM history_player_elo player_elo
+            JOIN daily_elo_bounds elo_bounds ON elo_bounds.match_day = player_elo.match_day
+            WHERE player_elo.player_id = :playerId
+            ORDER BY player_elo.match_day
             """, nativeQuery = true)
     List<EloHistoryDTO> getEloHistory(
             @Param("playerId") UUID playerId
