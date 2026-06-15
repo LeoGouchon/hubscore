@@ -223,13 +223,63 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
     List<SeasonalStatsDTO> getSeasonalStats(@Param("playerId") UUID playerId);
 
     @Query(value = """
-            SELECT km.created_at AS date, kes.elo_after_match AS elo
-            FROM kicker_elo_seasonal kes
-            JOIN kicker_matches km ON km.id = kes.match_id
-            WHERE kes.player_id = :playerId
-              AND kes.season_year = :year
-              AND kes.season_quarter = :quarter
-            ORDER BY kes.created_at
+            WITH history_player_elo AS (
+                SELECT DISTINCT ON (kes.player_id, DATE(km.created_at))
+                    DATE(km.created_at) AS match_day,
+                    km.created_at AS date,
+                    kes.player_id,
+                    kes.elo_after_match AS elo
+                FROM kicker_elo_seasonal kes
+                JOIN kicker_matches km ON km.id = kes.match_id
+                WHERE kes.season_year = :year
+                  AND kes.season_quarter = :quarter
+                ORDER BY kes.player_id, DATE(km.created_at), km.created_at DESC, kes.created_at DESC
+            ),
+            match_days AS (
+                SELECT DISTINCT match_day
+                FROM history_player_elo
+            ),
+            players AS (
+                SELECT DISTINCT player_id
+                FROM kicker_elo_seasonal
+                WHERE season_year = :year
+                  AND season_quarter = :quarter
+            ),
+            daily_player_elo AS (
+                SELECT DISTINCT ON (p.player_id, md.match_day)
+                    md.match_day,
+                    p.player_id,
+                    kes.elo_after_match AS elo
+                FROM match_days md
+                CROSS JOIN players p
+                JOIN kicker_elo_seasonal kes ON kes.player_id = p.player_id
+                JOIN kicker_matches km ON km.id = kes.match_id
+                WHERE kes.season_year = :year
+                  AND kes.season_quarter = :quarter
+                  AND DATE(km.created_at) <= md.match_day
+                ORDER BY p.player_id, md.match_day, km.created_at DESC, kes.created_at DESC
+            ),
+            daily_elo_bounds AS (
+                SELECT
+                    match_day,
+                    MAX(elo) AS max,
+                    MIN(elo) AS min,
+                    PERCENTILE_DISC(0.25) WITHIN GROUP (ORDER BY elo) AS first_quartile,
+                    PERCENTILE_DISC(0.75) WITHIN GROUP (ORDER BY elo) AS third_quartile
+                FROM daily_player_elo
+                GROUP BY match_day
+            )
+            SELECT
+                CAST(player_elo.match_day AS timestamp) AS date,
+                player_elo.elo AS elo,
+                elo_bounds.max AS max,
+                elo_bounds.min AS min,
+                elo_bounds.first_quartile AS "firstQuartile",
+                elo_bounds.third_quartile AS "thirdQuartile"
+            FROM history_player_elo player_elo
+            JOIN daily_elo_bounds elo_bounds ON elo_bounds.match_day = player_elo.match_day
+            WHERE player_elo.player_id = :playerId
+            ORDER BY player_elo.match_day
             """, nativeQuery = true)
     List<EloHistoryDTO> getEloHistory(
             @Param("playerId") UUID playerId,

@@ -4,6 +4,10 @@ import java.sql.Timestamp;
 
 public record EloHistoryDTO(
         Timestamp date,
-        int elo
+        int elo,
+        int max,
+        int min,
+        int firstQuartile,
+        int thirdQuartile
 ) {
 }
