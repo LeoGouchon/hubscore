@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/LeoGouchon/hubscore/compare/v1.1.1...v1.2.0) (2026-06-22)
+
+
+### Features
+
+* **kickerStats:** add quartil and max min on elo player history controller ([#45](https://github.com/LeoGouchon/hubscore/issues/45)) ([26afa48](https://github.com/LeoGouchon/hubscore/commit/26afa48112cb26fb1aac00e0e2fc640f32dc9ba7))
+
 ## [1.1.1](https://github.com/LeoGouchon/hubscore/compare/v1.1.0...v1.1.1) (2026-06-14)
 
 
