@@ -1,6 +1,8 @@
 package com.leogouchon.hubscore.common.config;
 
 import com.leogouchon.hubscore.common.dto.ApiErrorResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.exception.InactiveKickerMatchAccessCodeException;
+import com.leogouchon.hubscore.kicker_match_service.exception.InvalidKickerMatchAccessCodeException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +26,14 @@ public class GlobalExceptionHandler {
         }
 
         return ResponseEntity.badRequest().body(new ApiErrorResponseDTO("Validation failed", errors));
+    }
+
+    @ExceptionHandler({
+            InvalidKickerMatchAccessCodeException.class,
+            InactiveKickerMatchAccessCodeException.class
+    })
+    public ResponseEntity<ApiErrorResponseDTO> handleKickerMatchAccessCodeException(RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ApiErrorResponseDTO(e.getMessage()));
     }
 
     @ExceptionHandler(RuntimeException.class)

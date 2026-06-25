@@ -1,6 +1,7 @@
 package com.leogouchon.hubscore.kicker_match_service.service;
 
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import com.leogouchon.hubscore.user_service.entity.Users;
@@ -14,6 +15,8 @@ import java.util.UUID;
 
 public interface KickerMatchService {
     KickerMatches createMatch(@NotNull UUID player1TeamAId, @Nullable UUID player2TeamAId, @NotNull UUID player1TeamBId, @Nullable UUID player2TeamBId, Integer finalScoreA, Integer finalScoreB, Users createdByUser);
+
+    KickerMatches createMatchWithCode(String code, KickerMatchRequestDTO matchRequest);
 
     void deleteMatch(UUID id);
 
