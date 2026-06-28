@@ -22,5 +22,14 @@ services:
     depends_on:
       - db
 
+  tests:
+    image: maven:3.9.6-eclipse-temurin-21
+    working_dir: /app
+    volumes:
+      - .:/app
+      - maven-cache:/root/.m2
+    command: mvn test
+
 volumes:
   dbdata:
+  maven-cache:
