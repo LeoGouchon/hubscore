@@ -12,6 +12,7 @@ import com.leogouchon.hubscore.player_service.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -131,7 +132,7 @@ public class KickerStatServiceDefault implements KickerStatService {
 
         List<SeasonStatsProjection> seasonsStats = kickerEloSeasonalRepository.getSeasonsStats();
 
-        List<SeasonStatsResponseDTO> seasonsStatsResponse = seasonsStats.stream().map(stat -> {
+        List<SeasonStatsResponseDTO> seasonsStatsResponse = new ArrayList<>(seasonsStats.stream().map(stat -> {
             SeasonStatsResponseDTO dto = new SeasonStatsResponseDTO();
             dto.setYear(stat.getYear());
             dto.setQuarter(stat.getQuarter());
@@ -139,9 +140,29 @@ public class KickerStatServiceDefault implements KickerStatService {
             dto.setNbPlayers(stat.getNbPlayers());
 
             return dto;
-        }).toList();
+        }).toList());
+
+        LocalDate today = currentDate();
+        int currentYear = today.getYear();
+        int currentQuarter = (today.getMonthValue() - 1) / 3 + 1;
+        boolean currentSeasonExists = seasonsStatsResponse.stream()
+                .anyMatch(stat -> stat.getYear() == currentYear && stat.getQuarter() == currentQuarter);
+
+        if (!currentSeasonExists) {
+            SeasonStatsResponseDTO currentSeason = new SeasonStatsResponseDTO();
+            currentSeason.setYear(currentYear);
+            currentSeason.setQuarter(currentQuarter);
+            currentSeason.setNbMatches(0);
+            currentSeason.setNbPlayers(0);
+            seasonsStatsResponse.addFirst(currentSeason);
+            nbSeasons++;
+        }
 
         return new SeasonsStatsResponseDTO(nbSeasons, totalMatches, totalPlayers, seasonsStatsResponse);
+    }
+
+    protected LocalDate currentDate() {
+        return LocalDate.now();
     }
 
     @Override
