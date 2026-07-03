@@ -5,6 +5,7 @@ import com.leogouchon.hubscore.kicker_match_service.dto.SeasonalStatsDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloId;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloSeasonal;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.EloVisibilityProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.LoserScorePerDeltaEloProjection;
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.SeasonStatsProjection;
@@ -85,21 +86,23 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
                         JOIN match_counts mc
                           ON mc.player_id = le.player_id
                         WHERE le.rn = 1
-                          AND mc.total_matches >= 10
+                          AND mc.total_matches >= :minRankedMatches
                     )
                     SELECT
-                        le.player_id AS playerId,
-                        le.elo_after_match AS elo,
-                        COALESCE(rp.rank, 0) AS rank
-                    FROM latest_elo le
-                    LEFT JOIN ranked_players rp
-                      ON rp.player_id = le.player_id
-                    WHERE le.rn = 1
-                    ORDER BY rank;
+                        rp.player_id AS playerId,
+                        rp.elo_after_match AS elo,
+                        rp.rank
+                    FROM ranked_players rp
+                    ORDER BY rp.rank;
                     """,
             nativeQuery = true
     )
-    List<LastKickerEloByDateProjection> getLatestKickerSeasonEloByDate(Timestamp date, Integer year, Integer quarter);
+    List<LastKickerEloByDateProjection> getLatestKickerSeasonEloByDate(
+            @Param("date") Timestamp date,
+            @Param("year") Integer year,
+            @Param("quarter") Integer quarter,
+            @Param("minRankedMatches") int minRankedMatches
+    );
 
     @Query(
             value = """
@@ -147,7 +150,7 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
                                   FROM player_stats ps
                                   JOIN last_season_elo lse
                                     ON lse.player_id = ps.player_id
-                                  WHERE ps.total_matches >= 10
+                                  WHERE ps.total_matches >= :minRankedMatches
                               )
                               SELECT
                                   ps.player_id AS playerId,
@@ -168,7 +171,8 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
     )
     List<GlobalStatsResponseProjection> getSeasonPlayerStats(
             @Param("year") Integer year,
-            @Param("quarter") Integer quarter
+            @Param("quarter") Integer quarter,
+            @Param("minRankedMatches") int minRankedMatches
     );
 
 
@@ -198,6 +202,28 @@ public interface KickerEloSeasonalRepository extends JpaRepository<KickerEloSeas
             WHERE ke.id.matchId IN :matchIds
             """)
     List<KickerEloSeasonal> findAllByMatchIdIn(@Param("matchIds") List<UUID> matchIds);
+
+    @Query(value = """
+            SELECT
+                target.match_id AS matchId,
+                target.player_id AS playerId
+            FROM kicker_elo_seasonal target
+            JOIN kicker_matches target_match ON target_match.id = target.match_id
+            WHERE target.match_id IN (:matchIds)
+              AND (
+                  SELECT COUNT(*)
+                  FROM kicker_elo_seasonal previous
+                  JOIN kicker_matches previous_match ON previous_match.id = previous.match_id
+                  WHERE previous.player_id = target.player_id
+                    AND previous.season_year = target.season_year
+                    AND previous.season_quarter = target.season_quarter
+                    AND previous_match.created_at < target_match.created_at
+              ) >= :minRankedMatches
+            """, nativeQuery = true)
+    List<EloVisibilityProjection> findVisibleSeasonalEloBeforeMatchPairs(
+            @Param("matchIds") List<UUID> matchIds,
+            @Param("minRankedMatches") int minRankedMatches
+    );
 
     void deleteByMatchCreatedAtAfter(Timestamp date);
 
