@@ -21,7 +21,6 @@ class KickerStatServiceDefaultTests {
 
     private final KickerMatchRepository kickerMatchRepository = mock(KickerMatchRepository.class);
     private final KickerEloSeasonalRepository kickerEloSeasonalRepository = mock(KickerEloSeasonalRepository.class);
-    private final EloCalculatorService eloCalculator = mock(EloCalculatorService.class);
     private final PlayerService playerService = mock(PlayerService.class);
     private final KickerEloRepository kickerEloRepository = mock(KickerEloRepository.class);
 
@@ -73,7 +72,6 @@ class KickerStatServiceDefaultTests {
         return new KickerStatServiceDefault(
                 kickerMatchRepository,
                 kickerEloSeasonalRepository,
-                eloCalculator,
                 playerService,
                 kickerEloRepository
         ) {
