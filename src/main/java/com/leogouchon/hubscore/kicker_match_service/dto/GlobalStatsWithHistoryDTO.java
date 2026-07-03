@@ -18,10 +18,10 @@ public class GlobalStatsWithHistoryDTO {
     private int losses;
     private BigDecimal winRate;
     private List<Boolean> lastMatches;
-    private int currentElo;
+    private Integer currentElo;
     private int rank;
-    private int eloLastWeek;
-    private int rankLastWeek;
+    private Integer eloLastWeek;
+    private Integer rankLastWeek;
 
     public GlobalStatsWithHistoryDTO() {}
 }

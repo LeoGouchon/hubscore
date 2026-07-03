@@ -3,6 +3,7 @@ package com.leogouchon.hubscore.kicker_match_service.repository;
 import com.leogouchon.hubscore.kicker_match_service.dto.EloHistoryDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerElo;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloId;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.EloVisibilityProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -33,6 +34,26 @@ public interface KickerEloRepository extends JpaRepository<KickerElo, KickerEloI
             WHERE ke.id.matchId IN :matchIds
             """)
     List<KickerElo> findAllByMatchIdIn(@Param("matchIds") List<UUID> matchIds);
+
+    @Query(value = """
+            SELECT
+                target.match_id AS matchId,
+                target.player_id AS playerId
+            FROM kicker_elo target
+            JOIN kicker_matches target_match ON target_match.id = target.match_id
+            WHERE target.match_id IN (:matchIds)
+              AND (
+                  SELECT COUNT(*)
+                  FROM kicker_elo previous
+                  JOIN kicker_matches previous_match ON previous_match.id = previous.match_id
+                  WHERE previous.player_id = target.player_id
+                    AND previous_match.created_at < target_match.created_at
+              ) >= :minRankedMatches
+            """, nativeQuery = true)
+    List<EloVisibilityProjection> findVisibleEloBeforeMatchPairs(
+            @Param("matchIds") List<UUID> matchIds,
+            @Param("minRankedMatches") int minRankedMatches
+    );
 
     void deleteByMatchCreatedAtAfter(Timestamp date);
 

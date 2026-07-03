@@ -50,13 +50,16 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
                         FROM player_stats ps
                         JOIN player_kicker_informations pki
                           ON pki.player_id = ps.player_id
-                        WHERE ps.total_matches >= 10
+                        WHERE ps.total_matches >= :minRankedMatches
                     )
                     SELECT
                         ps.player_id AS playerId,
                         p.firstname,
                         p.lastname,
-                        pki.player_current_elo AS currentElo,
+                        CASE
+                            WHEN ps.total_matches >= :minRankedMatches THEN pki.player_current_elo
+                            ELSE NULL
+                        END AS currentElo,
                         ps.total_matches,
                         ps.wins,
                         ps.losses,
@@ -72,7 +75,8 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
     )
     List<GlobalStatsResponseProjection> getGlobalKickerStats(
             @Param("year") Integer year,
-            @Param("quarter") Integer quarter
+            @Param("quarter") Integer quarter,
+            @Param("minRankedMatches") int minRankedMatches
     );
 
     @Query(
@@ -105,7 +109,7 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
                         JOIN match_counts mc
                           ON mc.player_id = lpp.player_id
                         WHERE lpp.rn = 1
-                          AND mc.total_matches >= 10
+                          AND mc.total_matches >= :minRankedMatches
                     ),
                     ranked_players AS (
                         SELECT
@@ -123,7 +127,10 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
                     """,
             nativeQuery = true
     )
-    List<LastKickerEloByDateProjection> getLatestKickerEloByDate(Timestamp date);
+    List<LastKickerEloByDateProjection> getLatestKickerEloByDate(
+            @Param("date") Timestamp date,
+            @Param("minRankedMatches") int minRankedMatches
+    );
 
     @Query(value = """
                 SELECT (pmf.player_score = 10) as win

@@ -10,6 +10,7 @@ import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloRepository;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloSeasonalRepository;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.EloVisibilityProjection;
 import com.leogouchon.hubscore.kicker_match_service.service.EloCalculatorService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerEloService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
@@ -29,6 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static com.leogouchon.hubscore.kicker_match_service.service.KickerEloVisibilityRules.MIN_RANKED_MATCHES;
 
 @Service
 public class KickerMatchServiceDefault implements KickerMatchService {
@@ -157,6 +160,12 @@ public class KickerMatchServiceDefault implements KickerMatchService {
 
         List<KickerElo> elos = kickerEloRepository.findAllByMatchIdIn(matchIds);
         List<KickerEloSeasonal> seasonalElos = kickerEloSeasonalRepository.findAllByMatchIdIn(matchIds);
+        Map<UUID, Set<UUID>> visibleGlobalEloBeforeMatch = groupVisiblePairs(
+                kickerEloRepository.findVisibleEloBeforeMatchPairs(matchIds, MIN_RANKED_MATCHES)
+        );
+        Map<UUID, Set<UUID>> visibleSeasonalEloBeforeMatch = groupVisiblePairs(
+                kickerEloSeasonalRepository.findVisibleSeasonalEloBeforeMatchPairs(matchIds, MIN_RANKED_MATCHES)
+        );
 
         Map<UUID, KickerElo> eloMap = elos.stream()
                 .collect(Collectors.toMap(e -> e.getMatch().getId(), e -> e, (existing, duplicate) -> existing));
@@ -167,12 +176,24 @@ public class KickerMatchServiceDefault implements KickerMatchService {
                         e -> e.getMatch().getId(),
                         Collectors.toMap(e -> e.getPlayer().getId(), KickerElo::getEloChange)
                 ));
-        Map<UUID, Map<UUID, Integer>> globalEloBeforeMatchByMatchId = elos.stream()
+        Map<UUID, Map<UUID, Integer>> rawGlobalEloBeforeMatchByMatchId = elos.stream()
                 .collect(Collectors.groupingBy(
                         e -> e.getMatch().getId(),
                         Collectors.toMap(e -> e.getPlayer().getId(), KickerElo::getEloBeforeMatch)
                 ));
-        Map<UUID, Map<UUID, Integer>> seasonalEloBeforeMatchByMatchId = seasonalElos.stream()
+        Map<UUID, Map<UUID, Integer>> rawSeasonalEloBeforeMatchByMatchId = seasonalElos.stream()
+                .collect(Collectors.groupingBy(
+                        e -> e.getMatch().getId(),
+                        Collectors.toMap(e -> e.getPlayer().getId(), KickerEloSeasonal::getEloBeforeMatch)
+                ));
+        Map<UUID, Map<UUID, Integer>> visibleGlobalEloBeforeMatchByMatchId = elos.stream()
+                .filter(e -> isVisible(visibleGlobalEloBeforeMatch, e.getMatch().getId(), e.getPlayer().getId()))
+                .collect(Collectors.groupingBy(
+                        e -> e.getMatch().getId(),
+                        Collectors.toMap(e -> e.getPlayer().getId(), KickerElo::getEloBeforeMatch)
+                ));
+        Map<UUID, Map<UUID, Integer>> visibleSeasonalEloBeforeMatchByMatchId = seasonalElos.stream()
+                .filter(e -> isVisible(visibleSeasonalEloBeforeMatch, e.getMatch().getId(), e.getPlayer().getId()))
                 .collect(Collectors.groupingBy(
                         e -> e.getMatch().getId(),
                         Collectors.toMap(e -> e.getPlayer().getId(), KickerEloSeasonal::getEloBeforeMatch)
@@ -187,13 +208,19 @@ public class KickerMatchServiceDefault implements KickerMatchService {
                             .map(match -> Math.abs(match.getEloChange()))
                             .orElse(0);
                     Map<UUID, Integer> eloChangeByPlayerId = eloChangeByMatchId.getOrDefault(m.getId(), Map.of());
-                    Map<UUID, Integer> globalEloBeforeMatchByPlayerId = globalEloBeforeMatchByMatchId.getOrDefault(m.getId(), Map.of());
-                    Map<UUID, Integer> seasonalEloBeforeMatchByPlayerId = seasonalEloBeforeMatchByMatchId.getOrDefault(m.getId(), Map.of());
+                    Map<UUID, Integer> globalEloBeforeMatchByPlayerId = visibleGlobalEloBeforeMatchByMatchId.getOrDefault(m.getId(), Map.of());
+                    Map<UUID, Integer> seasonalEloBeforeMatchByPlayerId = visibleSeasonalEloBeforeMatchByMatchId.getOrDefault(m.getId(), Map.of());
                     EloBeforeMatchContext eloBeforeMatchContext = new EloBeforeMatchContext(
                             globalEloBeforeMatchByPlayerId,
                             seasonalEloBeforeMatchByPlayerId
                     );
-                    Double winChanceTeamA = getWinChanceTeamA(m, globalEloBeforeMatchByPlayerId, seasonalEloBeforeMatchByPlayerId);
+                    Double winChanceTeamA = getWinChanceTeamA(
+                            m,
+                            rawGlobalEloBeforeMatchByMatchId.getOrDefault(m.getId(), Map.of()),
+                            rawSeasonalEloBeforeMatchByMatchId.getOrDefault(m.getId(), Map.of()),
+                            visibleGlobalEloBeforeMatch,
+                            visibleSeasonalEloBeforeMatch
+                    );
                     KickerMatchMetrics metrics = new KickerMatchMetrics(
                             eloChange,
                             eloSeasonalChange,
@@ -221,12 +248,24 @@ public class KickerMatchServiceDefault implements KickerMatchService {
         return matchRepository.findById(id).map(m -> {
             List<KickerElo> elos = kickerEloRepository.findAllByMatchIdIn(List.of(m.getId()));
             List<KickerEloSeasonal> seasonalElos = kickerEloSeasonalRepository.findAllByMatchIdIn(List.of(m.getId()));
+            Map<UUID, Set<UUID>> visibleGlobalEloBeforeMatch = groupVisiblePairs(
+                    kickerEloRepository.findVisibleEloBeforeMatchPairs(List.of(m.getId()), MIN_RANKED_MATCHES)
+            );
+            Map<UUID, Set<UUID>> visibleSeasonalEloBeforeMatch = groupVisiblePairs(
+                    kickerEloSeasonalRepository.findVisibleSeasonalEloBeforeMatchPairs(List.of(m.getId()), MIN_RANKED_MATCHES)
+            );
 
             KickerElo elo = elos.stream().findFirst().orElse(null);
             KickerEloSeasonal eloSeasonal = seasonalElos.stream().findFirst().orElse(null);
+            Map<UUID, Integer> rawGlobalEloBeforeMatchByPlayerId = elos.stream()
+                    .collect(Collectors.toMap(e -> e.getPlayer().getId(), KickerElo::getEloBeforeMatch));
+            Map<UUID, Integer> rawSeasonalEloBeforeMatchByPlayerId = seasonalElos.stream()
+                    .collect(Collectors.toMap(e -> e.getPlayer().getId(), KickerEloSeasonal::getEloBeforeMatch));
             Map<UUID, Integer> globalEloBeforeMatchByPlayerId = elos.stream()
+                    .filter(e -> isVisible(visibleGlobalEloBeforeMatch, e.getMatch().getId(), e.getPlayer().getId()))
                     .collect(Collectors.toMap(e -> e.getPlayer().getId(), KickerElo::getEloBeforeMatch));
             Map<UUID, Integer> seasonalEloBeforeMatchByPlayerId = seasonalElos.stream()
+                    .filter(e -> isVisible(visibleSeasonalEloBeforeMatch, e.getMatch().getId(), e.getPlayer().getId()))
                     .collect(Collectors.toMap(e -> e.getPlayer().getId(), KickerEloSeasonal::getEloBeforeMatch));
             Map<UUID, Integer> eloChangeByPlayerId = elos.stream()
                     .collect(Collectors.toMap(e -> e.getPlayer().getId(), KickerElo::getEloChange));
@@ -242,7 +281,13 @@ public class KickerMatchServiceDefault implements KickerMatchService {
             int eloSeasonalChange = Optional.ofNullable(eloSeasonal)
                     .map(e -> Math.abs(e.getEloChange()))
                     .orElse(0);
-            Double winChanceTeamA = getWinChanceTeamA(m, globalEloBeforeMatchByPlayerId, seasonalEloBeforeMatchByPlayerId);
+            Double winChanceTeamA = getWinChanceTeamA(
+                    m,
+                    rawGlobalEloBeforeMatchByPlayerId,
+                    rawSeasonalEloBeforeMatchByPlayerId,
+                    visibleGlobalEloBeforeMatch,
+                    visibleSeasonalEloBeforeMatch
+            );
             KickerMatchMetrics metrics = new KickerMatchMetrics(
                     eloChange,
                     eloSeasonalChange,
@@ -264,22 +309,42 @@ public class KickerMatchServiceDefault implements KickerMatchService {
         return eloChangeByPlayerId.get(player.getId());
     }
 
+    private Map<UUID, Set<UUID>> groupVisiblePairs(List<EloVisibilityProjection> visiblePairs) {
+        return visiblePairs.stream()
+                .collect(Collectors.groupingBy(
+                        EloVisibilityProjection::getMatchId,
+                        Collectors.mapping(EloVisibilityProjection::getPlayerId, Collectors.toSet())
+                ));
+    }
+
+    private boolean isVisible(Map<UUID, Set<UUID>> visiblePairs, UUID matchId, UUID playerId) {
+        return visiblePairs.getOrDefault(matchId, Set.of()).contains(playerId);
+    }
+
     private Double getWinChanceTeamA(
             KickerMatches match,
             Map<UUID, Integer> globalEloBeforeMatchByPlayerId,
-            Map<UUID, Integer> seasonalEloBeforeMatchByPlayerId
+            Map<UUID, Integer> seasonalEloBeforeMatchByPlayerId,
+            Map<UUID, Set<UUID>> visibleGlobalEloBeforeMatch,
+            Map<UUID, Set<UUID>> visibleSeasonalEloBeforeMatch
     ) {
         Double teamAElo = getTeamWeightedElo(
+                match.getId(),
                 match.getPlayer1A(),
                 match.getPlayer2A(),
                 globalEloBeforeMatchByPlayerId,
-                seasonalEloBeforeMatchByPlayerId
+                seasonalEloBeforeMatchByPlayerId,
+                visibleGlobalEloBeforeMatch,
+                visibleSeasonalEloBeforeMatch
         );
         Double teamBElo = getTeamWeightedElo(
+                match.getId(),
                 match.getPlayer1B(),
                 match.getPlayer2B(),
                 globalEloBeforeMatchByPlayerId,
-                seasonalEloBeforeMatchByPlayerId
+                seasonalEloBeforeMatchByPlayerId,
+                visibleGlobalEloBeforeMatch,
+                visibleSeasonalEloBeforeMatch
         );
 
         if (teamAElo == null || teamBElo == null) {
@@ -298,12 +363,22 @@ public class KickerMatchServiceDefault implements KickerMatchService {
     }
 
     private Double getTeamWeightedElo(
+            UUID matchId,
             Players player1,
             Players player2,
             Map<UUID, Integer> globalEloBeforeMatchByPlayerId,
-            Map<UUID, Integer> seasonalEloBeforeMatchByPlayerId
+            Map<UUID, Integer> seasonalEloBeforeMatchByPlayerId,
+            Map<UUID, Set<UUID>> visibleGlobalEloBeforeMatch,
+            Map<UUID, Set<UUID>> visibleSeasonalEloBeforeMatch
     ) {
-        Double player1Elo = getPlayerWeightedElo(player1, globalEloBeforeMatchByPlayerId, seasonalEloBeforeMatchByPlayerId);
+        Double player1Elo = getPlayerWeightedElo(
+                matchId,
+                player1,
+                globalEloBeforeMatchByPlayerId,
+                seasonalEloBeforeMatchByPlayerId,
+                visibleGlobalEloBeforeMatch,
+                visibleSeasonalEloBeforeMatch
+        );
 
         if (player1Elo == null) {
             return null;
@@ -313,7 +388,14 @@ public class KickerMatchServiceDefault implements KickerMatchService {
             return player1Elo;
         }
 
-        Double player2Elo = getPlayerWeightedElo(player2, globalEloBeforeMatchByPlayerId, seasonalEloBeforeMatchByPlayerId);
+        Double player2Elo = getPlayerWeightedElo(
+                matchId,
+                player2,
+                globalEloBeforeMatchByPlayerId,
+                seasonalEloBeforeMatchByPlayerId,
+                visibleGlobalEloBeforeMatch,
+                visibleSeasonalEloBeforeMatch
+        );
 
         if (player2Elo == null) {
             return null;
@@ -323,15 +405,23 @@ public class KickerMatchServiceDefault implements KickerMatchService {
     }
 
     private Double getPlayerWeightedElo(
+            UUID matchId,
             Players player,
             Map<UUID, Integer> globalEloBeforeMatchByPlayerId,
-            Map<UUID, Integer> seasonalEloBeforeMatchByPlayerId
+            Map<UUID, Integer> seasonalEloBeforeMatchByPlayerId,
+            Map<UUID, Set<UUID>> visibleGlobalEloBeforeMatch,
+            Map<UUID, Set<UUID>> visibleSeasonalEloBeforeMatch
     ) {
-        int globalElo = Optional.ofNullable(globalEloBeforeMatchByPlayerId.get(player.getId()))
-                .orElse(eloCalculator.getInitialELo());
-        int seasonalElo = Optional.ofNullable(seasonalEloBeforeMatchByPlayerId.get(player.getId()))
-                .orElse(eloCalculator.getInitialELo());
+        UUID playerId = player.getId();
+        Integer globalElo = isVisible(visibleGlobalEloBeforeMatch, matchId, playerId)
+                ? globalEloBeforeMatchByPlayerId.get(playerId)
+                : eloCalculator.getInitialELo();
 
+        if (!isVisible(visibleSeasonalEloBeforeMatch, matchId, playerId)) {
+            return globalElo.doubleValue();
+        }
+
+        Integer seasonalElo = seasonalEloBeforeMatchByPlayerId.get(playerId);
         return seasonalElo * 0.7 + globalElo * 0.3;
     }
 }
