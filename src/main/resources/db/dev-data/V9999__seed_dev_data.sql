@@ -6041,6 +6041,15 @@ INSERT INTO public.player_team VALUES ('32cdfa54-92a8-47e8-8a29-5dee476fc04d', '
 INSERT INTO public.users VALUES ('admin@gmail.com', '$2y$10$aiZniPufX3F4eUAQTseNLeAWClxcp5u.rauU2RVf2c3kW8x/oeSHG', true, 'f027e5f9-31a1-42ac-90b3-dc437585b839', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741'); -- passowrd: admin
 INSERT INTO public.users VALUES ('user@gmail.com', '$2y$10$VkLzPdzANN51bnn8oLn74.ynGE6uQe7pDJtZgy64SP18Pev7iQjX.', false, 'dc437585-98ea-4efe-90b3-b83f027e5f99'); -- password: user
 
+--
+-- Data for Name: kicker_match_access_codes; Type: TABLE DATA; Schema: public; Owner: hubscoreuser
+--
+
+INSERT INTO public.kicker_match_access_codes (id, code, status, created_at, expires_at, last_used_at, usage_count, revoked_at, revoked_reason, created_by)
+VALUES ('d0ab5fcb-2810-47c6-8f9a-2b9e7ccf4a65', 'PUBLIC', 'ACTIVE', CURRENT_TIMESTAMP, NULL, NULL, 0, NULL, NULL, 'f027e5f9-31a1-42ac-90b3-dc437585b839');
+INSERT INTO public.kicker_match_access_codes (id, code, status, created_at, expires_at, last_used_at, usage_count, revoked_at, revoked_reason, created_by)
+VALUES ('c5be2878-325e-4d0d-852e-24cf0614df4a', 'DISABLED', 'REVOKED', CURRENT_TIMESTAMP, NULL, NULL, 0, CURRENT_TIMESTAMP, 'MANUAL', 'f027e5f9-31a1-42ac-90b3-dc437585b839');
+
 REFRESH MATERIALIZED VIEW public.mv_player_match_facts;
 
 
