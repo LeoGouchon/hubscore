@@ -1,3 +1,16 @@
+# [1.3.0](https://github.com/LeoGouchon/hubscore/compare/v1.2.0...v1.3.0) (2026-07-14)
+
+
+### Bug Fixes
+
+* **kickerMatches:** hide elo visibility when min ranked matches is not met ([#48](https://github.com/LeoGouchon/hubscore/issues/48)) ([f09c932](https://github.com/LeoGouchon/hubscore/commit/f09c932ff35b14aa2e6135dae7a40929afeb23d1))
+* **kickerStats:** api return seasons stats even if no match has been played ([#47](https://github.com/LeoGouchon/hubscore/issues/47)) ([b8d77d8](https://github.com/LeoGouchon/hubscore/commit/b8d77d8b6498d7522f6eceb23d99c58ddbb02eff))
+
+
+### Features
+
+* **kickerMatches:** create access code to be able to create match without being logged ([#49](https://github.com/LeoGouchon/hubscore/issues/49)) ([aea1d8f](https://github.com/LeoGouchon/hubscore/commit/aea1d8fbe9c544cd588442fca865f2b60c491051))
+
 # [1.2.0](https://github.com/LeoGouchon/hubscore/compare/v1.1.1...v1.2.0) (2026-06-22)
 
 
