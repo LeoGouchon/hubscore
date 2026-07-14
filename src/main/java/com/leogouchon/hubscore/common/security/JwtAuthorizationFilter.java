@@ -6,6 +6,7 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -34,6 +35,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             "/api/v1/ping"
     );
 
+    private static final Set<String> POST_ONLY_EXCLUDED_PATHS = Set.of(
+            "/api/v1/kicker/matches/public"
+    );
+
     private static final List<Pattern> GET_ONLY_EXCLUDED_PATTERNS = List.of(
             Pattern.compile("/api/v1/kicker/matches"),
             Pattern.compile("/api/v1/players"),
@@ -52,8 +57,8 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(
             HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain filterChain
+            @NonNull HttpServletResponse response,
+            @NonNull FilterChain filterChain
     ) throws ServletException, IOException {
 
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
@@ -97,6 +102,10 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private boolean isExcluded(String path, String method) {
         if (UNCONDITIONAL_EXCLUDED_PATHS.contains(path)) {
+            return true;
+        }
+
+        if ("POST".equalsIgnoreCase(method) && POST_ONLY_EXCLUDED_PATHS.contains(path)) {
             return true;
         }
 

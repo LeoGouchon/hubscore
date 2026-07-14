@@ -1,11 +1,13 @@
 package com.leogouchon.hubscore.kicker_match_service.service.impl;
 
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO.EloBeforeMatchContext;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO.KickerMatchMetrics;
 import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerElo;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloSeasonal;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatchAccessCode;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloRepository;
 import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloSeasonalRepository;
@@ -13,6 +15,7 @@ import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchReposi
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.EloVisibilityProjection;
 import com.leogouchon.hubscore.kicker_match_service.service.EloCalculatorService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerEloService;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchAccessCodeService;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
 import com.leogouchon.hubscore.kicker_match_service.service.PlayerMatchFactsViewService;
 import com.leogouchon.hubscore.kicker_match_service.specification.KickerMatchSpecifications;
@@ -43,6 +46,7 @@ public class KickerMatchServiceDefault implements KickerMatchService {
     private final KickerEloService kickerEloSeasonalService;
     private final PlayerMatchFactsViewService playerMatchFactsViewService;
     private final EloCalculatorService eloCalculator;
+    private final KickerMatchAccessCodeService accessCodeService;
 
     @Autowired
     public KickerMatchServiceDefault(
@@ -53,7 +57,8 @@ public class KickerMatchServiceDefault implements KickerMatchService {
             @Qualifier("globalEloService") KickerEloService kickerEloService,
             @Qualifier("seasonalEloService") KickerEloService kickerEloSeasonalService,
             PlayerMatchFactsViewService playerMatchFactsViewService,
-            EloCalculatorService eloCalculator) {
+            EloCalculatorService eloCalculator,
+            KickerMatchAccessCodeService accessCodeService) {
         this.matchRepository = matchRepository;
         this.kickerEloRepository = kickerEloRepository;
         this.kickerEloSeasonalRepository = kickerEloSeasonalRepository;
@@ -62,6 +67,7 @@ public class KickerMatchServiceDefault implements KickerMatchService {
         this.kickerEloSeasonalService = kickerEloSeasonalService;
         this.playerMatchFactsViewService = playerMatchFactsViewService;
         this.eloCalculator = eloCalculator;
+        this.accessCodeService = accessCodeService;
     }
 
     @Transactional
@@ -113,6 +119,25 @@ public class KickerMatchServiceDefault implements KickerMatchService {
         kickerEloSeasonalService.calculateElo(match);
         playerMatchFactsViewService.refreshAfterCommit();
 
+        return match;
+    }
+
+    @Transactional
+    @Override
+    public KickerMatches createMatchWithCode(String code, KickerMatchRequestDTO matchRequest) {
+        KickerMatchAccessCode accessCode = accessCodeService.getActiveCodeForUse(code);
+
+        KickerMatches match = createMatch(
+                matchRequest.getPlayer1AId(),
+                matchRequest.getPlayer2AId(),
+                matchRequest.getPlayer1BId(),
+                matchRequest.getPlayer2BId(),
+                matchRequest.getScoreA(),
+                matchRequest.getScoreB(),
+                null
+        );
+
+        accessCodeService.markCodeUsed(accessCode);
         return match;
     }
 

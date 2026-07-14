@@ -11,7 +11,6 @@ import java.sql.Timestamp;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -20,6 +19,7 @@ public class KickerMatchSpecifications {
     private static final String PLAYER_2_OF_TEAM_A = "player2A";
     private static final String PLAYER_1_OF_TEAM_B = "player1B";
     private static final String PLAYER_2_OF_TEAM_B = "player2B";
+    private static final ZoneId MATCH_DATE_ZONE = ZoneId.of("Europe/Paris");
 
     private KickerMatchSpecifications() {
     }
@@ -154,16 +154,20 @@ public class KickerMatchSpecifications {
      */
     public static Specification<KickerMatches> dateIs(Long epochMillis) {
         return (root, query, cb) -> {
-            // shamelessly prompted it
             Instant instant = Instant.ofEpochMilli(epochMillis);
-            LocalDate date = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate date = instant.atZone(MATCH_DATE_ZONE).toLocalDate();
 
             Path<Timestamp> createdAt = root.get("createdAt");
 
-            return cb.between(
-                    createdAt,
-                    Timestamp.valueOf(date.atStartOfDay()),
-                    Timestamp.valueOf(date.plusDays(1).atStartOfDay())
+            return cb.and(
+                    cb.greaterThanOrEqualTo(
+                            createdAt,
+                            Timestamp.from(date.atStartOfDay(MATCH_DATE_ZONE).toInstant())
+                    ),
+                    cb.lessThan(
+                            createdAt,
+                            Timestamp.from(date.plusDays(1).atStartOfDay(MATCH_DATE_ZONE).toInstant())
+                    )
             );
         };
     }

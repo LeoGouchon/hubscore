@@ -9,6 +9,30 @@ That's it!
 There's sample data for your development while building. Feel free to add another migrating file if you need to inside `src/main/resources/db/migration`.
 `.env` file contain credentials to access to the database.
 
+## How to run tests
+
+Tests can be run without a local Java installation:
+
+```sh
+docker compose run --rm tests
+```
+
+or:
+
+```sh
+make test
+```
+
+`make test` also prints a quick JaCoCo coverage summary in the terminal.
+
+Coverage can be generated with:
+
+```sh
+make coverage
+```
+
+The HTML report is written to `target/site/jacoco/index.html`.
+
 ## Description
 
 Backend of mobile application SquashApp

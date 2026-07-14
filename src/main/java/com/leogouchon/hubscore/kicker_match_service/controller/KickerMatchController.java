@@ -5,6 +5,7 @@ import com.leogouchon.hubscore.authenticate_service.service.AuthenticateService;
 import com.leogouchon.hubscore.common.dto.PaginatedResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.PublicKickerMatchRequestDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
 import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
@@ -45,7 +46,10 @@ public class KickerMatchController {
     private final AuthenticateService authenticateService;
 
     @Autowired
-    public KickerMatchController(KickerMatchService matchService, AuthenticateService authenticateService) {
+    public KickerMatchController(
+            KickerMatchService matchService,
+            AuthenticateService authenticateService
+    ) {
         this.matchService = matchService;
         this.authenticateService = authenticateService;
     }
@@ -110,6 +114,24 @@ public class KickerMatchController {
                 matchRequest.getScoreB(),
                 createdByUser
         );
+        URI location = URI.create("/api/v1/kicker/matches/" + createdMatch.getId());
+        KickerMatchResponseDTO match = matchService.getMatchResponseDTO(createdMatch.getId())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to load created match"));
+        return ResponseEntity.created(location).body(match);
+    }
+
+    @Operation(
+            summary = "Create match with access code",
+            description = "Create a new match without an account by consuming an active access code",
+            responses = {
+                    @ApiResponse(responseCode = "201", description = "Match created"),
+                    @ApiResponse(responseCode = "400", description = "Bad request", content = {@Content(schema = @Schema())}),
+                    @ApiResponse(responseCode = "401", description = "Invalid or inactive access code", content = {@Content(schema = @Schema())})
+            }
+    )
+    @PostMapping("/public")
+    public ResponseEntity<KickerMatchResponseDTO> createMatchWithCode(@Valid @RequestBody PublicKickerMatchRequestDTO request) {
+        KickerMatches createdMatch = matchService.createMatchWithCode(request.getCode(), request.getMatch());
         URI location = URI.create("/api/v1/kicker/matches/" + createdMatch.getId());
         KickerMatchResponseDTO match = matchService.getMatchResponseDTO(createdMatch.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to load created match"));

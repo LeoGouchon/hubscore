@@ -15,7 +15,10 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.LinkedHashMap;
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +33,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         "spring.jpa.hibernate.ddl-auto=create-drop"
 })
 class KickerMatchSpecificationsTest {
+    private static final ZoneId PARIS_ZONE = ZoneId.of("Europe/Paris");
 
     @Autowired
     private KickerMatchRepository repository;
@@ -124,6 +128,29 @@ class KickerMatchSpecificationsTest {
 
         List<KickerMatches> result = repository.findAll(
                 KickerMatchSpecifications.dateIs(dayEpoch(2025, 1, 18))
+        );
+
+        assertThat(result).extracting(KickerMatches::getId).containsExactly(expected.getId());
+    }
+
+    @Test
+    void dateIs_shouldUseParisCalendarDayWhenEpochComesFromClientMidnight() {
+        Fixtures fixtures = fixtures().players("p1", "p2", "p3", "p4");
+
+        fixtures.matchAtInstant("p1", "p3", "p2", "p4",
+                ZonedDateTime.of(2025, 1, 17, 23, 30, 0, 0, PARIS_ZONE).toInstant());
+        KickerMatches expected = fixtures.matchAtInstant("p1", "p2", "p3", "p4",
+                ZonedDateTime.of(2025, 1, 18, 0, 30, 0, 0, PARIS_ZONE).toInstant());
+        fixtures.matchAtInstant("p1", "p3", "p2", "p4",
+                ZonedDateTime.of(2025, 1, 19, 0, 0, 0, 0, PARIS_ZONE).toInstant());
+
+        long clientMidnightEpoch = LocalDate.of(2025, 1, 18)
+                .atStartOfDay(PARIS_ZONE)
+                .toInstant()
+                .toEpochMilli();
+
+        List<KickerMatches> result = repository.findAll(
+                KickerMatchSpecifications.dateIs(clientMidnightEpoch)
         );
 
         assertThat(result).extracting(KickerMatches::getId).containsExactly(expected.getId());
@@ -261,6 +288,14 @@ class KickerMatchSpecificationsTest {
         private KickerMatches match(String p1A, String p2A, String p1B, String p2B, LocalDateTime createdAt) {
             KickerMatches match = new KickerMatches(player(p1A), player(p2A), player(p1B), player(p2B), 10, 8, null);
             match.setCreatedAt(Timestamp.valueOf(createdAt));
+            entityManager.persist(match);
+            entityManager.flush();
+            return match;
+        }
+
+        private KickerMatches matchAtInstant(String p1A, String p2A, String p1B, String p2B, java.time.Instant createdAt) {
+            KickerMatches match = new KickerMatches(player(p1A), player(p2A), player(p1B), player(p2B), 10, 8, null);
+            match.setCreatedAt(Timestamp.from(createdAt));
             entityManager.persist(match);
             entityManager.flush();
             return match;
