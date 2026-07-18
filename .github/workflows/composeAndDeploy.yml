@@ -39,6 +39,7 @@ jobs:
             cd ~/hubscore
             docker compose pull backend
             docker compose up -d backend
+            docker image prune -af
 
       - name: Ping the deployed API
         run: |
