@@ -16,28 +16,15 @@ public class HubScoreApplication implements WebMvcConfigurer {
         SpringApplication.run(HubScoreApplication.class, args);
     }
 
-    @Value("${spring.profiles.active:}")
-    private String activeProfile;
+    @Value("${hubscore.cors.allowed-origins}")
+    private String allowedOrigins;
 
     @Override
     public void addCorsMappings(@NotNull CorsRegistry registry) {
-        if ("prod".equalsIgnoreCase(activeProfile)) {
-            registry.addMapping("/api/**")
-                    .allowedOrigins(
-                            "https://squash.leogouchon.com",
-                            "https://www.squash.leogouchon.com",
-                            "https://babyfoot.leogouchon.com",
-                            "https://www.babyfoot.leogouchon.com"
-                    )
-                    .allowedMethods("*")
-                    .allowedHeaders("*")
-                    .allowCredentials(true);
-        } else {
-            registry.addMapping("/api/**")
-                    .allowedOrigins("http://localhost:4200", "http://localhost:5173")
-                    .allowedMethods("*")
-                    .allowedHeaders("*")
-                    .allowCredentials(true);
-        }
+        registry.addMapping("/api/**")
+                .allowedOrigins(allowedOrigins.split(","))
+                .allowedMethods("*")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }

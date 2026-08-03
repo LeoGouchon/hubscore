@@ -41,3 +41,6 @@ build/
 .vscode/
 
 /node_modules
+
+/config/*.yml
+!/config/*.example.yml

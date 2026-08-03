@@ -1,4 +1,12 @@
-dev:
+CONFIG_FILE := config/application-dev.yml
+CONFIG_EXAMPLE := config/application-dev.example.yml
+
+.PHONY: config dev build test rebuild clean logs ps
+
+config:
+	powershell -NoProfile -ExecutionPolicy Bypass -Command "if (-not (Test-Path '$(CONFIG_FILE)')) { Copy-Item '$(CONFIG_EXAMPLE)' '$(CONFIG_FILE)'; Write-Host 'Created $(CONFIG_FILE). Review it before starting.' } else { Write-Host 'Using existing $(CONFIG_FILE).' }"
+
+dev: config
 	docker compose up -d
 
 build:

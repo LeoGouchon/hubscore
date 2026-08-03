@@ -20,7 +20,18 @@ IDENTITY_ISSUER=http://localhost:8081
 IDENTITY_JWK_SET_URI=http://localhost:8081/oauth2/jwks
 IDENTITY_AUDIENCE=default-api
 BACKEND_PROVISIONING_SECRET=change-me
-HUBSCORE_CORS_ALLOWED_ORIGINS=http://localhost:4200
+```
+
+The complete local Docker configuration is kept in `config/application-dev.yml`, which is
+created from `config/application-dev.example.yml` by `make dev` and mounted into the container.
+The CORS origins are configured as a YAML list:
+
+```yaml
+hubscore:
+  cors:
+    allowed-origins:
+      - http://localhost:4200
+      - http://localhost:5173
 ```
 
 Use the same issuer, audience, and provisioning secret in both applications. The identity server must include
@@ -76,7 +87,7 @@ Backend of mobile application SquashApp
 * **Migration**
     + Flyway
 
-## Required configuration (`application.properties`)
+## Required configuration (`application.yml`)
 
 * **Flyway**
     * `spring.flyway.enabled` : Enable database migration
