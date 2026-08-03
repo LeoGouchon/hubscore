@@ -16,9 +16,10 @@ public class PaginatedResponseDTO<T> {
 
     /**
      * @deprecated (since 1.0.0, forRemoval=true, do not use this constructor)
-      */
-    @Deprecated(since="1.0.0", forRemoval=true)
-    public PaginatedResponseDTO() {}
+     */
+    @Deprecated(since = "1.0.0", forRemoval = true)
+    public PaginatedResponseDTO() {
+    }
 
     public PaginatedResponseDTO(List<T> content, int currentPage, int totalPages, long totalElements, int pageSize) {
         this.content = content;

@@ -13,15 +13,23 @@ import java.util.UUID;
 @RequestMapping("/api/v1/users")
 public class RoleController {
     private final UserRepository users;
-    public RoleController(UserRepository users) { this.users = users; }
+
+    public RoleController(UserRepository users) {
+        this.users = users;
+    }
 
     @PutMapping("/{id}/role")
     @PreAuthorize("hasRole('ADMIN')")
     public void updateRole(@PathVariable UUID id, @RequestBody RoleRequest request) {
         var user = users.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
-        try { user.setRole(UserRole.valueOf(request.role().toUpperCase())); }
-        catch (IllegalArgumentException e) { throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unknown role"); }
+        try {
+            user.setRole(UserRole.valueOf(request.role().toUpperCase()));
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Unknown role");
+        }
         users.save(user);
     }
-    public record RoleRequest(String role) {}
+
+    public record RoleRequest(String role) {
+    }
 }

@@ -32,8 +32,10 @@ import java.util.List;
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
-    @Value("${identity.issuer}") private String identityIssuer;
-    @Value("${identity.audience}") private String identityAudience;
+    @Value("${identity.issuer}")
+    private String identityIssuer;
+    @Value("${identity.audience}")
+    private String identityAudience;
 
     @Bean
     public JwtDecoder jwtDecoder(@Value("${identity.jwk-set-uri}") String jwkSetUri) {

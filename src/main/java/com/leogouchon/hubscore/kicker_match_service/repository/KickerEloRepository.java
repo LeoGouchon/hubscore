@@ -17,13 +17,13 @@ import java.util.UUID;
 @Repository
 public interface KickerEloRepository extends JpaRepository<KickerElo, KickerEloId> {
     @Query("""
-        SELECT ke.eloAfterMatch
-        FROM KickerElo ke
-        JOIN KickerMatches m ON ke.match.id = m.id
-        WHERE ke.player.id = :playerId
-        ORDER BY m.createdAt DESC
-        LIMIT 1
-    """)
+                SELECT ke.eloAfterMatch
+                FROM KickerElo ke
+                JOIN KickerMatches m ON ke.match.id = m.id
+                WHERE ke.player.id = :playerId
+                ORDER BY m.createdAt DESC
+                LIMIT 1
+            """)
     Optional<Integer> findLastElo(
             @Param("playerId") UUID playerId
     );

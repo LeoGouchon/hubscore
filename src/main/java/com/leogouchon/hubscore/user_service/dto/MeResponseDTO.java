@@ -24,6 +24,10 @@ public class MeResponseDTO {
     }
 
     public MeResponseDTO(UUID id, String email, Players player, String role) {
-        this.id = id; this.email = email; this.player = player; this.role = role; this.isAdmin = "ADMIN".equals(role);
+        this.id = id;
+        this.email = email;
+        this.player = player;
+        this.role = role;
+        this.isAdmin = "ADMIN".equals(role);
     }
 }

@@ -4,6 +4,8 @@ import java.util.UUID;
 
 public interface LastKickerEloByDateProjection {
     UUID getPlayerId();
+
     int getElo();
+
     int getRank();
 }

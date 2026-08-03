@@ -5,12 +5,20 @@ import java.util.UUID;
 
 public interface GlobalStatsResponseProjection {
     UUID getPlayerId();
+
     String getFirstname();
+
     String getLastname();
+
     int getTotalMatches();
+
     int getWins();
+
     int getLosses();
+
     BigDecimal getWinRate();
+
     Integer getCurrentElo();
+
     int getRank();
 }

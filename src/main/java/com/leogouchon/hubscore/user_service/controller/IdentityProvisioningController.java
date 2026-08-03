@@ -18,13 +18,16 @@ public class IdentityProvisioningController {
     private final String secret;
 
     public IdentityProvisioningController(UserRepository users, PlayerRepository players, @Value("${hubscore.provisioning-secret}") String secret) {
-        this.users = users; this.players = players; this.secret = secret;
+        this.users = users;
+        this.players = players;
+        this.secret = secret;
     }
 
     @PostMapping
     public void provision(@RequestHeader("X-Identity-Provisioning-Secret") String provided,
                           @RequestBody ProvisionUser request) {
-        if (!secret.equals(provided)) throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid provisioning secret");
+        if (!secret.equals(provided))
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Invalid provisioning secret");
         Users user = users.findByIdentityUserId(request.identityUserId()).orElseGet(() -> {
             Users created = new Users(request.email());
             created.setIdentityUserId(request.identityUserId());
@@ -35,5 +38,6 @@ public class IdentityProvisioningController {
         users.save(user);
     }
 
-    public record ProvisionUser(UUID identityUserId, String email, UUID playerId) {}
+    public record ProvisionUser(UUID identityUserId, String email, UUID playerId) {
+    }
 }

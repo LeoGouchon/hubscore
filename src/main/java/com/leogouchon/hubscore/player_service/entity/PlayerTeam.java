@@ -22,7 +22,8 @@ public class PlayerTeam {
     @MapsId("teamId")
     private Teams team;
 
-    public PlayerTeam() {}
+    public PlayerTeam() {
+    }
 
     public PlayerTeam(Players player, Teams team) {
         this.id = new PlayerTeamId(player.getId(), team.getId());

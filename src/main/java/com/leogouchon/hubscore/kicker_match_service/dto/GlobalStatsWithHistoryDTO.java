@@ -23,5 +23,6 @@ public class GlobalStatsWithHistoryDTO {
     private Integer eloLastWeek;
     private Integer rankLastWeek;
 
-    public GlobalStatsWithHistoryDTO() {}
+    public GlobalStatsWithHistoryDTO() {
+    }
 }

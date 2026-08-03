@@ -17,27 +17,24 @@ CREATE TABLE squash_points
 
 CREATE INDEX idx_squash_points_match_id ON squash_points (squash_match_id);
 
-INSERT INTO squash_points (
-    id,
-    squash_match_id,
-    point_order,
-    created_at,
-    server,
-    service_side,
-    scorer,
-    score_a,
-    score_b
-)
-SELECT
-    gen_random_uuid(),
-    m.id,
-    (p.ordinality - 1)::INTEGER,
-    m.start_time,
-    p.point->>'server',
-    p.point->>'serviceSide',
-    p.point->>'scorer',
-    (p.point->>'scoreA')::INTEGER,
-    (p.point->>'scoreB')::INTEGER
+INSERT INTO squash_points (id,
+                           squash_match_id,
+                           point_order,
+                           created_at,
+                           server,
+                           service_side,
+                           scorer,
+                           score_a,
+                           score_b)
+SELECT gen_random_uuid(),
+       m.id,
+       (p.ordinality - 1)::INTEGER,
+       m.start_time,
+       p.point ->> 'server',
+       p.point ->> 'serviceSide',
+       p.point ->> 'scorer',
+       (p.point ->> 'scoreA')::INTEGER,
+       (p.point ->> 'scoreB')::INTEGER
 FROM squash_matches m
          CROSS JOIN LATERAL jsonb_array_elements(
         CASE

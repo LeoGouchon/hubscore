@@ -94,15 +94,15 @@ public class PlayerServiceDefault implements PlayerService {
 
     public List<Players> getUnassociatedPlayers(String sport, String teamId) {
         Specification<Players> spec = (root, query, cb) -> cb.conjunction();
-        
+
         if (sport != null && !sport.isBlank()) {
             spec = spec.and(PlayerSpecifications.bySport(sport));
         }
-        
+
         if (isValidUuid(teamId)) {
             spec = spec.and(PlayerSpecifications.byTeam(UUID.fromString(teamId)));
         }
-        
+
         spec = spec.and(PlayerSpecifications.withoutUser());
 
         return playerRepository.findAll(spec);

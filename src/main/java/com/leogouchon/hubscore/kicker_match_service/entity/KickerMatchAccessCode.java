@@ -54,7 +54,8 @@ public class KickerMatchAccessCode {
     @JoinColumn(name = "created_by", referencedColumnName = "id", nullable = false)
     private Users createdBy;
 
-    protected KickerMatchAccessCode() {}
+    protected KickerMatchAccessCode() {
+    }
 
     public KickerMatchAccessCode(String code, Users createdBy, Timestamp expiresAt) {
         this.code = code;

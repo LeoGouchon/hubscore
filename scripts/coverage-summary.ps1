@@ -1,27 +1,31 @@
 $reportPath = Join-Path $PSScriptRoot "..\target\site\jacoco\jacoco.csv"
 
-if (!(Test-Path $reportPath)) {
+if (!(Test-Path $reportPath))
+{
     Write-Host "Coverage summary unavailable: $reportPath was not found."
     exit 1
 }
 
 $rows = Import-Csv $reportPath
 
-function Format-Coverage {
+function Format-Coverage
+{
     param(
         [int] $Missed,
         [int] $Covered
     )
 
     $total = $Missed + $Covered
-    if ($total -eq 0) {
+    if ($total -eq 0)
+    {
         return "n/a"
     }
 
     return "{0:N2}%" -f (($Covered / $total) * 100)
 }
 
-function Sum-Column {
+function Sum-Column
+{
     param(
         [string] $Name
     )

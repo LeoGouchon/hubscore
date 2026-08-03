@@ -1,4 +1,6 @@
-ALTER TABLE users DROP COLUMN IF EXISTS password;
-ALTER TABLE users DROP COLUMN IF EXISTS is_admin;
+ALTER TABLE users
+    DROP COLUMN IF EXISTS password;
+ALTER TABLE users
+    DROP COLUMN IF EXISTS is_admin;
 DROP TABLE IF EXISTS refresh_token;
 DROP TABLE IF EXISTS invitation_token;

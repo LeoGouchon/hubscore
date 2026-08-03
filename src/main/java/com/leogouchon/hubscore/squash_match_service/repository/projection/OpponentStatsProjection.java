@@ -8,6 +8,7 @@ public interface OpponentStatsProjection {
     UUID getOpponentId();
 
     String getOpponentFirstname();
+
     String getOpponentLastname();
 
     int getTotalMatches();
@@ -19,8 +20,10 @@ public interface OpponentStatsProjection {
     Double getAverageScoreWhenLost();
 
     int getCloseWonCount();
+
     int getCloseLostCount();
 
     int getStompsWonCount();
+
     int getStompsLostCount();
 }
