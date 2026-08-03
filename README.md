@@ -9,6 +9,25 @@ That's it!
 There's sample data for your development while building. Feel free to add another migrating file if you need to inside `src/main/resources/db/migration`.
 `.env` file contain credentials to access to the database.
 
+## Identity server / OIDC configuration
+
+Hubscore is an OAuth 2.0 resource server. The local defaults match the sibling
+`identity-server` Docker setup:
+
+```dotenv
+IDENTITY_ISSUER=http://localhost:8081
+IDENTITY_JWK_SET_URI=http://localhost:8081/oauth2/jwks
+IDENTITY_AUDIENCE=default-api
+BACKEND_PROVISIONING_SECRET=change-me
+HUBSCORE_CORS_ALLOWED_ORIGINS=http://localhost:4200
+```
+
+Use the same issuer, audience, and provisioning secret in both applications. The
+identity server must include `default-api` in `identity.allowed-backends`, or set
+`IDENTITY_AUDIENCE` to the backend value configured there. Hubscore validates the
+token signature, issuer, and audience, and maps the token `sub` claim to
+`users.identity_user_id`.
+
 ## How to run tests
 
 Tests can be run without a local Java installation:

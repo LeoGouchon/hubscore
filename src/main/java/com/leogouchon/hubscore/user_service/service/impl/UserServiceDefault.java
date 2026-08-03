@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -16,20 +15,17 @@ import java.util.UUID;
 public class UserServiceDefault implements UserService {
 
     private final UserRepository userRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceDefault(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public UserServiceDefault(UserRepository userRepository) {
         this.userRepository = userRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
     public Users createUser(Users users) {
         if (userRepository.findByEmail(users.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Email already exists");
         }
-        users.setPassword(passwordEncoder.encode(users.getPassword()));
-        users.setIsAdmin(false);
+        users.setRole(com.leogouchon.hubscore.user_service.entity.UserRole.USER);
         return userRepository.save(users);
     }
 
@@ -45,9 +41,6 @@ public class UserServiceDefault implements UserService {
         Users existingUsers = getUserById(user.getId());
         if (user.getEmail() != null) {
             existingUsers.setEmail(user.getEmail());
-        }
-        if (user.getPassword() != null) {
-            existingUsers.setPassword(user.getPassword());
         }
         if (user.getPlayer() != null) {
             existingUsers.setPlayer(user.getPlayer());

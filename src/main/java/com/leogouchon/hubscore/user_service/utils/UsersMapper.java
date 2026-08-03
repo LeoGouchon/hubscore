@@ -12,6 +12,6 @@ public class UsersMapper {
     }
 
     public static MeResponseDTO toMeResponseDTO(Users user) {
-        return new MeResponseDTO(user.getId(), user.getEmail(), user.getPlayer(), user.getIsAdmin());
+        return new MeResponseDTO(user.getId(), user.getEmail(), user.getPlayer(), user.effectiveRole().name());
     }
 }

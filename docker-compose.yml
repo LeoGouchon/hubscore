@@ -2,9 +2,9 @@ services:
   db:
     image: postgres:17
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME:-hubscore}
+      POSTGRES_USER: ${DB_USER:-hubscore}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-hubscore-local}
     ports:
       - "5433:5432"
     volumes:
@@ -14,9 +14,14 @@ services:
     build: .
     environment:
       SPRING_PROFILES_ACTIVE: dev
-      DB_NAME: ${DB_NAME}
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME:-hubscore}
+      DB_USER: ${DB_USER:-hubscore}
+      DB_PASSWORD: ${DB_PASSWORD:-hubscore-local}
+      IDENTITY_ISSUER: ${IDENTITY_ISSUER:-http://localhost:8081}
+      IDENTITY_JWK_SET_URI: ${IDENTITY_JWK_SET_URI:-http://localhost:8081/oauth2/jwks}
+      IDENTITY_AUDIENCE: ${IDENTITY_AUDIENCE:-default-api}
+      BACKEND_PROVISIONING_SECRET: ${BACKEND_PROVISIONING_SECRET:-change-me}
+      HUBSCORE_CORS_ALLOWED_ORIGINS: ${HUBSCORE_CORS_ALLOWED_ORIGINS:-http://localhost:4200}
     ports:
       - "8080:8080"
     depends_on:

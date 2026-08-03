@@ -6038,8 +6038,10 @@ INSERT INTO public.player_team VALUES ('32cdfa54-92a8-47e8-8a29-5dee476fc04d', '
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: hubscoreuser
 --
 
-INSERT INTO public.users VALUES ('admin@gmail.com', '$2y$10$aiZniPufX3F4eUAQTseNLeAWClxcp5u.rauU2RVf2c3kW8x/oeSHG', true, 'f027e5f9-31a1-42ac-90b3-dc437585b839', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741'); -- passowrd: admin
-INSERT INTO public.users VALUES ('user@gmail.com', '$2y$10$VkLzPdzANN51bnn8oLn74.ynGE6uQe7pDJtZgy64SP18Pev7iQjX.', false, 'dc437585-98ea-4efe-90b3-b83f027e5f99'); -- password: user
+INSERT INTO public.users (email, players_id, id, identity_user_id, role)
+VALUES ('admin@gmail.com', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'f027e5f9-31a1-42ac-90b3-dc437585b839', 'f027e5f9-31a1-42ac-90b3-dc437585b839', 'ADMIN');
+INSERT INTO public.users (email, players_id, id, identity_user_id, role)
+VALUES ('user@gmail.com', NULL, 'dc437585-98ea-4efe-90b3-b83f027e5f99', 'dc437585-98ea-4efe-90b3-b83f027e5f99', 'USER');
 
 --
 -- Data for Name: kicker_match_access_codes; Type: TABLE DATA; Schema: public; Owner: hubscoreuser

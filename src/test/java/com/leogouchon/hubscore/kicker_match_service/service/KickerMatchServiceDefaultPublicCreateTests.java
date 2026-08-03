@@ -46,7 +46,7 @@ class KickerMatchServiceDefaultPublicCreateTests {
 
         Players playerA = player(UUID.randomUUID());
         Players playerB = player(UUID.randomUUID());
-        KickerMatchAccessCode accessCode = new KickerMatchAccessCode("PUBLIC", new Users("admin@mail.com", "password"), null);
+        KickerMatchAccessCode accessCode = new KickerMatchAccessCode("PUBLIC", new Users("admin@mail.com"), null);
         KickerMatchRequestDTO request = singlesRequest(playerA.getId(), playerB.getId(), 10, 6);
 
         when(accessCodeService.getActiveCodeForUse("public")).thenReturn(accessCode);
