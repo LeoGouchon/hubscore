@@ -25,13 +25,18 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+    private final CorsProperties corsProperties;
+
+    public SecurityConfig(CorsProperties corsProperties) {
+        this.corsProperties = corsProperties;
+    }
+
     @Value("${identity.issuer}")
     private String identityIssuer;
     @Value("${identity.audience}")
@@ -60,13 +65,9 @@ public class SecurityConfig {
     }
 
     @Bean
-    public CorsConfigurationSource corsConfigurationSource(
-            @Value("${hubscore.cors.allowed-origins}") String allowedOrigins) {
+    public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.stream(allowedOrigins.split(","))
-                .map(String::trim)
-                .filter(origin -> !origin.isBlank())
-                .toList());
+        configuration.setAllowedOrigins(corsProperties.getAllowedOrigins());
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         configuration.setAllowCredentials(true);
