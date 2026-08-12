@@ -1,6 +1,7 @@
 package com.leogouchon.hubscore.common.config;
 
 import com.leogouchon.hubscore.user_service.repository.UserRepository;
+import com.leogouchon.hubscore.user_service.service.IdentityUserSynchronizer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -53,9 +54,11 @@ public class SecurityConfig {
     }
 
     @Bean
-    public JwtAuthenticationConverter jwtAuthenticationConverter(UserRepository userRepository) {
+    public JwtAuthenticationConverter jwtAuthenticationConverter(UserRepository userRepository,
+                                                                 IdentityUserSynchronizer synchronizer) {
         JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
         converter.setJwtGrantedAuthoritiesConverter(jwt -> {
+            synchronizer.synchronize(jwt);
             String subject = jwt.getSubject();
             return userRepository.findByIdentityUserId(java.util.UUID.fromString(subject))
                     .<java.util.Collection<org.springframework.security.core.GrantedAuthority>>map(roleUser -> java.util.List.of(new SimpleGrantedAuthority("ROLE_" + roleUser.effectiveRole().name())))

@@ -34,10 +34,14 @@ public class IdentityProvisioningController {
             return created;
         });
         user.setEmail(request.email());
-        if (request.playerId() != null) players.findById(request.playerId()).ifPresent(user::setPlayer);
+        if (request.playerId() != null) players.findById(request.playerId()).ifPresent(player -> {
+            if (request.firstName() != null) player.setFirstname(request.firstName());
+            if (request.lastName() != null) player.setLastname(request.lastName());
+            user.setPlayer(player);
+        });
         users.save(user);
     }
 
-    public record ProvisionUser(UUID identityUserId, String email, UUID playerId) {
+    public record ProvisionUser(UUID identityUserId, String email, String firstName, String lastName, UUID playerId) {
     }
 }
