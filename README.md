@@ -19,7 +19,8 @@ Hubscore is an OAuth 2.0 resource server. The local defaults match the sibling
 IDENTITY_ISSUER=http://localhost:8081
 IDENTITY_JWK_SET_URI=http://localhost:8081/oauth2/jwks
 IDENTITY_AUDIENCE=default-api
-BACKEND_PROVISIONING_SECRET=change-me
+BACKEND_PROVISIONING_SECRET=kicker-secret
+IDENTITY_CLIENT_ID=kicker-client
 ```
 
 The complete local Docker configuration is kept in `config/application-dev.yml`, which is
@@ -27,6 +28,10 @@ created from `config/application-dev.example.yml` by `make dev` and mounted into
 The CORS origins are configured as a YAML list:
 
 ```yaml
+identity:
+  provisioning-secret: ${BACKEND_PROVISIONING_SECRET:kicker-secret}
+  identity-client-id: ${IDENTITY_CLIENT_ID:kicker-client}
+
 hubscore:
   cors:
     allowed-origins:
@@ -39,6 +44,11 @@ Use the same issuer, audience, and provisioning secret in both applications. The
 `IDENTITY_AUDIENCE` to the backend value configured there. Hubscore validates the token signature, issuer, and audience,
 and maps the token `sub` claim to
 `users.identity_user_id`.
+
+The admin invitation endpoint (`POST /api/v1/admin/invitation`) delegates invitation creation to the Identity Server.
+It sends the Hubscore application client id (`kicker-client` by default) and the optional `playerId`, so the resulting
+invitation provisions only Hubscore. The Kicker frontend can continue using this endpoint and the generated
+`/signup?invitationToken=...` link.
 
 ## How to run tests
 

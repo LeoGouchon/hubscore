@@ -36,11 +36,13 @@ cookie:
 
 identity:
   issuer: ${IDENTITY_ISSUER:http://localhost:8081}
+  internal-url: ${IDENTITY_INTERNAL_URL:http://host.docker.internal:8081}
   jwk-set-uri: ${IDENTITY_JWK_SET_URI:http://localhost:8081/oauth2/jwks}
-  audience: ${IDENTITY_AUDIENCE:default-api}
+  audience: ${IDENTITY_AUDIENCE:https://backend.api.default/}
+  provisioning-secret: ${BACKEND_PROVISIONING_SECRET:kicker-secret}
+  identity-client-id: ${IDENTITY_CLIENT_ID:kicker-client}
 
 hubscore:
-  provisioning-secret: ${BACKEND_PROVISIONING_SECRET:change-me}
   cors:
     allowed-origins:
       - http://localhost:4200

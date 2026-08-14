@@ -15,13 +15,6 @@ services:
     environment:
       SPRING_PROFILES_ACTIVE: dev
       SPRING_CONFIG_ADDITIONAL_LOCATION: file:/app/config/
-      DB_NAME: ${DB_NAME:-hubscore}
-      DB_USER: ${DB_USER:-hubscore}
-      DB_PASSWORD: ${DB_PASSWORD:-hubscore-local}
-      IDENTITY_ISSUER: ${IDENTITY_ISSUER:-http://localhost:8081}
-      IDENTITY_JWK_SET_URI: ${IDENTITY_JWK_SET_URI:-http://host.docker.internal:8081/oauth2/jwks}
-      IDENTITY_AUDIENCE: ${IDENTITY_AUDIENCE:-default-api}
-      BACKEND_PROVISIONING_SECRET: ${BACKEND_PROVISIONING_SECRET:-change-me}
     volumes:
       - ./config:/app/config:ro
     ports:

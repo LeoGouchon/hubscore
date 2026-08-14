@@ -101,6 +101,7 @@ public class SecurityConfig {
                                 "/api/v1/ping"
                         ).permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/kicker/matches/public").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/internal/identity-users").permitAll()
                         .requestMatchers(HttpMethod.GET,
                                 "/api/v1/kicker/**",
                                 "/api/v1/players/**"

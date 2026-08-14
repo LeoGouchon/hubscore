@@ -17,7 +17,7 @@ public class IdentityProvisioningController {
     private final PlayerRepository players;
     private final String secret;
 
-    public IdentityProvisioningController(UserRepository users, PlayerRepository players, @Value("${hubscore.provisioning-secret}") String secret) {
+    public IdentityProvisioningController(UserRepository users, PlayerRepository players, @Value("${identity.provisioning-secret}") String secret) {
         this.users = users;
         this.players = players;
         this.secret = secret;
