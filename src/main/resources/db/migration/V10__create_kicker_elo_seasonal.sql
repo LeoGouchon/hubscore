@@ -25,8 +25,8 @@ CREATE TABLE player_kicker_informations
 );
 
 UPDATE player_kicker_informations pki
-SET player_current_elo          = p.kicker_current_elo,
-    player_id                   = p.id
+SET player_current_elo = p.kicker_current_elo,
+    player_id          = p.id
 FROM players p
 WHERE pki.player_id = p.id;
 

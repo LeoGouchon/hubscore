@@ -14,11 +14,18 @@ import java.util.UUID;
 
 public interface SquashMatchService {
     SquashMatches createMatch(UUID player1Id, UUID player2Id, List<MatchPoint> pointsHistory, Integer finalScoreA, Integer finalScoreB);
+
     void deleteMatch(UUID id);
+
     Page<SquashMatches> getMatches(int page, int size, List<UUID> playerIds, Long date);
+
     Optional<SquashMatches> getMatch(UUID id);
+
     Optional<SquashMatchResponseDTO> getMatchResponseDTO(UUID id);
+
     Page<BatchSessionResponseDTO> getMatchesSessionsQuickStats(int page, int size);
+
     OverallStatsResponseDTO getOverallStats();
+
     PlayerStatsResponseDTO getPlayerStats(UUID playerId);
 }

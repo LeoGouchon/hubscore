@@ -1,8 +1,6 @@
 package com.leogouchon.hubscore.kicker_match_service.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leogouchon.hubscore.authenticate_service.service.AuthenticateService;
-import com.leogouchon.hubscore.common.security.JwtAuthorizationFilter;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.PublicKickerMatchRequestDTO;
@@ -46,12 +44,6 @@ class KickerMatchControllerTests {
 
     @MockitoBean
     private KickerMatchService matchService;
-
-    @MockitoBean
-    private AuthenticateService authenticateService;
-
-    @MockitoBean
-    private JwtAuthorizationFilter jwtAuthorizationFilter;
 
     @Test
     void should_create_public_match_with_access_code() throws Exception {

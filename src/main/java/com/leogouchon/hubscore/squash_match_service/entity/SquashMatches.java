@@ -47,7 +47,8 @@ public class SquashMatches {
     @JoinColumn(name = "player_b_id", referencedColumnName = "id")
     private Players playerB;
 
-    protected SquashMatches() {}
+    protected SquashMatches() {
+    }
 
     public SquashMatches(Players playerA, Players playerB) {
         if (playerA.equals(playerB)) {

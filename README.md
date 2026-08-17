@@ -5,9 +5,50 @@
 1. Clone the repository
 2. `docker-compose up -build` (or `make build`)
 
-That's it! 
-There's sample data for your development while building. Feel free to add another migrating file if you need to inside `src/main/resources/db/migration`.
+That's it!
+There's sample data for your development while building. Feel free to add another migrating file if you need to inside
+`src/main/resources/db/migration`.
 `.env` file contain credentials to access to the database.
+
+## Identity server / OIDC configuration
+
+Hubscore is an OAuth 2.0 resource server. The local defaults match the sibling
+`identity-server` Docker setup:
+
+```dotenv
+IDENTITY_ISSUER=http://localhost:8081
+IDENTITY_JWK_SET_URI=http://localhost:8081/oauth2/jwks
+IDENTITY_AUDIENCE=default-api
+BACKEND_PROVISIONING_SECRET=kicker-secret
+IDENTITY_CLIENT_ID=kicker-client
+```
+
+The complete local Docker configuration is kept in `config/application-dev.yml`, which is
+created from `config/application-dev.example.yml` by `make dev` and mounted into the container.
+The CORS origins are configured as a YAML list:
+
+```yaml
+identity:
+  provisioning-secret: ${BACKEND_PROVISIONING_SECRET:kicker-secret}
+  identity-client-id: ${IDENTITY_CLIENT_ID:kicker-client}
+
+hubscore:
+  cors:
+    allowed-origins:
+      - http://localhost:4200
+      - http://localhost:5173
+```
+
+Use the same issuer, audience, and provisioning secret in both applications. The identity server must include
+`default-api` in `identity.allowed-backends`, or set
+`IDENTITY_AUDIENCE` to the backend value configured there. Hubscore validates the token signature, issuer, and audience,
+and maps the token `sub` claim to
+`users.identity_user_id`.
+
+The admin invitation endpoint (`POST /api/v1/admin/invitation`) delegates invitation creation to the Identity Server.
+It sends the Hubscore application client id (`kicker-client` by default) and the optional `playerId`, so the resulting
+invitation provisions only Hubscore. The Kicker frontend can continue using this endpoint and the generated
+`/signup?invitationToken=...` link.
 
 ## How to run tests
 
@@ -45,30 +86,30 @@ Backend of mobile application SquashApp
 * Spring Web
 * Spring Boot DevTools
 * **Database**
-	+ PostgreSQL 17
+    + PostgreSQL 17
 * **Libraries**
-	+ Lombok
-	+ SpringDoc OpenAPI
-	+ Spring Security Crypto
+    + Lombok
+    + SpringDoc OpenAPI
+    + Spring Security Crypto
 * **Testing**
-	+ Mockito
-	+ JUnit
+    + Mockito
+    + JUnit
 * **Migration**
-	+ Flyway
+    + Flyway
 
-## Required configuration (`application.properties`)
+## Required configuration (`application.yml`)
 
 * **Flyway**
-  * `spring.flyway.enabled` : Enable database migration
-  * `spring.flyway.locations` : Location of migration files
-  * `spring.flyway.schemas` : Database schema
-  * `spring.flyway.url` : Database URL
-  * `spring.flyway.user` : Database user
-  * `spring.flyway.password` : User password
+    * `spring.flyway.enabled` : Enable database migration
+    * `spring.flyway.locations` : Location of migration files
+    * `spring.flyway.schemas` : Database schema
+    * `spring.flyway.url` : Database URL
+    * `spring.flyway.user` : Database user
+    * `spring.flyway.password` : User password
 * **Hibernate**
-  * `spring.jpa.hibernate.ddl-auto=validate` : Validate database integrity
-  * `spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect` : Database dialect
-  * `spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect` : Database platform
+    * `spring.jpa.hibernate.ddl-auto=validate` : Validate database integrity
+    * `spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect` : Database dialect
+    * `spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect` : Database platform
 * **Jwt**
-  * `jwt.secret` : Secret key for JWT
-  * `jwt.expirationMs=86400000` : JWT expiration time in milliseconds
+    * `jwt.secret` : Secret key for JWT
+    * `jwt.expirationMs=86400000` : JWT expiration time in milliseconds

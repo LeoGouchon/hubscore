@@ -1,14 +1,10 @@
 package com.leogouchon.hubscore.user_service.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.leogouchon.hubscore.authenticate_service.entity.RefreshToken;
 import com.leogouchon.hubscore.player_service.entity.Players;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -22,39 +18,34 @@ public class Users {
     private UUID id;
     @Column(unique = true, nullable = false)
     private String email;
-    @Column(nullable = false)
-    private String password;
-    @JsonIgnore
-    @Column(name = "is_admin")
-    private Boolean isAdmin = false;
+    @Column(name = "identity_user_id", unique = true)
+    private UUID identityUserId;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 32)
+    private UserRole role = UserRole.USER;
     @OneToOne
     @JoinColumn(name = "players_id", unique = true)
     private Players player;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RefreshToken> refreshTokens = new ArrayList<>();
-
-    @Override
-    public String toString() {
-        return "Users{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", isAdmin=" + isAdmin +
-                ", player=" + (player != null ? player.getId() : "null") +
-                '}';
-    }
 
     @Deprecated
-    protected Users() {}
-
-    public Users(String email, String password) {
-        this.email = Objects.requireNonNull(email, "Email must not be null");
-        this.password = Objects.requireNonNull(password, "Password must not be null");
+    protected Users() {
     }
 
-    public Users(String email, String password, Players player) {
+    public Users(String email) {
         this.email = Objects.requireNonNull(email, "Email must not be null");
-        this.password = Objects.requireNonNull(password, "Password must not be null");
+    }
+
+    public Users(String email, Players player) {
+        this(email);
         this.player = player;
     }
 
+    public UserRole effectiveRole() {
+        return role == null ? UserRole.USER : role;
+    }
+
+    @Override
+    public String toString() {
+        return "Users{" + "id=" + id + ", email='" + email + '\'' + ", role=" + role + ", player=" + (player == null ? "null" : player.getId()) + '}';
+    }
 }

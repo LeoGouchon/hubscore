@@ -31,7 +31,8 @@ public class PlayerKickerInformations {
     @Column(name = "player_current_seasonal_elo")
     private Integer playerCurrentSeasonalElo;
 
-    public PlayerKickerInformations() {}
+    public PlayerKickerInformations() {
+    }
 
     public PlayerKickerInformations(Players players) {
         this.players = players;

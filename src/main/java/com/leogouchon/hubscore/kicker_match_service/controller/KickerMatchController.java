@@ -1,7 +1,6 @@
 package com.leogouchon.hubscore.kicker_match_service.controller;
 
 
-import com.leogouchon.hubscore.authenticate_service.service.AuthenticateService;
 import com.leogouchon.hubscore.common.dto.PaginatedResponseDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
 import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
@@ -43,15 +42,12 @@ import java.util.UUID;
 public class KickerMatchController {
 
     private final KickerMatchService matchService;
-    private final AuthenticateService authenticateService;
 
     @Autowired
     public KickerMatchController(
-            KickerMatchService matchService,
-            AuthenticateService authenticateService
+            KickerMatchService matchService
     ) {
         this.matchService = matchService;
-        this.authenticateService = authenticateService;
     }
 
     @Operation(
@@ -150,18 +146,9 @@ public class KickerMatchController {
     }
 
     @SecurityRequirement(name = "bearerAuth")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/recalculate-elo")
-    public ResponseEntity<?> recalculateElo(HttpServletRequest request) {
-        String authHeader = request.getHeader("Authorization");
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Missing or invalid Authorization header");
-        }
-
-        String token = authHeader.substring(7);
-        boolean isAdmin = authenticateService.isUserAdmin(token);
-        if (!isAdmin) {
-            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized");
-        }
+    public ResponseEntity<?> recalculateElo() {
         matchService.recalculateElo();
         return ResponseEntity.ok("ELO recalculated for all matches");
     }

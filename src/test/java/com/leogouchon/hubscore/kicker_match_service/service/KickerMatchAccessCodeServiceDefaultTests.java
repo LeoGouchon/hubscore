@@ -32,7 +32,7 @@ class KickerMatchAccessCodeServiceDefaultTests {
     void setUp() {
         repository = mock(KickerMatchAccessCodeRepository.class);
         service = new KickerMatchAccessCodeServiceDefault(repository);
-        admin = new Users("admin@mail.com", "password");
+        admin = new Users("admin@mail.com");
     }
 
     @Test

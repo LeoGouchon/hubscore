@@ -50,7 +50,8 @@ public class SquashPoints {
     @Column(name = "score_b", nullable = false)
     private Integer scoreB;
 
-    protected SquashPoints() {}
+    protected SquashPoints() {
+    }
 
     public SquashPoints(SquashMatches squashMatch, Integer pointOrder, MatchPoint point) {
         this.squashMatch = squashMatch;

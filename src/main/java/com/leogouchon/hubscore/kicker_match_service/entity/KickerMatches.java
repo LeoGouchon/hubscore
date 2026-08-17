@@ -52,7 +52,8 @@ public class KickerMatches {
     @JoinColumn(name = "created_by", referencedColumnName = "id")
     private Users createdBy;
 
-    protected KickerMatches() {}
+    protected KickerMatches() {
+    }
 
     public KickerMatches(Players player1TeamA, Players player2TeamA, Players player1TeamB, Players player2TeamB) {
         if (player1TeamA == null || player1TeamB == null) {

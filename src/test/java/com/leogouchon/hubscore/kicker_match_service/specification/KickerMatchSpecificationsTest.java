@@ -66,7 +66,7 @@ class KickerMatchSpecificationsTest {
 
         KickerMatches firstExcepted = fixtures.match("p1", "p2", "p3", "p4", LocalDateTime.of(2025, 1, 10, 12, 0));
         KickerMatches secondExcepted = fixtures.match("p5", "p6", "p7", "p8", LocalDateTime.of(2025, 1, 11, 12, 0));
-        fixtures.match("p2", "p3", "p7",  "p8", LocalDateTime.of(2025, 1, 12, 12, 0));
+        fixtures.match("p2", "p3", "p7", "p8", LocalDateTime.of(2025, 1, 12, 12, 0));
 
         List<KickerMatches> result = repository.findAll(
                 KickerMatchSpecifications.hasAnyPlayer(List.of(fixtures.id("p1"), fixtures.id("p5")))

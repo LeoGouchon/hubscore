@@ -26,5 +26,6 @@ public class MatchPoint {
         this.createdAt = createdAt;
     }
 
-    public MatchPoint() {}
+    public MatchPoint() {
+    }
 }

@@ -10,8 +10,12 @@ import java.util.UUID;
 
 public interface PlayerService {
     Page<Players> getPlayers(int page, int size, String sport, String teamId);
+
     Optional<Players> getPlayer(UUID id);
+
     Players createPlayer(PlayerRequestDTO player);
+
     void deletePlayer(UUID id);
+
     List<Players> getUnassociatedPlayers(String sport, String teamId);
 }

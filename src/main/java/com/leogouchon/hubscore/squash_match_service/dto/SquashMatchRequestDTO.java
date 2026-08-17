@@ -20,7 +20,7 @@ public class SquashMatchRequestDTO {
     @NotNull
     @Schema(description = "ID of player B")
     private UUID playerBId;
-    @Schema(description = "Points history of the match. The match need to be finished and respect the sport rules.", example="[{\"server\":\"A\",\"receiver\":\"B\",\"serviceSide\":\"L\",\"scoreServer\":0,\"scoreReceiver\":0}]")
+    @Schema(description = "Points history of the match. The match need to be finished and respect the sport rules.", example = "[{\"server\":\"A\",\"receiver\":\"B\",\"serviceSide\":\"L\",\"scoreServer\":0,\"scoreReceiver\":0}]")
     private List<MatchPoint> pointsHistory;
     @Schema(description = "Final score for player A if pointHistory is not specified", example = "11")
     private Integer finalScoreA;

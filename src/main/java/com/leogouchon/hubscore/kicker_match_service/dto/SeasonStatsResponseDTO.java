@@ -11,5 +11,6 @@ public class SeasonStatsResponseDTO {
     private int nbMatches;
     private int nbPlayers;
 
-    public SeasonStatsResponseDTO() {}
+    public SeasonStatsResponseDTO() {
+    }
 }

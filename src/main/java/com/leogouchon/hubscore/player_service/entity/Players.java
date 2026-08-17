@@ -27,7 +27,8 @@ public class Players {
     @JsonManagedReference
     private List<PlayerTeam> playerTeams;
 
-    public Players() {}
+    public Players() {
+    }
 
     public Players(String firstname, String lastname) {
         this.firstname = Objects.requireNonNull(firstname, "Firstname must not be null");

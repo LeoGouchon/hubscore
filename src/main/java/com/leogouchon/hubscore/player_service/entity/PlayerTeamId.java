@@ -18,7 +18,8 @@ public class PlayerTeamId implements Serializable {
     @Column(name = "team_id")
     private UUID teamId;
 
-    public PlayerTeamId() {}
+    public PlayerTeamId() {
+    }
 
     public PlayerTeamId(UUID playerId, UUID teamId) {
         this.playerId = playerId;

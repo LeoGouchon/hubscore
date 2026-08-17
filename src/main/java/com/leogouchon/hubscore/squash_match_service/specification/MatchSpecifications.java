@@ -10,7 +10,8 @@ import java.util.List;
 import java.util.UUID;
 
 public class MatchSpecifications {
-    private MatchSpecifications() {}
+    private MatchSpecifications() {
+    }
 
     public static Specification<SquashMatches> withFilters(
             List<UUID> playerIds,

@@ -2,7 +2,6 @@ package com.leogouchon.hubscore.user_service.controller;
 
 import com.leogouchon.hubscore.user_service.dto.MeResponseDTO;
 import com.leogouchon.hubscore.user_service.entity.Users;
-import com.leogouchon.hubscore.authenticate_service.service.AuthenticateService;
 import com.leogouchon.hubscore.user_service.utils.UsersMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -11,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -20,21 +20,21 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/api/v1")
 public class MeController {
 
-    private final AuthenticateService authenticateService;
+    private final com.leogouchon.hubscore.user_service.repository.UserRepository userRepository;
 
     @Autowired
-    public MeController(AuthenticateService authenticateService) {
-        this.authenticateService = authenticateService;
+    public MeController(com.leogouchon.hubscore.user_service.repository.UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @SecurityRequirement(name = "bearerAuth")
     @Tag(name = "User")
     @Operation(summary = "Return current user")
     @GetMapping("/me")
-    public ResponseEntity<MeResponseDTO> getCurrentUser(@RequestHeader("Authorization") String authHeader) {
+    public ResponseEntity<MeResponseDTO> getCurrentUser(@AuthenticationPrincipal Jwt jwt) {
         try {
-            String token = authHeader.replace("Bearer ", "");
-            Users user = authenticateService.getUserFromToken(token);
+            Users user = userRepository.findByIdentityUserId(java.util.UUID.fromString(jwt.getSubject()))
+                    .orElseThrow(() -> new IllegalArgumentException("User not found"));
             return ResponseEntity.ok(UsersMapper.toMeResponseDTO(user));
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized", e);

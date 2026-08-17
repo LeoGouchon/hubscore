@@ -4,5 +4,6 @@ import java.util.UUID;
 
 public interface EloVisibilityProjection {
     UUID getMatchId();
+
     UUID getPlayerId();
 }

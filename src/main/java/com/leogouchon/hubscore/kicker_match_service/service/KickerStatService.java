@@ -7,9 +7,14 @@ import java.util.UUID;
 
 public interface KickerStatService {
     List<GlobalStatsWithHistoryDTO> getGlobalStats();
+
     List<GlobalStatsWithHistoryDTO> getSeasonStats(int year, int quarter);
+
     SeasonsStatsResponseDTO getSeasonsStats();
+
     List<MatrixScoreResultsResponseDTO> getResultPerDeltaElo();
+
     PlayerStatsResponseDTO getPlayerStats(UUID id);
+
     List<DuoStatsDTO> getDuoStats();
 }

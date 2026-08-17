@@ -13,7 +13,8 @@ public class SeasonsStatsResponseDTO {
     private int totalPlayers;
     private List<SeasonStatsResponseDTO> seasonsStats;
 
-    public SeasonsStatsResponseDTO() {}
+    public SeasonsStatsResponseDTO() {
+    }
 
     public SeasonsStatsResponseDTO(int nbSeasons, int totalMatches, int totalPlayers, List<SeasonStatsResponseDTO> seasonsStats) {
         this.nbSeasons = nbSeasons;

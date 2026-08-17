@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 public class DevBootstrapRunner {
 
     private final KickerMatchService kickerMatchService;
+
     public DevBootstrapRunner(
             KickerMatchService kickerMatchService
     ) {

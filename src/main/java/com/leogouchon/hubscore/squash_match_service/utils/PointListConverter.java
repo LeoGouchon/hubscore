@@ -25,7 +25,8 @@ public class PointListConverter implements AttributeConverter<List<MatchPoint>, 
     @Override
     public List<MatchPoint> convertToEntityAttribute(String json) {
         try {
-            return objectMapper.readValue(json, new TypeReference<>() {});
+            return objectMapper.readValue(json, new TypeReference<>() {
+            });
         } catch (Exception e) {
             throw new IllegalArgumentException("Erreur de lecture JSON", e);
         }

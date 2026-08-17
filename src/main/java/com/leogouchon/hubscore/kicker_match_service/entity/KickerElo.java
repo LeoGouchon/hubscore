@@ -26,17 +26,18 @@ public class KickerElo {
     @JoinColumn(name = "player_id", referencedColumnName = "id")
     private Players player;
 
-    @Column(name= "elo_after_match")
+    @Column(name = "elo_after_match")
     private Integer eloAfterMatch;
 
-    @Column(name= "elo_before_match")
+    @Column(name = "elo_before_match")
     private Integer eloBeforeMatch;
 
-    @Column(name= "elo_change")
+    @Column(name = "elo_change")
     private Integer eloChange;
 
-    @Column(name= "created_at")
+    @Column(name = "created_at")
     private Timestamp createdAt;
 
-    public KickerElo() {}
+    public KickerElo() {
+    }
 }

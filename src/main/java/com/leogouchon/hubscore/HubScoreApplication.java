@@ -1,43 +1,35 @@
 package com.leogouchon.hubscore;
 
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import com.leogouchon.hubscore.common.config.CorsProperties;
 
 @SpringBootApplication(scanBasePackages = "com.leogouchon.hubscore")
+@EnableConfigurationProperties(CorsProperties.class)
 @EnableScheduling
 public class HubScoreApplication implements WebMvcConfigurer {
+
+    private final CorsProperties corsProperties;
+
+    public HubScoreApplication(CorsProperties corsProperties) {
+        this.corsProperties = corsProperties;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(HubScoreApplication.class, args);
     }
 
-    @Value("${spring.profiles.active:}")
-    private String activeProfile;
-
     @Override
     public void addCorsMappings(@NotNull CorsRegistry registry) {
-        if ("prod".equalsIgnoreCase(activeProfile)) {
-            registry.addMapping("/api/**")
-                    .allowedOrigins(
-                            "https://squash.leogouchon.com",
-                            "https://www.squash.leogouchon.com",
-                            "https://babyfoot.leogouchon.com",
-                            "https://www.babyfoot.leogouchon.com"
-                    )
-                    .allowedMethods("*")
-                    .allowedHeaders("*")
-                    .allowCredentials(true);
-        } else {
-            registry.addMapping("/api/**")
-                    .allowedOrigins("http://localhost:4200", "http://localhost:5173")
-                    .allowedMethods("*")
-                    .allowedHeaders("*")
-                    .allowCredentials(true);
-        }
+        registry.addMapping("/api/**")
+                .allowedOrigins(corsProperties.getAllowedOrigins().toArray(String[]::new))
+                .allowedMethods("*")
+                .allowedHeaders("*")
+                .allowCredentials(true);
     }
 }

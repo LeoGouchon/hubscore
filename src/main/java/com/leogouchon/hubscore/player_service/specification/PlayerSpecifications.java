@@ -13,7 +13,8 @@ import org.springframework.data.jpa.domain.Specification;
 import java.util.UUID;
 
 public class PlayerSpecifications {
-    private PlayerSpecifications() {}
+    private PlayerSpecifications() {
+    }
 
     public static Specification<Players> bySport(String sport) {
         return (root, query, cb) -> {

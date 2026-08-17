@@ -25,5 +25,6 @@ public class Teams {
     @Column(name = "is_squash")
     private boolean isSquash;
 
-    public Teams() {}
+    public Teams() {
+    }
 }
