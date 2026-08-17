@@ -3,12 +3,14 @@ package com.leogouchon.hubscore;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.leogouchon.hubscore.common.config.CorsProperties;
 
 @SpringBootApplication(scanBasePackages = "com.leogouchon.hubscore")
+@EnableConfigurationProperties(CorsProperties.class)
 @EnableScheduling
 public class HubScoreApplication implements WebMvcConfigurer {
 
