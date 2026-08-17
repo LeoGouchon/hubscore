@@ -1,8 +1,8 @@
-package com.leogouchon.hubscore.user_service.controller;
+package com.leogouchon.husbcore.user_service.controller;
 
-import com.leogouchon.hubscore.player_service.repository.PlayerRepository;
-import com.leogouchon.hubscore.user_service.entity.Users;
-import com.leogouchon.hubscore.user_service.repository.UserRepository;
+import com.leogouchon.husbcore.player_service.repository.PlayerRepository;
+import com.leogouchon.husbcore.user_service.entity.Users;
+import com.leogouchon.husbcore.user_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

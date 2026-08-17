@@ -1,4 +1,4 @@
-package com.leogouchon.hubscore.player_service.entity;
+package com.leogouchon.husbcore.player_service.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

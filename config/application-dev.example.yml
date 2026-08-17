@@ -1,6 +1,6 @@
 spring:
   application:
-    name: hubscore-dev
+    name: husbcore-dev
   datasource:
     url: jdbc:postgresql://db:5432/${DB_NAME}
     username: ${DB_USER}
@@ -40,9 +40,9 @@ identity:
   jwk-set-uri: ${IDENTITY_JWK_SET_URI:http://localhost:8081/oauth2/jwks}
   audience: ${IDENTITY_AUDIENCE:https://backend.api.default/}
   provisioning-secret: ${BACKEND_PROVISIONING_SECRET:kicker-secret}
-  identity-client-id: ${IDENTITY_CLIENT_ID:kicker-client}
+  identity-client-id: ${IDENTITY_CLIENT_ID:husbcore-client}
 
-hubscore:
+husbcore:
   cors:
     allowed-origins:
       - http://localhost:4200

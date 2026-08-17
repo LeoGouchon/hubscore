@@ -1,7 +1,7 @@
-package com.leogouchon.hubscore.kicker_match_service.entity;
+package com.leogouchon.husbcore.kicker_match_service.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.leogouchon.hubscore.user_service.entity.Users;
+import com.leogouchon.husbcore.user_service.entity.Users;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

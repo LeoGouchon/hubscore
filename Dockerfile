@@ -5,7 +5,7 @@ RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:21-jdk
 WORKDIR /app
-COPY --from=build /app/target/hubscore.jar app.jar
+COPY --from=build /app/target/husbcore.jar app.jar
 
 ENV SPRING_PROFILES_ACTIVE=prod
 EXPOSE 8080

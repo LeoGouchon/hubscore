@@ -1,7 +1,7 @@
-package com.leogouchon.hubscore.common.config;
+package com.leogouchon.husbcore.common.config;
 
-import com.leogouchon.hubscore.user_service.repository.UserRepository;
-import com.leogouchon.hubscore.user_service.service.IdentityUserSynchronizer;
+import com.leogouchon.husbcore.user_service.repository.UserRepository;
+import com.leogouchon.husbcore.user_service.service.IdentityUserSynchronizer;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.Jwt;

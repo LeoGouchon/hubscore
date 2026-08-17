@@ -1,13 +1,13 @@
-package com.leogouchon.hubscore.kicker_match_service.service;
+package com.leogouchon.husbcore.kicker_match_service.service;
 
-import com.leogouchon.hubscore.kicker_match_service.dto.SeasonStatsResponseDTO;
-import com.leogouchon.hubscore.kicker_match_service.dto.SeasonsStatsResponseDTO;
-import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloRepository;
-import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloSeasonalRepository;
-import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
-import com.leogouchon.hubscore.kicker_match_service.repository.projection.SeasonStatsProjection;
-import com.leogouchon.hubscore.kicker_match_service.service.impl.KickerStatServiceDefault;
-import com.leogouchon.hubscore.player_service.service.PlayerService;
+import com.leogouchon.husbcore.kicker_match_service.dto.SeasonStatsResponseDTO;
+import com.leogouchon.husbcore.kicker_match_service.dto.SeasonsStatsResponseDTO;
+import com.leogouchon.husbcore.kicker_match_service.repository.KickerEloRepository;
+import com.leogouchon.husbcore.kicker_match_service.repository.KickerEloSeasonalRepository;
+import com.leogouchon.husbcore.kicker_match_service.repository.KickerMatchRepository;
+import com.leogouchon.husbcore.kicker_match_service.repository.projection.SeasonStatsProjection;
+import com.leogouchon.husbcore.kicker_match_service.service.impl.KickerStatServiceDefault;
+import com.leogouchon.husbcore.player_service.service.PlayerService;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;

@@ -1,6 +1,6 @@
-package com.leogouchon.hubscore.kicker_match_service.entity;
+package com.leogouchon.husbcore.kicker_match_service.entity;
 
-import com.leogouchon.hubscore.player_service.entity.Players;
+import com.leogouchon.husbcore.player_service.entity.Players;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

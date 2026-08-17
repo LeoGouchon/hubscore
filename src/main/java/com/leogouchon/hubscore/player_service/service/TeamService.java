@@ -1,6 +1,6 @@
-package com.leogouchon.hubscore.player_service.service;
+package com.leogouchon.husbcore.player_service.service;
 
-import com.leogouchon.hubscore.player_service.dto.TeamResponseDTO;
+import com.leogouchon.husbcore.player_service.dto.TeamResponseDTO;
 
 import java.util.List;
 

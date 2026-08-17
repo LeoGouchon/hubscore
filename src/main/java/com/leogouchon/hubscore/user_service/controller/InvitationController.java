@@ -1,8 +1,8 @@
-package com.leogouchon.hubscore.user_service.controller;
+package com.leogouchon.husbcore.user_service.controller;
 
-import com.leogouchon.hubscore.user_service.dto.InvitationRequest;
-import com.leogouchon.hubscore.user_service.dto.InvitationResponse;
-import com.leogouchon.hubscore.user_service.service.InvitationService;
+import com.leogouchon.husbcore.user_service.dto.InvitationRequest;
+import com.leogouchon.husbcore.user_service.dto.InvitationResponse;
+import com.leogouchon.husbcore.user_service.service.InvitationService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

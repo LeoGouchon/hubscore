@@ -1,4 +1,4 @@
-package com.leogouchon.hubscore.player_service.dto;
+package com.leogouchon.husbcore.player_service.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;

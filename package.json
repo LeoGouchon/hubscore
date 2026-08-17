@@ -1,5 +1,5 @@
 {
-  "name": "hubscore",
+  "name": "husbcore",
   "version": "1.0.0",
   "description": "1. Clone the repository\r 2. `docker-compose up -build` (or `make build`)",
   "main": "index.js",
@@ -8,16 +8,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LeoGouchon/hubscore.git"
+    "url": "git+https://github.com/LeoGouchon/husbcore.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/LeoGouchon/hubscore/issues"
+    "url": "https://github.com/LeoGouchon/husbcore/issues"
   },
-  "homepage": "https://github.com/LeoGouchon/hubscore#readme",
+  "homepage": "https://github.com/LeoGouchon/husbcore#readme",
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^13.0.1",

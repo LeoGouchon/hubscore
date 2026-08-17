@@ -1,8 +1,8 @@
-package com.leogouchon.hubscore.kicker_match_service.service;
+package com.leogouchon.husbcore.kicker_match_service.service;
 
-import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchAccessCodeResponseDTO;
-import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatchAccessCode;
-import com.leogouchon.hubscore.user_service.entity.Users;
+import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchAccessCodeResponseDTO;
+import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatchAccessCode;
+import com.leogouchon.husbcore.user_service.entity.Users;
 
 import java.sql.Timestamp;
 import java.util.List;

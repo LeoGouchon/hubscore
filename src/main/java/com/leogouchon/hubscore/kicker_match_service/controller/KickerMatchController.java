@@ -1,14 +1,14 @@
-package com.leogouchon.hubscore.kicker_match_service.controller;
+package com.leogouchon.husbcore.kicker_match_service.controller;
 
 
-import com.leogouchon.hubscore.common.dto.PaginatedResponseDTO;
-import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
-import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
-import com.leogouchon.hubscore.kicker_match_service.dto.PublicKickerMatchRequestDTO;
-import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
-import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
-import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
-import com.leogouchon.hubscore.user_service.entity.Users;
+import com.leogouchon.husbcore.common.dto.PaginatedResponseDTO;
+import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchRequestDTO;
+import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchResponseDTO;
+import com.leogouchon.husbcore.kicker_match_service.dto.PublicKickerMatchRequestDTO;
+import com.leogouchon.husbcore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
+import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatches;
+import com.leogouchon.husbcore.kicker_match_service.service.KickerMatchService;
+import com.leogouchon.husbcore.user_service.entity.Users;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

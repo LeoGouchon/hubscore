@@ -1,7 +1,7 @@
-package com.leogouchon.hubscore.player_service.service;
+package com.leogouchon.husbcore.player_service.service;
 
-import com.leogouchon.hubscore.player_service.dto.PlayerRequestDTO;
-import com.leogouchon.hubscore.player_service.entity.Players;
+import com.leogouchon.husbcore.player_service.dto.PlayerRequestDTO;
+import com.leogouchon.husbcore.player_service.entity.Players;
 import org.springframework.data.domain.Page;
 
 import java.util.List;

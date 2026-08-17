@@ -1,9 +1,9 @@
-package com.leogouchon.hubscore.player_service.specification;
+package com.leogouchon.husbcore.player_service.specification;
 
-import com.leogouchon.hubscore.player_service.entity.PlayerTeam;
-import com.leogouchon.hubscore.player_service.entity.Players;
-import com.leogouchon.hubscore.player_service.entity.Teams;
-import com.leogouchon.hubscore.user_service.entity.Users;
+import com.leogouchon.husbcore.player_service.entity.PlayerTeam;
+import com.leogouchon.husbcore.player_service.entity.Players;
+import com.leogouchon.husbcore.player_service.entity.Teams;
+import com.leogouchon.husbcore.user_service.entity.Users;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Root;
@@ -22,9 +22,9 @@ public class PlayerSpecifications {
                 return cb.conjunction();
             }
 
-            // Players → PlayerTeam
+            // Players â†’ PlayerTeam
             Join<Players, PlayerTeam> playerTeamJoin = root.join("playerTeams", JoinType.INNER);
-            // PlayerTeam → Teams
+            // PlayerTeam â†’ Teams
             Join<PlayerTeam, Teams> teamJoin = playerTeamJoin.join("team", JoinType.INNER);
 
             if ("kicker".equalsIgnoreCase(sport)) {

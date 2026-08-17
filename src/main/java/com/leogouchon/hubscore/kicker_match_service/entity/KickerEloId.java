@@ -1,4 +1,4 @@
-package com.leogouchon.hubscore.kicker_match_service.entity;
+package com.leogouchon.husbcore.kicker_match_service.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;

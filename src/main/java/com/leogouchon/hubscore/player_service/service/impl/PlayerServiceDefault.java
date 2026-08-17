@@ -1,14 +1,14 @@
-package com.leogouchon.hubscore.player_service.service.impl;
+package com.leogouchon.husbcore.player_service.service.impl;
 
-import com.leogouchon.hubscore.player_service.dto.PlayerRequestDTO;
-import com.leogouchon.hubscore.player_service.entity.PlayerTeam;
-import com.leogouchon.hubscore.player_service.entity.Players;
-import com.leogouchon.hubscore.player_service.entity.Teams;
-import com.leogouchon.hubscore.player_service.repository.PlayerRepository;
-import com.leogouchon.hubscore.player_service.repository.PlayerTeamRepository;
-import com.leogouchon.hubscore.player_service.repository.TeamRepository;
-import com.leogouchon.hubscore.player_service.service.PlayerService;
-import com.leogouchon.hubscore.player_service.specification.PlayerSpecifications;
+import com.leogouchon.husbcore.player_service.dto.PlayerRequestDTO;
+import com.leogouchon.husbcore.player_service.entity.PlayerTeam;
+import com.leogouchon.husbcore.player_service.entity.Players;
+import com.leogouchon.husbcore.player_service.entity.Teams;
+import com.leogouchon.husbcore.player_service.repository.PlayerRepository;
+import com.leogouchon.husbcore.player_service.repository.PlayerTeamRepository;
+import com.leogouchon.husbcore.player_service.repository.TeamRepository;
+import com.leogouchon.husbcore.player_service.service.PlayerService;
+import com.leogouchon.husbcore.player_service.specification.PlayerSpecifications;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;

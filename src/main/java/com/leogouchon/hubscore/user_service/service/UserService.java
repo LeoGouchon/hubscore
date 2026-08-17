@@ -1,6 +1,6 @@
-package com.leogouchon.hubscore.user_service.service;
+package com.leogouchon.husbcore.user_service.service;
 
-import com.leogouchon.hubscore.user_service.entity.Users;
+import com.leogouchon.husbcore.user_service.entity.Users;
 import org.springframework.data.domain.Page;
 
 import java.util.UUID;

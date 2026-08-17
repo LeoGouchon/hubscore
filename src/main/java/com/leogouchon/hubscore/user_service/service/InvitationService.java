@@ -1,8 +1,8 @@
-package com.leogouchon.hubscore.user_service.service;
+package com.leogouchon.husbcore.user_service.service;
 
-import com.leogouchon.hubscore.user_service.dto.InvitationRequest;
-import com.leogouchon.hubscore.user_service.dto.InvitationResponse;
-import com.leogouchon.hubscore.user_service.repository.UserRepository;
+import com.leogouchon.husbcore.user_service.dto.InvitationRequest;
+import com.leogouchon.husbcore.user_service.dto.InvitationResponse;
+import com.leogouchon.husbcore.user_service.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,7 @@ public class InvitationService {
                              @Value("${identity.issuer}") String identityIssuer,
                              @Value("${identity.internal-url:${identity.issuer}}") String identityInternalUrl,
                              @Value("${identity.provisioning-secret}") String provisioningSecret,
-                             @Value("${identity.identity-client-id:kicker-client}") String identityClientId,
+                             @Value("${identity.identity-client-id:husbcore-client}") String identityClientId,
                              UserRepository users) {
         this.restClient = restClientBuilder.build();
         this.identityIssuer = identityIssuer;

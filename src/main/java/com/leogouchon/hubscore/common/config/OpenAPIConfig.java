@@ -1,4 +1,4 @@
-package com.leogouchon.hubscore.common.config;
+package com.leogouchon.husbcore.common.config;
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;

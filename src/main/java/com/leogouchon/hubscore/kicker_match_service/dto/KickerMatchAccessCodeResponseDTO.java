@@ -1,9 +1,9 @@
-package com.leogouchon.hubscore.kicker_match_service.dto;
+package com.leogouchon.husbcore.kicker_match_service.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatchAccessCode;
-import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatchAccessCodeRevokedReason;
-import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatchAccessCodeStatus;
+import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatchAccessCode;
+import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatchAccessCodeRevokedReason;
+import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatchAccessCodeStatus;
 import lombok.Getter;
 
 import java.sql.Timestamp;

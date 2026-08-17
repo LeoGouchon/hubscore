@@ -2,9 +2,9 @@ services:
   db:
     image: postgres:17
     environment:
-      POSTGRES_DB: ${DB_NAME:-hubscore}
-      POSTGRES_USER: ${DB_USER:-hubscore}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-hubscore-local}
+      POSTGRES_DB: ${DB_NAME:-husbcore}
+      POSTGRES_USER: ${DB_USER:-husbcore}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-husbcore-local}
     ports:
       - "5433:5432"
     volumes:

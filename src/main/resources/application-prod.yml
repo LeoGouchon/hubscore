@@ -25,7 +25,7 @@ spring:
 cookie:
   secure: true
 
-hubscore:
+husbcore:
   cors:
     allowed-origins:
       - https://squash.leogouchon.com

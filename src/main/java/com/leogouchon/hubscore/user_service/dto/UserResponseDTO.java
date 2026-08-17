@@ -1,6 +1,6 @@
-package com.leogouchon.hubscore.user_service.dto;
+package com.leogouchon.husbcore.user_service.dto;
 
-import com.leogouchon.hubscore.player_service.entity.Players;
+import com.leogouchon.husbcore.player_service.entity.Players;
 import lombok.Getter;
 import lombok.Setter;
 

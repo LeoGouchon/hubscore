@@ -1,6 +1,6 @@
-package com.leogouchon.hubscore.player_service.repository;
+package com.leogouchon.husbcore.player_service.repository;
 
-import com.leogouchon.hubscore.player_service.entity.Teams;
+import com.leogouchon.husbcore.player_service.entity.Teams;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

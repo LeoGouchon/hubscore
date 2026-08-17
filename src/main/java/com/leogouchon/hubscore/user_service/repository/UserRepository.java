@@ -1,6 +1,6 @@
-package com.leogouchon.hubscore.user_service.repository;
+package com.leogouchon.husbcore.user_service.repository;
 
-import com.leogouchon.hubscore.user_service.entity.Users;
+import com.leogouchon.husbcore.user_service.entity.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

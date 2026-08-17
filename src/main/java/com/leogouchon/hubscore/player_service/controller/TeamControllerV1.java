@@ -1,7 +1,7 @@
-package com.leogouchon.hubscore.player_service.controller;
+package com.leogouchon.husbcore.player_service.controller;
 
-import com.leogouchon.hubscore.player_service.dto.TeamResponseDTO;
-import com.leogouchon.hubscore.player_service.service.TeamService;
+import com.leogouchon.husbcore.player_service.dto.TeamResponseDTO;
+import com.leogouchon.husbcore.player_service.service.TeamService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -40,7 +40,7 @@ public class TeamControllerV1 {
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping
     public List<TeamResponseDTO> getTeams(@RequestParam(required = false, defaultValue = "true") boolean isKicker,
-                                          @RequestParam(required = false, defaultValue = "true") boolean isSquash) {
+                                          @RequestParam(required = false, defaultValue = "false") boolean isSquash) {
         return teamService.getTeams(isKicker, isSquash);
     }
 }

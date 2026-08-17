@@ -1,10 +1,10 @@
-package com.leogouchon.hubscore.player_service.controller;
+package com.leogouchon.husbcore.player_service.controller;
 
-import com.leogouchon.hubscore.common.dto.PaginatedResponseDTO;
-import com.leogouchon.hubscore.player_service.dto.PlayerRequestDTO;
-import com.leogouchon.hubscore.player_service.dto.PlayerResponseDTO;
-import com.leogouchon.hubscore.player_service.entity.Players;
-import com.leogouchon.hubscore.player_service.service.PlayerService;
+import com.leogouchon.husbcore.common.dto.PaginatedResponseDTO;
+import com.leogouchon.husbcore.player_service.dto.PlayerRequestDTO;
+import com.leogouchon.husbcore.player_service.dto.PlayerResponseDTO;
+import com.leogouchon.husbcore.player_service.entity.Players;
+import com.leogouchon.husbcore.player_service.service.PlayerService;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;

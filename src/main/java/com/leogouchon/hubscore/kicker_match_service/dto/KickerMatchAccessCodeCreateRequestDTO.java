@@ -1,4 +1,4 @@
-package com.leogouchon.hubscore.kicker_match_service.dto;
+package com.leogouchon.husbcore.kicker_match_service.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.Future;
