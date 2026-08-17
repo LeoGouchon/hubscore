@@ -1,5 +1,6 @@
 package com.leogouchon.husbcore;
 
+import com.leogouchon.husbcore.common.config.CorsProperties;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
