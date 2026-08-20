@@ -22,8 +22,10 @@ BACKEND_PROVISIONING_SECRET=husbcore-secret
 IDENTITY_CLIENT_ID=husbcore-client
 ```
 
-The complete local Docker configuration is kept in `config/application-dev.yml`, which is
-created from `config/application-dev.example.yml` by `make dev` and mounted into the container.
+The complete Docker configuration is kept in the external `config/application.yml`, which is
+created from `config/application.example.yml` by `make dev` and mounted into the container.
+It is intentionally ignored by Git. Copy it to the deployment server as well; only the example
+file is committed.
 The CORS origins are configured as a YAML list:
 
 ```yaml
@@ -96,7 +98,17 @@ Backend of the Husbcore baby-foot application
 * **Migration**
     + Flyway
 
-## Required configuration (`application.yml`)
+## Configuration (`config/application.yml`)
+
+The application has no configuration files under `src/main/resources`. At runtime, Spring loads
+`config/application.yml` through `SPRING_CONFIG_ADDITIONAL_LOCATION`. The `.env` file is read by
+Docker Compose and its variables are passed to the backend container; Spring itself does not read
+`.env` directly.
+
+For production, keep `config/application.yml` and `.env` on the server, or inject the equivalent
+environment variables through the production Compose file. Do not commit either file.
+
+## Required configuration
 
 * **Flyway**
     * `spring.flyway.enabled` : Enable database migration

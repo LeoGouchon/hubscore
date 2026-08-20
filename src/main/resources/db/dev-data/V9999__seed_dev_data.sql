@@ -37,6 +37,2484 @@ INSERT INTO public.players (firstname, lastname, id) VALUES ('Colin', 'Dalaska',
 
 
 --
+-- Data for Name: kicker_matches; Type: TABLE DATA; Schema: public; Owner: hubscoreuser
+--
+
+INSERT INTO public.kicker_matches
+VALUES (0, 10, ((CURRENT_DATE - 223) + TIME '00:00:00.00125'), '8c4ed718-cfbe-447a-9746-5ad40dc11ea6',
+        'd56c5d66-acec-436d-9f96-062f724221a6', NULL, 'cf41cf64-b1f2-4470-aeed-e26752ee069e', NULL);
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 133) + TIME '12:08:53.817'), 'bf4aba93-7b89-45c8-8970-689bc5c81971',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL, 'd56c5d66-acec-436d-9f96-062f724221a6', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 133) + TIME '12:09:47.587'), '552c3fe8-a2be-4be2-b772-7eef4c7a2087',
+        'd56c5d66-acec-436d-9f96-062f724221a6', NULL, '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 133) + TIME '12:10:07.141'), '0f8134ca-a1c3-40ae-b8f8-17433e0e21ec',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL, 'd56c5d66-acec-436d-9f96-062f724221a6', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 133) + TIME '12:10:25.948'), '413e514a-ce33-4346-b2ec-823b895787ca',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL, '26cc5d1d-04e9-4655-870e-4f3b2efb559a', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 133) + TIME '12:10:44.802'), '19fd808c-2bae-4fa7-a1f8-aea8545d4396',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, -2, ((CURRENT_DATE - 133) + TIME '12:11:24.001'), '577fc4da-38ef-4339-b70c-6b774f021e8b',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 131) + TIME '11:31:20.672'), '82e29d6f-204a-4aaf-b130-9714d1735ef1',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 131) + TIME '11:40:49.381'), '1727333b-5d22-44f5-a5fd-03e3c5f93f5e',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 126) + TIME '12:11:50.873'), '7d82c70d-125c-4e0a-9341-b8f67367a0fa',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 124) + TIME '12:09:11.55'), '4c59d44c-2b71-45fa-874c-70f6636bf5f7',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 112) + TIME '12:05:25.667'), '8211ed8d-cf56-477a-b3f7-0e566bcd5876',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 64) + TIME '11:48:46.168'), '89b20be0-3b4e-475d-a71d-ea0dc8ad5561',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 64) + TIME '11:58:14.191'), 'cad99854-0f95-4570-b21b-078ee3caaead',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 63) + TIME '12:08:17.017'), '70c5d23c-1c52-43ce-9fa1-f11699b04eb5',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, -2, ((CURRENT_DATE - 62) + TIME '11:55:37.383'), '7fcb8e94-4612-4983-b691-86178576a5cf',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 61) + TIME '11:53:25.749'), '31bd4e99-38e2-4020-98d3-2c4c607a1a5e',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 57) + TIME '11:45:51.601'), '2537403b-1b8a-4a73-907a-3706c8a5b6b9',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 56) + TIME '11:30:35.744'), '2cd05972-1be7-48ad-ae01-7b15a5d7f069',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (-6, 10, ((CURRENT_DATE - 56) + TIME '11:38:36.033'), '739d69c0-06be-41e6-b9b7-873017d6ced3',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '916a99ad-6885-404a-b7a3-4dc20033e241',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 140) + TIME '11:44:32.822'), '1a703bd1-a53e-471b-98da-863f127a8eb1',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 140) + TIME '11:53:20.517'), '2dbda4a2-118e-4660-b769-ac29264958df',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 139) + TIME '12:05:48.684'), '931e6984-44b1-4a39-93ed-9bd6b6210525',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 55) + TIME '11:45:07.031'), '87787964-3767-42dc-b827-7aaefdaea341',
+        '962948a8-608e-4854-bacb-38bce5b51811', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 110) + TIME '11:30:07.126'), '4666f1d6-deff-4c7a-835c-bed3f9209b47',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 110) + TIME '12:05:52.785'), 'ad1cc063-6951-4ab6-bc1b-0c9a686285e3',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 110) + TIME '11:53:42.454'), 'f22626cc-8d06-48ee-9ffc-643b84ef35c8',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 106) + TIME '11:48:58.255'), '47d61218-7f5f-418c-a3dd-bfcb674d5c2b',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'c978e25f-4d00-4e3c-b4d1-1b766502b7fd',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 106) + TIME '11:59:32.603'), '01b2d2d2-39fb-4bb2-8700-de8cf9909299',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'c978e25f-4d00-4e3c-b4d1-1b766502b7fd',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 104) + TIME '12:00:08.974'), '6d55b528-132f-4fc0-819a-a04f728fbac4',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 99) + TIME '11:30:27.007'), 'bef22210-9f57-4159-b93a-97c210ac5eb3',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (2, 10, ((CURRENT_DATE - 97) + TIME '11:57:08.664'), '9c3f93be-4422-4d0a-a084-170f2334c55b',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 91) + TIME '11:39:21.193'), '81b0bd31-d32e-4f05-9ea4-b3f9ee2b17eb',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '962948a8-608e-4854-bacb-38bce5b51811',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 90) + TIME '12:05:48.31'), '2397b5b4-d8dc-4015-9a2d-2d0663b6e87a',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 85) + TIME '19:45:21.718'), 'f0e71b63-f316-4f9d-9a90-e001f1ed9941',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 85) + TIME '19:46:09.143'), 'eb25cf32-bacc-4f2b-ae43-9902c8a75e5f',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 85) + TIME '19:48:57.328'), '1c9c3618-20c7-4409-8d64-7f8d1caaab9e',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 85) + TIME '19:50:16.933'), '9e4b1a84-de25-4a78-a861-bc35473ec27f',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '8cd67c05-8f38-481f-b433-2f49fa36345e',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 78) + TIME '07:25:48.651'), '401f8ca6-2ef7-4db7-b682-029cb62a82c0',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 78) + TIME '07:26:36.245'), 'ba5788b2-82fb-4bd9-9391-daed88f42a7a',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '56fffbd3-5bae-41eb-9550-8bff68eb5a82');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 78) + TIME '07:27:13.192'), 'dd72d017-e3dc-4b1e-8968-027b84e2a1f0',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 78) + TIME '07:27:48.003'), 'b9ea0c54-7270-4b80-a633-61f54d832e69',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 78) + TIME '07:28:22'), '303de227-8ae7-46e7-af9a-84f5ed551f0e',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '56fffbd3-5bae-41eb-9550-8bff68eb5a82');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 78) + TIME '07:28:59.448'), '0c97dd40-28ec-4749-a941-197172149b73',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '2e580d80-edc2-42e3-9f9f-033ea588fe83');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 78) + TIME '07:29:28.561'), '88c7d98b-0070-4f21-b026-2186542cf834',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 77) + TIME '11:59:16.149'), '34b7d661-c12a-49ea-9041-2be16e973aea',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 77) + TIME '11:59:46.35'), 'c97ae6fa-37d8-4159-b202-1fd949368017',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 76) + TIME '12:03:32.608'), 'a687a242-d9e5-4d66-940e-54f289a6de6c',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '962948a8-608e-4854-bacb-38bce5b51811', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 72) + TIME '11:30:35.717'), 'e397214a-7faa-4df7-a135-b7e3b927c1d4',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 71) + TIME '07:10:31.763'), 'a3286eba-45c6-4394-8804-bd8a14f928bb',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 70) + TIME '12:03:36.312'), '6da01033-5bcf-4452-a7e1-3c5cb8b2db3f',
+        '962948a8-608e-4854-bacb-38bce5b51811', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 70) + TIME '12:04:06.044'), 'd7e8244e-143e-4378-bcfa-6c582f7a8e27',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '962948a8-608e-4854-bacb-38bce5b51811',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 69) + TIME '12:05:19.529'), '6d0d5e88-6cc3-4a72-ac18-9512cd228302',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '962948a8-608e-4854-bacb-38bce5b51811',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, -3, ((CURRENT_DATE - 64) + TIME '11:48:14.27'), 'b27ce539-09a0-4250-99c5-919dc7d248f7',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 55) + TIME '11:46:12.848'), '1bf1e2ac-ffd7-44cf-97c0-711d36781d2b',
+        '962948a8-608e-4854-bacb-38bce5b51811', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, -1, ((CURRENT_DATE - 54) + TIME '11:53:10.064'), 'd0520b23-09c1-460d-8d2e-ed2e1042d667',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '70ecd6f1-f150-43cb-9c1d-bc3cfe8e6251',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 54) + TIME '12:08:55.292'), 'e4a919da-278b-46ef-b6cc-497a13f9f3d2',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '70ecd6f1-f150-43cb-9c1d-bc3cfe8e6251',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (0, 10, ((CURRENT_DATE - 50) + TIME '12:03:17.163'), '29303e86-9233-48af-927c-a8c9b6be9a4d',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        '962948a8-608e-4854-bacb-38bce5b51811', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 49) + TIME '12:03:19.061'), 'c3e2c294-d735-411e-8409-820fc2426b64',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 47) + TIME '11:27:40.125'), 'b4edf756-d07a-4fcd-83b5-5d72690d480b',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '962948a8-608e-4854-bacb-38bce5b51811',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 47) + TIME '11:28:10.341'), '82097922-1493-4f34-b3e0-a77605774856',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '962948a8-608e-4854-bacb-38bce5b51811',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 47) + TIME '11:29:03.681'), '220b78d5-4dfc-4b1c-afad-b250168ea09f',
+        '2e580d80-edc2-42e3-9f9f-033ea588fe83', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 141) + TIME '11:04:09.557'), '9f6dc82c-8fb4-4e71-ad0a-c4610046c39d',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 135) + TIME '11:37:47.739'), 'd6a83c8b-e5e2-4630-af78-82f972082c10',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'fad5ee5d-c661-414e-9e22-dda0971ead5f',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '5f7dc630-cacc-4193-a04f-8f5c6ca1a204');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 132) + TIME '11:20:39.095'), 'ca1acc3a-edba-405d-8ceb-3f97ea5345e6',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '70ecd6f1-f150-43cb-9c1d-bc3cfe8e6251');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 132) + TIME '11:21:06.972'), 'e3c0a9d9-41ad-46fd-aeee-97d43a003cb9',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '70ecd6f1-f150-43cb-9c1d-bc3cfe8e6251', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 131) + TIME '11:57:58.428'), '86894eaf-bdaf-4dcb-8ced-531d46c4a44e',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 131) + TIME '11:58:15.067'), '3b9e83d9-d84e-4848-b20d-026850e41f88',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 131) + TIME '12:06:42.845'), '4754c2fb-7d72-46a8-8b61-f1adb79e0e39',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'fad5ee5d-c661-414e-9e22-dda0971ead5f');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 125) + TIME '11:19:33.416'), 'c913ab1e-0899-46c7-84b3-e9e65c98eaac',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 114) + TIME '11:42:24.605'), 'a2dabc07-25f3-4acf-9021-afbaf2b9bde7',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 111) + TIME '12:05:47.671'), 'a1aff59a-2b49-4c66-8ca7-8136a803fb38',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 107) + TIME '13:11:52.472'), '85c5adaf-8e04-41a3-8509-16291d597e8b',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', NULL, '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 107) + TIME '13:12:11.133'), '5bbc28d4-bfc1-4f38-b915-9cfb3597a9e2',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', NULL, '71acab85-232e-4859-906a-f5dccbe6dbc3', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 107) + TIME '13:12:29.558'), '389287bc-ba52-4289-93ee-f3c97e980d78',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 105) + TIME '11:40:43.104'), '46cb6c9e-afba-4fe2-9d60-4739b6973b05',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 105) + TIME '11:41:17.093'), 'ff2b3517-49e0-447d-9d94-ab1b79ddc7ba',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 105) + TIME '11:51:32.594'), '0d4cf208-1736-4662-aa0a-c9f45f42edf7',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 103) + TIME '11:51:06.449'), 'cc57a9e5-943e-44ed-a23d-da1c13260d29',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 99) + TIME '11:45:48.588'), 'a9dccc8d-3084-4b58-ba62-9d3bc5330756',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 96) + TIME '12:00:02.457'), 'b4306312-16e3-40b1-aeb5-58ae56f593d7',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 96) + TIME '12:00:15.982'), '3d796ba3-1ca6-4105-a5d9-290c3b23c6e8',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 91) + TIME '11:55:02.213'), '1c3a19b1-7ad8-421a-b4f1-a54502defbe0',
+        '962948a8-608e-4854-bacb-38bce5b51811', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'fad5ee5d-c661-414e-9e22-dda0971ead5f');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 89) + TIME '11:40:53.9'), '8ec2f873-ce18-469d-82e9-489976440b4e',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '962948a8-608e-4854-bacb-38bce5b51811',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 84) + TIME '14:06:51.954'), '2cd00f2c-0e87-40ba-98ed-ea272d0fc40b',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (2, 10, ((CURRENT_DATE - 84) + TIME '14:07:27.572'), '4e472730-8b2c-4cb6-a560-39f18a5cf5f7',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 84) + TIME '14:07:57.013'), '57ba8728-2e2b-44df-8e9c-312ac936752b',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '2e580d80-edc2-42e3-9f9f-033ea588fe83',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 78) + TIME '13:49:15.996'), 'c97b7627-c643-4490-89d4-8ada4aa7010e',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '56fffbd3-5bae-41eb-9550-8bff68eb5a82');
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 78) + TIME '13:49:42.35'), 'c1993439-7067-4615-b416-141b883d65a9',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 78) + TIME '13:50:09.245'), 'bf18c670-2805-4ba5-8bc5-1aebe09d38da',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 77) + TIME '16:52:31.979'), '5a0b292e-69d1-4a32-9f41-a37910a5f11f',
+        '962948a8-608e-4854-bacb-38bce5b51811', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 77) + TIME '16:53:01.454'), 'd3597f76-c550-40a4-9ea9-86ad12cc092e',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '962948a8-608e-4854-bacb-38bce5b51811', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 75) + TIME '11:24:07.272'), '53c3935e-c9e9-40ed-9331-48d8d9609d70',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '962948a8-608e-4854-bacb-38bce5b51811',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 75) + TIME '11:24:27.275'), 'e5f259d0-96ba-4de5-837e-e600470ad230',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '962948a8-608e-4854-bacb-38bce5b51811',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 72) + TIME '11:42:11.003'), '51e8baff-4f9c-46b8-9f24-4402a995d27e',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 69) + TIME '11:29:14.727'), 'bf87fb98-eaad-433b-9ab1-b05125e47ed4',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 69) + TIME '11:29:47.168'), 'a969e841-132e-4140-9804-49ccb66cc7d4',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 69) + TIME '11:30:09.839'), 'f1c91ed9-8609-47a0-9e35-1a353ff9f5a2',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 68) + TIME '12:06:08.263'), '0af1aeb8-0e5d-480b-b6a4-14914de7173f',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, -1, ((CURRENT_DATE - 68) + TIME '12:06:40.136'), '7bbc773a-da5c-4e9d-befd-ba959935bd8b',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 68) + TIME '12:07:13.324'), '9e978ebc-dddf-4aa2-ba14-6b144c86722d',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 63) + TIME '11:14:37.005'), '3fdae880-4dc6-4e91-b9f0-a7ab115e7140',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 63) + TIME '16:31:29.854'), '11537718-8193-4791-8686-c3749509412e',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 63) + TIME '16:32:16.587'), '67bdd23f-a965-4628-832d-93260024cdd5',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 62) + TIME '11:56:17.344'), 'a66a39d4-cc76-49a1-97a3-f05c2503a84b',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '962948a8-608e-4854-bacb-38bce5b51811',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 58) + TIME '11:34:56.88'), 'f9f625f2-0891-4388-bd87-03e5972764f8',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '916a99ad-6885-404a-b7a3-4dc20033e241',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 57) + TIME '12:04:49.422'), 'e3b49144-bcf7-4e69-b092-007a0c6ac8d4',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 56) + TIME '11:50:41.607'), 'c73172d7-b4aa-4322-a530-36561ee35b51',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '962948a8-608e-4854-bacb-38bce5b51811',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269');
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 55) + TIME '11:56:18.374'), '5960ddb5-57b9-44e7-9622-1fd1943b54b2',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 51) + TIME '11:41:35.977'), 'f9ef0b64-8d37-485c-9174-28ba191155af',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 51) + TIME '11:42:10.041'), 'cfcde6b8-844d-4c6d-8111-548c6b08d297',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 51) + TIME '11:42:38.551'), 'd259171b-015b-4cb0-83b0-407013bb95b9',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 51) + TIME '11:56:23.457'), '5d618fae-7e6f-4ad1-b8c5-f42ef80380fe',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 50) + TIME '11:27:19.853'), 'ae645ee7-4a7d-4549-98bc-ea9015cda761',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, -1, ((CURRENT_DATE - 50) + TIME '11:27:57.855'), 'f2bf8b3d-61c4-4820-b177-6c49d2b5b6cc',
+        '962948a8-608e-4854-bacb-38bce5b51811', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 49) + TIME '11:20:45.334'), '8e01d5c2-ab09-4a69-aed5-2afdee1ff387',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 49) + TIME '12:03:44.959'), 'b4621123-8e87-4a4d-9ce6-c51f1ba6381f',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '962948a8-608e-4854-bacb-38bce5b51811',
+        '1c2a9e0f-894c-484c-88f7-31cc5f0efdb2', '2e580d80-edc2-42e3-9f9f-033ea588fe83');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 47) + TIME '11:42:12.72'), '336a6f28-488d-41e8-894b-5046dec23ca5',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '2e580d80-edc2-42e3-9f9f-033ea588fe83');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 47) + TIME '12:01:58.31'), '3ee03fa5-e064-4ccb-acf0-2d5a320fa67e',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '2e580d80-edc2-42e3-9f9f-033ea588fe83',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 47) + TIME '15:08:58.832'), '0b1bf52a-cafa-481e-89bb-ee7d2e724dbb',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 41) + TIME '17:41:47.812'), '6d328030-5a8c-4514-8a07-5e3f5ed4d507',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '962948a8-608e-4854-bacb-38bce5b51811',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 141) + TIME '11:16:14.916'), 'faca6f88-bf70-4ebc-9290-f8cfb4a9f69b',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 141) + TIME '11:32:50.98'), '163726bd-b9cd-4c56-9458-1a8ab81766f4',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'c978e25f-4d00-4e3c-b4d1-1b766502b7fd',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 135) + TIME '12:03:59.939'), '59daa433-2e4a-488d-b6c2-df9d4bc911d3',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'fad5ee5d-c661-414e-9e22-dda0971ead5f');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 135) + TIME '12:04:26.463'), '7b278739-5ac5-4df0-b00c-0d319566fa54',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 132) + TIME '11:28:37.33'), '41ed55ad-8752-48ce-8b2d-8fda822b9a81',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 132) + TIME '11:38:24.507'), 'c66b0bbc-304c-4c71-829a-d2192d4ff3cc',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 132) + TIME '11:46:52.879'), 'c45df600-c566-4cb4-9328-74de187f09f0',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 128) + TIME '11:56:19.951'), '4edf650f-ba33-41ce-a71b-610ad880a727',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 128) + TIME '11:56:33.082'), '3670d3bd-e680-44ab-9f5d-d391fd75cb3c',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 140) + TIME '12:05:46.492'), '4923afb3-d99c-4dea-a810-9d1d01715120',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (0, 10, ((CURRENT_DATE - 138) + TIME '11:47:27.748'), 'b743141c-44d1-441a-90fe-c5602dc51083',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 138) + TIME '11:48:18.071'), '4a7ab13c-5469-492a-b1e3-02192dbab18f',
+        '1c2a9e0f-894c-484c-88f7-31cc5f0efdb2', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 128) + TIME '11:56:59.775'), '6d15b0c1-4675-4f1c-bbe4-a46cb63d3398',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', '56fffbd3-5bae-41eb-9550-8bff68eb5a82',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (1, 10, ((CURRENT_DATE - 125) + TIME '11:30:39.287'), 'a062a1d5-e18a-4080-921d-ff7e9a29641e',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '56fffbd3-5bae-41eb-9550-8bff68eb5a82', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 110) + TIME '11:11:57.058'), '04a08109-0932-4dc4-bdee-febb31e7af29',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 106) + TIME '11:21:42.485'), '6833b1cc-efee-4209-a076-cbde00a3cc2b',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'c978e25f-4d00-4e3c-b4d1-1b766502b7fd',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 105) + TIME '12:01:02.737'), '1f7fee2b-dbb2-443a-b17f-0d16cba79e2f',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 103) + TIME '11:51:28.246'), '2d5ce928-c96c-4c31-b193-49e9d58cf8a8',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 103) + TIME '11:52:05.145'), '8f13d5ae-a15a-48c6-ad42-3bb533131689',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 103) + TIME '12:00:40.813'), '0f7b64f7-f174-4460-9c73-b0192922998b',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, -1, ((CURRENT_DATE - 99) + TIME '11:59:35.11'), '0f6fb66b-a9df-4f12-9303-3ec96f595b67',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 92) + TIME '11:35:34.092'), '333fa07a-96d2-4bf4-8d26-53f0a7ddc660',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '962948a8-608e-4854-bacb-38bce5b51811',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 92) + TIME '11:36:16.307'), '6a81c823-5c16-43bc-bd46-f1911275a9e3',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '962948a8-608e-4854-bacb-38bce5b51811',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 92) + TIME '11:37:14.061'), 'd69af5cc-ef69-48b2-8067-30ba9e46e915',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 91) + TIME '12:03:08.576'), '5275a913-d33f-4c12-ba12-b89d131e35cd',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'fad5ee5d-c661-414e-9e22-dda0971ead5f',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 89) + TIME '12:03:51.981'), '0726bb92-24ea-4d46-911a-9b5803e39ce6',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '962948a8-608e-4854-bacb-38bce5b51811',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 89) + TIME '12:04:52.338'), '25d9870c-1e34-4def-b943-0b2209bb228f',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '962948a8-608e-4854-bacb-38bce5b51811',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (2, 10, ((CURRENT_DATE - 79) + TIME '09:29:46.26'), '49d5b283-8cc2-450a-aa0f-d0f009868a7a',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, -3, ((CURRENT_DATE - 77) + TIME '11:27:03.098'), '0bad0868-950f-45ff-8a76-5f2f9a90197a',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '962948a8-608e-4854-bacb-38bce5b51811',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 77) + TIME '11:27:48.498'), '0b4f6f5a-9355-48c1-ae5d-24cc8145b5c0',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 76) + TIME '11:34:15.26'), '9f9efab5-2216-4524-8787-d920ae399d7f',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', NULL, '18f9b369-b3ee-46fa-9230-217fc84f6c53', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 76) + TIME '11:35:14.343'), '0235a59f-82a1-47ab-8ae4-70e7c56f5bb1',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 75) + TIME '11:39:06.974'), '11f13fe0-cf64-4648-b349-ada51e95d6f0',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (0, 10, ((CURRENT_DATE - 75) + TIME '11:52:50.326'), '025288a9-a52c-44d1-bb22-be9ef4ca8ddd',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (1, 10, ((CURRENT_DATE - 72) + TIME '12:04:43.841'), '74391ce2-f144-4942-807e-d5143d705bd9',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 72) + TIME '12:05:38.845'), '40566052-c8df-4e66-98cb-199c8a5884e6',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 70) + TIME '11:17:07.616'), '8c36ebef-a0d6-4462-bb95-a0cc1fec2c8f',
+        '32a3a55d-40b9-4b50-b2c5-ff736445398c', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 69) + TIME '11:47:39.23'), '4e60247b-192c-4fd6-8fdc-adc05b6960d1',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '962948a8-608e-4854-bacb-38bce5b51811',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 65) + TIME '12:02:24.031'), '842ee066-36e9-49f5-a768-d7a9634ff4b7',
+        '962948a8-608e-4854-bacb-38bce5b51811', '916a99ad-6885-404a-b7a3-4dc20033e241',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, -2, ((CURRENT_DATE - 63) + TIME '11:21:23.967'), 'fabd8b46-609d-4047-a7a8-e6c1a7a03623',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 62) + TIME '11:08:56.067'), '58bf45ac-b65c-47bd-896d-a1b77f5bd958',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 61) + TIME '11:23:30.83'), '0da1ea1a-0f3e-4972-be90-c79867b89a1d',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 57) + TIME '06:37:28.6'), '5f540515-a71b-4842-919a-6c0684ca6e9c',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 57) + TIME '19:23:24.539'), 'b38e2405-7f1c-45b0-a355-7053bbffd4aa',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '962948a8-608e-4854-bacb-38bce5b51811',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 56) + TIME '12:02:48.565'), '5f273771-58c7-4d64-a810-6e823ef9f26b',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 54) + TIME '11:38:18.976'), '11ba30a0-8e19-423f-ab99-51bb7ff4a11d',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '70ecd6f1-f150-43cb-9c1d-bc3cfe8e6251',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 54) + TIME '11:44:58.492'), 'ff0e77a2-60d6-46e8-a733-b77fbe2b1f8f',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '70ecd6f1-f150-43cb-9c1d-bc3cfe8e6251',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'a90a58fd-27f4-4812-b28b-d1cd547945ce');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 51) + TIME '12:04:59.901'), 'df5c203c-f770-4d08-b612-6cf03eae8633',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '916a99ad-6885-404a-b7a3-4dc20033e241',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 50) + TIME '11:59:38.004'), 'a6d4541f-ea09-478c-905e-7b4a88b860ea',
+        '962948a8-608e-4854-bacb-38bce5b51811', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 50) + TIME '12:03:52.943'), '2cf016b2-7f3b-40d7-b52d-6e68b40e7ae4',
+        '962948a8-608e-4854-bacb-38bce5b51811', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '56fffbd3-5bae-41eb-9550-8bff68eb5a82');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 49) + TIME '11:21:17.439'), '22a8b325-f487-424a-9cee-7b2628d602f4',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 48) + TIME '16:10:28.601'), '29cf5c80-44e4-4398-aa9f-4377a8a60ee3',
+        '32a3a55d-40b9-4b50-b2c5-ff736445398c', '962948a8-608e-4854-bacb-38bce5b51811',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 47) + TIME '11:52:19.325'), 'd4a7cabe-bb1f-4d0f-aeb7-5aaf2d0413f5',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '2e580d80-edc2-42e3-9f9f-033ea588fe83',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 47) + TIME '15:08:29.676'), 'c133f9b5-9cb8-4e2e-bc7d-031adf652a36',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 41) + TIME '12:21:06.176'), '9452a4aa-e3f9-463c-b827-7e80552e7644',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 41) + TIME '12:22:04.774'), '6b20e802-e8ae-4656-9029-6f26a25585b4',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 41) + TIME '12:24:15.325'), '6aa9e882-fc2a-4e2d-b3f5-208e0b72265c',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 41) + TIME '17:42:23.106'), '77af6a3c-368f-4bae-83c8-a5033fe4b28b',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '962948a8-608e-4854-bacb-38bce5b51811',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 141) + TIME '11:46:27.483'), 'ea42c0c2-df4d-4deb-a1e2-7b179361d740',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 140) + TIME '11:15:47.308'), '9d0ff086-a8db-44ad-b462-403685841be2',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 139) + TIME '11:28:25.212'), '1d4e9540-3c97-4e69-97ca-532be3d909b0',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 139) + TIME '11:40:19.629'), 'd631db37-3448-4bf8-84c2-5ffb1cac85df',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 138) + TIME '12:04:39.835'), 'a88ed02c-069c-4dc5-9b7a-a0c58d03db56',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '56fffbd3-5bae-41eb-9550-8bff68eb5a82',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 138) + TIME '12:05:15.613'), '49661e1b-987a-4744-95c7-c9aa39a6b9ad',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (2, 10, ((CURRENT_DATE - 134) + TIME '11:58:05.612'), 'f28026cd-8906-48f3-b118-409131966b64',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 132) + TIME '12:08:18.173'), '7af53471-d5ac-4280-8e18-3d4695392fe4',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 132) + TIME '12:08:45.537'), '8fa38686-8396-48a3-b429-7e4499ff2b3a',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 126) + TIME '11:32:41.657'), '8d076adc-4a14-4d1f-8e2c-8b6dae93fc15',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 126) + TIME '11:33:10.713'), 'a0f9f88a-42b7-426b-be15-dfac1da48921',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '962948a8-608e-4854-bacb-38bce5b51811',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 126) + TIME '11:45:46.857'), 'd4dbd9ca-f063-48d7-94ca-66592f0958e4',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 125) + TIME '11:48:21.103'), '548594d8-c446-4797-b3a7-1873626ca104',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '56fffbd3-5bae-41eb-9550-8bff68eb5a82');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 125) + TIME '11:59:10.089'), 'bf9a4151-8368-43b0-bad8-1c869e54e6d1',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 113) + TIME '11:44:33.32'), 'a60dc2e1-fa9e-417b-b259-f0c8d71a7ba9',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 113) + TIME '11:45:02.294'), '18e1bd4f-674a-4918-b39f-23bbd0c2fa2a',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 110) + TIME '11:21:39.014'), '98bb97b0-d38a-4236-95cf-e945d8e1059f',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 106) + TIME '11:34:52.885'), '1dd94275-358a-4aa8-9ef7-42b233693eca',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 104) + TIME '11:33:33.912'), 'db17fd42-126c-4580-9c28-627f4d083f9d',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 103) + TIME '15:48:12.615'), '863fef60-384c-45aa-a7ad-5ac04cc2d72c',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', NULL, '962948a8-608e-4854-bacb-38bce5b51811', NULL);
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 103) + TIME '15:48:36.183'), 'cf1403e0-6c6a-4494-a1fc-2e008bff2ce4',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', NULL, '962948a8-608e-4854-bacb-38bce5b51811', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 98) + TIME '12:07:50.745'), '41ed6574-a966-481b-8364-aa80af535f16',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 98) + TIME '12:08:19.56'), '3f393846-b6ec-4a45-b040-7c51a1fd981f',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 98) + TIME '12:08:43.244'), 'a0d58140-9fb4-4eb6-98a1-74e951a748ff',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 98) + TIME '12:09:03.08'), 'f4ab7943-62ea-4d89-aebd-095fe8d21817',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 92) + TIME '11:45:28.476'), '72add0e0-85ed-4f4b-adbf-00d13868405e',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 90) + TIME '11:23:05.371'), 'ac579318-b3a9-4563-9da5-34a92fe53838',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'fad5ee5d-c661-414e-9e22-dda0971ead5f',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 90) + TIME '11:23:53.192'), '2d1e3fa2-ad10-4664-a715-517582108a19',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', '962948a8-608e-4854-bacb-38bce5b51811',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 90) + TIME '11:30:54.088'), '7d50659b-1c03-4867-a1f7-89b4b6cef9d8',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 85) + TIME '19:44:37.238'), '4a24cfd5-7279-49b4-a4b9-492cafb4bcfc',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 85) + TIME '19:47:56.945'), 'a0872672-499f-44ae-82eb-9f4828851d20',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 78) + TIME '07:25:04.476'), '168d3277-18c2-4cbf-bcec-3250b0b8b897',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 78) + TIME '07:29:59.176'), 'a3b45e8c-71c1-4300-b80c-30c2a90755c2',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 77) + TIME '11:40:52.046'), '973fb1e5-f5b9-4d4b-b933-d89546d64db1',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 76) + TIME '11:46:16.42'), 'a60be6ba-6710-497e-824b-181047dcb2ec',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 75) + TIME '12:08:58.035'), '879d0b9c-94a9-4718-aa09-71562a24f69d',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '962948a8-608e-4854-bacb-38bce5b51811',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 71) + TIME '07:10:16.032'), '71517389-96e6-42d8-b1b1-7969b01bc61c',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (1, 10, ((CURRENT_DATE - 70) + TIME '11:20:08.4'), '7f9f92f8-f18b-4ffd-a611-f99081e78162',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '962948a8-608e-4854-bacb-38bce5b51811', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, -1, ((CURRENT_DATE - 70) + TIME '11:32:41.328'), 'f25cf485-3e34-4abf-9258-cfaef2990165',
+        '962948a8-608e-4854-bacb-38bce5b51811', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 69) + TIME '12:04:24.145'), '180c9db4-c57e-4f3a-b0d6-0f7978c84734',
+        '962948a8-608e-4854-bacb-38bce5b51811', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 64) + TIME '11:20:30.888'), '038b47c6-f148-4832-b98d-7a6013efb465',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 64) + TIME '11:32:55.799'), '66fd45b2-2a5e-45a6-9f5d-804c818794a7',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 63) + TIME '11:37:45.357'), '9b617a04-8a34-4d76-ae43-373b7c223911',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 62) + TIME '11:22:16.925'), 'd27ec396-c885-440c-8de9-f2cb6717b6f8',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '962948a8-608e-4854-bacb-38bce5b51811',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, -1, ((CURRENT_DATE - 62) + TIME '11:32:01.97'), '4d776051-f793-449e-baf9-94c33fd85203',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '962948a8-608e-4854-bacb-38bce5b51811',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (-1, 10, ((CURRENT_DATE - 61) + TIME '11:50:07.579'), '98d7d7e3-d9a7-45c4-a1fa-7ae7e98fd2a6',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 61) + TIME '11:52:21.626'), '0c2c717b-4b8c-44a7-acf3-c870851ab206',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '56fffbd3-5bae-41eb-9550-8bff68eb5a82');
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 57) + TIME '11:15:03.285'), 'c0f84ea0-9591-43cc-ac92-c3cbe984a6ee',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 57) + TIME '11:31:26.369'), '88792109-3435-413b-b44f-55543ea6263e',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 56) + TIME '11:15:49.833'), '6ecb590f-2000-4df9-8fe4-e5c4c09e343e',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 56) + TIME '11:17:39.368'), '1ae5d922-90f2-4511-927b-e2662e642265',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 55) + TIME '11:43:55.527'), '83b06e85-6a5b-422a-ac63-2bda4a9da7e0',
+        '962948a8-608e-4854-bacb-38bce5b51811', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 257) + TIME '00:00:00.00002'), 'bbffd35d-4630-406d-ba8e-a31555ee03d7',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL, '71acab85-232e-4859-906a-f5dccbe6dbc3', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 257) + TIME '00:00:00.00003'), 'a95b5832-1652-4443-85e6-6ca2f6ac77f7',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', '5f7dc630-cacc-4193-a04f-8f5c6ca1a204',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 257) + TIME '00:00:00.00004'), 'fdb742b9-d83a-4368-9d2c-9d2ae00b2cf7',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 256) + TIME '00:00:00.00005'), '436814e4-162c-4e9c-889b-174bb992a350',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 256) + TIME '00:00:00.00006'), 'af887ef1-eeb0-4d68-a7ab-526e6ee3b3bb',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 256) + TIME '00:00:00.00007'), '331a71e8-e6a6-4c53-9fc3-555fd10cb51f',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 255) + TIME '00:00:00.00008'), '1c2a48a7-02ce-4718-b96e-869fcc86b549',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', NULL, '71acab85-232e-4859-906a-f5dccbe6dbc3', NULL);
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 255) + TIME '00:00:00.00009'), '57c5b003-7095-4f6f-a578-99234119d050',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 255) + TIME '00:00:00.0001'), '707ff185-b201-4a59-b1b8-7f274885dda0',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 254) + TIME '00:00:00.00011'), 'ab200ac3-0583-47be-bb22-22e9b57e9564',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 254) + TIME '00:00:00.00012'), '82c4e21d-95e8-4e73-94d8-bc118dba00be',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 254) + TIME '00:00:00.00013'), 'ff6cc467-c270-45de-a47e-cbec7c14cfc7',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 253) + TIME '00:00:00.00014'), '11955511-c9b6-48b1-bd59-43a33de6386a',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 253) + TIME '00:00:00.00015'), 'b4ae0f37-3be2-4315-a354-fa44f259886d',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, -2, ((CURRENT_DATE - 253) + TIME '00:00:00.00016'), 'ec108f75-9614-4942-a626-3e3572fadfcc',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 252) + TIME '00:00:00.00017'), '4388d3aa-63cf-47f8-8025-bbf0511a812b',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, -3, ((CURRENT_DATE - 252) + TIME '00:00:00.00018'), 'bcbb6b3f-170d-4e04-aa1c-7c020e2974b4',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 252) + TIME '00:00:00.00019'), 'd6db1a4c-3906-4d75-85d6-f0668d6c3288',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 251) + TIME '00:00:00.0002'), '7364c814-d20a-44ef-b764-ae21c0f44238',
+        '962948a8-608e-4854-bacb-38bce5b51811', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 251) + TIME '00:00:00.00021'), '0f0d43f9-f19f-4e8a-8771-b25cb01e6d30',
+        '962948a8-608e-4854-bacb-38bce5b51811', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 251) + TIME '00:00:00.00022'), '827914d9-d0ee-4f99-8855-6f77540db2e8',
+        '962948a8-608e-4854-bacb-38bce5b51811', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, -2, ((CURRENT_DATE - 250) + TIME '00:00:00.00023'), 'a26c78c0-6cb9-4746-ad0d-d95f8f5bec10',
+        '962948a8-608e-4854-bacb-38bce5b51811', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 250) + TIME '00:00:00.00024'), 'febdfc1e-94b8-4ee9-a545-c7ddba6a78f0',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 250) + TIME '00:00:00.00025'), '68e64c6b-33bb-45c8-9ce1-59f85d43cfa6',
+        '962948a8-608e-4854-bacb-38bce5b51811', NULL, '18f9b369-b3ee-46fa-9230-217fc84f6c53', NULL);
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 249) + TIME '00:00:00.00026'), '47659748-33d9-417b-9437-287e6b9c8b4b',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 249) + TIME '00:00:00.00027'), '0448477e-74a7-4a1e-b462-2f1216344feb',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '1c2a9e0f-894c-484c-88f7-31cc5f0efdb2', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 249) + TIME '00:00:00.00028'), 'ebebd98f-dbee-4578-ba46-7a48b57f3724',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '1c2a9e0f-894c-484c-88f7-31cc5f0efdb2', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 248) + TIME '00:00:00.00029'), 'e2e9c574-c477-45cb-ad9b-0a13f9afef45',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 248) + TIME '00:00:00.0003'), '56322a2a-c37f-471b-9486-07ae607a09b3',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 248) + TIME '00:00:00.00031'), 'b680512e-89b7-42c4-9cfc-61b7adb7efad',
+        'd56c5d66-acec-436d-9f96-062f724221a6', NULL, '18f9b369-b3ee-46fa-9230-217fc84f6c53', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 247) + TIME '00:00:00.00032'), 'a750e0a6-b95b-4122-acef-2e3c0d3adffd',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 247) + TIME '00:00:00.00033'), '8734fbe7-ea92-473f-a724-391f52a26d98',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 247) + TIME '00:00:00.00034'), '4b555791-e913-477a-9161-e2f4b72e3de7',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 246) + TIME '00:00:00.00035'), '552cb190-908f-4b2f-b6a4-efcc6b6e8b4d',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, -1, ((CURRENT_DATE - 246) + TIME '00:00:00.00036'), '4d438cf7-ea71-4954-806e-e1d94b9d34b3',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 246) + TIME '00:00:00.00037'), '6eed591e-931e-498d-935e-379d63618403',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 245) + TIME '00:00:00.00038'), '56fa19a8-36b9-4aa3-a461-4b6a0baf8aec',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 245) + TIME '00:00:00.00039'), '315d0901-1580-4637-8131-716d542d822d',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 245) + TIME '00:00:00.0004'), '8d31237b-ef8b-4d42-947a-39af7fad6d69',
+        '962948a8-608e-4854-bacb-38bce5b51811', NULL, 'd56c5d66-acec-436d-9f96-062f724221a6', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 244) + TIME '00:00:00.00041'), 'e764f99a-2af3-4031-898f-851d2818249f',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 244) + TIME '00:00:00.00042'), '26d42053-e70b-425a-a785-7d8f75a18923',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 244) + TIME '00:00:00.00043'), '5de01804-f420-4504-b0ae-e1f28246e482',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 243) + TIME '00:00:00.00044'), 'a690b38f-eac6-4266-9082-77d7cbeaa343',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 243) + TIME '00:00:00.00045'), '4fbf750f-cf03-4e10-bfbd-045032a86a0f',
+        '962948a8-608e-4854-bacb-38bce5b51811', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 243) + TIME '00:00:00.00046'), '5b44a110-0628-4a76-a094-b02e39074d79',
+        '962948a8-608e-4854-bacb-38bce5b51811', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 242) + TIME '00:00:00.00047'), 'e96a6a2c-40af-4569-bd96-090418b6ad60',
+        '962948a8-608e-4854-bacb-38bce5b51811', NULL, '8cd67c05-8f38-481f-b433-2f49fa36345e', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 242) + TIME '00:00:00.00048'), 'b42c8bc4-5e48-40b0-bb82-e770bdf96698',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '8cd67c05-8f38-481f-b433-2f49fa36345e', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 242) + TIME '00:00:00.00049'), '726f3e1f-a44a-4cf2-8db1-d3e6a50e4157',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '8cd67c05-8f38-481f-b433-2f49fa36345e', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 241) + TIME '00:00:00.0005'), 'f642fa0a-bb9a-4ad2-b7de-4fa6ccacdf3c',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8cd67c05-8f38-481f-b433-2f49fa36345e',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 241) + TIME '00:00:00.00051'), '2955ad3e-d943-4546-b74e-de3cc26d2229',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8cd67c05-8f38-481f-b433-2f49fa36345e',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 241) + TIME '00:00:00.00052'), '7c02eb33-d28a-4fe6-9c92-fb7fa0629844',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 240) + TIME '00:00:00.00053'), '49dbc80c-d474-4f9d-afc8-e43e47d32d71',
+        '8cd67c05-8f38-481f-b433-2f49fa36345e', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 240) + TIME '00:00:00.00054'), '6806981f-d76d-4f53-b300-08c8af2b3ea9',
+        '8cd67c05-8f38-481f-b433-2f49fa36345e', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 240) + TIME '00:00:00.00055'), '2a317e52-7b4d-4e47-954c-710b8995776e',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL, '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', NULL);
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 239) + TIME '00:00:00.00056'), '10d2162d-c7ee-4f1d-8be7-a08034f4bc20',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL, 'cf41cf64-b1f2-4470-aeed-e26752ee069e', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 239) + TIME '00:00:00.00057'), 'fcb4b234-0819-4169-bfec-096b95ae8f5b',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '962948a8-608e-4854-bacb-38bce5b51811',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 239) + TIME '00:00:00.00058'), '06152306-45fe-4fc8-8811-58f2d6693371',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', NULL, 'cf41cf64-b1f2-4470-aeed-e26752ee069e', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 238) + TIME '00:00:00.00059'), 'c3f8c021-274d-468e-b52c-ee431207ea3d',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '962948a8-608e-4854-bacb-38bce5b51811',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '8cd67c05-8f38-481f-b433-2f49fa36345e');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 238) + TIME '00:00:00.0006'), 'ee00a3f8-1987-4630-8c80-ccf90541f939',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 238) + TIME '00:00:00.00061'), '6580d6a3-32f1-4ab8-b6c5-a933cb3f547b',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 237) + TIME '00:00:00.00062'), '1e1628e8-3986-4613-b634-211f0260889e',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 237) + TIME '00:00:00.00063'), 'bf9dff00-fd35-43e3-8b78-a8fab8b80a98',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 237) + TIME '00:00:00.00064'), '1dc41bd5-75fa-4147-af96-21aa6742f936',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 236) + TIME '00:00:00.00065'), '2f5d2283-fabb-4e80-ad5e-88d582c8dc51',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 236) + TIME '00:00:00.00066'), '1168daff-71fb-4390-a068-c6617591e47a',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 236) + TIME '00:00:00.00067'), '52af6554-7316-4308-8837-8bac90ed4475',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', NULL, '71acab85-232e-4859-906a-f5dccbe6dbc3', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 235) + TIME '00:00:00.00068'), '8d3f8ae4-6af2-46d2-9797-b79507780942',
+        '962948a8-608e-4854-bacb-38bce5b51811', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 235) + TIME '00:00:00.00069'), 'c5612be8-d266-4dd0-b2b2-8c860519866b',
+        '962948a8-608e-4854-bacb-38bce5b51811', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 235) + TIME '00:00:00.0007'), '673b299f-2ea4-4655-b39f-9d57ad970724',
+        '962948a8-608e-4854-bacb-38bce5b51811', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, -1, ((CURRENT_DATE - 234) + TIME '00:00:00.00071'), 'cc37e6f2-169d-4a1d-bd9d-ae6bf0406221',
+        '962948a8-608e-4854-bacb-38bce5b51811', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, -4, ((CURRENT_DATE - 234) + TIME '00:00:00.00072'), '6ecfdb21-4c9a-477c-9dd7-892fef545d40',
+        '962948a8-608e-4854-bacb-38bce5b51811', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 234) + TIME '00:00:00.00073'), '9a0cde31-f76f-46b5-80a8-e87a6579080d',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '962948a8-608e-4854-bacb-38bce5b51811',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 233) + TIME '00:00:00.00074'), 'c4b50d70-f4d5-429a-8e52-fce04ab75b85',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '962948a8-608e-4854-bacb-38bce5b51811',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '70ecd6f1-f150-43cb-9c1d-bc3cfe8e6251');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 125) + TIME '16:29:09.215'), '16b96548-d54e-48a2-b0d1-d9fbf1c6911b',
+        '962948a8-608e-4854-bacb-38bce5b51811', NULL, '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, -1, ((CURRENT_DATE - 233) + TIME '00:00:00.00075'), 'caca4695-114c-4f97-80bc-8b1388ec7776',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '962948a8-608e-4854-bacb-38bce5b51811',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 233) + TIME '00:00:00.00076'), 'c16c2bc9-a7de-4c97-9458-9002e59714b1',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '3afba91f-350b-4caf-b836-f77bb71791f1');
+INSERT INTO public.kicker_matches
+VALUES (10, -2, ((CURRENT_DATE - 232) + TIME '00:00:00.00077'), 'f0af361b-2980-4c63-af6c-f0bde6e234f5',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3afba91f-350b-4caf-b836-f77bb71791f1');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 232) + TIME '00:00:00.00078'), 'd7375911-349c-4cda-aa6b-f1278f9a64e3',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', NULL, '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 232) + TIME '00:00:00.00079'), '76f974e2-abc1-4bda-839f-4b2ef0315bdf',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', NULL, '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 231) + TIME '00:00:00.0008'), 'b1861db8-a18c-44e0-83d9-dfbb0450ce5e',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 231) + TIME '00:00:00.00081'), 'e7bd6108-4daf-4867-9161-e8a96623b35e',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 231) + TIME '00:00:00.00082'), '07e5137f-1f1a-4d6e-9434-45ef9fb63cb5',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 230) + TIME '00:00:00.00083'), '5e180f6b-c7b9-4424-9d44-72b4a5d9b183',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 230) + TIME '00:00:00.00084'), '1eaa3611-5e7f-44fa-bfad-1772e99c1e80',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 230) + TIME '00:00:00.00085'), '49f6cd67-b8e0-439f-84ec-7058be797d0e',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 229) + TIME '00:00:00.00086'), 'b599cdd4-e7b3-4d1e-aedd-cb92f9791de1',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, -1, ((CURRENT_DATE - 229) + TIME '00:00:00.00087'), '96e4c93d-9753-48c3-9694-bc91d14144e7',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, -1, ((CURRENT_DATE - 229) + TIME '00:00:00.00088'), '71225dfc-4337-43c0-a726-84e52b544558',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 228) + TIME '00:00:00.00089'), '871a7109-79f1-4fb7-b0b4-c7093658ea47',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 228) + TIME '00:00:00.0009'), 'e1903e29-bb63-429e-bb50-3d3b87aea79c',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 228) + TIME '00:00:00.00091'), 'faa32de6-6c1c-4b94-b4d7-940eddea27f5',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, -1, ((CURRENT_DATE - 227) + TIME '00:00:00.00092'), '5cd40461-32d4-4dba-84b4-958a78647ca1',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '2e580d80-edc2-42e3-9f9f-033ea588fe83',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 227) + TIME '00:00:00.00093'), 'ba8fd425-12cb-4819-bc92-111cd4c96ed5',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '2e580d80-edc2-42e3-9f9f-033ea588fe83',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '56fffbd3-5bae-41eb-9550-8bff68eb5a82');
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 227) + TIME '00:00:00.00094'), '847911b9-1a83-4f8c-8952-e434e2eaab41',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '2e580d80-edc2-42e3-9f9f-033ea588fe83',
+        'a90a58fd-27f4-4812-b28b-d1cd547945ce', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 226) + TIME '00:00:00.00095'), 'de220bcd-e6c1-4c8f-8a1c-c3f5e9f04341',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '2e580d80-edc2-42e3-9f9f-033ea588fe83',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 226) + TIME '00:00:00.00096'), 'f6cc1b77-7484-44fd-b47a-8d03924677bd',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL, '71acab85-232e-4859-906a-f5dccbe6dbc3', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 226) + TIME '00:00:00.00097'), 'fa689a14-7fe0-4c5a-a584-a33b49209eed',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 225) + TIME '00:00:00.00098'), 'c9a61942-a3bb-44ac-ad91-cec0eb89b1e1',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 225) + TIME '00:00:00.00099'), 'a9189008-b73f-4e56-8713-85abeeb29df3',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 225) + TIME '00:00:00.001'), 'da65f1a6-0da1-44da-9e6e-8f03022a2667',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 224) + TIME '00:00:00.00101'), '8b6e2c04-4d1e-4ee5-a025-fb836c745f94',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 224) + TIME '00:00:00.00102'), 'af6265a4-4f0c-4958-b1ed-4a0abe2af0d7',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 224) + TIME '00:00:00.00103'), 'a91b9a38-50ca-42f6-a313-ca48ce5794a2',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 223) + TIME '00:00:00.00104'), '5ef537b1-0fdf-4ec1-b49e-9d8aec982af5',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', 'fad5ee5d-c661-414e-9e22-dda0971ead5f');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 223) + TIME '00:00:00.00105'), '39a3e05a-fc91-44ab-ab13-62b193ca94c2',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 223) + TIME '00:00:00.00106'), 'a004c8a3-15d5-4614-97c1-f49cbe7b9327',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 222) + TIME '00:00:00.00107'), '9b576819-bf53-441b-a569-13fcf8d4470e',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 222) + TIME '00:00:00.00108'), '8496e9bc-fcdc-469b-8d26-419478fa215e',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 222) + TIME '00:00:00.00109'), '73188dd8-0307-4d8c-9629-e8c00534ae4f',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 221) + TIME '00:00:00.0011'), '2a9ed488-5ce3-41b4-abb0-9ceb7d9e1c2a',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 221) + TIME '00:00:00.00111'), '1142e944-c420-44ec-bf8b-967d95e0f710',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 221) + TIME '00:00:00.00112'), '650f8323-f03b-4168-b815-c4c15ba0e0fd',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 220) + TIME '00:00:00.00113'), '86ed48cd-c837-4c50-b4dc-59c6bdab7e60',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 220) + TIME '00:00:00.00114'), 'ba057b11-aeaa-4a1d-bb67-d8d76dd1efeb',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 220) + TIME '00:00:00.00115'), '9f619975-0ed5-4ffe-b12d-38cf723592c0',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 219) + TIME '00:00:00.00116'), 'cbbc14e1-2e4e-4acc-9480-ee8888740930',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 219) + TIME '00:00:00.00117'), '170af7f3-a65a-4c8f-baa6-5a33b1f4f85f',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 219) + TIME '00:00:00.00118'), '965ee385-248a-4d69-81b8-54b2380f2eef',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 218) + TIME '00:00:00.00119'), '24958abd-f19f-4d08-aade-bf8aa920be51',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 218) + TIME '00:00:00.0012'), '78011838-e1bc-42a8-a2ee-93c2670cf2d3',
+        'd56c5d66-acec-436d-9f96-062f724221a6', NULL, '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 218) + TIME '00:00:00.00121'), 'aaa98758-203c-4d11-b8d7-1dc271ec9608',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '70ecd6f1-f150-43cb-9c1d-bc3cfe8e6251', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 217) + TIME '00:00:00.00122'), '9b9adb6f-9c9d-48e7-b39e-4c1feec6dd0a',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 217) + TIME '00:00:00.00123'), '5649771f-721f-4fc8-8b66-4583dbc5ca04',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 217) + TIME '00:00:00.00124'), 'bfbb983b-7252-4891-8b05-ffaf179bd6c5',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 216) + TIME '00:00:00.00126'), '231a2362-2cdf-4ddd-a2a0-fd39833950a4',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 216) + TIME '00:00:00.00127'), 'ca1004c1-10d8-4aa9-ac4f-6596cce0b994',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '962948a8-608e-4854-bacb-38bce5b51811', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 216) + TIME '00:00:00.00128'), '3c91872e-575c-43cd-a1cb-edcdaaf5af08',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '962948a8-608e-4854-bacb-38bce5b51811',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 215) + TIME '00:00:00.00129'), 'c2de0e93-7fa5-417f-b112-9b7ed5327b84',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 215) + TIME '00:00:00.0013'), '95e681ff-456f-4da1-bf85-7b83be465cda',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 215) + TIME '00:00:00.00131'), '695caa17-0be9-4ec7-a489-a2fc7417d3d5',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 214) + TIME '00:00:00.00132'), 'b630fbf2-08e1-42ae-a3ec-ae28bea24461',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '962948a8-608e-4854-bacb-38bce5b51811',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 214) + TIME '00:00:00.00133'), 'd33fe5c0-5b4e-44ad-a5d2-8bddf8db096a',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '962948a8-608e-4854-bacb-38bce5b51811',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, -2, ((CURRENT_DATE - 214) + TIME '00:00:00.00134'), '2d0e7346-8ae6-441f-b0bc-53b012f1edce',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '962948a8-608e-4854-bacb-38bce5b51811',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 213) + TIME '00:00:00.00135'), '4f74a3d4-d1c3-43ba-a102-3d26d2fcf02b',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 213) + TIME '00:00:00.00136'), '82ec7b6c-7e5b-4b0c-95a2-6f32688df8b6',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, -2, ((CURRENT_DATE - 213) + TIME '00:00:00.00137'), '98e43d6a-2768-49b0-b5a3-ecf34eb0d6b2',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 212) + TIME '00:00:00.00138'), '416e33e1-a515-4265-b197-9e7256d4bcda',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (1, 10, ((CURRENT_DATE - 212) + TIME '00:00:00.00139'), 'c959bdc7-f20b-4abe-942b-ec8bcfc02194',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 212) + TIME '00:00:00.0014'), '63150a04-683b-445d-bf72-036f45223081',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', NULL, '962948a8-608e-4854-bacb-38bce5b51811', NULL);
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 211) + TIME '00:00:00.00141'), 'e42c2848-55d2-4d84-9f26-7de5370b24da',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', NULL, '962948a8-608e-4854-bacb-38bce5b51811', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 211) + TIME '00:00:00.00142'), 'fdc8b739-77cb-444e-9395-41c187f1ef33',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        'ab2acc96-e7b4-45d9-9109-06b23eb59ae2', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 211) + TIME '00:00:00.00143'), 'd45d732b-0068-41b5-96a6-3cafd9217959',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 210) + TIME '00:00:00.00144'), '77b88550-6e98-4f88-a578-e30451cdbc48',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        'ab2acc96-e7b4-45d9-9109-06b23eb59ae2', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 210) + TIME '00:00:00.00145'), 'ec925d09-4380-4418-bc3d-8ba455780cc1',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '962948a8-608e-4854-bacb-38bce5b51811',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 210) + TIME '00:00:00.00146'), '786769a4-3750-4c5e-95e4-dc3f6d1d7f53',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '962948a8-608e-4854-bacb-38bce5b51811',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 209) + TIME '00:00:00.00147'), 'd017fcf2-364d-4634-82d1-c89b58d2c3fa',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 209) + TIME '00:00:00.00148'), 'bf9ffff6-2f28-4646-9f99-627cd399ea1d',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 209) + TIME '00:00:00.00149'), 'ba8c5f58-632c-44b8-a0d2-11543618a240',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 208) + TIME '00:00:00.0015'), 'b1a4fc56-a3c1-4345-8cf3-87bbbcf7c918',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 208) + TIME '00:00:00.00151'), 'e404032b-2f0f-4490-a242-c9ca2081bc2f',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '962948a8-608e-4854-bacb-38bce5b51811', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 208) + TIME '00:00:00.00152'), 'e8a1f7ca-107b-486f-ba9f-6b0406d65e8b',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 207) + TIME '00:00:00.00153'), '6ae39f85-b20a-444b-99fd-d05418eba3c0',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 207) + TIME '00:00:00.00154'), 'd1eabf6a-36ba-4a6e-bc1e-42d8f7025285',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, -2, ((CURRENT_DATE - 207) + TIME '00:00:00.00155'), '17615c49-a35b-4bc9-8604-103d92c975ba',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 206) + TIME '00:00:00.00156'), '28c62f25-9047-46d3-8523-2852210035f9',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'c978e25f-4d00-4e3c-b4d1-1b766502b7fd',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 206) + TIME '00:00:00.00157'), 'c5e7dc52-1a7e-4da3-aaa7-716dbce0f1f2',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'c978e25f-4d00-4e3c-b4d1-1b766502b7fd',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 206) + TIME '00:00:00.00158'), '2f396c09-4002-42ec-a6e3-122fcf7b13a8',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '70ecd6f1-f150-43cb-9c1d-bc3cfe8e6251',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 205) + TIME '00:00:00.00159'), '048b3c2f-0c6b-4d2f-8aa6-4d81841945d3',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '70ecd6f1-f150-43cb-9c1d-bc3cfe8e6251',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 205) + TIME '00:00:00.0016'), 'aa02cb03-5b42-44bd-8272-5b6b576df9cd',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '70ecd6f1-f150-43cb-9c1d-bc3cfe8e6251',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 141) + TIME '12:01:25.552'), '024fcc41-0918-440d-8c83-9b69c381dbe1',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'c978e25f-4d00-4e3c-b4d1-1b766502b7fd',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (2, 10, ((CURRENT_DATE - 205) + TIME '00:00:00.00161'), '2b766087-9c94-45fe-a7ba-cefa008ed171',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 204) + TIME '00:00:00.00162'), '47121e1b-d5af-4e3e-9b82-202abead19f3',
+        '962948a8-608e-4854-bacb-38bce5b51811', 'c978e25f-4d00-4e3c-b4d1-1b766502b7fd',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (2, 10, ((CURRENT_DATE - 204) + TIME '00:00:00.00163'), '59521673-f51c-43e6-9284-fb8680f9f3e1',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 204) + TIME '00:00:00.00164'), 'fdf46259-f1ea-415e-8a90-86feb757421e',
+        '962948a8-608e-4854-bacb-38bce5b51811', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 203) + TIME '00:00:00.00165'), '24972e27-810e-48f6-9b3f-b6d50dcd4e73',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 203) + TIME '00:00:00.00166'), 'c9f5fd47-5fa0-4231-bccd-c218f43dac1b',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 203) + TIME '00:00:00.00167'), 'c2347f4c-0143-437c-b48a-ff32bb51e91f',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '70ecd6f1-f150-43cb-9c1d-bc3cfe8e6251', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 140) + TIME '11:28:03.675'), '43a51261-0054-4413-a290-8b12f1eca2be',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 139) + TIME '11:54:27.349'), '159ac370-a917-4232-ba21-61c3460af8a7',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 202) + TIME '00:00:00.00168'), '1877e6ff-21ec-4f32-8396-98fa3ecc43aa',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 202) + TIME '00:00:00.00169'), 'e01b2ad0-d2a2-4ca8-84c8-27b5bd46a0bb',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 202) + TIME '00:00:00.0017'), 'ebc7de38-86bc-4dd3-b0bc-559109268e70',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '56fffbd3-5bae-41eb-9550-8bff68eb5a82', '2e580d80-edc2-42e3-9f9f-033ea588fe83');
+INSERT INTO public.kicker_matches
+VALUES (-2, 10, ((CURRENT_DATE - 201) + TIME '00:00:00.00171'), 'a82094e5-5fc9-418f-95cb-541f3f4c772a',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '70ecd6f1-f150-43cb-9c1d-bc3cfe8e6251', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 201) + TIME '00:00:00.00172'), 'd776b216-d8b0-408d-8877-06ad9aec4aac',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '2e580d80-edc2-42e3-9f9f-033ea588fe83',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 201) + TIME '00:00:00.00173'), '27072185-00f1-4f28-8b65-8a63d1a0c1f9',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '2e580d80-edc2-42e3-9f9f-033ea588fe83',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 200) + TIME '00:00:00.00174'), '302d7f75-9e09-44c6-bdcf-4da178fa7d9a',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '2e580d80-edc2-42e3-9f9f-033ea588fe83',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 200) + TIME '00:00:00.00175'), '39e73f5f-c0cb-4d3c-94f1-5770ca2b0367',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 200) + TIME '00:00:00.00176'), '60716af9-24a5-48b1-9fc7-d5954d04bd92',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 199) + TIME '00:00:00.00177'), 'ef28f4ef-6921-423b-9450-7ebe1a5fd0dd',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 199) + TIME '00:00:00.00178'), '57bd1aa0-266f-4206-8d4f-4708b683c9b4',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 199) + TIME '00:00:00.00179'), '2aa9b40d-f03a-4e9f-afca-7967e0a90088',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 198) + TIME '00:00:00.0018'), 'e7bac39e-3fc7-4289-9214-b9cd793a665f',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        '2e580d80-edc2-42e3-9f9f-033ea588fe83', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 198) + TIME '00:00:00.00181'), 'e2aaec53-707e-4ef2-b3be-83c80f997524',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 198) + TIME '00:00:00.00182'), '48ba4a33-516e-4dc7-a077-57deb84507c9',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (-5, 10, ((CURRENT_DATE - 197) + TIME '00:00:00.00183'), '9877b9b9-9528-44c5-ad3a-a86aeb6a26f1',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 197) + TIME '00:00:00.00184'), '31163cad-732c-447c-8263-7d4984c1ada4',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 197) + TIME '00:00:00.00185'), '371dbe5a-b833-4e37-94fb-d6a32ef8bb51',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '962948a8-608e-4854-bacb-38bce5b51811', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 196) + TIME '00:00:00.00186'), 'f33342a5-0f04-4499-be3f-15c3577b4656',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 196) + TIME '00:00:00.00187'), '5b9014b2-cdac-47b3-be86-17ff77d63fa1',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 196) + TIME '00:00:00.00188'), 'dd4cb454-821e-4b2f-9b9b-02ec92a7c9e8',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'fad5ee5d-c661-414e-9e22-dda0971ead5f',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'a90a58fd-27f4-4812-b28b-d1cd547945ce');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 195) + TIME '00:00:00.00189'), '5dc1a9f3-cf86-4202-b956-1e6a4c822ad1',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'fad5ee5d-c661-414e-9e22-dda0971ead5f',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 195) + TIME '00:00:00.0019'), 'b8a5fa61-b69f-4673-bd47-e4230389feb1',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'fad5ee5d-c661-414e-9e22-dda0971ead5f',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 195) + TIME '00:00:00.00191'), '7281b27d-ae32-402d-8c3f-82e32ffba73a',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'fad5ee5d-c661-414e-9e22-dda0971ead5f',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 194) + TIME '00:00:00.00192'), '33cd243f-9533-4dc7-a682-2e89160246b2',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'fad5ee5d-c661-414e-9e22-dda0971ead5f',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 194) + TIME '00:00:00.00193'), '40672db9-9ed0-45a6-a41b-5c5c3d69bcdc',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL, '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 194) + TIME '00:00:00.00194'), '3ec571cb-9ca3-4f91-9d21-7f50400365ab',
+        'd56c5d66-acec-436d-9f96-062f724221a6', NULL, '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 193) + TIME '00:00:00.00195'), '08d21461-db8d-42f1-921d-b3ab33403783',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 193) + TIME '00:00:00.00196'), '60544923-945a-431a-88ed-1aa90f592fd4',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 193) + TIME '00:00:00.00197'), 'b2ce8305-3a3d-4f31-b159-3f9e025f94bd',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 192) + TIME '00:00:00.00198'), 'aa296e53-a922-46fe-98a9-5f690e2c8f0c',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 192) + TIME '00:00:00.00199'), '1c65b3f5-c986-4476-945f-fb626d391c45',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 192) + TIME '00:00:00.002'), 'bb004b3a-1035-4e7a-8691-c19978ec49d8',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 191) + TIME '00:00:00.00201'), '312d45fa-0b30-4ba4-baf2-e59cb120da7e',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 191) + TIME '00:00:00.00202'), 'c76886fd-aa02-4715-b80a-f58caccad4cb',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 191) + TIME '00:00:00.00203'), 'a5bea5a7-4f3f-4f99-8e6e-1a344032034c',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 190) + TIME '00:00:00.00204'), '4971faa8-74ba-4c09-8159-05233ee12d9d',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 190) + TIME '00:00:00.00205'), '3b60064d-51f1-429b-a8f2-73562b44c8d2',
+        '1c2a9e0f-894c-484c-88f7-31cc5f0efdb2', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 190) + TIME '00:00:00.00206'), '5236cc16-e2d1-4881-a0b4-d3137b8e4fd4',
+        '1c2a9e0f-894c-484c-88f7-31cc5f0efdb2', 'c978e25f-4d00-4e3c-b4d1-1b766502b7fd',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 189) + TIME '00:00:00.00207'), 'e0858198-68c2-4bb7-a34e-de131c4598d0',
+        '1c2a9e0f-894c-484c-88f7-31cc5f0efdb2', 'c978e25f-4d00-4e3c-b4d1-1b766502b7fd',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 189) + TIME '00:00:00.00208'), 'd18dce7a-e113-4233-8eb1-d7110a41267d',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 189) + TIME '00:00:00.00209'), '4b97d23b-ca6f-4158-9d04-95e72091133e',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'fad5ee5d-c661-414e-9e22-dda0971ead5f',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 188) + TIME '00:00:00.00211'), '09193807-574e-4a48-aea8-d1be9954f392',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 188) + TIME '00:00:00.00212'), '5c5c7652-0e39-4239-a26a-cc99ebc504d1',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 188) + TIME '00:00:00.00213'), '6bf20bcf-04f0-48e6-bd77-3790dae7a013',
+        '962948a8-608e-4854-bacb-38bce5b51811', 'fad5ee5d-c661-414e-9e22-dda0971ead5f',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 187) + TIME '00:00:00.00214'), '5a1eb710-23dd-4771-9be3-b752a79c076f',
+        '962948a8-608e-4854-bacb-38bce5b51811', 'fad5ee5d-c661-414e-9e22-dda0971ead5f',
+        '2e580d80-edc2-42e3-9f9f-033ea588fe83', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 187) + TIME '00:00:00.00215'), '444c2de0-b8af-477c-bca9-15b70f88f2e6',
+        '962948a8-608e-4854-bacb-38bce5b51811', 'fad5ee5d-c661-414e-9e22-dda0971ead5f',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 187) + TIME '00:00:00.00216'), '9cd3ad9d-4836-49d7-b9b2-34b258949e15',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 186) + TIME '00:00:00.00217'), '090c19a8-6865-468e-a9f4-640c0705d565',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '2e580d80-edc2-42e3-9f9f-033ea588fe83', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 186) + TIME '00:00:00.00218'), '97bcb42b-3966-447c-9bbf-e613c1ea3f41',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (0, 10, ((CURRENT_DATE - 186) + TIME '00:00:00.00219'), '03c7e010-4dcd-4457-829f-3c6af958b41f',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (-1, 10, ((CURRENT_DATE - 185) + TIME '00:00:00.0022'), '558308da-f29b-46fc-91bd-6147509e953c',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '2e580d80-edc2-42e3-9f9f-033ea588fe83',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 185) + TIME '00:00:00.00221'), '3cedb496-078e-4754-8bc5-f74ac93379ae',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (1, 10, ((CURRENT_DATE - 185) + TIME '00:00:00.00222'), '8aa94a57-0686-41f1-93c5-97ba0bad9950',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 184) + TIME '00:00:00.00223'), 'd69bc3ea-f7be-4a04-b268-b0d4184bfa88',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (2, 10, ((CURRENT_DATE - 184) + TIME '00:00:00.00224'), 'd586bb6b-5583-4959-a136-68fa0c4de1ed',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 184) + TIME '00:00:00.00225'), '04819854-3d3e-4fcd-a48a-ee935533b150',
+        '962948a8-608e-4854-bacb-38bce5b51811', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 183) + TIME '00:00:00.00226'), '3a3c7190-c2be-42d6-9370-01438be361b5',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 183) + TIME '00:00:00.00227'), 'fd638d22-205a-493e-bc05-4729f8b822f1',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 183) + TIME '00:00:00.00228'), 'ade07b17-edd2-4496-9874-5eb2a082921c',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'c978e25f-4d00-4e3c-b4d1-1b766502b7fd',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 182) + TIME '00:00:00.00229'), 'f404ba2e-e3c1-4f29-a3de-f6a4fc928be2',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 182) + TIME '00:00:00.0023'), 'f6f6135c-d624-47a1-ac51-cdad5e92147b',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 182) + TIME '00:00:00.00231'), '93e2afad-b3c8-45ba-8739-0ef827dac9dc',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 181) + TIME '00:00:00.00232'), '9adbea70-d246-42cb-9cb5-afa62159c53a',
+        'd56c5d66-acec-436d-9f96-062f724221a6', NULL, '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 181) + TIME '00:00:00.00233'), '15ca522b-1f3a-4a8b-a13f-e9dd0dca85e3',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 181) + TIME '00:00:00.00234'), 'e78823c3-25bb-4611-9bcd-a67dc1c9de4b',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 180) + TIME '00:00:00.00235'), '5b5ddac0-a61e-44d3-85ca-8ca62afd1d65',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', 'fad5ee5d-c661-414e-9e22-dda0971ead5f');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 180) + TIME '00:00:00.00236'), '13184958-e3d9-4a1a-bc8a-11f3b15f55e0',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 180) + TIME '00:00:00.00237'), '1884ea02-b140-4854-8dbd-5e180b72059e',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '96a211f7-9836-4700-a57f-e8c19bf18e92',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 179) + TIME '00:00:00.00238'), 'e1be35d2-8df8-4460-bdbb-5a76795ce0fe',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 179) + TIME '00:00:00.00239'), 'cd6b4315-57c7-4293-a79d-c1cc8d2290a7',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'fad5ee5d-c661-414e-9e22-dda0971ead5f');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 179) + TIME '00:00:00.0024'), '6400b184-bdc0-46c9-a027-e73e826664b2',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', NULL, '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 178) + TIME '00:00:00.00241'), '8e3fac82-840c-4e00-a922-27627750cbd5',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL, 'cf41cf64-b1f2-4470-aeed-e26752ee069e', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 178) + TIME '00:00:00.00242'), 'de4c3d82-3f00-4051-9e77-fd3092df0d94',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', NULL, 'cf41cf64-b1f2-4470-aeed-e26752ee069e', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, -5, ((CURRENT_DATE - 178) + TIME '00:00:00.00243'), '229f7088-df9a-40d1-a9c7-e17b4a7049aa',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '56fffbd3-5bae-41eb-9550-8bff68eb5a82',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 177) + TIME '00:00:00.0021'), '31d140df-c07d-4c0f-bb52-5a5e4f9d8caf',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', NULL, '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', NULL);
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 134) + TIME '14:10:51.991'), 'ff7bca4f-f67f-44e0-ba60-84583afea07a',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 131) + TIME '11:24:55.913'), 'aa2e4809-c7fb-435e-9fbb-08b1da4cfb38',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 131) + TIME '11:25:22.003'), '3dc556f8-68f2-40f0-9c03-f476dbf4c9f7',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (0, 10, ((CURRENT_DATE - 126) + TIME '11:59:46.316'), '2c9f20bc-db48-4aab-854a-dd34c319792e',
+        'fad5ee5d-c661-414e-9e22-dda0971ead5f', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 124) + TIME '11:48:20.069'), 'e463c9e6-79d6-4088-a4e3-a2d56f82ef0b',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 124) + TIME '11:48:35.7'), '0e2a4d09-9b22-4730-8a76-dce7d9983c21',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 113) + TIME '12:01:01.065'), '6f52f3ba-d638-4aa7-aae2-453dcb996daa',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 110) + TIME '11:45:27.977'), '364ae5f6-d7b0-4cb3-949c-7fc5a436f8b9',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 106) + TIME '11:42:13.723'), 'c8b1bddc-c1d1-4aa2-97e6-2e1d485fba7a',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', 'c978e25f-4d00-4e3c-b4d1-1b766502b7fd',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 104) + TIME '11:39:25.09'), '2ea54668-bb4d-43bb-b83b-51b462a00526',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 104) + TIME '11:50:37.609'), '82dc0d21-c3cf-488c-b251-f42b6c0c2995',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 103) + TIME '16:09:48.586'), 'e349fc1a-e8dd-4fbf-99f5-1d53b3062476',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '962948a8-608e-4854-bacb-38bce5b51811',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 97) + TIME '11:49:46.594'), '21524b33-0540-4ba9-9e11-c939a91301b8',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 97) + TIME '11:50:07.659'), '4d43ea21-67f5-47dc-a78f-a16bc2ecde7f',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 92) + TIME '11:56:39.95'), '688877fe-828d-4e5c-bc56-117030456fe4',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'c978e25f-4d00-4e3c-b4d1-1b766502b7fd');
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 90) + TIME '12:05:18.599'), 'db552d30-0016-448f-9dee-1c63fa215ef9',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'cf41cf64-b1f2-4470-aeed-e26752ee069e',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 43) + TIME '17:46:43.536'), '5e005b51-d0cf-41c1-88da-8767e3c09eee',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 43) + TIME '17:46:57.236'), '92d4e42b-d821-4a46-b129-4634ff9b2983',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 40) + TIME '17:43:42.056'), 'c7b672d7-c5e0-43ff-a2a7-72d50a253afb',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 40) + TIME '17:42:54.922'), '97ce3f78-331b-4f7c-b6f0-21c83ee1a064',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', 'cf41cf64-b1f2-4470-aeed-e26752ee069e');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 40) + TIME '17:43:11.81'), 'fe04ec25-22d9-489b-833a-89d090d34abd',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 41) + TIME '17:42:03.455'), '369897ab-5088-43f7-980d-c3dccc203061',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '962948a8-608e-4854-bacb-38bce5b51811',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 40) + TIME '17:43:26.348'), '55492757-e754-4c79-9b65-f50dfcaafba2',
+        '962948a8-608e-4854-bacb-38bce5b51811', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 37) + TIME '13:04:27.242'), 'd416c84c-a18e-431a-8b1b-1488ec54e578',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 37) + TIME '13:04:49.576'), 'a08ef968-9f24-4863-a05d-f133b20d2560',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 37) + TIME '13:05:21.438'), '7ae4d5e2-24dd-4ace-996f-be23398811bb',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 37) + TIME '13:05:37.876'), '4033a589-16dc-400a-a4b0-fbe4494e4612',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 36) + TIME '12:46:35.513'), '60af3db6-137e-4b87-bc7e-7c3b72b49d3f',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 36) + TIME '12:50:06.63'), '1111a7e1-1dd4-45cf-9965-8b02df08cb4d',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 36) + TIME '13:38:26.329'), '344d3991-5661-4d20-98f3-ced7557d0444',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 35) + TIME '13:05:58.497'), '7776ac88-7d31-470f-b089-42d8e884a3c3',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 35) + TIME '13:06:22.867'), '48a14762-ee58-486e-9d8b-3b5408383715',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 35) + TIME '13:06:49.718'), '1980a266-112c-4529-9a65-f4f2a50af11c',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 35) + TIME '13:03:13.309'), '0f0edfa2-070e-48a6-8d8d-c5d2422184e6',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, -1, ((CURRENT_DATE - 34) + TIME '12:11:09.313'), 'c958b328-f880-4639-948d-974da859bb8f',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 1, ((CURRENT_DATE - 34) + TIME '12:15:30.261'), '0677a11b-91a1-4814-8d7b-57bf3b355e27',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 34) + TIME '12:29:32.741'), '0e62ddd7-caa9-4ca4-a614-e28f32c82a38',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 0, ((CURRENT_DATE - 34) + TIME '12:40:15.029'), '03b89a04-99a1-4e15-a02f-f01393937b84',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 34) + TIME '12:50:43.634'), 'fa2eaadd-794c-473b-a640-6e899911cb0f',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '2e580d80-edc2-42e3-9f9f-033ea588fe83',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 34) + TIME '13:12:06.353'), 'fccaa178-bcf8-4243-8c27-bc166824fa96',
+        '962948a8-608e-4854-bacb-38bce5b51811', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '2e580d80-edc2-42e3-9f9f-033ea588fe83');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 33) + TIME '13:32:52.323'), 'ae97ef96-6621-4f3d-a51e-c6b8af402cf4',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '2e580d80-edc2-42e3-9f9f-033ea588fe83');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 33) + TIME '13:33:31.072'), 'e093bbe6-9e9a-48a5-96b8-bd654bb39bc9',
+        '962948a8-608e-4854-bacb-38bce5b51811', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 33) + TIME '13:35:56.533'), 'bb801d6b-c7ea-4387-8ca3-eb67c2bbfe7a',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 30) + TIME '13:09:07.895'), '364d1662-b85d-468a-a5b8-1012098a7cb8',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '916a99ad-6885-404a-b7a3-4dc20033e241',
+        '5f7dc630-cacc-4193-a04f-8f5c6ca1a204', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 30) + TIME '13:09:35.169'), 'ea76c7e6-5bab-4ade-8690-d37a2389e0f9',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 30) + TIME '13:09:56.819'), '086b3ea5-697f-45e1-81b4-df3bb2ed9393',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 28) + TIME '12:29:44.539'), 'e395f40c-8450-4ef1-8361-4239d34351db',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 28) + TIME '12:30:43.881'), '27a5603a-f86b-4683-9e99-e04b02d8c3b2',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 28) + TIME '12:34:08.414'), '2b9303f0-8353-4176-ac92-0d42fb5fae1e',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 28) + TIME '13:07:51.045'), '72cc5430-ada0-4cde-a2f5-ca7253396904',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 28) + TIME '13:08:17.384'), 'f598ad2b-fb63-4be1-968d-5926c5d3e5f4',
+        'cf41cf64-b1f2-4470-aeed-e26752ee069e', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 27) + TIME '12:23:29.725'), 'f57e9e78-7ccb-4d6e-a720-0e72a1910e6c',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (-1, 10, ((CURRENT_DATE - 27) + TIME '13:13:31.027'), '73b16091-5792-402f-805c-f8a56237736d',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 27) + TIME '13:14:07.622'), '1ee82777-acc4-42fe-a334-69bba46c47ec',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 27) + TIME '13:14:42.95'), '08ca7be0-d9ab-4d97-b440-dfb2af11170e',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 27) + TIME '13:15:08.943'), '6eb806ea-6c7b-4768-9a6b-e49558d3f0d7',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 27) + TIME '17:17:29.524'), '7b99c761-a403-4998-84fa-a87d7e3aced1',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 26) + TIME '12:31:11.351'), 'eda5dedc-91b6-4784-ae23-4002fccc3f58',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 26) + TIME '13:10:18.403'), '6ad1f4e1-b42d-43d4-8f71-429a9c7b1b78',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 26) + TIME '13:11:07.087'), 'ee5377b4-8dc3-4d07-b109-5fecd3ce9b1e',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 26) + TIME '13:11:35.392'), 'cb0ccdff-4e03-4440-bfd8-dd849e709d08',
+        'd45f473f-e181-45c3-b77e-9a7e0c0b6269', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 23) + TIME '13:08:17.963'), '2d67f555-2e00-49b8-b071-72ca522f9d23',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 23) + TIME '13:08:33.101'), '212a60fe-83d5-4128-8f97-dc3be2f9808b',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 23) + TIME '13:09:14.788'), '0341566d-7404-4e6f-8915-c8c03e2c0259',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 23) + TIME '13:09:35.158'), '5b37424f-9cec-4080-abcb-7adbb910ca1b',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 22) + TIME '12:12:45.514'), 'c0c94a20-3596-45b9-9585-b9acb9259487',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 22) + TIME '12:28:55.307'), 'd58a2894-9ce2-4031-ab25-91d5bb9f968a',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 22) + TIME '12:29:51.403'), 'f72ee1e0-2c79-4268-86f9-c5e4d82f2bde',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 22) + TIME '12:46:44.512'), 'f682f337-6d0b-47fb-88be-84cfca9dad0e',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 22) + TIME '12:48:23.831'), 'ff28b1af-3eed-42c9-a3b7-d90236eeff9b',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 22) + TIME '12:59:34.632'), '70d97f5e-01fb-4de0-a9f2-c120fd5ddfb1',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 21) + TIME '12:21:26.885'), 'a0059da0-84b5-4071-9064-1455829b0b61',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 21) + TIME '12:23:32.765'), '8413ab66-937f-447d-b9b7-15aaec7130f5',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 21) + TIME '12:36:15.77'), 'ec8e252c-b251-4141-81b5-9bcd7abb910d',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 21) + TIME '12:55:31.249'), '19310996-2fd6-4028-8d50-81f8f607080f',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 21) + TIME '13:24:03.885'), '6a7703be-23ce-43f5-8e70-cd0660f5dc2d',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 20) + TIME '13:01:11.545'), 'aa0889fc-6c88-4583-bd1e-dfe5d7d0f7f4',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 20) + TIME '13:01:25.976'), '6e92b165-ea9f-42a0-a07f-199d45a165a3',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 20) + TIME '13:01:43.043'), 'd27c09f6-064b-446e-b22d-6114403677fe',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 20) + TIME '13:01:57.153'), '60c23bcf-a026-4cc3-ab32-d087bd93a7fc',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 20) + TIME '13:02:11.414'), '578c6e22-dbd3-4838-a9e9-5f6ed3ab9c11',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 16) + TIME '12:22:02.756'), '5dd7f66c-b7fe-43ab-9b29-e7ad1f133afd',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 16) + TIME '12:22:23.238'), '0de25d7b-85fb-4559-853c-2b415ddb8da1',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 16) + TIME '12:32:33.053'), 'b6ba6cca-bb0b-45da-b624-d1d8c60b8910',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 16) + TIME '12:41:39.528'), 'f61f82dd-ff77-4c4b-bdd9-c6f1a5b17a69',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '962948a8-608e-4854-bacb-38bce5b51811',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 16) + TIME '12:56:22.04'), 'd52b462e-2b9f-4a14-90f5-187215ae538a',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '962948a8-608e-4854-bacb-38bce5b51811',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 15) + TIME '12:38:17.151'), '4095ad08-1df8-4728-9656-042c7aeebf49',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 15) + TIME '12:47:05.819'), 'df6cc931-a953-473c-baeb-7eec2f1b415b',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 15) + TIME '12:47:35.955'), '7d210965-14d4-4bcf-ab6b-3ae9f06d7ea6',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 15) + TIME '12:48:13.387'), '2f1acb4d-cb4e-4861-9f62-7a04845d317a',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, ((CURRENT_DATE - 15) + TIME '12:54:34.044'), 'dc59ec0e-7ffa-4409-881c-1b61fdd2e3db',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 15) + TIME '13:03:46.733'), 'd35eeecb-625e-464c-adcf-b74d3538cb51',
+        '56fffbd3-5bae-41eb-9550-8bff68eb5a82', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 14) + TIME '12:10:57.005'), '15f21157-c601-493c-ac8c-2d47805f4841',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 14) + TIME '12:26:42.768'), '91bccdc0-0be3-4bd8-88d5-92174d44c48b',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 14) + TIME '13:03:33.208'), '4a5f8334-a88f-4501-ab00-0a440b32e55a',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 14) + TIME '13:04:55.044'), '313a955a-3f68-4f29-b2e4-4217f095500c',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (8, 10, ((CURRENT_DATE - 14) + TIME '13:05:23.567'), '998b7dd5-daec-475a-b8b1-58bd38c66a85',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 13) + TIME '12:16:07.681'), '7c63b77d-def2-4ca5-9e9e-24e5234db17d',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (10, 2, ((CURRENT_DATE - 13) + TIME '12:44:54.878'), '49e3e002-1a54-43c9-a715-34a720bdd30f',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 13) + TIME '12:45:49.466'), '32df52a3-077a-409a-96ec-c7d294c190b6',
+        '962948a8-608e-4854-bacb-38bce5b51811', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '18f9b369-b3ee-46fa-9230-217fc84f6c53', '71acab85-232e-4859-906a-f5dccbe6dbc3');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 13) + TIME '12:51:53.424'), '040592ff-3d3e-47ef-bfb1-3a50ce98af2c',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 13) + TIME '13:03:28.486'), '3f387b1d-ccbb-4baf-9074-e8e684dbc9f2',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '916a99ad-6885-404a-b7a3-4dc20033e241',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '18f9b369-b3ee-46fa-9230-217fc84f6c53');
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 12) + TIME '12:25:54.844'), '2effea1c-646e-4383-98d7-60f5d2301822',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '18f9b369-b3ee-46fa-9230-217fc84f6c53',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 12) + TIME '12:48:20.877'), '76f8f4fb-cf36-41e6-8747-8a77fe89e75f',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 12) + TIME '12:48:51.278'), 'c9d58764-e723-4612-991a-8aaa41e0cac8',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 12) + TIME '13:02:39.681'), '1d70f065-6cf4-4067-8063-d8d5510546f1',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '56fffbd3-5bae-41eb-9550-8bff68eb5a82');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 9) + TIME '12:38:06.967'), '84d78f4a-8b35-44ab-a986-c0ef0164b7aa',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 9) + TIME '12:38:28.593'), 'ce2b5f94-e486-4c2e-8cb7-aeed404e48ce',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 9) + TIME '12:55:13.723'), '78da53d5-3658-4b59-8ade-2829fdc1bcf7',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 9) + TIME '12:56:03.013'), '3bf82a7e-73a8-4087-8a09-37b67506b502',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 9) + TIME '13:09:51.996'), '21d5d7eb-0c3a-4ead-aaf2-682d6f1a577a',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 8) + TIME '13:02:43.77'), '697d028f-ad6f-48c7-aaeb-0c1091271113',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 8) + TIME '13:03:14.442'), '03aef452-c679-4fc2-9a87-2ad679b4ae73',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 8) + TIME '13:03:44.181'), 'cb12aa2c-1853-4229-9f15-1e827d31ecf6',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 8) + TIME '13:04:16.761'), 'c2c940ba-276a-4147-bf63-d26f07df292d',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 7) + TIME '12:18:11.85'), '097869ad-fd39-47aa-9501-941bf9e8bbc4',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', 'd56c5d66-acec-436d-9f96-062f724221a6',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 7) + TIME '12:25:56.216'), 'f0d24bd2-177e-4d22-89a5-4d269a8f8038',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 7) + TIME '12:51:21.122'), '05f66970-1242-4218-9660-46b4971942db',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 4, ((CURRENT_DATE - 7) + TIME '12:53:51.488'), '2c5a390b-93d9-48ec-b90c-3e6a7442195f',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 7) + TIME '13:16:44.66'), 'a8c04a64-c807-49a3-9d4f-033f06324f81',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 6) + TIME '12:23:02.629'), 'b78b4e50-7a46-4aca-96ce-747854003b62',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '916a99ad-6885-404a-b7a3-4dc20033e241',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (9, 10, ((CURRENT_DATE - 6) + TIME '12:23:58.479'), '9ecd491f-28f5-4cc2-b2dc-ae462b4b42c5',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', '962948a8-608e-4854-bacb-38bce5b51811',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, ((CURRENT_DATE - 6) + TIME '12:56:15.047'), '4a0811b4-af10-47cf-834d-5ef849acc7bb',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 6) + TIME '12:56:47.52'), '3249acec-5038-444b-8f2e-c9efdeee7263',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, ((CURRENT_DATE - 6) + TIME '12:57:13.441'), 'ec3d3da6-32e6-4a2c-a1c3-78963a9f31e2',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 5) + TIME '13:03:43.108'), '121a97e4-1fdc-4171-a40b-85c9eae44e51',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', 'd45f473f-e181-45c3-b77e-9a7e0c0b6269',
+        '962948a8-608e-4854-bacb-38bce5b51811', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 5) + TIME '13:04:14.082'), 'fda6906e-5099-439d-9b59-16c322674497',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '56fffbd3-5bae-41eb-9550-8bff68eb5a82');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, ((CURRENT_DATE - 5) + TIME '13:04:36.581'), '813376c9-652b-4646-82be-9119f96c0b5d',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '962948a8-608e-4854-bacb-38bce5b51811',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (7, 10, ((CURRENT_DATE - 2) + TIME '12:18:31.465'), 'c4f774f6-5c4d-4503-9a3c-4b31824f9a06',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 9, ((CURRENT_DATE - 2) + TIME '12:32:47.958'), 'f97af8c8-c509-4e20-a105-045403f50079',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '4aa443fd-377c-4293-b8cb-95f6dc1e7bde', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (3, 10, ((CURRENT_DATE - 2) + TIME '12:40:36.801'), '9ca0e318-d43b-4fce-8fd8-f29d43fa4cfe',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1',
+        '962948a8-608e-4854-bacb-38bce5b51811', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 2) + TIME '12:45:39.298'), '0291b12e-a0e9-4f44-8225-81c8c732e3ed',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '962948a8-608e-4854-bacb-38bce5b51811',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 2) + TIME '13:03:29.371'), '3a14c250-c349-47c4-b43f-33308898d635',
+        '26cc5d1d-04e9-4655-870e-4f3b2efb559a', '962948a8-608e-4854-bacb-38bce5b51811',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '916a99ad-6885-404a-b7a3-4dc20033e241');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 1) + TIME '12:15:36.372'), '98295b7d-1f09-4df8-8402-1414deb9facc',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 1) + TIME '12:22:17.773'), 'bebc6ce5-ffd7-4554-919c-9c30a6c962ad',
+        '962948a8-608e-4854-bacb-38bce5b51811', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', 'd56c5d66-acec-436d-9f96-062f724221a6');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, ((CURRENT_DATE - 1) + TIME '12:30:11.388'), 'f980a501-797c-4791-8a4c-c43c57a2e5a6',
+        '962948a8-608e-4854-bacb-38bce5b51811', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        'a90a58fd-27f4-4812-b28b-d1cd547945ce', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde');
+INSERT INTO public.kicker_matches
+VALUES (10, 5, ((CURRENT_DATE - 1) + TIME '12:51:14.335'), '8bc1f6fa-0a94-4754-9889-49bc2c109443',
+        '962948a8-608e-4854-bacb-38bce5b51811', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        'c978e25f-4d00-4e3c-b4d1-1b766502b7fd', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (10, 3, ((CURRENT_DATE - 1) + TIME '12:52:08.299'), '7697d3e0-4ce8-4e32-9f7f-d02d501b9cd4',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741',
+        '71acab85-232e-4859-906a-f5dccbe6dbc3', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, ((CURRENT_DATE - 1) + TIME '13:01:42.889'), '85e8740a-d54c-4e06-b153-047a01bba4cb',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (10, 7, (CURRENT_DATE + TIME '07:45:53.715'), '8844e659-8850-4f4d-8e75-625695716e4b',
+        'd56c5d66-acec-436d-9f96-062f724221a6', 'c978e25f-4d00-4e3c-b4d1-1b766502b7fd',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42');
+INSERT INTO public.kicker_matches
+VALUES (10, 8, (CURRENT_DATE + TIME '07:46:27.489'), '8c8d8562-d5c2-49ff-a2ca-015655c5a703',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, (CURRENT_DATE + TIME '07:46:53.787'), '3728601a-cfd3-4788-8c0b-cddc73435ef0',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '8fe3b213-44f5-4a9b-8925-b3913ed7eb42', '962948a8-608e-4854-bacb-38bce5b51811');
+INSERT INTO public.kicker_matches
+VALUES (6, 10, (CURRENT_DATE + TIME '12:24:45.816'), 'cd9fb981-64d1-42a3-b929-93cdf7dc163b',
+        '916a99ad-6885-404a-b7a3-4dc20033e241', '71acab85-232e-4859-906a-f5dccbe6dbc3',
+        '76aed36d-f1cd-42e0-bb82-ad6bb80c4741', '09f4fbd5-6365-4917-8c6a-c77d42e17dd1');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, (CURRENT_DATE + TIME '12:38:15.761'), '8910f85c-840d-4e9d-b99c-de851490d4fb',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        'aa99dbae-9dba-4783-ae9e-7907d60f24a1', '26cc5d1d-04e9-4655-870e-4f3b2efb559a');
+INSERT INTO public.kicker_matches
+VALUES (5, 10, (CURRENT_DATE + TIME '12:57:24.595'), '1ed16ee3-ebe6-4c44-8e3b-e995fdf4be4c',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '4aa443fd-377c-4293-b8cb-95f6dc1e7bde',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1');
+INSERT INTO public.kicker_matches
+VALUES (10, 6, (CURRENT_DATE + TIME '12:57:45.339'), '55463c77-48b3-492b-9eb5-2e15aff66661',
+        '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648', 'aa99dbae-9dba-4783-ae9e-7907d60f24a1',
+        '09f4fbd5-6365-4917-8c6a-c77d42e17dd1', '76aed36d-f1cd-42e0-bb82-ad6bb80c4741');
+INSERT INTO public.kicker_matches
+VALUES (4, 10, (CURRENT_DATE + TIME '13:03:45.804'), '3fc12436-0318-48b9-9dfb-6986a35b7be6',
+        '962948a8-608e-4854-bacb-38bce5b51811', '8fe3b213-44f5-4a9b-8925-b3913ed7eb42',
+        'd56c5d66-acec-436d-9f96-062f724221a6', '916a99ad-6885-404a-b7a3-4dc20033e241');
+
+
+--
+-- Data for Name: kicker_elo; Type: TABLE DATA; Schema: public; Owner: hubscoreuser
+--
+
+-- NO NEED, CALCULATE WHEN DB IS READY (see common.dev_tools.DevBootstrapRunner)
+
+--
+-- Data for Name: kicker_elo_seasonal; Type: TABLE DATA; Schema: public; Owner: hubscoreuser
+--
+
+-- NO NEED, CALCULATE WHEN DB IS READY (see common.dev_tools.DevBootstrapRunner)
+
+--
+-- Data for Name: player_kicker_informations; Type: TABLE DATA; Schema: public; Owner: hubscoreuser
+--
 
 INSERT INTO public.player_kicker_informations
 VALUES ('3afba91f-350b-4caf-b836-f77bb71791f1', 1465, 1465, 79);

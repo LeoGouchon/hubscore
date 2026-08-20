@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: husbcore
+  datasource:
+    url: ${DB_URL:jdbc:postgresql://db:5432/husbcore}
+    username: ${DB_USERNAME:husbcore}
+    password: ${DB_PASSWORD:husbcore-local}
+    hikari:
+      minimum-idle: ${DB_POOL_MINIMUM_IDLE:1}
+      maximum-pool-size: ${DB_POOL_MAXIMUM_SIZE:5}
+      idle-timeout: 300000
+      max-lifetime: 1200000
+      keepalive-time: 0
+  flyway:
+    enabled: ${FLYWAY_ENABLED:true}
+    locations: ${FLYWAY_LOCATIONS:classpath:db/migration}
+    schemas: public
+    url: ${FLYWAY_DB_URL:${DB_URL:jdbc:postgresql://db:5432/husbcore}}
+    user: ${FLYWAY_DB_USER:${DB_USERNAME:husbcore}}
+    password: ${FLYWAY_DB_PASSWORD:${DB_PASSWORD:husbcore-local}}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: ${PORT:8080}
+
+cookie:
+  secure: ${COOKIE_SECURE:false}
+
+identity:
+  issuer: ${IDENTITY_ISSUER:http://localhost:8081}
+  internal-url: ${IDENTITY_INTERNAL_URL:${IDENTITY_ISSUER:http://localhost:8081}}
+  jwk-set-uri: ${IDENTITY_JWK_SET_URI:${IDENTITY_ISSUER:http://localhost:8081}/oauth2/jwks}
+  audience: ${IDENTITY_AUDIENCE:default-api}
+  provisioning-secret: ${BACKEND_PROVISIONING_SECRET:husbcore-secret}
+  identity-client-id: ${IDENTITY_CLIENT_ID:husbcore-client}
+
+husbcore:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200,http://localhost:5173}
