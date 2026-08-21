@@ -37,8 +37,8 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             cd ~/app
-            docker compose pull backend
-            docker compose up -d backend
+            docker compose pull hubscore-backend
+            docker compose up -d hubscore-backend
             docker image prune -af
 
       - name: Ping the deployed API
