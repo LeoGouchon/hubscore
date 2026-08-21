@@ -8,21 +8,20 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import com.leogouchon.hubscore.common.config.CorsProperties;
 
 @SpringBootApplication(scanBasePackages = "com.leogouchon.hubscore")
 @EnableConfigurationProperties(CorsProperties.class)
 @EnableScheduling
-public class hubscoreApplication implements WebMvcConfigurer {
+public class HubscoreApplication implements WebMvcConfigurer {
 
     private final CorsProperties corsProperties;
 
-    public hubscoreApplication(CorsProperties corsProperties) {
+    public HubscoreApplication(CorsProperties corsProperties) {
         this.corsProperties = corsProperties;
     }
 
     public static void main(String[] args) {
-        SpringApplication.run(hubscoreApplication.class, args);
+        SpringApplication.run(HubscoreApplication.class, args);
     }
 
     @Override

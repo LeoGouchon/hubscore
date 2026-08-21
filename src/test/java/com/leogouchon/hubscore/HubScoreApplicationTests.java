@@ -6,7 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest(properties = {
         "spring.flyway.enabled=false",
 })
-class hubscoreApplicationTests {
+class HubscoreApplicationTests {
 
     @Test
     void contextLoads() {
