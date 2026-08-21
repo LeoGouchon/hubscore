@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:hubscore-test;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+  flyway:
+    enabled: false
+
+identity:
+  issuer: http://localhost:8081
+  jwk-set-uri: http://localhost:8081/oauth2/jwks
+  audience: test-audience
+  provisioning-secret: test-secret
+
+hubscore:
+  cors:
+    allowed-origins:
+      - http://localhost:4200

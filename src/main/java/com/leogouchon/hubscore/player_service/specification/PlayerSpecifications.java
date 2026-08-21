@@ -22,9 +22,9 @@ public class PlayerSpecifications {
                 return cb.conjunction();
             }
 
-            // Players → PlayerTeam
+            // Players â†’ PlayerTeam
             Join<Players, PlayerTeam> playerTeamJoin = root.join("playerTeams", JoinType.INNER);
-            // PlayerTeam → Teams
+            // PlayerTeam â†’ Teams
             Join<PlayerTeam, Teams> teamJoin = playerTeamJoin.join("team", JoinType.INNER);
 
             if ("kicker".equalsIgnoreCase(sport)) {

@@ -12,8 +12,9 @@ services:
 
   backend:
     build: .
+    env_file:
+      - .env
     environment:
-      SPRING_PROFILES_ACTIVE: dev
       SPRING_CONFIG_ADDITIONAL_LOCATION: file:/app/config/
     volumes:
       - ./config:/app/config:ro

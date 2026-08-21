@@ -27,7 +27,7 @@ public class InvitationService {
                              @Value("${identity.issuer}") String identityIssuer,
                              @Value("${identity.internal-url:${identity.issuer}}") String identityInternalUrl,
                              @Value("${identity.provisioning-secret}") String provisioningSecret,
-                             @Value("${identity.identity-client-id:kicker-client}") String identityClientId,
+                             @Value("${identity.identity-client-id:hubscore-client}") String identityClientId,
                              UserRepository users) {
         this.restClient = restClientBuilder.build();
         this.identityIssuer = identityIssuer;

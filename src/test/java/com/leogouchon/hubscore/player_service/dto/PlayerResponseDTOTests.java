@@ -11,11 +11,11 @@ class PlayerResponseDTOTests {
 
     @Test
     void shouldKeepUnicodeCharactersFromDatabase() {
-        Players player = new Players(UUID.randomUUID(), "Léo", "D'Hériçy");
+        Players player = new Players(UUID.randomUUID(), "LÃ©o", "D'HÃ©riÃ§y");
 
         PlayerResponseDTO response = new PlayerResponseDTO(player);
 
-        assertEquals("Léo", response.getFirstname());
-        assertEquals("D'Hériçy", response.getLastname());
+        assertEquals("LÃ©o", response.getFirstname());
+        assertEquals("D'HÃ©riÃ§y", response.getLastname());
     }
 }

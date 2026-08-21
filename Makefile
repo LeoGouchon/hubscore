@@ -1,5 +1,5 @@
-CONFIG_FILE := config/application-dev.yml
-CONFIG_EXAMPLE := config/application-dev.example.yml
+CONFIG_FILE := config/application.yml
+CONFIG_EXAMPLE := config/application.example.yml
 
 .PHONY: config dev build test rebuild clean logs ps
 

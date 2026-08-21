@@ -40,7 +40,7 @@ public class TeamControllerV1 {
     @SecurityRequirement(name = "bearerAuth")
     @GetMapping
     public List<TeamResponseDTO> getTeams(@RequestParam(required = false, defaultValue = "true") boolean isKicker,
-                                          @RequestParam(required = false, defaultValue = "true") boolean isSquash) {
+                                          @RequestParam(required = false, defaultValue = "false") boolean isSquash) {
         return teamService.getTeams(isKicker, isSquash);
     }
 }

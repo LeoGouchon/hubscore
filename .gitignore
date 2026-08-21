@@ -43,4 +43,6 @@ build/
 /node_modules
 
 /config/*.yml
-!/config/*.example.yml
+!/config/application.example.yml
+
+.env
