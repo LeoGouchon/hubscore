@@ -1,4 +1,4 @@
-package com.leogouchon.husbcore.kicker_match_service.entity;
+package com.leogouchon.hubscore.kicker_match_service.entity;
 
 public enum KickerMatchAccessCodeStatus {
     ACTIVE,

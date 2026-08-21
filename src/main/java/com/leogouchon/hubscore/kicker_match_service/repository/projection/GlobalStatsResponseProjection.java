@@ -1,4 +1,4 @@
-package com.leogouchon.husbcore.kicker_match_service.repository.projection;
+package com.leogouchon.hubscore.kicker_match_service.repository.projection;
 
 import java.math.BigDecimal;
 import java.util.UUID;

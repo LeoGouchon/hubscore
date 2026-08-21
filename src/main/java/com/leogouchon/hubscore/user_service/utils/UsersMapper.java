@@ -1,8 +1,8 @@
-package com.leogouchon.husbcore.user_service.utils;
+package com.leogouchon.hubscore.user_service.utils;
 
-import com.leogouchon.husbcore.user_service.dto.MeResponseDTO;
-import com.leogouchon.husbcore.user_service.dto.UserResponseDTO;
-import com.leogouchon.husbcore.user_service.entity.Users;
+import com.leogouchon.hubscore.user_service.dto.MeResponseDTO;
+import com.leogouchon.hubscore.user_service.dto.UserResponseDTO;
+import com.leogouchon.hubscore.user_service.entity.Users;
 
 public class UsersMapper {
     private UsersMapper() {

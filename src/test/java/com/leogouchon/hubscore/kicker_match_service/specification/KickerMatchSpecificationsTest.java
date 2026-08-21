@@ -1,12 +1,12 @@
-package com.leogouchon.husbcore.kicker_match_service.specification;
+package com.leogouchon.hubscore.kicker_match_service.specification;
 
-import com.leogouchon.husbcore.kicker_match_service.dto.controller_params.LogicalOperator;
-import com.leogouchon.husbcore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.controller_params.PlayerGroupDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.controller_params.PlayerGroupOperator;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatches;
-import com.leogouchon.husbcore.kicker_match_service.repository.KickerMatchRepository;
-import com.leogouchon.husbcore.player_service.entity.Players;
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.LogicalOperator;
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerGroupDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerGroupOperator;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
+import com.leogouchon.hubscore.player_service.entity.Players;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;

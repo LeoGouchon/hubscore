@@ -1,14 +1,14 @@
-package com.leogouchon.husbcore.kicker_match_service.repository;
+package com.leogouchon.hubscore.kicker_match_service.repository;
 
-import com.leogouchon.husbcore.kicker_match_service.dto.EloHistoryDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.SeasonalStatsDTO;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerEloId;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerEloSeasonal;
-import com.leogouchon.husbcore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
-import com.leogouchon.husbcore.kicker_match_service.repository.projection.EloVisibilityProjection;
-import com.leogouchon.husbcore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
-import com.leogouchon.husbcore.kicker_match_service.repository.projection.LoserScorePerDeltaEloProjection;
-import com.leogouchon.husbcore.kicker_match_service.repository.projection.SeasonStatsProjection;
+import com.leogouchon.hubscore.kicker_match_service.dto.EloHistoryDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.SeasonalStatsDTO;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloId;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloSeasonal;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.EloVisibilityProjection;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.LoserScorePerDeltaEloProjection;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.SeasonStatsProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

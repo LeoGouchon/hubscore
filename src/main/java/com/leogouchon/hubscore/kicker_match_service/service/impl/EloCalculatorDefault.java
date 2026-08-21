@@ -1,7 +1,7 @@
-package com.leogouchon.husbcore.kicker_match_service.service.impl;
+package com.leogouchon.hubscore.kicker_match_service.service.impl;
 
-import com.leogouchon.husbcore.kicker_match_service.service.EloCalculatorService;
-import com.leogouchon.husbcore.player_service.entity.Players;
+import com.leogouchon.hubscore.kicker_match_service.service.EloCalculatorService;
+import com.leogouchon.hubscore.player_service.entity.Players;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;

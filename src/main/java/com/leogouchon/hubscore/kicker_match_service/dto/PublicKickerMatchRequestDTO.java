@@ -1,4 +1,4 @@
-package com.leogouchon.husbcore.kicker_match_service.dto;
+package com.leogouchon.hubscore.kicker_match_service.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

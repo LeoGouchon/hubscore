@@ -1,4 +1,4 @@
-# Husbcore - Backend
+# hubscore - Backend
 
 ## How to run locally
 
@@ -11,15 +11,15 @@ That's it. The database schema is created by Flyway migrations in
 
 ## Identity server / OIDC configuration
 
-Husbcore is an OAuth 2.0 resource server. The local defaults match the sibling
+hubscore is an OAuth 2.0 resource server. The local defaults match the sibling
 `identity-server` Docker setup:
 
 ```dotenv
 IDENTITY_ISSUER=http://localhost:8081
 IDENTITY_JWK_SET_URI=http://localhost:8081/oauth2/jwks
 IDENTITY_AUDIENCE=default-api
-BACKEND_PROVISIONING_SECRET=husbcore-secret
-IDENTITY_CLIENT_ID=husbcore-client
+BACKEND_PROVISIONING_SECRET=hubscore-secret
+IDENTITY_CLIENT_ID=hubscore-client
 ```
 
 The complete Docker configuration is kept in the external `config/application.yml`, which is
@@ -30,10 +30,10 @@ The CORS origins are configured as a YAML list:
 
 ```yaml
 identity:
-  provisioning-secret: ${BACKEND_PROVISIONING_SECRET:husbcore-secret}
-  identity-client-id: ${IDENTITY_CLIENT_ID:husbcore-client}
+  provisioning-secret: ${BACKEND_PROVISIONING_SECRET:hubscore-secret}
+  identity-client-id: ${IDENTITY_CLIENT_ID:hubscore-client}
 
-husbcore:
+hubscore:
   cors:
     allowed-origins:
       - http://localhost:4200
@@ -42,13 +42,13 @@ husbcore:
 
 Use the same issuer and audience in both applications. Each backend may use its own provisioning secret. The identity server must include
 `default-api` in `identity.allowed-backends`, or set
-`IDENTITY_AUDIENCE` to the backend value configured there. Husbcore validates the token signature, issuer, and audience,
+`IDENTITY_AUDIENCE` to the backend value configured there. hubscore validates the token signature, issuer, and audience,
 and maps the token `sub` claim to
 `users.identity_user_id`.
 
 The admin invitation endpoint (`POST /api/v1/admin/invitation`) delegates invitation creation to the Identity Server.
-It sends the Husbcore application client id (`husbcore-client` by default) and the optional `playerId`, so the resulting
-invitation provisions only Husbcore. The baby-foot frontend can continue using this endpoint and the generated
+It sends the hubscore application client id (`hubscore-client` by default) and the optional `playerId`, so the resulting
+invitation provisions only hubscore. The baby-foot frontend can continue using this endpoint and the generated
 `/signup?invitationToken=...` link.
 
 ## How to run tests
@@ -77,7 +77,7 @@ The HTML report is written to `target/site/jacoco/index.html`.
 
 ## Description
 
-Backend of the Husbcore baby-foot application
+Backend of the hubscore baby-foot application
 
 ## Language and tools
 

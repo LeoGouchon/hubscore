@@ -1,7 +1,7 @@
-package com.leogouchon.husbcore.user_service.controller;
+package com.leogouchon.hubscore.user_service.controller;
 
-import com.leogouchon.husbcore.user_service.entity.UserRole;
-import com.leogouchon.husbcore.user_service.repository.UserRepository;
+import com.leogouchon.hubscore.user_service.entity.UserRole;
+import com.leogouchon.hubscore.user_service.repository.UserRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;

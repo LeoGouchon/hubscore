@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.leogouchon</groupId>
-    <artifactId>husbcore</artifactId>
+    <artifactId>hubscore</artifactId>
     <version>1.3.0</version>
-    <name>husbcore</name>
+    <name>hubscore</name>
 
     <description>REST API for baby-foot scores and statistics</description>
     <url/>

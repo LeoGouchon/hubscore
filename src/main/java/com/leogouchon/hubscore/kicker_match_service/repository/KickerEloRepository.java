@@ -1,9 +1,9 @@
-package com.leogouchon.husbcore.kicker_match_service.repository;
+package com.leogouchon.hubscore.kicker_match_service.repository;
 
-import com.leogouchon.husbcore.kicker_match_service.dto.EloHistoryDTO;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerElo;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerEloId;
-import com.leogouchon.husbcore.kicker_match_service.repository.projection.EloVisibilityProjection;
+import com.leogouchon.hubscore.kicker_match_service.dto.EloHistoryDTO;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerElo;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloId;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.EloVisibilityProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

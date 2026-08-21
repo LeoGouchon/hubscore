@@ -1,8 +1,8 @@
-package com.leogouchon.husbcore.user_service.service.impl;
+package com.leogouchon.hubscore.user_service.service.impl;
 
-import com.leogouchon.husbcore.user_service.entity.Users;
-import com.leogouchon.husbcore.user_service.repository.UserRepository;
-import com.leogouchon.husbcore.user_service.service.UserService;
+import com.leogouchon.hubscore.user_service.entity.Users;
+import com.leogouchon.hubscore.user_service.repository.UserRepository;
+import com.leogouchon.hubscore.user_service.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +25,7 @@ public class UserServiceDefault implements UserService {
         if (userRepository.findByEmail(users.getEmail()).isPresent()) {
             throw new IllegalArgumentException("Email already exists");
         }
-        users.setRole(com.leogouchon.husbcore.user_service.entity.UserRole.USER);
+        users.setRole(com.leogouchon.hubscore.user_service.entity.UserRole.USER);
         return userRepository.save(users);
     }
 

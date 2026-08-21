@@ -1,6 +1,6 @@
-package com.leogouchon.husbcore.kicker_common.dev_tools;
+package com.leogouchon.hubscore.kicker_common.dev_tools;
 
-import com.leogouchon.husbcore.kicker_match_service.service.KickerMatchService;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.annotation.DependsOn;

@@ -1,9 +1,9 @@
-package com.leogouchon.husbcore.kicker_match_service.controller;
+package com.leogouchon.hubscore.kicker_match_service.controller;
 
-import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchAccessCodeCreateRequestDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchAccessCodeResponseDTO;
-import com.leogouchon.husbcore.kicker_match_service.service.KickerMatchAccessCodeService;
-import com.leogouchon.husbcore.user_service.entity.Users;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchAccessCodeCreateRequestDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchAccessCodeResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchAccessCodeService;
+import com.leogouchon.hubscore.user_service.entity.Users;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;

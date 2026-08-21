@@ -1,12 +1,12 @@
-package com.leogouchon.husbcore.kicker_match_service.controller;
+package com.leogouchon.hubscore.kicker_match_service.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchRequestDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchResponseDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.PublicKickerMatchRequestDTO;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatches;
-import com.leogouchon.husbcore.kicker_match_service.exception.InvalidKickerMatchAccessCodeException;
-import com.leogouchon.husbcore.kicker_match_service.service.KickerMatchService;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.PublicKickerMatchRequestDTO;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
+import com.leogouchon.hubscore.kicker_match_service.exception.InvalidKickerMatchAccessCodeException;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentCaptor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +19,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.leogouchon.husbcore.testutil.TestKickerMatches.singlesMatch;
-import static com.leogouchon.husbcore.testutil.TestKickerMatchRequests.publicSinglesRequest;
-import static com.leogouchon.husbcore.testutil.TestPlayers.alice;
-import static com.leogouchon.husbcore.testutil.TestPlayers.bob;
+import static com.leogouchon.hubscore.testutil.TestKickerMatches.singlesMatch;
+import static com.leogouchon.hubscore.testutil.TestKickerMatchRequests.publicSinglesRequest;
+import static com.leogouchon.hubscore.testutil.TestPlayers.alice;
+import static com.leogouchon.hubscore.testutil.TestPlayers.bob;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;

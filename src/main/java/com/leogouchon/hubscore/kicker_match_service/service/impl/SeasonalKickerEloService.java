@@ -1,14 +1,14 @@
-package com.leogouchon.husbcore.kicker_match_service.service.impl;
+package com.leogouchon.hubscore.kicker_match_service.service.impl;
 
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerEloId;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerEloSeasonal;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatches;
-import com.leogouchon.husbcore.kicker_match_service.repository.KickerEloSeasonalRepository;
-import com.leogouchon.husbcore.kicker_match_service.repository.KickerMatchRepository;
-import com.leogouchon.husbcore.kicker_match_service.service.KickerEloService;
-import com.leogouchon.husbcore.player_service.entity.PlayerKickerInformations;
-import com.leogouchon.husbcore.player_service.entity.Players;
-import com.leogouchon.husbcore.player_service.repository.PlayerKickerInformationsRepository;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloId;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloSeasonal;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloSeasonalRepository;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerEloService;
+import com.leogouchon.hubscore.player_service.entity.PlayerKickerInformations;
+import com.leogouchon.hubscore.player_service.entity.Players;
+import com.leogouchon.hubscore.player_service.repository.PlayerKickerInformationsRepository;
 import jakarta.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;

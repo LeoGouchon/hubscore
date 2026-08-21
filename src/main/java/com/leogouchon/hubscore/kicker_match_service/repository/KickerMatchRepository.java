@@ -1,13 +1,13 @@
-package com.leogouchon.husbcore.kicker_match_service.repository;
+package com.leogouchon.hubscore.kicker_match_service.repository;
 
-import com.leogouchon.husbcore.kicker_match_service.dto.DuoStatsDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.OpponentStatsDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.OverallStatsDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.PartnerStatsDTO;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatches;
-import com.leogouchon.husbcore.kicker_match_service.repository.projection.DuoStatsProjection;
-import com.leogouchon.husbcore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
-import com.leogouchon.husbcore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
+import com.leogouchon.hubscore.kicker_match_service.dto.DuoStatsDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.OpponentStatsDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.OverallStatsDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.PartnerStatsDTO;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.DuoStatsProjection;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;

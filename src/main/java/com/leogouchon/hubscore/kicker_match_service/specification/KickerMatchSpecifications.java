@@ -1,9 +1,9 @@
-package com.leogouchon.husbcore.kicker_match_service.specification;
+package com.leogouchon.hubscore.kicker_match_service.specification;
 
-import com.leogouchon.husbcore.kicker_match_service.dto.controller_params.LogicalOperator;
-import com.leogouchon.husbcore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.controller_params.PlayerGroupDTO;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatches;
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.LogicalOperator;
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerGroupDTO;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 import org.springframework.data.jpa.domain.Specification;
 import jakarta.persistence.criteria.*;
 

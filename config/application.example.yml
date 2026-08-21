@@ -1,10 +1,10 @@
 spring:
   application:
-    name: husbcore
+    name: hubscore
   datasource:
-    url: ${DB_URL:jdbc:postgresql://db:5432/husbcore}
-    username: ${DB_USERNAME:husbcore}
-    password: ${DB_PASSWORD:husbcore-local}
+    url: ${DB_URL:jdbc:postgresql://db:5432/hubscore}
+    username: ${DB_USERNAME:hubscore}
+    password: ${DB_PASSWORD:hubscore-local}
     hikari:
       minimum-idle: ${DB_POOL_MINIMUM_IDLE:1}
       maximum-pool-size: ${DB_POOL_MAXIMUM_SIZE:5}
@@ -15,9 +15,9 @@ spring:
     enabled: ${FLYWAY_ENABLED:true}
     locations: ${FLYWAY_LOCATIONS:classpath:db/migration}
     schemas: public
-    url: ${FLYWAY_DB_URL:${DB_URL:jdbc:postgresql://db:5432/husbcore}}
-    user: ${FLYWAY_DB_USER:${DB_USERNAME:husbcore}}
-    password: ${FLYWAY_DB_PASSWORD:${DB_PASSWORD:husbcore-local}}
+    url: ${FLYWAY_DB_URL:${DB_URL:jdbc:postgresql://db:5432/hubscore}}
+    user: ${FLYWAY_DB_USER:${DB_USERNAME:hubscore}}
+    password: ${FLYWAY_DB_PASSWORD:${DB_PASSWORD:hubscore-local}}
   jpa:
     hibernate:
       ddl-auto: validate
@@ -34,9 +34,9 @@ identity:
   internal-url: ${IDENTITY_INTERNAL_URL:${IDENTITY_ISSUER:http://localhost:8081}}
   jwk-set-uri: ${IDENTITY_JWK_SET_URI:${IDENTITY_ISSUER:http://localhost:8081}/oauth2/jwks}
   audience: ${IDENTITY_AUDIENCE:default-api}
-  provisioning-secret: ${BACKEND_PROVISIONING_SECRET:husbcore-secret}
-  identity-client-id: ${IDENTITY_CLIENT_ID:husbcore-client}
+  provisioning-secret: ${BACKEND_PROVISIONING_SECRET:hubscore-secret}
+  identity-client-id: ${IDENTITY_CLIENT_ID:hubscore-client}
 
-husbcore:
+hubscore:
   cors:
     allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:4200,http://localhost:5173}

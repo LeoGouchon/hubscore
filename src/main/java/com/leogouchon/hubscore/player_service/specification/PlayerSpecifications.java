@@ -1,9 +1,9 @@
-package com.leogouchon.husbcore.player_service.specification;
+package com.leogouchon.hubscore.player_service.specification;
 
-import com.leogouchon.husbcore.player_service.entity.PlayerTeam;
-import com.leogouchon.husbcore.player_service.entity.Players;
-import com.leogouchon.husbcore.player_service.entity.Teams;
-import com.leogouchon.husbcore.user_service.entity.Users;
+import com.leogouchon.hubscore.player_service.entity.PlayerTeam;
+import com.leogouchon.hubscore.player_service.entity.Players;
+import com.leogouchon.hubscore.player_service.entity.Teams;
+import com.leogouchon.hubscore.user_service.entity.Users;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Root;

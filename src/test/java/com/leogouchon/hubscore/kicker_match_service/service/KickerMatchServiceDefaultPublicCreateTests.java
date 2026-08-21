@@ -1,22 +1,22 @@
-package com.leogouchon.husbcore.kicker_match_service.service;
+package com.leogouchon.hubscore.kicker_match_service.service;
 
-import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchRequestDTO;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatchAccessCode;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatches;
-import com.leogouchon.husbcore.kicker_match_service.repository.KickerEloRepository;
-import com.leogouchon.husbcore.kicker_match_service.repository.KickerEloSeasonalRepository;
-import com.leogouchon.husbcore.kicker_match_service.repository.KickerMatchRepository;
-import com.leogouchon.husbcore.kicker_match_service.service.impl.KickerMatchServiceDefault;
-import com.leogouchon.husbcore.player_service.entity.Players;
-import com.leogouchon.husbcore.player_service.service.PlayerService;
-import com.leogouchon.husbcore.user_service.entity.Users;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatchAccessCode;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloRepository;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloSeasonalRepository;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
+import com.leogouchon.hubscore.kicker_match_service.service.impl.KickerMatchServiceDefault;
+import com.leogouchon.hubscore.player_service.entity.Players;
+import com.leogouchon.hubscore.player_service.service.PlayerService;
+import com.leogouchon.hubscore.user_service.entity.Users;
 import org.junit.jupiter.api.Test;
 
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.leogouchon.husbcore.testutil.TestKickerMatchRequests.singlesRequest;
-import static com.leogouchon.husbcore.testutil.TestPlayers.player;
+import static com.leogouchon.hubscore.testutil.TestKickerMatchRequests.singlesRequest;
+import static com.leogouchon.hubscore.testutil.TestPlayers.player;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 

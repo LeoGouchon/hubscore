@@ -1,14 +1,14 @@
-package com.leogouchon.husbcore.kicker_match_service.service.impl;
+package com.leogouchon.hubscore.kicker_match_service.service.impl;
 
-import com.leogouchon.husbcore.kicker_match_service.dto.*;
-import com.leogouchon.husbcore.kicker_match_service.repository.KickerEloRepository;
-import com.leogouchon.husbcore.kicker_match_service.repository.KickerEloSeasonalRepository;
-import com.leogouchon.husbcore.kicker_match_service.repository.KickerMatchRepository;
-import com.leogouchon.husbcore.kicker_match_service.repository.projection.*;
-import com.leogouchon.husbcore.kicker_match_service.service.KickerStatService;
-import com.leogouchon.husbcore.player_service.dto.PlayerResponseDTO;
-import com.leogouchon.husbcore.player_service.entity.Players;
-import com.leogouchon.husbcore.player_service.service.PlayerService;
+import com.leogouchon.hubscore.kicker_match_service.dto.*;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloRepository;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloSeasonalRepository;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.*;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerStatService;
+import com.leogouchon.hubscore.player_service.dto.PlayerResponseDTO;
+import com.leogouchon.hubscore.player_service.entity.Players;
+import com.leogouchon.hubscore.player_service.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static com.leogouchon.husbcore.kicker_match_service.service.KickerEloVisibilityRules.MIN_RANKED_MATCHES;
+import static com.leogouchon.hubscore.kicker_match_service.service.KickerEloVisibilityRules.MIN_RANKED_MATCHES;
 
 @Service
 public class KickerStatServiceDefault implements KickerStatService {

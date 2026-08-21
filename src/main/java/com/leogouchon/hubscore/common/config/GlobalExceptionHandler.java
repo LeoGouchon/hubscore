@@ -1,8 +1,8 @@
-package com.leogouchon.husbcore.common.config;
+package com.leogouchon.hubscore.common.config;
 
-import com.leogouchon.husbcore.common.dto.ApiErrorResponseDTO;
-import com.leogouchon.husbcore.kicker_match_service.exception.InactiveKickerMatchAccessCodeException;
-import com.leogouchon.husbcore.kicker_match_service.exception.InvalidKickerMatchAccessCodeException;
+import com.leogouchon.hubscore.common.dto.ApiErrorResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.exception.InactiveKickerMatchAccessCodeException;
+import com.leogouchon.hubscore.kicker_match_service.exception.InvalidKickerMatchAccessCodeException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,9 +1,9 @@
-package com.leogouchon.husbcore.user_service.service;
+package com.leogouchon.hubscore.user_service.service;
 
-import com.leogouchon.husbcore.player_service.entity.Players;
-import com.leogouchon.husbcore.user_service.entity.Users;
-import com.leogouchon.husbcore.user_service.repository.UserRepository;
-import com.leogouchon.husbcore.player_service.repository.PlayerRepository;
+import com.leogouchon.hubscore.player_service.entity.Players;
+import com.leogouchon.hubscore.user_service.entity.Users;
+import com.leogouchon.hubscore.user_service.repository.UserRepository;
+import com.leogouchon.hubscore.player_service.repository.PlayerRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.security.oauth2.jwt.Jwt;
 

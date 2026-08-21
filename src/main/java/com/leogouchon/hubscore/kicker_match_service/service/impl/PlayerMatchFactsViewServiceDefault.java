@@ -1,6 +1,6 @@
-package com.leogouchon.husbcore.kicker_match_service.service.impl;
+package com.leogouchon.hubscore.kicker_match_service.service.impl;
 
-import com.leogouchon.husbcore.kicker_match_service.service.PlayerMatchFactsViewService;
+import com.leogouchon.hubscore.kicker_match_service.service.PlayerMatchFactsViewService;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionSynchronization;

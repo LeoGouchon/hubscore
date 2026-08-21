@@ -1,4 +1,4 @@
-﻿-- Development seed for husbcore.
+﻿-- Development seed for hubscore.
 SET search_path TO public;
 
 INSERT INTO public.players (firstname, lastname, id) VALUES ('John', 'Doe', '3b0fbccc-ec60-48b5-a3bd-ce8cac6a6648');

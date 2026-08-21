@@ -1,7 +1,7 @@
-package com.leogouchon.husbcore.testutil;
+package com.leogouchon.hubscore.testutil;
 
-import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchRequestDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.PublicKickerMatchRequestDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.PublicKickerMatchRequestDTO;
 
 import java.util.UUID;
 

@@ -1,4 +1,4 @@
-package com.leogouchon.husbcore.kicker_match_service.exception;
+package com.leogouchon.hubscore.kicker_match_service.exception;
 
 public class InvalidKickerMatchAccessCodeException extends RuntimeException {
     public InvalidKickerMatchAccessCodeException(String message) {

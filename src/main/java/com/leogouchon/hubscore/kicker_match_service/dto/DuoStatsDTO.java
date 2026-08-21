@@ -1,6 +1,6 @@
-package com.leogouchon.husbcore.kicker_match_service.dto;
+package com.leogouchon.hubscore.kicker_match_service.dto;
 
-import com.leogouchon.husbcore.player_service.dto.PlayerResponseDTO;
+import com.leogouchon.hubscore.player_service.dto.PlayerResponseDTO;
 import lombok.Getter;
 import lombok.Setter;
 

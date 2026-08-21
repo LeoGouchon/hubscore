@@ -1,8 +1,8 @@
-package com.leogouchon.husbcore.player_service.service.impl;
+package com.leogouchon.hubscore.player_service.service.impl;
 
-import com.leogouchon.husbcore.player_service.dto.TeamResponseDTO;
-import com.leogouchon.husbcore.player_service.repository.TeamRepository;
-import com.leogouchon.husbcore.player_service.service.TeamService;
+import com.leogouchon.hubscore.player_service.dto.TeamResponseDTO;
+import com.leogouchon.hubscore.player_service.repository.TeamRepository;
+import com.leogouchon.hubscore.player_service.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

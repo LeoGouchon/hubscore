@@ -1,6 +1,6 @@
-package com.leogouchon.husbcore.user_service.entity;
+package com.leogouchon.hubscore.user_service.entity;
 
-import com.leogouchon.husbcore.player_service.entity.Players;
+import com.leogouchon.hubscore.player_service.entity.Players;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,4 +1,4 @@
-package com.leogouchon.husbcore.kicker_match_service.dto;
+package com.leogouchon.hubscore.kicker_match_service.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;

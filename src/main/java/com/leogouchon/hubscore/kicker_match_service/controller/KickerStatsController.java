@@ -1,8 +1,8 @@
-package com.leogouchon.husbcore.kicker_match_service.controller;
+package com.leogouchon.hubscore.kicker_match_service.controller;
 
-import com.leogouchon.husbcore.kicker_match_service.dto.*;
-import com.leogouchon.husbcore.kicker_match_service.service.EloMatrixService;
-import com.leogouchon.husbcore.kicker_match_service.service.KickerStatService;
+import com.leogouchon.hubscore.kicker_match_service.dto.*;
+import com.leogouchon.hubscore.kicker_match_service.service.EloMatrixService;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerStatService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;

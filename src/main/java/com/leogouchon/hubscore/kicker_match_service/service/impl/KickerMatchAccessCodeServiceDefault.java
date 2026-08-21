@@ -1,14 +1,14 @@
-package com.leogouchon.husbcore.kicker_match_service.service.impl;
+package com.leogouchon.hubscore.kicker_match_service.service.impl;
 
-import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchAccessCodeResponseDTO;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatchAccessCode;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatchAccessCodeRevokedReason;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatchAccessCodeStatus;
-import com.leogouchon.husbcore.kicker_match_service.exception.InactiveKickerMatchAccessCodeException;
-import com.leogouchon.husbcore.kicker_match_service.exception.InvalidKickerMatchAccessCodeException;
-import com.leogouchon.husbcore.kicker_match_service.repository.KickerMatchAccessCodeRepository;
-import com.leogouchon.husbcore.kicker_match_service.service.KickerMatchAccessCodeService;
-import com.leogouchon.husbcore.user_service.entity.Users;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchAccessCodeResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatchAccessCode;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatchAccessCodeRevokedReason;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatchAccessCodeStatus;
+import com.leogouchon.hubscore.kicker_match_service.exception.InactiveKickerMatchAccessCodeException;
+import com.leogouchon.hubscore.kicker_match_service.exception.InvalidKickerMatchAccessCodeException;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchAccessCodeRepository;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchAccessCodeService;
+import com.leogouchon.hubscore.user_service.entity.Users;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

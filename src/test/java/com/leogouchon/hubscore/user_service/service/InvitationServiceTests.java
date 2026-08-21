@@ -1,8 +1,8 @@
-package com.leogouchon.husbcore.user_service.service;
+package com.leogouchon.hubscore.user_service.service;
 
-import com.leogouchon.husbcore.user_service.entity.Users;
-import com.leogouchon.husbcore.user_service.repository.UserRepository;
-import com.leogouchon.husbcore.user_service.dto.InvitationRequest;
+import com.leogouchon.hubscore.user_service.entity.Users;
+import com.leogouchon.hubscore.user_service.repository.UserRepository;
+import com.leogouchon.hubscore.user_service.dto.InvitationRequest;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

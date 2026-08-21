@@ -1,6 +1,6 @@
-package com.leogouchon.husbcore.kicker_match_service.repository;
+package com.leogouchon.hubscore.kicker_match_service.repository;
 
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatchAccessCode;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatchAccessCode;
 import jakarta.persistence.LockModeType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Lock;

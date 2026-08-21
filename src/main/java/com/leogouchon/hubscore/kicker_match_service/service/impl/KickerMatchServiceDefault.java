@@ -1,27 +1,27 @@
-package com.leogouchon.husbcore.kicker_match_service.service.impl;
+package com.leogouchon.hubscore.kicker_match_service.service.impl;
 
-import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchResponseDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchRequestDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchResponseDTO.EloBeforeMatchContext;
-import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchResponseDTO.KickerMatchMetrics;
-import com.leogouchon.husbcore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerElo;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerEloSeasonal;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatchAccessCode;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatches;
-import com.leogouchon.husbcore.kicker_match_service.repository.KickerEloRepository;
-import com.leogouchon.husbcore.kicker_match_service.repository.KickerEloSeasonalRepository;
-import com.leogouchon.husbcore.kicker_match_service.repository.KickerMatchRepository;
-import com.leogouchon.husbcore.kicker_match_service.repository.projection.EloVisibilityProjection;
-import com.leogouchon.husbcore.kicker_match_service.service.EloCalculatorService;
-import com.leogouchon.husbcore.kicker_match_service.service.KickerEloService;
-import com.leogouchon.husbcore.kicker_match_service.service.KickerMatchAccessCodeService;
-import com.leogouchon.husbcore.kicker_match_service.service.KickerMatchService;
-import com.leogouchon.husbcore.kicker_match_service.service.PlayerMatchFactsViewService;
-import com.leogouchon.husbcore.kicker_match_service.specification.KickerMatchSpecifications;
-import com.leogouchon.husbcore.player_service.entity.Players;
-import com.leogouchon.husbcore.player_service.service.PlayerService;
-import com.leogouchon.husbcore.user_service.entity.Users;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO.EloBeforeMatchContext;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO.KickerMatchMetrics;
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerElo;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerEloSeasonal;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatchAccessCode;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloRepository;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerEloSeasonalRepository;
+import com.leogouchon.hubscore.kicker_match_service.repository.KickerMatchRepository;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.EloVisibilityProjection;
+import com.leogouchon.hubscore.kicker_match_service.service.EloCalculatorService;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerEloService;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchAccessCodeService;
+import com.leogouchon.hubscore.kicker_match_service.service.KickerMatchService;
+import com.leogouchon.hubscore.kicker_match_service.service.PlayerMatchFactsViewService;
+import com.leogouchon.hubscore.kicker_match_service.specification.KickerMatchSpecifications;
+import com.leogouchon.hubscore.player_service.entity.Players;
+import com.leogouchon.hubscore.player_service.service.PlayerService;
+import com.leogouchon.hubscore.user_service.entity.Users;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -34,7 +34,7 @@ import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.leogouchon.husbcore.kicker_match_service.service.KickerEloVisibilityRules.MIN_RANKED_MATCHES;
+import static com.leogouchon.hubscore.kicker_match_service.service.KickerEloVisibilityRules.MIN_RANKED_MATCHES;
 
 @Service
 public class KickerMatchServiceDefault implements KickerMatchService {

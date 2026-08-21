@@ -1,10 +1,10 @@
-package com.leogouchon.husbcore.kicker_match_service.service;
+package com.leogouchon.hubscore.kicker_match_service.service;
 
-import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchResponseDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.KickerMatchRequestDTO;
-import com.leogouchon.husbcore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatches;
-import com.leogouchon.husbcore.user_service.entity.Users;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchResponseDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.KickerMatchRequestDTO;
+import com.leogouchon.hubscore.kicker_match_service.dto.controller_params.PlayerFilterDTO;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
+import com.leogouchon.hubscore.user_service.entity.Users;
 import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;

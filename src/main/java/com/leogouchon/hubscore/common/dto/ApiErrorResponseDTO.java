@@ -1,4 +1,4 @@
-package com.leogouchon.husbcore.common.dto;
+package com.leogouchon.hubscore.common.dto;
 
 import java.util.Map;
 

@@ -1,8 +1,8 @@
-package com.leogouchon.husbcore.user_service.controller;
+package com.leogouchon.hubscore.user_service.controller;
 
-import com.leogouchon.husbcore.user_service.dto.MeResponseDTO;
-import com.leogouchon.husbcore.user_service.entity.Users;
-import com.leogouchon.husbcore.user_service.utils.UsersMapper;
+import com.leogouchon.hubscore.user_service.dto.MeResponseDTO;
+import com.leogouchon.hubscore.user_service.entity.Users;
+import com.leogouchon.hubscore.user_service.utils.UsersMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,10 +20,10 @@ import org.springframework.web.server.ResponseStatusException;
 @RequestMapping("/api/v1")
 public class MeController {
 
-    private final com.leogouchon.husbcore.user_service.repository.UserRepository userRepository;
+    private final com.leogouchon.hubscore.user_service.repository.UserRepository userRepository;
 
     @Autowired
-    public MeController(com.leogouchon.husbcore.user_service.repository.UserRepository userRepository) {
+    public MeController(com.leogouchon.hubscore.user_service.repository.UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

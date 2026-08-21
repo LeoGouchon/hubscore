@@ -1,6 +1,6 @@
-package com.leogouchon.husbcore.kicker_match_service.service;
+package com.leogouchon.hubscore.kicker_match_service.service;
 
-import com.leogouchon.husbcore.kicker_match_service.entity.KickerMatches;
+import com.leogouchon.hubscore.kicker_match_service.entity.KickerMatches;
 
 import java.sql.Timestamp;
 

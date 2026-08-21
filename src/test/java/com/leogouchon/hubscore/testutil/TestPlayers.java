@@ -1,6 +1,6 @@
-package com.leogouchon.husbcore.testutil;
+package com.leogouchon.hubscore.testutil;
 
-import com.leogouchon.husbcore.player_service.entity.Players;
+import com.leogouchon.hubscore.player_service.entity.Players;
 
 import java.util.UUID;
 
