@@ -1,3 +1,11 @@
+# [1.4.0](https://github.com/LeoGouchon/hubscore/compare/v1.3.0...v1.4.0) (2026-08-21)
+
+
+### Features
+
+* **auth:** implement oidc auth service ([#53](https://github.com/LeoGouchon/hubscore/issues/53)) ([c382552](https://github.com/LeoGouchon/hubscore/commit/c382552c4c36c53223bd6f786fec291b8e112b5f))
+* **squash:** remove squash field and endpoints ([#54](https://github.com/LeoGouchon/hubscore/issues/54)) ([ea39c65](https://github.com/LeoGouchon/hubscore/commit/ea39c6512156c37f9fe09cb73590d5ad720df1dc))
+
 # [1.3.0](https://github.com/LeoGouchon/hubscore/compare/v1.2.0...v1.3.0) (2026-07-14)
 
 ### Bug Fixes
