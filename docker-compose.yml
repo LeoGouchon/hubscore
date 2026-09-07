@@ -6,7 +6,7 @@ services:
       POSTGRES_USER: ${DB_USER:-hubscore}
       POSTGRES_PASSWORD: ${DB_PASSWORD:-hubscore-local}
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - dbdata:/var/lib/postgresql/data
 
@@ -16,6 +16,7 @@ services:
       - .env
     environment:
       SPRING_CONFIG_ADDITIONAL_LOCATION: file:/app/config/
+      SPRING_PROFILES_ACTIVE: dev
     volumes:
       - ./config:/app/config:ro
     ports:
