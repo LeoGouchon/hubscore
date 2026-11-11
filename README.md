@@ -9,6 +9,15 @@ That's it. The database schema is created by Flyway migrations in
 `src/main/resources/db/migration`.
 `.env` file contain credentials to access to the database.
 
+## Worktrees (orca)
+
+* `make install` (worktree init): copies the git-ignored `.env` and `config/application.yml` from the
+  main checkout (or creates them from defaults), then builds the Docker images without starting them.
+* `make clean` (worktree archive): removes the worktree's containers, volumes and locally built images.
+
+Each worktree uses its own Docker Compose project, `hubscore-<worktree>`; the main checkout keeps
+`hubscore`. Ports 5432/8080 are shared, so only one checkout can run `make dev` at a time.
+
 ## Identity server / OIDC configuration
 
 hubscore is an OAuth 2.0 resource server. The local defaults match the sibling
