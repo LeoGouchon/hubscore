@@ -164,6 +164,9 @@ Droits inchangés : l'endpoint reste public.
   d'apparaître comme un nouveau classé.
 - **Borne calculée côté Java** (`:activeSince`) : cohérente avec l'écriture des dates en heure de la JVM.
 - Aucun ADR : la règle se change facilement (une constante et deux requêtes).
+- **Test PostgreSQL par Testcontainers** (`postgres:17`, migrations Flyway), **ignoré sans Docker**
+  (`disabledWithoutDocker`) : `./mvnw -B test` reste vert sans Docker, et le test tourne en CI. Décision structurante
+  consignée dans l'ADR 0007. _Ajouté à la planification._
 
 ## Glossaire
 
