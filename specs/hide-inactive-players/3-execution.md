@@ -1,6 +1,6 @@
 # Journal d'exécution : retirer les joueurs inactifs du classement général
 
-- **Statut** : en cours (cycle des statuts : `specs/README.md`)
+- **Statut** : à valider (cycle des statuts : `specs/README.md`)
 - **Plan** : [2-plan.md](2-plan.md)
 
 Le diff de la feature se calcule par `git diff origin/dev...HEAD` (depuis la base commune avec `dev`) : il reste
@@ -50,7 +50,21 @@ Chaque écart au plan ou ambiguïté tranchée, au moment où elle est prise :
 
 Chaque commentaire `shortcut:` laissé dans le code :
 
+Aucun.
+
 ## Bilan
 
-À remplir quand toutes les tâches sont faites : ce qui a été construit en trois lignes, et ce que la vérification doit
-regarder en priorité.
+**Construit** : `/global` ne classe plus que les joueurs qui ont 10 matchs et un match dans les 90 derniers jours,
+avec la même règle à la coupure du lundi pour `rankLastWeek` ; `eloLastWeek` est découplé du rang. Le temps vient
+d'un `Clock` injecté. Les deux requêtes sont testées sur PostgreSQL 17 par Testcontainers (ADR 0007), infrastructure
+nouvelle dans le projet.
+
+**À regarder en priorité à la vérification** :
+
+- la vérification en conditions réelles des deux requêtes sur `make dev` (données de dev) : rangs sans trou, inactifs
+  à `rank = 0` avec `currentElo` ;
+- le comportement en CI : `ubuntu-latest` doit exécuter `KickerMatchRepositoryTests` (pas `Skipped`) avec
+  Testcontainers 1.21.4 ;
+- le fuseau de `activeSince` (JVM) face à `created_at`, et le `Clock` UTC face au `Calendar` de la coupure ;
+- la dette à reporter dans `tech-debt.md` : `config/application.yml` local lu par les tests de couche H2 (décision
+  de la tâche 2).
