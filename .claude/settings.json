@@ -1,0 +1,10 @@
+{
+    "extraKnownMarketplaces": {
+        "claude-workflow": {
+            "source": { "source": "github", "repo": "LeoGouchon/claude-workflow" }
+        }
+    },
+    "enabledPlugins": {
+        "gouchon@claude-workflow": true
+    }
+}
