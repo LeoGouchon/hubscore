@@ -1,6 +1,7 @@
 package com.leogouchon.hubscore.kicker_match_service.repository;
 
 import com.leogouchon.hubscore.kicker_match_service.repository.projection.GlobalStatsResponseProjection;
+import com.leogouchon.hubscore.kicker_match_service.repository.projection.LastKickerEloByDateProjection;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -13,6 +14,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 class KickerMatchRepositoryTests {
     private static final LocalDateTime NOW = LocalDateTime.of(2026, 11, 25, 12, 0);
     private static final LocalDateTime ACTIVE_SINCE = NOW.minusDays(90);
+    private static final LocalDateTime CUTOFF = LocalDateTime.of(2026, 11, 23, 0, 0);
     private static final int MIN_RANKED_MATCHES = 10;
 
     @Container
@@ -91,6 +94,43 @@ class KickerMatchRepositoryTests {
             assertThat(stat.getRank()).isZero();
             assertThat(stat.getCurrentElo()).isNotNull();
         });
+    }
+
+    @Test
+    void should_rank_last_week_only_players_active_at_cutoff() {
+        BriefCases cases = insertBriefCases();
+        refreshFacts();
+
+        Map<UUID, LastKickerEloByDateProjection> lastWeek = lastWeekStats();
+
+        assertThat(lastWeek.get(cases.active()).getRank()).isEqualTo(1);
+        assertThat(lastWeek.get(cases.active()).getElo()).isEqualTo(1590);
+        assertThat(lastWeek.get(cases.inactive()).getRank()).isNull();
+        assertThat(lastWeek.get(cases.inactive()).getElo()).isEqualTo(1700);
+        assertThat(lastWeek.get(cases.returning()).getRank()).isNull();
+        assertThat(lastWeek.get(cases.returning()).getElo()).isEqualTo(1540);
+        assertThat(lastWeek).doesNotContainKeys(cases.newbie(), cases.justRanked());
+    }
+
+    @Test
+    void should_rank_last_week_player_when_last_match_is_exactly_at_active_since() {
+        UUID player = insertPlayer("Edge", 1500);
+        insertMatches(player, 10, CUTOFF.minusDays(90), 1500);
+        refreshFacts();
+
+        Map<UUID, LastKickerEloByDateProjection> lastWeek = lastWeekStats();
+
+        assertThat(lastWeek.get(player).getRank()).isEqualTo(1);
+    }
+
+    private Map<UUID, LastKickerEloByDateProjection> lastWeekStats() {
+        List<LastKickerEloByDateProjection> stats = repository.getLatestKickerEloByDate(
+                Timestamp.valueOf(CUTOFF),
+                MIN_RANKED_MATCHES,
+                CUTOFF.minusDays(90)
+        );
+        return stats.stream()
+                .collect(Collectors.toMap(LastKickerEloByDateProjection::getPlayerId, Function.identity()));
     }
 
     private Map<UUID, GlobalStatsResponseProjection> globalStats() {

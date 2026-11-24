@@ -108,7 +108,8 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
                     eligible_players AS (
                         SELECT
                             lpp.player_id,
-                            lpp.elo_after_match
+                            lpp.elo_after_match,
+                            lpp.match_date AS last_match_date
                         FROM latest_per_player lpp
                         JOIN match_counts mc
                           ON mc.player_id = lpp.player_id
@@ -118,22 +119,24 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
                     ranked_players AS (
                         SELECT
                             player_id,
-                            elo_after_match,
                             RANK() OVER (ORDER BY elo_after_match DESC) AS rank
                         FROM eligible_players
+                        WHERE last_match_date >= :activeSince
                     )
                     SELECT
-                        rp.player_id   AS playerId,
-                        rp.elo_after_match AS elo,
+                        ep.player_id   AS playerId,
+                        ep.elo_after_match AS elo,
                         rp.rank
-                    FROM ranked_players rp
-                    ORDER BY rp.rank;
+                    FROM eligible_players ep
+                    LEFT JOIN ranked_players rp ON rp.player_id = ep.player_id
+                    ORDER BY rp.rank NULLS LAST;
                     """,
             nativeQuery = true
     )
     List<LastKickerEloByDateProjection> getLatestKickerEloByDate(
             @Param("date") Timestamp date,
-            @Param("minRankedMatches") int minRankedMatches
+            @Param("minRankedMatches") int minRankedMatches,
+            @Param("activeSince") LocalDateTime activeSince
     );
 
     @Query(value = """

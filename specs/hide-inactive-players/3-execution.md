@@ -17,6 +17,11 @@ Une ligne par tâche, ajoutée quand la tâche est faite. Une tâche absente n'e
   `./mvnw -B test` → `BUILD SUCCESS`, 60 tests, 0 échec ; `KickerMatchRepositoryTests` `Tests run: 4, Skipped: 0`
   (Flyway sur le conteneur, 19 migrations validées) ; rangs 1, 2, 3 sans trou malgré l'inactif à 1700, borne incluse,
   aucun actif → tous à 0.
+- **Tâche 3** : faite. Commit `feat(kicker): rank last week only active players and decouple last week elo`.
+  Vérification : `./mvnw -B test` → `BUILD SUCCESS`, 66 tests, 0 échec ; `KickerMatchRepositoryTests` `Tests run: 6,
+  Skipped: 0` ; `KickerStatServiceDefaultTests` 7 tests ; `git diff origin/dev --stat` sur
+  `KickerEloSeasonalRepository.java` vide ; tous les hunks de `KickerStatServiceDefault` sont dans `getGlobalStats`
+  (imports, champ `Clock`, constructeur), aucun dans `getSeasonStats`.
 
 ## Décisions
 
@@ -37,6 +42,9 @@ Chaque écart au plan ou ambiguïté tranchée, au moment où elle est prise :
 - **Tâche 2** : `should_return_all_players_unranked_when_nobody_is_active` vérifie exactement deux lignes : les
   adversaires créés par `insertMatch` n'ont pas de ligne `kicker_elo`, donc n'entrent pas dans la vue (le plan disait
   « plus les adversaires », ce qui contredit sa propre fabrique).
+- **Tâche 3** : `LastKickerEloByDateProjection` est partagée avec `getLatestKickerSeasonEloByDate` (saisons). Passer
+  `getRank()` en `Integer` ne change rien côté saison : la requête saisonnière renvoie toujours un rang, et
+  `setRankLastWeek` prend déjà un `Integer`. `getSeasonStats` reste intact.
 
 ## Raccourcis
 

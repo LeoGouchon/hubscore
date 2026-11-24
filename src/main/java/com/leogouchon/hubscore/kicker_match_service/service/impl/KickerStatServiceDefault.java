@@ -56,9 +56,11 @@ public class KickerStatServiceDefault implements KickerStatService {
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
 
+        java.sql.Timestamp cutoff = new java.sql.Timestamp(c.getTimeInMillis());
         List<LastKickerEloByDateProjection> eloLastWeek = kickerMatchRepository.getLatestKickerEloByDate(
-                new java.sql.Timestamp(c.getTimeInMillis()),
-                MIN_RANKED_MATCHES
+                cutoff,
+                MIN_RANKED_MATCHES,
+                cutoff.toLocalDateTime().minusDays(ACTIVE_PLAYER_WINDOW_DAYS)
         );
 
         Map<UUID, LastKickerEloByDateProjection> eloLastWeekMap = eloLastWeek.stream()
