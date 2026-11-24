@@ -76,7 +76,8 @@ nettoyage.
 
 | Sujet | Action |
 | --- | --- |
-| Tests sur H2 : migrations, vue matérialisée et requêtes natives PostgreSQL non testées | ADR à écrire : Testcontainers PostgreSQL pour les tests de repository et d'intégration |
+| Tests sur H2 : la plupart des requêtes natives PostgreSQL et la vue matérialisée ne sont pas testées | Infrastructure Testcontainers en place ([ADR 0007](decisions/0007-tests-postgresql-testcontainers.md)) : couvrir les autres requêtes natives et la vue |
+| `testcontainers.version` fixée à la main dans `pom.xml` (Spring Boot 3.4.2 gère 1.20.x, incompatible avec Docker Engine 29+) | Retirer la propriété à la montée de Spring Boot |
 | Aucun formateur ni analyse statique | Spotless (ou Checkstyle) en CI |
 | La CI ne construit pas l'image Docker sur les PR | Ajouter un `docker build` au workflow de tests |
 | Limite de 200 lignes contrôlée uniquement pour les écritures de Claude Code | Le hook vit dans le plugin `gouchon` : ajouter un contrôle en CI pour `docs/**/*.md` |

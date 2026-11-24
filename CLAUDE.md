@@ -22,7 +22,7 @@ La documentation du projet est dans `docs/`. Son sommaire est importé ci-dessou
 ## Commandes
 
 ```bash
-./mvnw -B test         # toute la suite de tests (H2 en mémoire, sans Docker) : à lancer avant toute PR
+./mvnw -B test         # toute la suite (H2 ; tests PostgreSQL Testcontainers ignorés sans Docker) : avant toute PR
 make install           # worktree Orca : copie .env et config/application.yml, construit les images
 make dev               # PostgreSQL + API dans Docker, API sur http://localhost:8080
 make test              # tests dans Docker + résumé de couverture JaCoCo

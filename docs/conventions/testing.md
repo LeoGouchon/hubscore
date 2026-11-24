@@ -9,6 +9,8 @@ Ce qui doit être testé, et comment écrire les tests. La suite tourne avec `./
   `TestKickerMatchRequests`).
 - `src/test/resources/application-test.yml` : contexte Spring de test (H2, Flyway désactivé), chargé par le profil
   `test`.
+- `src/test/resources/application-postgres.yml` : profil `postgres`, ajouté au profil `test` par les tests PostgreSQL
+  (Flyway actif, dialecte PostgreSQL).
 - `pom.xml` : `spring-boot-starter-test` (JUnit 5, Mockito, AssertJ, MockMvc) et `spring-security-test` (`jwt()`).
 - `.github/workflows/tests.yml` : CI sur chaque PR et push vers `dev` et `main`.
 
@@ -91,9 +93,25 @@ droit échouera tant que `GlobalExceptionHandler` n'est pas corrigé.
 ## Tests de requêtes
 
 - `@DataJpaTest` + `@ActiveProfiles("test")` pour une requête dérivée, JPQL ou une Specification, sur H2.
-- **Limite actuelle** : H2 ne joue ni les migrations ni la vue matérialisée, et ne comprend pas tout le SQL
-  PostgreSQL. Une requête native se vérifie donc à la main sur `make dev` pendant la vérification, et le rapport le
-  dit (Testcontainers est prévu dans [../tech-debt.md](../tech-debt.md)).
+- **Requête native, migration ou vue matérialisée** : H2 ne les exécute pas. On les teste sur PostgreSQL par
+  Testcontainers ([ADR 0007](../decisions/0007-tests-postgresql-testcontainers.md)), comme
+  `KickerMatchRepositoryTests` :
+
+```java
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = Replace.NONE)
+@ActiveProfiles({"test", "postgres"})
+@Testcontainers(disabledWithoutDocker = true)
+class KickerMatchRepositoryTests {
+    @Container
+    @ServiceConnection
+    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:17");
+}
+```
+
+- Les migrations de `db/migration` s'appliquent (pas le seed de `db/dev-data`). Les données s'insèrent en SQL
+  (`JdbcTemplate`), puis `REFRESH MATERIALIZED VIEW mv_player_match_facts` avant d'appeler une requête qui lit la vue.
+- Sans Docker, ces tests sont **ignorés** (`Skipped`) : lance Docker pour les voir tourner. La CI les exécute.
 
 **État** : ⚠️ `KickerMatchSpecificationsTest` passe par `@TestPropertySource` au lieu du profil `test`.
 

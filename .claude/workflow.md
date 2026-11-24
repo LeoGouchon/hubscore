@@ -8,7 +8,7 @@ l'emportent**.
 ## Projet
 
 - **Stack** : Spring Boot 3.4 (Java 21), Spring Web, Spring Data JPA, Spring Security (resource server JWT),
-  PostgreSQL 17, Flyway, Lombok, SpringDoc ; tests JUnit 5, Mockito, AssertJ, MockMvc, H2.
+  PostgreSQL 17, Flyway, Lombok, SpringDoc ; tests JUnit 5, Mockito, AssertJ, MockMvc, H2, Testcontainers.
 - **Hors du dépôt** :
     - le front **kicker-app**, principal consommateur de l'API : changer un contrat existant (champ, statut, droit)
       peut le casser ;
@@ -17,7 +17,8 @@ l'emportent**.
 
 ## Preuves automatiques
 
-- `./mvnw -B test` → `BUILD SUCCESS`, 0 échec, 0 erreur (même commande que la CI ; H2 en mémoire, sans Docker).
+- `./mvnw -B test` → `BUILD SUCCESS`, 0 échec, 0 erreur (même commande que la CI ; H2 en mémoire ; les tests
+  PostgreSQL par Testcontainers sont ignorés sans Docker : lance Docker pour qu'ils tournent).
 
 ## Tests
 
@@ -83,8 +84,8 @@ Appels HTTP sur l'API lancée en local :
   suppression), pagination au format `PaginatedResponseDTO`, dates en ISO 8601.
 - **Données** : une transaction autour de chaque écriture multiple, `readOnly` sur les lectures, relations `LAZY` et
   conversion en DTO dans le service ; ELO et vue matérialisée à jour après une écriture de match (par la façade ELO) ;
-  migration sans perte et compatible avec les données de production ; requête native vérifiée sur PostgreSQL
-  (`make dev`), car les tests H2 ne la couvrent pas.
+  migration sans perte et compatible avec les données de production ; requête native vérifiée sur PostgreSQL :
+  test Testcontainers ([ADR 0007](../docs/decisions/0007-tests-postgresql-testcontainers.md)), sinon `make dev`.
 - **Objet** : entité modifiée par une méthode d'intention qui garde ses invariants (pas de `@Setter` de classe),
   logique métier hors du controller, plusieurs implémentations appelées ensemble derrière une façade.
 - **Conventions** : entité exposée, controller → repository, service sans interface, `@Autowired` ou `@Value` sur un

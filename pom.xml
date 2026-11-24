@@ -36,6 +36,8 @@
     <properties>
         <java.version>21</java.version>
         <argLine></argLine>
+        <!-- 1.20.x (managed by Spring Boot 3.4.2) fails against Docker Engine 29+, which requires API 1.44 -->
+        <testcontainers.version>1.21.4</testcontainers.version>
     </properties>
     <dependencies>
         <dependency>
@@ -84,6 +86,21 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-testcontainers</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.testcontainers</groupId>
+            <artifactId>postgresql</artifactId>
             <scope>test</scope>
         </dependency>
         <dependency>
