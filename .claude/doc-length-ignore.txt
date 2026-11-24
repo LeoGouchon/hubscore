@@ -1,0 +1,4 @@
+# Fichiers de doc pour lesquels on a choisi de ne pas découper malgré le dépassement des 200 lignes.
+# Un chemin par ligne, relatif à la racine du dépôt, avec des « / » (ex. : docs/tech-debt.md).
+# Le hook du plugin gouchon (claude-workflow) ne propose plus de découpage pour ces fichiers.
+# Retirer une ligne pour réactiver la proposition.
