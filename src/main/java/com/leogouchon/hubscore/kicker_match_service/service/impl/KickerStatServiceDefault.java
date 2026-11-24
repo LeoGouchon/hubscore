@@ -11,12 +11,17 @@ import com.leogouchon.hubscore.player_service.entity.Players;
 import com.leogouchon.hubscore.player_service.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Clock;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static com.leogouchon.hubscore.kicker_match_service.service.KickerEloVisibilityRules.ACTIVE_PLAYER_WINDOW_DAYS;
 import static com.leogouchon.hubscore.kicker_match_service.service.KickerEloVisibilityRules.MIN_RANKED_MATCHES;
 
 @Service
@@ -25,20 +30,26 @@ public class KickerStatServiceDefault implements KickerStatService {
     private final KickerEloRepository kickerEloRepository;
     private final KickerEloSeasonalRepository kickerEloSeasonalRepository;
     private final PlayerService playerService;
+    private final Clock clock;
 
     @Autowired
-    public KickerStatServiceDefault(KickerMatchRepository kickerMatchRepository, KickerEloSeasonalRepository kickerEloSeasonalRepository, PlayerService playerService, KickerEloRepository kickerEloRepository) {
+    public KickerStatServiceDefault(KickerMatchRepository kickerMatchRepository, KickerEloSeasonalRepository kickerEloSeasonalRepository, PlayerService playerService, KickerEloRepository kickerEloRepository, Clock clock) {
         this.kickerMatchRepository = kickerMatchRepository;
         this.kickerEloSeasonalRepository = kickerEloSeasonalRepository;
         this.playerService = playerService;
         this.kickerEloRepository = kickerEloRepository;
+        this.clock = clock;
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<GlobalStatsWithHistoryDTO> getGlobalStats() {
-        List<GlobalStatsResponseProjection> rawStats = kickerMatchRepository.getGlobalKickerStats(null, null, MIN_RANKED_MATCHES);
+        // match dates are stored as TIMESTAMP without time zone in the JVM zone, so the bound must be too
+        LocalDateTime activeSince = LocalDateTime.ofInstant(clock.instant(), ZoneId.systemDefault())
+                .minusDays(ACTIVE_PLAYER_WINDOW_DAYS);
+        List<GlobalStatsResponseProjection> rawStats = kickerMatchRepository.getGlobalKickerStats(null, null, MIN_RANKED_MATCHES, activeSince);
         Calendar c = Calendar.getInstance();
-        c.setTimeInMillis(System.currentTimeMillis());
+        c.setTimeInMillis(clock.millis());
         c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
         c.set(Calendar.HOUR_OF_DAY, 0);
         c.set(Calendar.MINUTE, 0);

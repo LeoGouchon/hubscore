@@ -15,6 +15,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,7 +40,8 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
                                 SUM(CASE WHEN player_score = 10 THEN 1 ELSE 0 END)::numeric
                                 / COUNT(*),
                                 2
-                            ) AS win_rate
+                            ) AS win_rate,
+                            MAX(match_date) AS last_match_date
                         FROM filtered_pmf
                         GROUP BY player_id
                     ),
@@ -51,6 +53,7 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
                         JOIN player_kicker_informations pki
                           ON pki.player_id = ps.player_id
                         WHERE ps.total_matches >= :minRankedMatches
+                          AND ps.last_match_date >= :activeSince
                     )
                     SELECT
                         ps.player_id AS playerId,
@@ -76,7 +79,8 @@ public interface KickerMatchRepository extends JpaRepository<KickerMatches, UUID
     List<GlobalStatsResponseProjection> getGlobalKickerStats(
             @Param("year") Integer year,
             @Param("quarter") Integer quarter,
-            @Param("minRankedMatches") int minRankedMatches
+            @Param("minRankedMatches") int minRankedMatches,
+            @Param("activeSince") LocalDateTime activeSince
     );
 
     @Query(

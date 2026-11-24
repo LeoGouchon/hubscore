@@ -10,11 +10,17 @@ import com.leogouchon.hubscore.kicker_match_service.service.impl.KickerStatServi
 import com.leogouchon.hubscore.player_service.service.PlayerService;
 import org.junit.jupiter.api.Test;
 
+import java.time.Clock;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 class KickerStatServiceDefaultTests {
@@ -68,12 +74,38 @@ class KickerStatServiceDefaultTests {
         assertThat(response.getSeasonsStats().getFirst().getNbPlayers()).isEqualTo(4);
     }
 
+    @Test
+    void should_pass_active_since_90_days_before_now_when_loading_global_ranking() {
+        Instant now = Instant.parse("2026-11-25T11:00:00Z");
+        KickerStatServiceDefault service = serviceAt(now);
+
+        service.getGlobalStats();
+
+        verify(kickerMatchRepository).getGlobalKickerStats(
+                null,
+                null,
+                10,
+                LocalDateTime.ofInstant(now, ZoneId.systemDefault()).minusDays(90)
+        );
+    }
+
+    private KickerStatServiceDefault serviceAt(Instant now) {
+        return new KickerStatServiceDefault(
+                kickerMatchRepository,
+                kickerEloSeasonalRepository,
+                playerService,
+                kickerEloRepository,
+                Clock.fixed(now, ZoneOffset.UTC)
+        );
+    }
+
     private KickerStatServiceDefault serviceForDate(LocalDate currentDate) {
         return new KickerStatServiceDefault(
                 kickerMatchRepository,
                 kickerEloSeasonalRepository,
                 playerService,
-                kickerEloRepository
+                kickerEloRepository,
+                Clock.systemUTC()
         ) {
             @Override
             protected LocalDate currentDate() {

@@ -13,6 +13,10 @@ Une ligne par tâche, ajoutée quand la tâche est faite. Une tâche absente n'e
 - **Tâche 1** : faite. Commit `test(kicker): add Testcontainers PostgreSQL setup for native queries`. Vérification :
   `./mvnw -B test` → `BUILD SUCCESS`, 56 tests, 0 échec ; Docker lancé, `KickerMatchRepositoryTests` `Tests run: 1,
   Skipped: 0`.
+- **Tâche 2** : faite. Commit `feat(kicker): rank only active players in global ranking`. Vérification :
+  `./mvnw -B test` → `BUILD SUCCESS`, 60 tests, 0 échec ; `KickerMatchRepositoryTests` `Tests run: 4, Skipped: 0`
+  (Flyway sur le conteneur, 19 migrations validées) ; rangs 1, 2, 3 sans trou malgré l'inactif à 1700, borne incluse,
+  aucun actif → tous à 0.
 
 ## Décisions
 
@@ -24,6 +28,15 @@ Chaque écart au plan ou ambiguïté tranchée, au moment où elle est prise :
   conflit de versions Testcontainers à la montée de Spring Boot, visible à la compilation des tests.
 - **Tâche 1** : ADR 0007 au statut **Proposé** et non « Accepté » comme le dit le plan : `docs/decisions/README.md`
   impose `Proposé` dans la PR, puis `Accepté` au merge (la convention l'emporte). Coût si c'est faux : un mot à changer.
+- **Tâche 2** : `KickerMatchRepositoryTests` porte `@DataJpaTest(properties = "spring.config.location=classpath:/")`,
+  absent du plan. Spring Boot lit `./config/application.yml` par défaut ; dans un worktree installé (`make install`),
+  ce fichier (profil dev) ajoutait `db/dev-data` aux migrations (20 validées au lieu de 19). Même précaution que
+  `HubscoreApplicationTests`. Recette (`testing.md`) et ADR 0007 mis à jour. Les autres tests de couche (H2) lisent
+  aussi ce fichier en local (`KickerMatchSpecificationsTest` passe en `PostgreSQLDialect` sur H2, avec des erreurs de
+  DDL dans les logs, sans échec) : préexistant, à reporter dans `tech-debt.md` à la vérification.
+- **Tâche 2** : `should_return_all_players_unranked_when_nobody_is_active` vérifie exactement deux lignes : les
+  adversaires créés par `insertMatch` n'ont pas de ligne `kicker_elo`, donc n'entrent pas dans la vue (le plan disait
+  « plus les adversaires », ce qui contredit sa propre fabrique).
 
 ## Raccourcis
 

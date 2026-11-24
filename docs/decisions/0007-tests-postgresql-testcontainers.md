@@ -27,7 +27,8 @@ test automatique sur un vrai PostgreSQL. La contrainte : `./mvnw -B test` doit r
 Nous testons les requêtes natives, les migrations et la vue matérialisée sur PostgreSQL par **Testcontainers**, avec
 des tests **ignorés quand Docker est absent**. Une classe de test de ce type :
 
-- est annotée `@DataJpaTest`, `@AutoConfigureTestDatabase(replace = Replace.NONE)`,
+- est annotée `@DataJpaTest(properties = "spring.config.location=classpath:/")` (pour ignorer un
+  `config/application.yml` local), `@AutoConfigureTestDatabase(replace = Replace.NONE)`,
   `@ActiveProfiles({"test", "postgres"})` et `@Testcontainers(disabledWithoutDocker = true)` ;
 - déclare `@Container @ServiceConnection static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:17")`
   (même version que `docker-compose.yml`) ;

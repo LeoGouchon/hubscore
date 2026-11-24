@@ -98,7 +98,7 @@ droit échouera tant que `GlobalExceptionHandler` n'est pas corrigé.
   `KickerMatchRepositoryTests` :
 
 ```java
-@DataJpaTest
+@DataJpaTest(properties = "spring.config.location=classpath:/")
 @AutoConfigureTestDatabase(replace = Replace.NONE)
 @ActiveProfiles({"test", "postgres"})
 @Testcontainers(disabledWithoutDocker = true)
@@ -109,6 +109,8 @@ class KickerMatchRepositoryTests {
 }
 ```
 
+- `spring.config.location=classpath:/` écarte le `config/application.yml` local (Spring Boot lit `./config/` par
+  défaut), qui ajouterait le seed de dev : le test tourne comme en CI.
 - Les migrations de `db/migration` s'appliquent (pas le seed de `db/dev-data`). Les données s'insèrent en SQL
   (`JdbcTemplate`), puis `REFRESH MATERIALIZED VIEW mv_player_match_facts` avant d'appeler une requête qui lit la vue.
 - Sans Docker, ces tests sont **ignorés** (`Skipped`) : lance Docker pour les voir tourner. La CI les exécute.
