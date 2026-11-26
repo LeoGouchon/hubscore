@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
 import java.time.Clock;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -56,7 +57,7 @@ public class KickerStatServiceDefault implements KickerStatService {
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
 
-        java.sql.Timestamp cutoff = new java.sql.Timestamp(c.getTimeInMillis());
+        Timestamp cutoff = new Timestamp(c.getTimeInMillis());
         List<LastKickerEloByDateProjection> eloLastWeek = kickerMatchRepository.getLatestKickerEloByDate(
                 cutoff,
                 MIN_RANKED_MATCHES,
