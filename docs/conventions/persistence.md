@@ -80,7 +80,8 @@ dans `getGlobalStats`, `getSeasonStats` et `getDuoStats`.
   `@Version` ; une contrainte `UNIQUE` reste le dernier rempart contre un doublon concurrent (erreur traduite en `409`,
   [api-design.md](api-design.md#erreurs)).
 
-**État** : ⚠️ `open-in-view` non configuré (actif par défaut) ; aucune lecture en `readOnly` ;
+**État** : ⚠️ `open-in-view` non configuré (actif par défaut) ; `readOnly` seulement sur
+`KickerStatServiceDefault.getGlobalStats` ;
 `PlayerServiceDefault` utilise `jakarta.transaction.Transactional` ; le recalcul complet de l'ELO enchaîne deux
 transactions `REQUIRES_NEW` sans transaction englobante (un échec du saisonnier laisse le global recalculé).
 

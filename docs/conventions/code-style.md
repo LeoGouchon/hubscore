@@ -93,7 +93,8 @@ Packages et entités : [project-structure.md](project-structure.md). Tests : [te
   `LocalDate.now()` sans argument : les tests figent le temps avec `Clock.fixed(...)`.
 
 **État** : ⚠️ `Calendar`, `toLocalDateTime()` et `LocalDate.now()` dans les statistiques et l'ELO saisonnier ; le
-fuseau n'est défini que dans `KickerMatchSpecifications` ; aucun `Clock`.
+fuseau n'est défini que dans `KickerMatchSpecifications` ; le `Clock` (`common/config/ClockConfig`) n'est utilisé que
+par `KickerStatServiceDefault.getGlobalStats`.
 
 ## Exceptions
 

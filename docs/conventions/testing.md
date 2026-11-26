@@ -114,6 +114,8 @@ class KickerMatchRepositoryTests {
 - Les migrations de `db/migration` s'appliquent (pas le seed de `db/dev-data`). Les données s'insèrent en SQL
   (`JdbcTemplate`), puis `REFRESH MATERIALIZED VIEW mv_player_match_facts` avant d'appeler une requête qui lit la vue.
 - Sans Docker, ces tests sont **ignorés** (`Skipped`) : lance Docker pour les voir tourner. La CI les exécute.
+  `make test` les ignore aussi (le conteneur `tests` n'a pas accès à Docker) : lance `./mvnw -B test` avec Docker
+  démarré.
 
 **État** : ⚠️ `KickerMatchSpecificationsTest` passe par `@TestPropertySource` au lieu du profil `test`.
 
