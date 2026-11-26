@@ -1,6 +1,6 @@
 # Journal d'exécution : retirer les joueurs inactifs du classement général
 
-- **Statut** : à valider (cycle des statuts : `specs/README.md`)
+- **Statut** : terminé (cycle des statuts : `specs/README.md`)
 - **Plan** : [2-plan.md](2-plan.md)
 
 Le diff de la feature se calcule par `git diff origin/dev...HEAD` (depuis la base commune avec `dev`) : il reste
