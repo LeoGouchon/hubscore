@@ -7,5 +7,5 @@ public interface LastKickerEloByDateProjection {
 
     int getElo();
 
-    int getRank();
+    Integer getRank();
 }

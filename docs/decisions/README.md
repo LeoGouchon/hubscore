@@ -39,6 +39,7 @@ documente aussi, mais y ajoute des règles nouvelles (entités riches, façade E
 | [0004](0004-organisation-par-domaine.md)   | Packages par domaine, couches, service interface + `Default`, DTO `record`, entités riches, façade ELO         | Proposé |
 | [0005](0005-workflow-feature.md)           | Workflow feature en quatre phases via le plugin `gouchon`, profil `.claude/workflow.md`, tests par tâche       | Proposé |
 | [0006](0006-format-des-erreurs.md)         | Erreurs au format `ApiErrorResponseDTO` (pas ProblemDetail), statuts justes, refus de droits laissés à Spring  | Proposé |
+| [0007](0007-tests-postgresql-testcontainers.md) | Tests PostgreSQL par Testcontainers (requêtes natives, migrations, vue), ignorés sans Docker      | Proposé |
 
 _À lire si_ :
 
@@ -47,4 +48,5 @@ _À lire si_ :
 - **0003** : tu envisages une autre base, un autre outil de migration, ou tu modifies la vue matérialisée ;
 - **0004** : tu crées un package, un service ou un DTO, ou tu remets en cause le nommage ;
 - **0005** : tu modifies le workflow `/gouchon:feature`, le profil ou la règle de test ;
-- **0006** : tu touches à `GlobalExceptionHandler`, ajoutes une exception ou envisages ProblemDetail.
+- **0006** : tu touches à `GlobalExceptionHandler`, ajoutes une exception ou envisages ProblemDetail ;
+- **0007** : tu écris un test de requête native ou de migration, ou tu touches à l'infrastructure de test.

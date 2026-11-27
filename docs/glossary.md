@@ -88,10 +88,12 @@ _À éviter_ : delta (seul), points. `deltaElo` est un champ déprécié de l'AP
 **Chance de victoire** (`winChanceTeamA`, `winChanceTeamB`) :
 La probabilité de victoire de chaque équipe avant le match, déduite de l'ELO de ses joueurs.
 
+**Joueur actif** :
+Un joueur qui a joué au moins un match dans les 90 jours précédant la date de référence.
+
 **Joueur classé** (`MIN_RANKED_MATCHES`) :
-Un joueur qui a joué au moins 10 matchs (depuis le début, ou dans la saison). Son ELO n'est montré et il n'apparaît
-au classement qu'à partir de ce seuil.
-_À confirmer_ : le terme « classé ».
+Un joueur qui apparaît au classement. Au classement depuis le début : au moins 10 matchs et actif. Au classement d'une
+saison : au moins 10 matchs dans la saison. Son ELO n'est montré qu'à partir de 10 matchs, qu'il soit actif ou non.
 
 **Saison** (`SeasonStatsResponseDTO`, `seasonYear`, `seasonQuarter`) :
 Un trimestre civil (année et trimestre T1 à T4). Les classements et l'ELO saisonnier sont calculés par saison.

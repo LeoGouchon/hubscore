@@ -11,6 +11,8 @@ Installer le projet, le configurer et le lancer en local, avec ou sans Docker.
 - `docker-compose.yml` : services `db` (PostgreSQL 17), `backend` (l'API) et `tests` (Maven).
 - `Makefile` et `scripts/worktree-install.ps1` : cibles `install`, `dev`, `test`, `clean`…
 - `src/test/resources/application-test.yml` : configuration des tests (H2 en mémoire, Flyway désactivé).
+- `src/test/resources/application-postgres.yml` : profil ajouté par les tests PostgreSQL (Testcontainers, Flyway
+  actif).
 
 ## Prérequis
 
@@ -67,7 +69,7 @@ serveur, jamais dans le dépôt.
 
 | Commande          | Effet                                                                                  |
 | ----------------- | -------------------------------------------------------------------------------------- |
-| `./mvnw -B test`  | toute la suite de tests sur H2, sans Docker (référence de la CI)                       |
+| `./mvnw -B test`  | toute la suite (référence de la CI) : H2 en mémoire ; tests PostgreSQL ignorés sans Docker |
 | `make dev`        | démarre `db` et `backend` en arrière-plan ; API sur `http://localhost:8080`            |
 | `make logs`       | suit les logs de l'API                                                                 |
 | `make ps`         | état des conteneurs                                                                    |

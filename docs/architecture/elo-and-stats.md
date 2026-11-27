@@ -9,7 +9,8 @@ et statistiques.
 - `kicker_match_service/service/impl/GlobalKickerEloService.java` (`@Qualifier("globalEloService")`) et
   `SeasonalKickerEloService.java` (`@Qualifier("seasonalEloService")`) : deux implémentations de `KickerEloService`.
 - `kicker_match_service/service/impl/KickerMatchServiceDefault.java` : création, suppression, lecture des matchs.
-- `kicker_match_service/service/KickerEloVisibilityRules.java` : `MIN_RANKED_MATCHES = 10`.
+- `kicker_match_service/service/KickerEloVisibilityRules.java` : `MIN_RANKED_MATCHES = 10`,
+  `ACTIVE_PLAYER_WINDOW_DAYS = 90`.
 - `kicker_match_service/service/impl/KickerStatServiceDefault.java`, `EloMatrixServiceDefault.java` : statistiques.
 - `kicker_match_service/service/impl/KickerMatchAccessCodeServiceDefault.java` : codes d'accès.
 
@@ -54,8 +55,15 @@ Un ELO n'est montré qu'à partir de `MIN_RANKED_MATCHES` (10) matchs joués :
 
 - dans la liste des matchs, l'ELO avant match d'un joueur n'apparaît que s'il avait déjà 10 matchs (global ou dans la
   saison) ; sinon le champ est vide ;
-- les classements ne listent que les joueurs qui ont au moins 10 matchs ;
+- les classements ne classent que les joueurs qui ont au moins 10 matchs ; les autres sont renvoyés avec `rank = 0` ;
 - l'historique d'ELO d'un joueur (global ou d'une saison) est vide sous ce seuil.
+
+**Classement général** (`GET /api/v1/kicker/stats/global`) : un joueur n'y est classé que s'il a 10 matchs **et** un
+match dans les 90 derniers jours (`ACTIVE_PLAYER_WINDOW_DAYS`, borne incluse). Les autres gardent `rank = 0`, sans
+trou dans la numérotation ; `currentElo` reste renvoyé dès 10 matchs, ce qui distingue un joueur inactif d'un joueur
+sous le seuil. La même règle, évaluée à la coupure du lundi 00:00, donne `rankLastWeek` ; `eloLastWeek` est renvoyé
+dès 10 matchs à la coupure, actif ou non. La borne est calculée en Java dans le fuseau de la JVM, comme `created_at`.
+Les classements de saison ne sont pas concernés.
 
 **Chance de victoire** : calculée avec l'ELO avant match, pondéré 70 % saisonnier et 30 % global quand l'ELO
 saisonnier est visible ; un ELO global non visible est remplacé par 1500.
